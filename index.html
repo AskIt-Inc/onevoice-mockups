@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>oneVoice redesign — mockups for review</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#F4F2EE; --panel:#fff; --line:#E2DDD5; --text:#1A1815; --dim:#6F6A62; --accent:#147071; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;
+       font-size:16px;line-height:1.6}
+  .wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px}
+  h1{font-family:Fraunces,Georgia,serif;font-variation-settings:'SOFT' 34,'opsz' 64;
+     font-size:34px;font-weight:600;letter-spacing:-.02em;margin:0 0 10px;line-height:1.15}
+  .lede{color:var(--dim);margin:0 0 32px}
+  .draft{display:inline-flex;align-items:center;gap:8px;background:#FDF6EC;border:1px solid #F3D5A5;
+         color:#674314;font-size:13.5px;padding:9px 14px;border-radius:10px;margin:0 0 28px}
+  ul{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+  a.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:.15s}
+  a.card:hover{border-color:#B8B2A9;box-shadow:0 10px 30px -16px rgba(26,24,21,.3)}
+  .ct{font-size:19px;font-weight:600;margin:0 0 4px}
+  .cd{color:var(--dim);font-size:14.5px;margin:0}
+  .arrow{color:var(--accent);font-weight:600}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);
+     margin:40px 0 12px;font-weight:600}
+  .note{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;
+        font-size:14.5px;color:var(--dim)}
+  .note b{color:var(--text)}
+  .dots{display:inline-flex;gap:5px;vertical-align:middle;margin:0 3px}
+  .dots i{width:11px;height:11px;border-radius:50%;display:inline-block}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+       background:#EBE7E0;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>oneVoice redesign — front page for review</h1>
+  <p class="lede">Visual refresh of the oneVoice patient community platform. One flexible template
+    serving every disease indication, built to scale past 100 communities without new page designs.</p>
+
+  <p class="draft">⚠︎ Draft for internal review. All body copy, headlines, statistics and names are
+    placeholder content written to test the layout — not medical information.</p>
+
+  <h2>Mockups</h2>
+  <ul>
+    <li><a class="card" href="onevoice-homepage.mockup.html">
+      <p class="ct">Homepage — full page <span class="arrow">→</span></p>
+      <p class="cd">The design at full size, exactly as it will be built. Use the floating control at
+        the bottom-right to switch community and to reveal the SEO / schema annotations.</p>
+    </a></li>
+    <li><a class="card" href="onevoice-homepage-responsive.mockup.html">
+      <p class="ct">Homepage — breakpoint check <span class="arrow">→</span></p>
+      <p class="cd">The same page in live frames at 390 / 834 / 1440&nbsp;px, so mobile, tablet and
+        desktop can be compared side by side.</p>
+    </a></li>
+  </ul>
+
+  <h2>What to look at</h2>
+  <div class="note">
+    <p style="margin:0 0 12px"><b>One template, many communities.</b> The colour dots
+      <span class="dots"><i style="background:#147071"></i><i style="background:#B22836"></i><i style="background:#4A4EBB"></i><i style="background:#9E6714"></i></span>
+      switch between Amyloidosis, Sickle Cell Disease and two future indications. Only the accent
+      colour tokens and the content change — the layout, components and markup are identical. Adding
+      community #101 is a config file, not a redesign.</p>
+    <p style="margin:0 0 12px"><b>Mobile first.</b> Every screen is designed at 390&nbsp;px first:
+      16px+ body text, 44px+ tap targets, and a thumb-reachable bottom navigation bar.</p>
+    <p style="margin:0"><b>SEO structure.</b> Tick <code>specs</code> in the floating control to see
+      the annotations — single H1 matching search intent, keyword intro above the fold, news and
+      upcoming sessions high in the page for freshness, breadcrumbs, and Schema.org slots for
+      NewsArticle, Event and MedicalTrial.</p>
+  </div>
+</div>
+</body>
+</html>

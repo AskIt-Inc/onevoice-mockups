@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en" data-tenant="amyloidosis" data-notes="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Mockup only: never let a review build get indexed. Production pages omit this. -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Fraunces','Georgia','serif'],
+            sans: ['Inter','system-ui','-apple-system','sans-serif'],
+          },
+          colors: {
+            /* Accent = the ONLY per-indication token layer */
+            accent: {
+              50:'rgb(var(--nv-accent-50) / <alpha-value>)',
+              100:'rgb(var(--nv-accent-100) / <alpha-value>)',
+              200:'rgb(var(--nv-accent-200) / <alpha-value>)',
+              300:'rgb(var(--nv-accent-300) / <alpha-value>)',
+              400:'rgb(var(--nv-accent-400) / <alpha-value>)',
+              500:'rgb(var(--nv-accent-500) / <alpha-value>)',
+              600:'rgb(var(--nv-accent-600) / <alpha-value>)',
+              700:'rgb(var(--nv-accent-700) / <alpha-value>)',
+              800:'rgb(var(--nv-accent-800) / <alpha-value>)',
+              900:'rgb(var(--nv-accent-900) / <alpha-value>)',
+              DEFAULT:'rgb(var(--nv-accent-600) / <alpha-value>)',
+            },
+            /* Warm neutral base — shared by all 100+ indications */
+            ink: {
+              50:'#F7F5F1',100:'#EEEAE4',200:'#DBD6CE',300:'#B8B2A9',400:'#918B82',
+              500:'#6F6A62',600:'#55504A',700:'#3D3934',800:'#2A2723',900:'#1A1815',
+            },
+          },
+          borderRadius: { '4xl':'2rem' },
+          boxShadow: {
+            card:'0 1px 2px rgba(26,24,21,.05), 0 8px 24px -12px rgba(26,24,21,.14)',
+            lift:'0 2px 4px rgba(26,24,21,.06), 0 18px 40px -18px rgba(26,24,21,.24)',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* ---------- TOKENS: neutral base is fixed, accent swaps per tenant ---------- */
+    :root, html[data-tenant="amyloidosis"]{
+      --nv-accent-50:240 249 248;  --nv-accent-100:214 239 237; --nv-accent-200:173 223 220;
+      --nv-accent-300:123 199 196; --nv-accent-400:71 168 166;  --nv-accent-500:38 140 139;
+      --nv-accent-600:20 112 113;  --nv-accent-700:15 88 92;    --nv-accent-800:14 70 74;
+      --nv-accent-900:12 58 62;
+    }
+    html[data-tenant="scd"]{
+      --nv-accent-50:254 242 243;  --nv-accent-100:253 227 229; --nv-accent-200:250 203 207;
+      --nv-accent-300:243 162 169; --nv-accent-400:231 110 121; --nv-accent-500:212 68 79;
+      --nv-accent-600:178 40 54;   --nv-accent-700:147 31 46;   --nv-accent-800:122 29 42;
+      --nv-accent-900:104 28 39;
+    }
+    html[data-tenant="ph"]{
+      --nv-accent-50:243 244 254;  --nv-accent-100:230 232 253; --nv-accent-200:203 207 250;
+      --nv-accent-300:166 171 242; --nv-accent-400:126 132 228; --nv-accent-500:95 100 212;
+      --nv-accent-600:74 78 187;   --nv-accent-700:61 63 155;   --nv-accent-800:51 53 125;
+      --nv-accent-900:44 46 100;
+    }
+    html[data-tenant="mg"]{
+      --nv-accent-50:253 246 236;  --nv-accent-100:250 235 212; --nv-accent-200:243 213 165;
+      --nv-accent-300:232 185 110; --nv-accent-400:217 156 62;  --nv-accent-500:192 128 31;
+      --nv-accent-600:158 103 20;  --nv-accent-700:126 81 18;   --nv-accent-800:103 67 20;
+      --nv-accent-900:87 57 20;
+    }
+    html{-webkit-text-size-adjust:100%}
+    body{font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.6;color:#2A2723;background:#fff}
+    .font-display{font-variation-settings:'SOFT' 34,'WONK' 0,'opsz' 64}
+    /* Focus visibility — WCAG 2.2 */
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
+      outline:3px solid rgb(var(--nv-accent-600));outline-offset:2px;border-radius:6px}
+    /* Annotation overlay (design-time only) */
+    .spec{display:none}
+    /* Mobile: notes flow inline above what they describe, so nothing is obscured */
+    html[data-notes="on"] .spec{
+      display:block;position:static;margin:8px 16px;z-index:40;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;line-height:1.35;
+      letter-spacing:.01em;padding:4px 7px;border-radius:5px;
+      background:#1A1815;color:#F7F5F1;border:1px dashed #6F6A62;white-space:normal}
+    /* Tablet and up: pin them to the edges via each element's inline top/right */
+    @media (min-width:768px){
+      html[data-notes="on"] .spec{
+        display:inline-flex;align-items:center;gap:4px;position:absolute;
+        margin:0;max-width:230px;font-size:10px}
+    }
+    html[data-notes="on"] .spec-target{outline:1px dashed rgba(26,24,21,.35);outline-offset:6px}
+    .no-scrollbar::-webkit-scrollbar{display:none}
+    .no-scrollbar{scrollbar-width:none}
+
+    /* ---------- Design-time control only. Not part of the component library. ---------- */
+    #dt-control{position:fixed;z-index:60;right:12px;bottom:76px;display:flex;align-items:center;gap:6px;
+      padding:6px 8px;border-radius:999px;background:rgba(26,24,21,.92);backdrop-filter:blur(6px);
+      box-shadow:0 8px 24px -8px rgba(0,0,0,.5)}
+    @media (min-width:768px){ #dt-control{bottom:14px} }
+    #dt-control button{width:20px;height:20px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+    #dt-control button[aria-current="true"]{border-color:#fff}
+    #dt-control button[data-go="amyloidosis"]{background:#147071}
+    #dt-control button[data-go="scd"]{background:#B22836}
+    #dt-control button[data-go="ph"]{background:#4A4EBB}
+    #dt-control button[data-go="mg"]{background:#9E6714}
+    #dt-control label{display:flex;align-items:center;gap:5px;color:#EEEAE4;font-size:11px;
+      padding-left:6px;margin-left:2px;border-left:1px solid #55504A;cursor:pointer}
+    #dt-control input{width:13px;height:13px;accent-color:#fff;cursor:pointer}
+    @media print{ #dt-control{display:none} }
+  </style>
+  <script>
+    /* =====================================================================
+       TENANT LAYER — everything below is data, not markup.
+       In production this is config/tenants/*.ts (identity + counts) plus
+       JSON:API responses filtered by domain_access (editorial content).
+       No component, template or class name changes per indication.
+       ===================================================================== */
+    var TENANTS = {
+      amyloidosis: {
+        name:'Amyloidosis', nameLower:'amyloidosis',
+        subtypes:'ATTR and AL amyloidosis', specialists:'amyloidosis specialists',
+        trials:'42', articles:'186', centres:'26',
+        heroAlt:'A woman in her sixties talking with her adult daughter in a bright kitchen',
+        heroCaption:'Marta, living with ATTR-CM since 2019, and her daughter Elena.',
+        a1tag:'Diagnosis', a1read:'6 min read',
+        a1t:'The 5 tests used to confirm ATTR amyloidosis',
+        a1d:'What each test looks for, what to expect on the day, and the questions worth asking.',
+        a2tag:'Treatment', a2read:'9 min read',
+        a2t:'Living with a stabiliser: side effects and daily routine',
+        a2d:'Practical strategies from people two or more years into treatment.',
+        pop:['Is amyloidosis hereditary? What families should know',
+             'Questions to ask at your first cardiology appointment',
+             'AL vs ATTR amyloidosis: how they differ',
+             'Travelling with a rare disease: a checklist'],
+        r1:'Dr A. Okafor, MD', r2:'Dr L. Haugen, PhD',
+        quote:'“It took four years and six doctors to get my diagnosis. I want the next person to find it in four weeks.”',
+        quoteBy:'Marta R.', quoteMeta:'— living with ATTR-CM, Valencia', firstName:'Marta',
+        partners:['PFIZER','AMYLOIDOSIS UK','ISA','EURORDIS'],
+        hcp:'Filter 42 open studies by phase and site, download the 2026 diagnostic pathway, or refer a patient to a specialist centre.',
+        news:[
+          {k:'Research', d:'2026-07-28', dl:'28 Jul 2026', t:'ATTR-CM trial reports 30% fewer hospitalisations at 30 months'},
+          {k:'Access',   d:'2026-07-21', dl:'21 Jul 2026', t:'NICE opens consultation on wider access to tafamidis'},
+          {k:'Community',d:'2026-07-14', dl:'14 Jul 2026', t:'Amyloidosis Awareness Month: what the community achieved'}
+        ],
+        sessions:[
+          {d:'2026-08-12', dd:'12', mm:'Aug', t:'Ask the specialist: living with cardiac amyloidosis', w:'19:00–20:00 BST', m:'Online'},
+          {d:'2026-09-03', dd:'3',  mm:'Sep', t:'Newly diagnosed? A starter session for patients and carers', w:'18:30–19:30 BST', m:'Online'},
+          {d:'2026-09-24', dd:'24', mm:'Sep', t:'Family screening and genetic counselling Q&A', w:'17:00–18:00 BST', m:'Online + Manchester'}
+        ]
+      },
+      scd: {
+        name:'Sickle Cell Disease', nameLower:'sickle cell disease',
+        subtypes:'HbSS, HbSC and sickle beta thalassaemia', specialists:'haematology specialists',
+        trials:'58', articles:'204', centres:'41',
+        heroAlt:'A young man laughing with his mother on a sofa at home',
+        heroCaption:'Daniel, living with HbSS since birth, and his mother Grace.',
+        a1tag:'Living well', a1read:'7 min read',
+        a1t:'What to do when a pain crisis starts at home',
+        a1d:'A step-by-step plan you can share with family, your school or your employer.',
+        a2tag:'Treatment', a2read:'11 min read',
+        a2t:'Hydroxyurea, voxelotor and gene therapy: how treatments compare',
+        a2d:'What each option does, who it suits, and the questions to ask your haematologist.',
+        pop:['Sickle cell trait: what it means for your children',
+             'Getting proper pain relief in A&E: know your rights',
+             'Newborn screening, explained',
+             'Travelling with sickle cell: a checklist'],
+        r1:'Dr N. Mensah, MD', r2:'Dr P. Iyer, PhD',
+        quote:'“For eleven years I was told my pain was exaggerated. Now I bring a written care plan to every visit.”',
+        quoteBy:'Daniel A.', quoteMeta:'— living with HbSS, Birmingham', firstName:'Daniel',
+        partners:['PFIZER','SICKLE CELL SOCIETY','ASH','EURORDIS'],
+        hcp:'Filter 58 open studies by phase and site, download the 2026 acute pain pathway, or refer a patient to a specialist centre.',
+        news:[
+          {k:'Treatment', d:'2026-07-29', dl:'29 Jul 2026', t:'Gene therapy approved for severe sickle cell disease in under-18s'},
+          {k:'Care',      d:'2026-07-22', dl:'22 Jul 2026', t:'New A&E pain pathway rolls out across 40 NHS trusts'},
+          {k:'Community', d:'2026-07-15', dl:'15 Jul 2026', t:'Donor drive doubles matched blood units for sickle cell patients'}
+        ],
+        sessions:[
+          {d:'2026-08-14', dd:'14', mm:'Aug', t:'Managing a pain crisis: building your care plan', w:'18:00–19:00 BST', m:'Online'},
+          {d:'2026-09-05', dd:'5',  mm:'Sep', t:'Transition clinic: moving from paediatric to adult care', w:'17:30–18:30 BST', m:'Online'},
+          {d:'2026-09-26', dd:'26', mm:'Sep', t:'Sickle cell and work: your rights explained', w:'12:30–13:30 BST', m:'Online + Birmingham'}
+        ]
+      },
+      ph: {
+        name:'Pulmonary Hypertension', nameLower:'pulmonary hypertension',
+        subtypes:'PAH and CTEPH', specialists:'PH specialists',
+        trials:'31', articles:'142', centres:'19',
+        heroAlt:'A woman resting on a park bench with her partner after a short walk',
+        heroCaption:'Aisha, living with PAH since 2021, and her partner Ben.',
+        a1tag:'Diagnosis', a1read:'8 min read',
+        a1t:'The right-heart catheter test: what to expect',
+        a1d:'Why it is still the gold standard, how long it takes, and recovery on the day.',
+        a2tag:'Treatment', a2read:'10 min read',
+        a2t:'Combination therapy in PAH: how treatment escalates',
+        a2d:'How clinicians decide when to add a second or third drug, and what to watch for.',
+        pop:['Breathlessness diary: how to track your symptoms',
+             'Oxygen and flying: planning a trip',
+             'PAH vs CTEPH: how they differ',
+             'Exercise with PH: what is safe'],
+        r1:'Dr M. Duarte, MD', r2:'Dr S. Volkov, PhD',
+        quote:'“Two years of being told it was asthma. One test changed everything about my care.”',
+        quoteBy:'Aisha K.', quoteMeta:'— living with PAH, Manchester', firstName:'Aisha',
+        partners:['PFIZER','PHA UK','ERS','EURORDIS'],
+        hcp:'Filter 31 open studies by phase and site, download the 2026 diagnostic algorithm, or refer a patient to a specialist centre.',
+        news:[
+          {k:'Research',  d:'2026-07-27', dl:'27 Jul 2026', t:'Triple therapy improves six-minute walk distance in PAH'},
+          {k:'Access',    d:'2026-07-20', dl:'20 Jul 2026', t:'Home oxygen assessment waits halve in pilot regions'},
+          {k:'Community', d:'2026-07-13', dl:'13 Jul 2026', t:'PH awareness walk raises £180,000 for specialist nursing'}
+        ],
+        sessions:[
+          {d:'2026-08-11', dd:'11', mm:'Aug', t:'Breathlessness and pacing: a practical workshop', w:'18:00–19:00 BST', m:'Online'},
+          {d:'2026-09-02', dd:'2',  mm:'Sep', t:'Understanding your right-heart catheter results', w:'19:00–20:00 BST', m:'Online'},
+          {d:'2026-09-23', dd:'23', mm:'Sep', t:'Travel, altitude and oxygen: planning ahead', w:'17:00–18:00 BST', m:'Online + Manchester'}
+        ]
+      },
+      mg: {
+        name:'Myasthenia Gravis', nameLower:'myasthenia gravis',
+        subtypes:'AChR- and MuSK-antibody myasthenia', specialists:'neuromuscular specialists',
+        trials:'24', articles:'118', centres:'22',
+        heroAlt:'A man reading with his young son at the end of the afternoon',
+        heroCaption:'Tomas, living with generalised MG since 2020, and his son Piotr.',
+        a1tag:'Symptoms', a1read:'5 min read',
+        a1t:'Why symptoms get worse as the day goes on',
+        a1d:'Fatigable weakness explained, and how to plan your day around it.',
+        a2tag:'Treatment', a2read:'12 min read',
+        a2t:'Thymectomy, steroids and FcRn blockers: comparing options',
+        a2d:'What the evidence shows for each, and the order treatments are usually tried.',
+        pop:['Myasthenic crisis: the warning signs to act on',
+             'Medicines to avoid with myasthenia gravis',
+             'Ocular vs generalised MG: how they differ',
+             'Heat, stress and flare-ups: practical tips'],
+        r1:'Dr R. Adeyemi, MD', r2:'Dr K. Larsen, PhD',
+        quote:'“My eyelid drooped for a year before anyone joined the dots. I want that year back for someone else.”',
+        quoteBy:'Tomas L.', quoteMeta:'— living with generalised MG, Kraków', firstName:'Tomas',
+        partners:['PFIZER','MYAWARE','EAN','EURORDIS'],
+        hcp:'Filter 24 open studies by phase and site, download the 2026 treatment pathway, or refer a patient to a specialist centre.',
+        news:[
+          {k:'Treatment', d:'2026-07-30', dl:'30 Jul 2026', t:'Second FcRn blocker recommended for generalised myasthenia gravis'},
+          {k:'Research',  d:'2026-07-23', dl:'23 Jul 2026', t:'Registry data links earlier thymectomy to lower steroid burden'},
+          {k:'Community', d:'2026-07-16', dl:'16 Jul 2026', t:'Myasthenia awareness campaign reaches two million people'}
+        ],
+        sessions:[
+          {d:'2026-08-13', dd:'13', mm:'Aug', t:'Fatigue, heat and flare-ups: managing daily energy', w:'18:00–19:00 BST', m:'Online'},
+          {d:'2026-09-04', dd:'4',  mm:'Sep', t:'Medicines to avoid: a pharmacist Q&A', w:'19:00–20:00 BST', m:'Online'},
+          {d:'2026-09-25', dd:'25', mm:'Sep', t:'Living with MG: a session for carers', w:'17:30–18:30 BST', m:'Online + Kraków'}
+        ]
+      }
+    };
+
+    /* Derived strings — the SEO/copy patterns every indication inherits */
+    var DERIVED = {
+      h1:        function(t){ return t.name + ': information, clinical trials and community support'; },
+      eyebrow:   function(t){ return 'Reviewed by ' + t.specialists; },
+      cardTrials:function(t){ return 'Search ' + t.trials + ' active ' + t.nameLower + ' studies by location, phase and eligibility.'; },
+      cardExpert:function(t){ return t.centres + ' specialist centres and clinicians, searchable by country.'; },
+      trust:     function(t){ return 'oneVoice ' + t.name + ' is supported by an independent medical education grant from '; },
+      fl0:       function(t){ return 'What is ' + t.nameLower + '?'; },
+      newsH2:    function(t){ return 'Latest ' + t.nameLower + ' news'; },
+      sessionsH2:function(t){ return 'Upcoming ' + t.nameLower + ' sessions'; },
+      newsIntro: function(t){ return 'Research, access and community updates, dated and clinician-checked.'; },
+      watch:     function(t){ return 'Watch ' + t.firstName + '’s story'; },
+      videoAlt:  function(t){ return t.firstName + ' speaking to camera about their diagnosis'; }
+    };
+
+    (function(){
+      var ORDER = ['amyloidosis','scd','ph','mg'];
+
+      function value(t, key){
+        if (key.indexOf('partner') === 0) return t.partners[+key.slice(7)];
+        if (key.indexOf('pop') === 0)     return t.pop[+key.slice(3)];
+        if (DERIVED[key])                 return DERIVED[key](t);
+        if (key.indexOf('.') > -1) {      /* e.g. news.0.t, sessions.2.mm */
+          return key.split('.').reduce(function(o, k){ return o == null ? null : o[k]; }, t);
+        }
+        return t[key];
+      }
+
+      function apply(slug){
+        var t = TENANTS[slug]; if (!t) return;
+        document.documentElement.dataset.tenant = slug;
+        document.title = DERIVED.h1(t) + ' | oneVoice';
+
+        Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(el){
+          var v = value(t, el.getAttribute('data-t'));
+          if (v != null) el.textContent = v;
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('[data-t-alt]'), function(el){
+          var v = value(t, el.getAttribute('data-t-alt'));
+          if (v != null) el.setAttribute('aria-label', v);
+        });
+        /* Machine-readable dates stay in sync with the visible label */
+        Array.prototype.forEach.call(document.querySelectorAll('[data-t-dt]'), function(el){
+          var v = value(t, el.getAttribute('data-t-dt'));
+          if (v != null) el.setAttribute('datetime', v);
+        });
+
+        /* Cross-tenant internal links: every other community in the network */
+        var host = document.querySelector('[data-others]');
+        if (host) {
+          host.innerHTML = ORDER.filter(function(s){ return s !== slug; }).map(function(s){
+            return '<li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white ' +
+                   'border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">' +
+                   TENANTS[s].name + '</a></li>';
+          }).join('') +
+          '<li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border ' +
+          'border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Haemophilia</a></li>' +
+          '<li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-ink-900 text-white ' +
+          'text-[14px] font-medium hover:bg-ink-800">All 100+ →</a></li>';
+        }
+      }
+
+      function post(){ parent.postMessage({ h: document.documentElement.scrollHeight }, '*'); }
+
+      window.addEventListener('message', function(e){
+        var d = e.data || {};
+        if (d.tenant) apply(d.tenant);
+        if (typeof d.notes === 'boolean') document.documentElement.dataset.notes = d.notes ? 'on' : 'off';
+        setTimeout(post, 60);
+      });
+
+      /* ?tenant=scd&notes=on — lets the responsive view and deep links pick a tenant */
+      var qs = new URLSearchParams(location.search);
+      var startTenant = qs.get('tenant') || document.documentElement.dataset.tenant || 'amyloidosis';
+      if (qs.get('notes') === 'on') document.documentElement.dataset.notes = 'on';
+      var embedded = window.parent !== window;
+
+      /* Design-time control — never ships; hidden when embedded in the responsive view */
+      function buildControl(){
+        if (embedded || document.getElementById('dt-control')) return;
+        var bar = document.createElement('div');
+        bar.id = 'dt-control';
+        bar.innerHTML = ORDER.map(function(s){
+          return '<button data-go="' + s + '" title="' + TENANTS[s].name + '" aria-label="' + TENANTS[s].name + '"></button>';
+        }).join('') + '<label><input type="checkbox" id="dt-notes"> specs</label>';
+        document.body.appendChild(bar);
+        bar.addEventListener('click', function(e){
+          var b = e.target.closest('[data-go]'); if (!b) return;
+          apply(b.getAttribute('data-go')); mark();
+        });
+        bar.querySelector('#dt-notes').addEventListener('change', function(){
+          document.documentElement.dataset.notes = this.checked ? 'on' : 'off';
+        });
+        bar.querySelector('#dt-notes').checked = document.documentElement.dataset.notes === 'on';
+        mark();
+      }
+      function mark(){
+        var cur = document.documentElement.dataset.tenant;
+        Array.prototype.forEach.call(document.querySelectorAll('#dt-control [data-go]'), function(b){
+          b.setAttribute('aria-current', String(b.getAttribute('data-go') === cur));
+        });
+      }
+
+      apply(startTenant);
+      document.addEventListener('DOMContentLoaded', function(){ apply(startTenant); buildControl(); post(); });
+      window.addEventListener('load', function(){
+        buildControl();
+        post(); setTimeout(post, 250); setTimeout(post, 900); setTimeout(post, 2000);
+        if (window.ResizeObserver) new ResizeObserver(post).observe(document.documentElement);
+      });
+    })();
+  </script>
+</head>
+<body>
+<div class="antialiased text-ink-800 bg-white pb-16 md:pb-0">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-3 focus:left-3
+     focus:bg-ink-900 focus:text-white focus:px-4 focus:py-3 focus:rounded-lg focus:text-[15px] focus:font-medium">
+     Skip to main content</a>
+
+  <!-- ============ UTILITY BAR: cross-tenant switcher = internal linking at scale ============ -->
+  <div class="bg-ink-900 text-ink-200 text-[13px]">
+    <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 h-11 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2 min-w-0">
+        <svg class="w-4 h-4 shrink-0 text-accent-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        <span class="truncate">A patient community network — <a href="#" class="underline decoration-ink-500 underline-offset-2 hover:text-white">100+ conditions</a></span>
+      </div>
+      <div class="hidden sm:flex items-center gap-5 shrink-0">
+        <a href="#" class="hover:text-white py-2">For clinicians</a>
+        <a href="#" class="hover:text-white py-2">Español</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-ink-200">
+    <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+      <div class="h-16 lg:h-20 flex items-center gap-3 lg:gap-8">
+
+        <!-- Logo lockup: fixed oneVoice mark + swappable indication mark -->
+        <a href="#" class="flex items-center gap-2.5 min-w-0 py-2 -my-2" aria-label="oneVoice Amyloidosis, home">
+          <span class="relative inline-flex items-center justify-center w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-accent-600 shrink-0">
+            <svg class="w-5 h-5 lg:w-[22px] lg:h-[22px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true">
+              <path d="M4 12v-1"/><path d="M8 15V9"/><path d="M12 18V6"/><path d="M16 15V9"/><path d="M20 12v-1"/>
+            </svg>
+          </span>
+          <span class="min-w-0 leading-none">
+            <span class="block font-display text-[19px] lg:text-[21px] font-semibold tracking-[-.015em] text-ink-900">oneVoice</span>
+            <span class="block text-[11.5px] lg:text-xs font-medium uppercase tracking-[.11em] text-accent-700 truncate" data-t="name">Amyloidosis</span>
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1 lg:gap-2 ml-auto" aria-label="Main">
+          <a href="#" class="px-3 py-2.5 rounded-lg text-[15px] font-medium text-accent-800 bg-accent-50">Clinical trials</a>
+          <a href="#" class="px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Learn</a>
+          <a href="#" class="px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Community</a>
+          <a href="#" class="px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Find an expert</a>
+          <a href="#" class="px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">About</a>
+        </nav>
+
+        <div class="flex items-center gap-1.5 ml-auto md:ml-0">
+          <button class="w-11 h-11 grid place-items-center rounded-full text-ink-600 hover:bg-ink-100" aria-label="Search">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+          <a href="#" class="hidden lg:inline-flex items-center h-11 px-4 rounded-full bg-ink-900 text-white text-[15px] font-semibold hover:bg-ink-800">Get updates</a>
+          <button class="md:hidden w-11 h-11 grid place-items-center rounded-full text-ink-700 hover:bg-ink-100" aria-label="Open menu" aria-expanded="false">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ BREADCRUMB (tenant home = one level below network root) ============ -->
+  <nav aria-label="Breadcrumb" class="relative border-b border-ink-100 bg-ink-50">
+    <span class="spec" style="top:6px;right:8px">BreadcrumbList schema · all templates</span>
+    <ol class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-center gap-1.5 text-[13px] text-ink-500 overflow-x-auto no-scrollbar">
+      <li><a href="#" class="hover:text-accent-700 py-1 whitespace-nowrap">oneVoice</a></li>
+      <li aria-hidden="true"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></li>
+      <li aria-current="page" class="font-medium text-ink-700 whitespace-nowrap" data-t="name">Amyloidosis</li>
+    </ol>
+  </nav>
+
+  <!-- ============ LATEST-NEWS STRIP — highest crawlable freshness signal, ~40px, no LCP cost ============ -->
+  <aside aria-label="Latest news" class="relative border-b border-ink-200 bg-white">
+    <span class="spec" style="top:6px;right:8px">Freshness signal, top of DOM · single line · zero LCP cost</span>
+    <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-2 flex items-center gap-3">
+      <span class="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-accent-600 text-white
+                   text-[10.5px] font-semibold uppercase tracking-[.09em] px-2.5 py-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.5" fill="currentColor" stroke="none"/></svg>
+        News
+      </span>
+      <a href="#" class="min-w-0 flex-1 text-[14.5px] text-ink-800 truncate hover:text-accent-700 hover:underline underline-offset-2"
+         data-t="news.0.t">ATTR-CM trial reports 30% fewer hospitalisations at 30 months</a>
+      <time class="hidden sm:block shrink-0 text-[13px] text-ink-500 tabular-nums"
+            data-t="news.0.dl" data-t-dt="news.0.d" datetime="2026-07-28">28 Jul 2026</time>
+      <a href="#" class="shrink-0 text-[13.5px] font-semibold text-accent-700 hover:text-accent-800 whitespace-nowrap">All news</a>
+    </div>
+  </aside>
+
+  <main id="main">
+
+    <!-- ============ 1. HERO — single value prop, static LCP image, one CTA ============ -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-accent-50 to-white">
+      <span class="spec" style="top:10px;right:10px">LCP target &lt;2.0s · no carousel · static next/image priority</span>
+      <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 pt-8 pb-10 sm:pt-12 lg:pt-16 lg:pb-20">
+        <div class="lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16 lg:items-center">
+
+          <div class="lg:col-span-7 relative">
+            <p class="inline-flex items-center gap-2 rounded-full bg-white border border-accent-200 pl-2 pr-3.5 py-1.5 text-[13px] font-medium text-accent-800 shadow-sm">
+              <span class="w-5 h-5 grid place-items-center rounded-full bg-accent-600 text-white">
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              <span data-t="eyebrow">Reviewed by amyloidosis specialists</span>
+            </p>
+
+            <span class="spec" style="top:0;right:0">Exactly one H1 · pattern “{name}: information, clinical trials and community support”</span>
+            <h1 data-t="h1" class="spec-target mt-4 font-display text-[32px] leading-[1.12] sm:text-[42px] lg:text-[54px] font-semibold tracking-[-.02em] text-ink-900">
+              Amyloidosis: information, clinical trials and community support
+            </h1>
+
+            <p class="mt-5 text-[17px] sm:text-lg lg:text-xl leading-relaxed text-ink-600 max-w-[36rem]">
+              Plain-language guidance on <strong class="font-semibold text-ink-800" data-t="subtypes">ATTR and AL amyloidosis</strong>,
+              a searchable directory of <strong class="font-semibold text-ink-800">active clinical trials near you</strong>,
+              and the lived experience of patients and caregivers — free, and no login required.
+            </p>
+
+            <div class="mt-7 flex flex-col sm:flex-row gap-3">
+              <a href="#" class="inline-flex items-center justify-center gap-2 min-h-[52px] px-6 rounded-full
+                 bg-accent-600 text-white text-[17px] font-semibold shadow-lift
+                 hover:bg-accent-700 active:bg-accent-800 transition">
+                Find trials near you
+                <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+              <a href="#" class="inline-flex items-center justify-center min-h-[52px] px-6 rounded-full
+                 bg-white border-2 border-ink-200 text-ink-800 text-[17px] font-semibold hover:border-ink-400 hover:bg-ink-50 transition">
+                Newly diagnosed? Start here
+              </a>
+            </div>
+
+            <!-- col-reverse keeps the numbers on one baseline when labels wrap -->
+            <dl class="mt-9 grid grid-cols-3 gap-4 sm:gap-6 max-w-lg border-t border-ink-200 pt-6">
+              <div class="flex flex-col-reverse">
+                <dt class="mt-1 text-[13px] text-ink-500 leading-tight">Active trials</dt>
+                <dd class="font-display text-2xl sm:text-3xl font-semibold text-ink-900 tabular-nums" data-t="trials">42</dd></div>
+              <div class="flex flex-col-reverse">
+                <dt class="mt-1 text-[13px] text-ink-500 leading-tight">Reviewed articles</dt>
+                <dd class="font-display text-2xl sm:text-3xl font-semibold text-ink-900 tabular-nums" data-t="articles">186</dd></div>
+              <div class="flex flex-col-reverse">
+                <dt class="mt-1 text-[13px] text-ink-500 leading-tight">Specialist centres</dt>
+                <dd class="font-display text-2xl sm:text-3xl font-semibold text-ink-900 tabular-nums" data-t="centres">26</dd></div>
+            </dl>
+          </div>
+
+          <!-- Hero media: real <img> component slot, never a CSS background -->
+          <figure class="relative mt-10 lg:mt-0 lg:col-span-5">
+            <span class="spec" style="top:10px;left:10px">&lt;img&gt; · required alt · AVIF/WebP · art-directed 4:5 → 16:9 → 4:5</span>
+            <!-- Ratio box + filling media = next/image `fill`.
+                 Art direction: portrait on mobile, landscape on tablet, portrait again beside desktop copy. -->
+            <div class="relative w-full aspect-[4/5] sm:aspect-[16/9] lg:aspect-[4/5] overflow-hidden rounded-3xl shadow-lift bg-accent-100">
+            <svg viewBox="0 0 480 560" preserveAspectRatio="xMidYMid slice" role="img" data-t-alt="heroAlt"
+                 class="absolute inset-0 w-full h-full"
+                 aria-label="A woman in her sixties talking with her adult daughter in a bright kitchen">
+              <defs>
+                <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="rgb(var(--nv-accent-200))"/>
+                  <stop offset="1" stop-color="rgb(var(--nv-accent-500))"/>
+                </linearGradient>
+              </defs>
+              <g>
+                <rect width="480" height="560" fill="url(#hg)"/>
+                <circle cx="366" cy="118" r="132" fill="rgb(var(--nv-accent-100))" opacity=".55"/>
+                <path d="M0 424c96-58 150 14 232-26s142-104 248-52v214H0z" fill="rgb(var(--nv-accent-700))" opacity=".35"/>
+                <circle cx="188" cy="256" r="58" fill="#fff" opacity=".92"/>
+                <path d="M96 470c0-52 42-94 92-94s92 42 92 94z" fill="#fff" opacity=".92"/>
+                <circle cx="316" cy="290" r="44" fill="#fff" opacity=".7"/>
+                <path d="M248 470c0-40 30-72 68-72s68 32 68 72z" fill="#fff" opacity=".7"/>
+              </g>
+            </svg>
+            </div>
+            <figcaption class="mt-3 text-[13px] text-ink-500">
+              <span data-t="heroCaption">Marta, living with ATTR-CM since 2019, and her daughter Elena.</span>
+              <a href="#" class="text-accent-700 font-medium underline underline-offset-2 hover:text-accent-800">Read their story</a>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. NEWS + UPCOMING SESSIONS — directly under the hero.
+         High in the DOM for freshness and Event indexing, but below the H1 so search
+         intent and LCP are untouched. One band, two columns, so the four quick-access
+         cards stay within reach on mobile. ============ -->
+    <section class="relative border-b border-ink-100 bg-white" aria-labelledby="news-h">
+      <span class="spec" style="top:12px;right:10px">NewsArticle + Event schema · dated &lt;time&gt; · internally linked</span>
+      <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-11 lg:py-14 lg:grid lg:grid-cols-12 lg:gap-12">
+
+        <!-- News column -->
+        <div class="lg:col-span-7">
+          <div class="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 id="news-h" data-t="newsH2" class="font-display text-[24px] sm:text-[28px] lg:text-[32px] font-semibold tracking-[-.015em] text-ink-900">
+                Latest amyloidosis news</h2>
+              <p class="mt-1.5 text-[15px] text-ink-500" data-t="newsIntro">Research, access and community updates, dated and clinician-checked.</p>
+            </div>
+            <a href="#" class="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full border border-ink-300 text-[15px] font-semibold text-ink-800 hover:bg-ink-100">
+              All news
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <ol class="mt-6 border-t border-ink-100 divide-y divide-ink-100">
+            <li class="group py-4">
+              <div class="flex items-center gap-2.5 text-[12.5px] font-medium">
+                <a href="#" class="px-2.5 py-1 rounded-full bg-accent-50 text-accent-800 hover:bg-accent-100" data-t="news.0.k">Research</a>
+                <time class="text-ink-500 tabular-nums" data-t="news.0.dl" data-t-dt="news.0.d" datetime="2026-07-28">28 Jul 2026</time>
+              </div>
+              <h3 class="mt-1.5 text-[17.5px] sm:text-[19px] font-semibold leading-snug text-ink-900">
+                <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.0.t">ATTR-CM trial reports 30% fewer hospitalisations at 30 months</a>
+              </h3>
+            </li>
+            <li class="group py-4">
+              <div class="flex items-center gap-2.5 text-[12.5px] font-medium">
+                <a href="#" class="px-2.5 py-1 rounded-full bg-accent-50 text-accent-800 hover:bg-accent-100" data-t="news.1.k">Access</a>
+                <time class="text-ink-500 tabular-nums" data-t="news.1.dl" data-t-dt="news.1.d" datetime="2026-07-21">21 Jul 2026</time>
+              </div>
+              <h3 class="mt-1.5 text-[17.5px] sm:text-[19px] font-semibold leading-snug text-ink-900">
+                <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.1.t">NICE opens consultation on wider access to tafamidis</a>
+              </h3>
+            </li>
+            <li class="group py-4">
+              <div class="flex items-center gap-2.5 text-[12.5px] font-medium">
+                <a href="#" class="px-2.5 py-1 rounded-full bg-accent-50 text-accent-800 hover:bg-accent-100" data-t="news.2.k">Community</a>
+                <time class="text-ink-500 tabular-nums" data-t="news.2.dl" data-t-dt="news.2.d" datetime="2026-07-14">14 Jul 2026</time>
+              </div>
+              <h3 class="mt-1.5 text-[17.5px] sm:text-[19px] font-semibold leading-snug text-ink-900">
+                <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.2.t">Amyloidosis Awareness Month: what the community achieved</a>
+              </h3>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Upcoming sessions column -->
+        <div class="mt-10 lg:mt-0 lg:col-span-5" aria-labelledby="sessions-h">
+          <div class="rounded-3xl border border-accent-200 bg-accent-50 p-5 sm:p-6">
+            <h2 id="sessions-h" data-t="sessionsH2" class="font-display text-[22px] sm:text-[25px] font-semibold tracking-[-.015em] text-ink-900">
+              Upcoming amyloidosis sessions</h2>
+            <p class="mt-1.5 text-[14.5px] text-ink-600">Free, live, and recorded if you cannot make it.</p>
+
+            <ol class="mt-5 space-y-2.5">
+              <li>
+                <a href="#" class="group flex items-start gap-3.5 rounded-2xl bg-white border border-accent-200/70 p-3.5
+                          hover:border-accent-400 hover:shadow-card transition">
+                  <time class="shrink-0 w-12 grid place-content-center text-center rounded-xl bg-accent-600 text-white py-1.5 leading-none"
+                        data-t-dt="sessions.0.d" datetime="2026-08-12">
+                    <span class="block text-[16px] font-semibold tabular-nums" data-t="sessions.0.dd">12</span>
+                    <span class="block mt-0.5 text-[10px] font-semibold uppercase tracking-wide" data-t="sessions.0.mm">Aug</span>
+                  </time>
+                  <span class="min-w-0">
+                    <span class="block text-[15.5px] font-semibold leading-snug text-ink-900 group-hover:text-accent-800" data-t="sessions.0.t">Ask the specialist: living with cardiac amyloidosis</span>
+                    <span class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[13px] text-ink-500">
+                      <span data-t="sessions.0.w">19:00–20:00 BST</span>
+                      <span aria-hidden="true">·</span>
+                      <span data-t="sessions.0.m">Online</span>
+                    </span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="group flex items-start gap-3.5 rounded-2xl bg-white border border-accent-200/70 p-3.5
+                          hover:border-accent-400 hover:shadow-card transition">
+                  <time class="shrink-0 w-12 grid place-content-center text-center rounded-xl bg-accent-600 text-white py-1.5 leading-none"
+                        data-t-dt="sessions.1.d" datetime="2026-09-03">
+                    <span class="block text-[16px] font-semibold tabular-nums" data-t="sessions.1.dd">3</span>
+                    <span class="block mt-0.5 text-[10px] font-semibold uppercase tracking-wide" data-t="sessions.1.mm">Sep</span>
+                  </time>
+                  <span class="min-w-0">
+                    <span class="block text-[15.5px] font-semibold leading-snug text-ink-900 group-hover:text-accent-800" data-t="sessions.1.t">Newly diagnosed? A starter session for patients and carers</span>
+                    <span class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[13px] text-ink-500">
+                      <span data-t="sessions.1.w">18:30–19:30 BST</span>
+                      <span aria-hidden="true">·</span>
+                      <span data-t="sessions.1.m">Online</span>
+                    </span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="group flex items-start gap-3.5 rounded-2xl bg-white border border-accent-200/70 p-3.5
+                          hover:border-accent-400 hover:shadow-card transition">
+                  <time class="shrink-0 w-12 grid place-content-center text-center rounded-xl bg-accent-600 text-white py-1.5 leading-none"
+                        data-t-dt="sessions.2.d" datetime="2026-09-24">
+                    <span class="block text-[16px] font-semibold tabular-nums" data-t="sessions.2.dd">24</span>
+                    <span class="block mt-0.5 text-[10px] font-semibold uppercase tracking-wide" data-t="sessions.2.mm">Sep</span>
+                  </time>
+                  <span class="min-w-0">
+                    <span class="block text-[15.5px] font-semibold leading-snug text-ink-900 group-hover:text-accent-800" data-t="sessions.2.t">Family screening and genetic counselling Q&amp;A</span>
+                    <span class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[13px] text-ink-500">
+                      <span data-t="sessions.2.w">17:00–18:00 BST</span>
+                      <span aria-hidden="true">·</span>
+                      <span data-t="sessions.2.m">Online + Manchester</span>
+                    </span>
+                  </span>
+                </a>
+              </li>
+            </ol>
+
+            <a href="#" class="mt-4 inline-flex items-center justify-center gap-1.5 w-full min-h-[48px] px-5 rounded-full
+                      bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700 active:bg-accent-800 transition">
+              View all sessions
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. QUICK-ACCESS CARDS — the 4 fixed jobs-to-be-done ============ -->
+    <section class="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-12 lg:py-16" aria-labelledby="qa-h">
+      <span class="spec" style="top:14px;right:10px">H2 · 4 fixed slots for every indication</span>
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <h2 id="qa-h" class="font-display text-[26px] sm:text-3xl lg:text-4xl font-semibold tracking-[-.015em] text-ink-900">
+          Where would you like to start?</h2>
+        <p class="text-[15px] text-ink-500">Updated 12 July 2026</p>
+      </div>
+
+      <ul class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <!-- Card A -->
+        <li><a href="#" class="group h-full flex flex-col rounded-2xl border border-ink-200 bg-white p-5 lg:p-6 shadow-card
+               hover:border-accent-300 hover:shadow-lift focus-visible:border-accent-600 transition">
+          <span class="w-12 h-12 grid place-items-center rounded-xl bg-accent-50 text-accent-700 group-hover:bg-accent-600 group-hover:text-white transition">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.5a2 2 0 0 1-.2.9L4.7 20.6a1 1 0 0 0 .9 1.4h12.8a1 1 0 0 0 .9-1.4l-5.1-10.2a2 2 0 0 1-.2-.9V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg>
+          </span>
+          <h3 class="mt-4 text-[19px] font-semibold text-ink-900 leading-snug">Clinical trials</h3>
+          <p class="mt-1.5 mb-4 text-[15px] text-ink-600 leading-relaxed" data-t="cardTrials">Search 42 active amyloidosis studies by location, phase and eligibility.</p>
+          <span class="mt-auto pt-4 border-t border-ink-100 flex items-center gap-1.5 text-[15px] font-semibold text-accent-700">
+            Browse trials
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </a></li>
+        <!-- Card B -->
+        <li><a href="#" class="group h-full flex flex-col rounded-2xl border border-ink-200 bg-white p-5 lg:p-6 shadow-card
+               hover:border-accent-300 hover:shadow-lift transition">
+          <span class="w-12 h-12 grid place-items-center rounded-xl bg-accent-50 text-accent-700 group-hover:bg-accent-600 group-hover:text-white transition">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+          </span>
+          <h3 class="mt-4 text-[19px] font-semibold text-ink-900 leading-snug">Learn the basics</h3>
+          <p class="mt-1.5 mb-4 text-[15px] text-ink-600 leading-relaxed">Symptoms, types, diagnosis and treatment — in language you can use.</p>
+          <span class="mt-auto pt-4 border-t border-ink-100 flex items-center gap-1.5 text-[15px] font-semibold text-accent-700">
+            Start learning
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </a></li>
+        <!-- Card C -->
+        <li><a href="#" class="group h-full flex flex-col rounded-2xl border border-ink-200 bg-white p-5 lg:p-6 shadow-card
+               hover:border-accent-300 hover:shadow-lift transition">
+          <span class="w-12 h-12 grid place-items-center rounded-xl bg-accent-50 text-accent-700 group-hover:bg-accent-600 group-hover:text-white transition">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg>
+          </span>
+          <h3 class="mt-4 text-[19px] font-semibold text-ink-900 leading-snug">Community stories</h3>
+          <p class="mt-1.5 mb-4 text-[15px] text-ink-600 leading-relaxed">Video and written experiences from patients, carers and families.</p>
+          <span class="mt-auto pt-4 border-t border-ink-100 flex items-center gap-1.5 text-[15px] font-semibold text-accent-700">
+            Hear from others
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </a></li>
+        <!-- Card D -->
+        <li><a href="#" class="group h-full flex flex-col rounded-2xl border border-ink-200 bg-white p-5 lg:p-6 shadow-card
+               hover:border-accent-300 hover:shadow-lift transition">
+          <span class="w-12 h-12 grid place-items-center rounded-xl bg-accent-50 text-accent-700 group-hover:bg-accent-600 group-hover:text-white transition">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="7" r="4"/><path d="M10.3 15H7a4 4 0 0 0-4 4v2"/><circle cx="17" cy="17" r="3"/><path d="m21 21-1.9-1.9"/></svg>
+          </span>
+          <h3 class="mt-4 text-[19px] font-semibold text-ink-900 leading-snug">Find an expert</h3>
+          <p class="mt-1.5 mb-4 text-[15px] text-ink-600 leading-relaxed" data-t="cardExpert">26 specialist centres and clinicians, searchable by country.</p>
+          <span class="mt-auto pt-4 border-t border-ink-100 flex items-center gap-1.5 text-[15px] font-semibold text-accent-700">
+            Search centres
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </a></li>
+      </ul>
+    </section>
+
+    <!-- ============ 3. TRUST BAR — funding disclosure + partners + editorial policy ============ -->
+    <section class="relative bg-ink-50 border-y border-ink-200" aria-labelledby="trust-h">
+      <span class="spec" style="top:10px;right:10px">Sponsorship transparency · required on every indication</span>
+      <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+        <div class="lg:flex lg:items-center lg:gap-12">
+          <div class="lg:max-w-sm">
+            <h2 id="trust-h" class="flex items-center gap-2 text-[15px] font-semibold text-ink-900">
+              <svg class="w-[18px] h-[18px] text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+              Independent, funded, and reviewed
+            </h2>
+            <p class="mt-2 text-[14.5px] leading-relaxed text-ink-600">
+              <span data-t="trust">oneVoice Amyloidosis is supported by an independent medical education grant from </span>
+              <strong class="font-semibold text-ink-800">Pfizer</strong>. Funders have no editorial control.
+              <a href="#" class="text-accent-700 font-medium underline underline-offset-2 hover:text-accent-800">Read our editorial policy</a>
+            </p>
+          </div>
+          <ul class="mt-6 lg:mt-0 grid grid-cols-2 sm:grid-cols-4 gap-3 flex-1">
+            <li class="h-16 rounded-xl bg-white border border-ink-200 grid place-items-center px-3 text-center text-[13px] font-semibold tracking-wide text-ink-400" data-t="partner0">PFIZER</li>
+            <li class="h-16 rounded-xl bg-white border border-ink-200 grid place-items-center px-3 text-center text-[13px] font-semibold tracking-wide text-ink-400" data-t="partner1">AMYLOIDOSIS UK</li>
+            <li class="h-16 rounded-xl bg-white border border-ink-200 grid place-items-center px-3 text-center text-[13px] font-semibold tracking-wide text-ink-400" data-t="partner2">ISA</li>
+            <li class="h-16 rounded-xl bg-white border border-ink-200 grid place-items-center px-3 text-center text-[13px] font-semibold tracking-wide text-ink-400" data-t="partner3">EURORDIS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. FEATURED CONTENT — lightweight, internal-link dense ============ -->
+    <section class="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-12 lg:py-16" aria-labelledby="feat-h">
+      <span class="spec" style="top:14px;right:10px">Article schema · topic chips build topical authority across 100+ tenants</span>
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 id="feat-h" class="font-display text-[26px] sm:text-3xl lg:text-4xl font-semibold tracking-[-.015em] text-ink-900">Latest, reviewed</h2>
+          <p class="mt-1.5 text-[15px] text-ink-500">Every article is checked by a clinician before publication.</p>
+        </div>
+        <a href="#" class="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full border border-ink-300 text-[15px] font-semibold text-ink-800 hover:bg-ink-100">
+          All articles
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <ul class="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <li class="group flex flex-col">
+          <a href="#" class="block overflow-hidden rounded-2xl">
+            <svg viewBox="0 0 400 225" class="w-full h-auto group-hover:scale-[1.02] transition duration-300" role="img" aria-label="A cardiologist reviewing an echocardiogram">
+              <rect width="400" height="225" fill="rgb(var(--nv-accent-100))"/>
+              <circle cx="318" cy="52" r="70" fill="rgb(var(--nv-accent-200))"/>
+              <path d="M0 168c70-34 118 12 186-12s126-40 214 4v65H0z" fill="rgb(var(--nv-accent-400))" opacity=".55"/>
+              <circle cx="150" cy="104" r="34" fill="#fff" opacity=".9"/>
+            </svg>
+          </a>
+          <div class="mt-3.5 flex items-center gap-2 text-[12.5px] font-medium">
+            <a href="#" class="px-2.5 py-1 rounded-full bg-accent-50 text-accent-800 hover:bg-accent-100" data-t="a1tag">Diagnosis</a>
+            <span class="text-ink-500" data-t="a1read">6 min read</span>
+          </div>
+          <h3 class="mt-2 text-[19px] lg:text-xl font-semibold leading-snug text-ink-900">
+            <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="a1t">The 5 tests used to confirm ATTR amyloidosis</a>
+          </h3>
+          <p class="mt-1.5 text-[15px] text-ink-600 leading-relaxed" data-t="a1d">What each test looks for, what to expect on the day, and the questions worth asking.</p>
+          <p class="mt-3 flex items-center gap-2 text-[13px] text-ink-500">
+            <span class="w-6 h-6 rounded-full bg-ink-200 shrink-0"></span>
+            Reviewed by <a href="#" class="font-medium text-ink-700 underline underline-offset-2 hover:text-accent-700" data-t="r1">Dr A. Okafor, MD</a>
+          </p>
+        </li>
+
+        <li class="group flex flex-col">
+          <a href="#" class="block overflow-hidden rounded-2xl">
+            <svg viewBox="0 0 400 225" class="w-full h-auto group-hover:scale-[1.02] transition duration-300" role="img" aria-label="A patient preparing a weekly medication organiser">
+              <rect width="400" height="225" fill="rgb(var(--nv-accent-50))"/>
+              <path d="M0 0h400v225H0z" fill="rgb(var(--nv-accent-200))" opacity=".5"/>
+              <circle cx="90" cy="70" r="46" fill="#fff" opacity=".85"/>
+              <path d="M200 190c0-46 34-82 76-82s76 36 76 82z" fill="rgb(var(--nv-accent-500))" opacity=".6"/>
+            </svg>
+          </a>
+          <div class="mt-3.5 flex items-center gap-2 text-[12.5px] font-medium">
+            <a href="#" class="px-2.5 py-1 rounded-full bg-accent-50 text-accent-800 hover:bg-accent-100" data-t="a2tag">Treatment</a>
+            <span class="text-ink-500" data-t="a2read">9 min read</span>
+          </div>
+          <h3 class="mt-2 text-[19px] lg:text-xl font-semibold leading-snug text-ink-900">
+            <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="a2t">Living with a stabiliser: side effects and daily routine</a>
+          </h3>
+          <p class="mt-1.5 text-[15px] text-ink-600 leading-relaxed" data-t="a2d">Practical strategies from people two or more years into treatment.</p>
+          <p class="mt-3 flex items-center gap-2 text-[13px] text-ink-500">
+            <span class="w-6 h-6 rounded-full bg-ink-200 shrink-0"></span>
+            Reviewed by <a href="#" class="font-medium text-ink-700 underline underline-offset-2 hover:text-accent-700" data-t="r2">Dr L. Haugen, PhD</a>
+          </p>
+        </li>
+
+        <li class="sm:col-span-2 lg:col-span-1">
+          <div class="h-full rounded-2xl border border-ink-200 bg-ink-50 p-5 lg:p-6">
+            <h3 class="text-[17px] font-semibold text-ink-900">Popular right now</h3>
+            <ol class="mt-3 divide-y divide-ink-200">
+              <li><a href="#" class="flex items-start gap-3 py-3 group">
+                <span class="font-display text-[15px] font-semibold text-accent-700 tabular-nums pt-0.5">01</span>
+                <span class="text-[15.5px] leading-snug text-ink-800 group-hover:text-accent-700" data-t="pop0">Is amyloidosis hereditary? What families should know</span></a></li>
+              <li><a href="#" class="flex items-start gap-3 py-3 group">
+                <span class="font-display text-[15px] font-semibold text-accent-700 tabular-nums pt-0.5">02</span>
+                <span class="text-[15.5px] leading-snug text-ink-800 group-hover:text-accent-700" data-t="pop1">Questions to ask at your first cardiology appointment</span></a></li>
+              <li><a href="#" class="flex items-start gap-3 py-3 group">
+                <span class="font-display text-[15px] font-semibold text-accent-700 tabular-nums pt-0.5">03</span>
+                <span class="text-[15.5px] leading-snug text-ink-800 group-hover:text-accent-700" data-t="pop2">AL vs ATTR amyloidosis: how they differ</span></a></li>
+              <li><a href="#" class="flex items-start gap-3 py-3 group">
+                <span class="font-display text-[15px] font-semibold text-accent-700 tabular-nums pt-0.5">04</span>
+                <span class="text-[15.5px] leading-snug text-ink-800 group-hover:text-accent-700" data-t="pop3">Travelling with a rare disease: a checklist</span></a></li>
+            </ol>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ 5. COMMUNITY VOICES — video-forward, non-autoplay ============ -->
+    <section class="relative bg-ink-50 border-y border-ink-200" aria-labelledby="voices-h">
+      <span class="spec" style="top:10px;right:10px">Poster image only · video loads on click (no autoplay, no LCP cost)</span>
+      <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <h2 id="voices-h" class="font-display text-[26px] sm:text-3xl lg:text-4xl font-semibold tracking-[-.015em] text-ink-900">In their words</h2>
+        <div class="mt-7 lg:grid lg:grid-cols-5 lg:gap-8 lg:items-center">
+          <a href="#" class="group relative block lg:col-span-3 overflow-hidden rounded-3xl shadow-card">
+            <svg viewBox="0 0 640 360" class="w-full h-auto" role="img" data-t-alt="videoAlt" aria-label="Marta sitting in her garden, speaking to camera">
+              <rect width="640" height="360" fill="rgb(var(--nv-accent-300))"/>
+              <circle cx="520" cy="80" r="110" fill="rgb(var(--nv-accent-200))" opacity=".7"/>
+              <path d="M0 250c110-56 190 20 300-16s200-64 340 10v116H0z" fill="rgb(var(--nv-accent-700))" opacity=".45"/>
+              <circle cx="250" cy="160" r="60" fill="#fff" opacity=".9"/>
+              <path d="M154 320c0-54 44-96 96-96s96 42 96 96z" fill="#fff" opacity=".9"/>
+            </svg>
+            <span class="absolute inset-0 grid place-items-center">
+              <span class="w-16 h-16 lg:w-20 lg:h-20 grid place-items-center rounded-full bg-white/95 shadow-lift group-hover:scale-105 transition">
+                <svg class="w-7 h-7 lg:w-8 lg:h-8 text-accent-700 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m7 4 13 8-13 8z"/></svg>
+              </span>
+            </span>
+            <span class="absolute bottom-3 right-3 rounded-md bg-ink-900/85 text-white text-[12.5px] font-medium px-2 py-1 tabular-nums">4:12</span>
+          </a>
+          <div class="mt-6 lg:mt-0 lg:col-span-2">
+            <blockquote class="font-display text-[21px] sm:text-2xl lg:text-[26px] leading-[1.3] text-ink-900" data-t="quote">
+              “It took four years and six doctors to get my diagnosis. I want the next person to find it in four weeks.”
+            </blockquote>
+            <p class="mt-4 text-[15px] text-ink-600"><span class="font-semibold text-ink-800" data-t="quoteBy">Marta R.</span>
+              <span data-t="quoteMeta">— living with ATTR-CM, Valencia</span></p>
+            <div class="mt-6 flex flex-wrap gap-2.5">
+              <a href="#" class="inline-flex items-center min-h-[44px] px-5 rounded-full bg-ink-900 text-white text-[15px] font-semibold hover:bg-ink-800" data-t="watch">Watch Marta’s story</a>
+              <a href="#" class="inline-flex items-center min-h-[44px] px-5 rounded-full border border-ink-300 text-ink-800 text-[15px] font-semibold hover:bg-white">Share yours</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. HCP / RESEARCHER BAND — audience 2 ============ -->
+    <section class="relative bg-ink-900 text-ink-100" aria-labelledby="hcp-h">
+      <span class="spec" style="top:10px;right:10px">Audience 2 entry point · same component, accent-tinted</span>
+      <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-11 lg:py-14">
+        <div class="lg:flex lg:items-center lg:justify-between lg:gap-12">
+          <div class="max-w-xl">
+            <p class="text-[12.5px] font-semibold uppercase tracking-[.14em] text-accent-300">For clinicians &amp; researchers</p>
+            <h2 id="hcp-h" class="mt-2.5 font-display text-[25px] sm:text-3xl font-semibold tracking-[-.015em] text-white">
+              Trial data, referral pathways and the current literature</h2>
+            <p class="mt-3 text-[15.5px] leading-relaxed text-ink-300" data-t="hcp">
+              Filter 42 open studies by phase and site, download the 2026 diagnostic pathway, or refer a patient to a specialist centre.
+            </p>
+          </div>
+          <ul class="mt-6 lg:mt-0 grid sm:grid-cols-3 lg:grid-cols-1 gap-2.5 lg:w-72 shrink-0">
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[52px] px-4 rounded-xl bg-ink-800 border border-ink-700 text-[15px] font-semibold text-white hover:bg-ink-700">
+              Trial finder <svg class="w-4 h-4 text-accent-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[52px] px-4 rounded-xl bg-ink-800 border border-ink-700 text-[15px] font-semibold text-white hover:bg-ink-700">
+              Publications <svg class="w-4 h-4 text-accent-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[52px] px-4 rounded-xl bg-ink-800 border border-ink-700 text-[15px] font-semibold text-white hover:bg-ink-700">
+              Refer a patient <svg class="w-4 h-4 text-accent-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7. NEWSLETTER ============ -->
+    <section class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-12 lg:py-16" aria-labelledby="nl-h">
+      <div class="rounded-3xl bg-accent-50 border border-accent-200 p-6 sm:p-9 lg:p-12 lg:flex lg:items-center lg:gap-12">
+        <div class="lg:flex-1">
+          <h2 id="nl-h" class="font-display text-[25px] sm:text-3xl font-semibold tracking-[-.015em] text-ink-900">
+            New trials and articles, once a month</h2>
+          <p class="mt-2.5 text-[15.5px] leading-relaxed text-ink-600 max-w-md">
+            No promotions, ever. Unsubscribe in one click. Read our <a href="#" class="text-accent-800 font-medium underline underline-offset-2">privacy notice</a>.
+          </p>
+        </div>
+        <form class="mt-6 lg:mt-0 lg:w-[26rem] shrink-0" novalidate>
+          <label for="email" class="block text-[14px] font-semibold text-ink-800">Email address</label>
+          <div class="mt-2 flex flex-col sm:flex-row gap-2.5">
+            <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com"
+              class="flex-1 min-h-[52px] px-4 rounded-full bg-white border border-ink-300 text-[16px] text-ink-900
+                     placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
+            <button type="submit" class="min-h-[52px] px-6 rounded-full bg-accent-600 text-white text-[16px] font-semibold hover:bg-accent-700 active:bg-accent-800 transition">
+              Subscribe</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER — SEO surface + cross-tenant internal linking ============ -->
+  <footer class="relative bg-ink-50 border-t border-ink-200">
+    <span class="spec" style="top:10px;right:10px">Cross-indication links: 100 tenants → network-wide topical authority</span>
+    <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid gap-9 sm:grid-cols-2 lg:grid-cols-4">
+        <nav aria-labelledby="f1">
+          <h2 id="f1" class="text-[13px] font-semibold uppercase tracking-[.1em] text-ink-500" data-t="name">Amyloidosis</h2>
+          <ul class="mt-3.5 space-y-1">
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700" data-t="fl0">What is amyloidosis?</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Symptoms &amp; diagnosis</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Treatment options</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Clinical trials</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Find a specialist</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f2">
+          <h2 id="f2" class="text-[13px] font-semibold uppercase tracking-[.1em] text-ink-500">Community</h2>
+          <ul class="mt-3.5 space-y-1">
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Patient stories</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Caregiver hub</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Events &amp; webinars</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Support groups</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f3">
+          <h2 id="f3" class="text-[13px] font-semibold uppercase tracking-[.1em] text-ink-500">About oneVoice</h2>
+          <ul class="mt-3.5 space-y-1">
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Who we are</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Editorial policy</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Medical review board</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Funding &amp; partners</a></li>
+            <li><a href="#" class="block py-1.5 text-[15px] text-ink-700 hover:text-accent-700">Contact</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2 class="text-[13px] font-semibold uppercase tracking-[.1em] text-ink-500">Other communities</h2>
+          <ul class="mt-3.5 flex flex-wrap gap-2" data-others>
+            <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Sickle Cell Disease</a></li>
+            <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Pulmonary Hypertension</a></li>
+            <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Myasthenia Gravis</a></li>
+            <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Haemophilia</a></li>
+            <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-ink-900 text-white text-[14px] font-medium hover:bg-ink-800">All 100+ →</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-11 pt-7 border-t border-ink-200 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-accent-600">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><path d="M4 12v-1"/><path d="M8 15V9"/><path d="M12 18V6"/><path d="M16 15V9"/><path d="M20 12v-1"/></svg>
+          </span>
+          <span class="font-display text-[19px] font-semibold text-ink-900">oneVoice</span>
+        </div>
+        <p class="text-[13.5px] leading-relaxed text-ink-500 lg:max-w-xl">
+          Information on oneVoice is for education only and is not a substitute for advice from your own
+          healthcare team. © 2026 oneVoice. <a href="#" class="underline underline-offset-2 hover:text-ink-700">Privacy</a> ·
+          <a href="#" class="underline underline-offset-2 hover:text-ink-700">Terms</a> ·
+          <a href="#" class="underline underline-offset-2 hover:text-ink-700">Accessibility</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ MOBILE THUMB NAV — fixed, 44px+ targets, md:hidden ============ -->
+  <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/97 backdrop-blur border-t border-ink-200
+              pb-[env(safe-area-inset-bottom)]" aria-label="Quick navigation">
+    <ul class="grid grid-cols-5">
+      <li><a href="#" aria-current="page" class="flex flex-col items-center justify-center gap-1 h-[58px] text-accent-700">
+        <svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H10v7H5a1 1 0 0 1-1-1z"/></svg>
+        <span class="text-[11px] font-semibold">Home</span></a></li>
+      <li><a href="#" class="flex flex-col items-center justify-center gap-1 h-[58px] text-ink-500">
+        <svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.5a2 2 0 0 1-.2.9L4.7 20.6a1 1 0 0 0 .9 1.4h12.8a1 1 0 0 0 .9-1.4l-5.1-10.2a2 2 0 0 1-.2-.9V2"/><path d="M8.5 2h7"/></svg>
+        <span class="text-[11px] font-medium">Trials</span></a></li>
+      <li><a href="#" class="flex flex-col items-center justify-center gap-1 h-[58px] text-ink-500">
+        <svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+        <span class="text-[11px] font-medium">Learn</span></a></li>
+      <li><a href="#" class="flex flex-col items-center justify-center gap-1 h-[58px] text-ink-500">
+        <svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg>
+        <span class="text-[11px] font-medium">Community</span></a></li>
+      <li><button class="w-full flex flex-col items-center justify-center gap-1 h-[58px] text-ink-500">
+        <svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+        <span class="text-[11px] font-medium">More</span></button></li>
+    </ul>
+  </nav>
+</div>
+
+</body>
+</html>
