@@ -124,7 +124,7 @@
        ===================================================================== */
     var TENANTS = {
       amyloidosis: {
-        wordmark:'AMYLOIDOSIS', name:'Amyloidosis', nameLower:'amyloidosis', shortName:'Amyloidosis', domainId:'oneamyloidosisvoice',
+        wordmark:'AMYLOIDOSIS', name:'Amyloidosis', nameLower:'amyloidosis', shortName:'Amyloidosis', domainId:'oneamyloidosisvoice', hostname:'oneamyloidosisvoice.com',
         subtypes:'ATTR and AL amyloidosis', specialists:'amyloidosis specialists',
         trials:'42', articles:'186', centres:'26',
         heroAlt:'A woman in her sixties talking with her adult daughter in a bright kitchen',
@@ -150,17 +150,14 @@
         spotlight:[
           {month:'August 2026', name:'Vanderbilt Amyloidosis Multidisciplinary Program',
            blurb:'Meet the multidisciplinary team and watch the recorded sessions.',
-           partners:[{tid:12351, name:'Vanderbilt Health'}],
-           microsite:'/spotlight/vanderbilt-amyloidosis'},
+           partners:[{tid:12351, name:'Vanderbilt Health'}], slug:'vanderbilt'},
           {month:'July 2026', name:'City of Hope Amyloidosis Program',
            blurb:'Meet the programme team, explore its sessions and patient resources.',
-           partners:[{tid:12759, name:'City of Hope'}],
-           microsite:'/spotlight/city-of-hope-amyloidosis'},
+           partners:[{tid:12759, name:'City of Hope'}], slug:'cityofhope'},
           {month:'June 2026', name:'University of Chicago & Endeavor Health',
            blurb:'Two partner centres, one shared spotlight — sessions from both teams.',
            partners:[{tid:12758, name:'University of Chicago'},
-                     {tid:12761, name:'Endeavor Health'}],
-           microsite:'/spotlight/uchicago-endeavor-health'}
+                     {tid:12761, name:'Endeavor Health'}], slug:'uchicago'}
         ],
         news:[
           {k:'Research', d:'2026-07-28', dl:'28 Jul 2026', t:'ATTR-CM trial reports 30% fewer hospitalisations at 30 months'},
@@ -174,7 +171,7 @@
         ]
       },
       scd: {
-        wordmark:'SCD', name:'Sickle Cell Disease', nameLower:'sickle cell disease', shortName:'Sickle Cell', domainId:'onescdvoice',
+        wordmark:'SCD', name:'Sickle Cell Disease', nameLower:'sickle cell disease', shortName:'Sickle Cell', domainId:'onescdvoice', hostname:'onescdvoice.com',
         subtypes:'HbSS, HbSC and sickle beta thalassaemia', specialists:'haematology specialists',
         trials:'58', articles:'204', centres:'41',
         heroAlt:'A young man laughing with his mother on a sofa at home',
@@ -397,9 +394,13 @@
         section.hidden = false;
 
         list.innerHTML = items.map(function(s){
+          /* Microsites live at {slug}.{community hostname}, e.g.
+             vanderbilt.oneamyloidosisvoice.com — so a new month needs a slug, not a URL.
+             An explicit `microsite` still wins if one ever sits off-pattern. */
+          var href = s.microsite || ('https://' + s.slug + '.' + t.hostname + '/');
           return '' +
           '<li>' +
-            '<a href="' + s.microsite + '" target="_blank" rel="noopener noreferrer" ' +
+            '<a href="' + href + '" target="_blank" rel="noopener noreferrer" ' +
                'class="group h-full flex flex-col rounded-2xl bg-white border border-ink-200 p-5 shadow-card ' +
                'hover:border-accent-400 hover:shadow-lift focus-visible:border-accent-600 transition">' +
               /* Fixed-height logo well keeps every card on the same scan line, however */
