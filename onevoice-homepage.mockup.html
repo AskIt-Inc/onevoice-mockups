@@ -144,6 +144,24 @@
         quoteBy:'Marta R.', quoteMeta:'— living with ATTR-CM, Valencia', firstName:'Marta',
         partners:['PFIZER','AMYLOIDOSIS UK','ISA','EURORDIS'],
         hcp:'Filter 42 open studies by phase and site, download the 2026 diagnostic pathway, or refer a patient to a specialist centre.',
+        /* Spotlight Series — partner programmes featured month by month.
+           Newest first. `partners` are keys resolved against the STTT logo API,
+           never hardcoded image URLs. A community with no series renders nothing. */
+        spotlight:[
+          {month:'August 2026', name:'Vanderbilt Amyloidosis Multidisciplinary Program',
+           blurb:'Meet the multidisciplinary team and watch the recorded sessions.',
+           partners:[{tid:12351, name:'Vanderbilt Health'}],
+           microsite:'/spotlight/vanderbilt-amyloidosis'},
+          {month:'July 2026', name:'City of Hope Amyloidosis Program',
+           blurb:'Meet the programme team, explore its sessions and patient resources.',
+           partners:[{tid:12759, name:'City of Hope'}],
+           microsite:'/spotlight/city-of-hope-amyloidosis'},
+          {month:'June 2026', name:'University of Chicago & Endeavor Health',
+           blurb:'Two partner centres, one shared spotlight — sessions from both teams.',
+           partners:[{tid:12758, name:'University of Chicago'},
+                     {tid:12761, name:'Endeavor Health'}],
+           microsite:'/spotlight/uchicago-endeavor-health'}
+        ],
         news:[
           {k:'Research', d:'2026-07-28', dl:'28 Jul 2026', t:'ATTR-CM trial reports 30% fewer hospitalisations at 30 months'},
           {k:'Access',   d:'2026-07-21', dl:'21 Jul 2026', t:'NICE opens consultation on wider access to tafamidis'},
@@ -268,6 +286,7 @@
       newsH2:    function(t){ return 'Latest ' + t.nameLower + ' news'; },
       sessionsH2:function(t){ return 'Upcoming ' + t.nameLower + ' sessions'; },
       newsIntro: function(t){ return 'Research, access and community updates, dated and clinician-checked.'; },
+      spotlightH2:function(t){ return 'Learn more about our ' + t.name + ' Program Spotlight Series'; },
       watch:     function(t){ return 'Watch ' + t.firstName + '’s story'; },
       videoAlt:  function(t){ return t.firstName + ' speaking to camera about their diagnosis'; }
     };
@@ -304,6 +323,8 @@
           if (v != null) el.setAttribute('datetime', v);
         });
 
+        renderSpotlight(t);
+
         /* Cross-tenant internal links: every other community in the network */
         var host = document.querySelector('[data-others]');
         if (host) {
@@ -317,6 +338,108 @@
           '<li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-ink-900 text-white ' +
           'text-[14px] font-medium hover:bg-ink-800">All 100+ →</a></li>';
         }
+      }
+
+      /* ---------------- Spotlight Series ----------------
+         Logos come from the STTT partner API. Local dev talks to the local base,
+         everything else to production. Nothing about a partner's artwork is baked in:
+         if the API is unreachable the well keeps a neutral name plate rather than
+         inventing a logo. */
+      var STTT_API_BASE = /localhost|127\.0\.0\.1|local-sttt/.test(location.hostname)
+        ? 'https://local-sttt.somebodytotalkto.com:8443'
+        : 'https://somebodytotalkto.com';
+
+      /* Response shape (verified against the live endpoint):
+         { data: [ { tid, uuid, name, field_employer_site_url,
+                     logo: { url, alt, filename, mime, width, height } } ] }
+         Indexed by tid — stable — with name as a secondary key for readability. */
+      var logoIndex = null;
+
+      function fetchPartnerLogos(){
+        if (logoIndex) return Promise.resolve(logoIndex);
+        return fetch(STTT_API_BASE + '/api/session-editor/partners/logos', { mode:'cors', credentials:'omit' })
+          .then(function(r){ return r.ok ? r.json() : null; })
+          .then(function(json){
+            var rows = json && Array.isArray(json.data) ? json.data : null;
+            if (!rows) return null;
+            var idx = {};
+            rows.forEach(function(p){
+              if (!p.logo || !p.logo.url) return;
+              if (p.tid != null) idx[String(p.tid)] = p.logo;
+              if (p.name) idx[p.name] = p.logo;
+            });
+            logoIndex = idx;
+            return idx;
+          })
+          .catch(function(){ return null; });   /* offline: name plates stay */
+      }
+
+      function logoWell(partners){
+        /* Partner artwork ranges from 1:1 to 9.5:1, so cap width as well as height
+           and let object-contain do the rest. Two-partner months get a tighter cap. */
+        var cap = partners.length > 1 ? 'max-h-9 max-w-[122px]' : 'max-h-11 max-w-[196px]';
+        return partners.map(function(p, i){
+          return (i ? '<span class="w-px h-7 bg-ink-200 shrink-0" aria-hidden="true"></span>' : '') +
+            '<span class="flex items-center justify-start min-w-0" data-logo="' + p.tid + '" data-cap="' + cap + '">' +
+              '<span class="text-[12.5px] font-semibold leading-tight text-ink-400" data-logo-fallback>' +
+                p.name + '</span>' +
+            '</span>';
+        }).join('');
+      }
+
+      function renderSpotlight(t){
+        var section = document.querySelector('[data-spotlight]');
+        var list = document.querySelector('[data-spotlight-list]');
+        if (!section || !list) return;
+        var items = t.spotlight || [];
+        /* Reusable means it disappears cleanly when there is nothing to show */
+        if (!items.length) { section.hidden = true; list.innerHTML = ''; return; }
+        section.hidden = false;
+
+        list.innerHTML = items.map(function(s){
+          return '' +
+          '<li>' +
+            '<a href="' + s.microsite + '" target="_blank" rel="noopener noreferrer" ' +
+               'class="group h-full flex flex-col rounded-2xl bg-white border border-ink-200 p-5 shadow-card ' +
+               'hover:border-accent-400 hover:shadow-lift focus-visible:border-accent-600 transition">' +
+              /* Fixed-height logo well keeps every card on the same scan line, however */
+              /* many partners a month has and whatever proportions their artwork is */
+              '<span class="h-12 flex items-center justify-start gap-3.5">' + logoWell(s.partners) + '</span>' +
+              '<span class="mt-5 inline-flex self-start items-center rounded-full bg-accent-50 text-accent-800 ' +
+                    'text-[12px] font-semibold uppercase tracking-[.09em] px-2.5 py-1">' + s.month + '</span>' +
+              '<h3 class="mt-2.5 text-[18px] font-semibold leading-snug text-ink-900 group-hover:text-accent-800">' +
+                s.name + '</h3>' +
+              '<p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">' + s.blurb + '</p>' +
+              '<span class="mt-auto pt-4 flex items-center gap-1.5 text-[15px] font-semibold text-accent-700">' +
+                'Visit microsite' +
+                '<svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" viewBox="0 0 24 24" ' +
+                     'fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+                  '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/>' +
+                '</svg>' +
+                '<span class="sr-only">(opens in a new tab)</span>' +
+              '</span>' +
+            '</a>' +
+          '</li>';
+        }).join('');
+
+        fetchPartnerLogos().then(function(idx){
+          if (!idx) return;   /* leave the name plates — never fabricate a logo */
+          Array.prototype.forEach.call(list.querySelectorAll('[data-logo]'), function(slot){
+            var logo = idx[slot.getAttribute('data-logo')];
+            if (!logo || !logo.url) return;
+            var img = document.createElement('img');
+            img.src = logo.url;
+            /* Intrinsic dimensions from the API give the browser an aspect ratio
+               up front, so swapping the name plate for artwork costs no layout shift */
+            if (logo.width)  img.width  = logo.width;
+            if (logo.height) img.height = logo.height;
+            img.loading = 'lazy';
+            img.decoding = 'async';
+            img.alt = logo.alt || slot.querySelector('[data-logo-fallback]').textContent.trim();
+            img.className = slot.getAttribute('data-cap') + ' w-auto h-auto object-contain object-left';
+            img.onload = function(){ slot.textContent = ''; slot.appendChild(img); };
+          });
+        });
       }
 
       function post(){ parent.postMessage({ h: document.documentElement.scrollHeight }, '*'); }
@@ -755,7 +878,28 @@
       </ul>
     </section>
 
-    <!-- ============ 3. TRUST BAR — funding disclosure + partners + editorial policy ============ -->
+    <!-- ============ SPOTLIGHT SERIES — reusable across partner microsites.
+         Sits directly after the clinical-trials entry point with a tight top gap.
+         Entirely data-driven: no per-partner markup, no hardcoded logo URLs, and the
+         whole section removes itself when a community has no series. Container is
+         deliberately neutral (stone/white/ink) so it carries no community or partner
+         branding — the accent token only tints the month chip and hover state. ============ -->
+    <section id="spotlight" hidden data-spotlight
+             class="relative bg-ink-50 border-y border-ink-200" aria-labelledby="spot-h">
+      <span class="spec" style="top:12px;right:10px">Logos via GET /api/session-editor/partners/logos · neutral container, reusable per partner</span>
+      <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 pt-9 pb-11 lg:pt-11 lg:pb-14">
+        <p class="text-[12.5px] font-semibold uppercase tracking-[.14em] text-ink-500">Previous spotlight series</p>
+        <h2 id="spot-h" data-t="spotlightH2"
+            class="mt-2 font-display text-[24px] sm:text-[28px] lg:text-[32px] font-semibold tracking-[-.015em] text-ink-900 max-w-3xl">
+          Learn more about our Amyloidosis Program Spotlight Series</h2>
+        <p class="mt-2.5 text-[15.5px] leading-relaxed text-ink-600 max-w-xl">
+          Visit a featured microsite to meet the programme, explore its sessions, and access its resources.</p>
+
+        <ul class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-spotlight-list></ul>
+      </div>
+    </section>
+
+    <!-- ============ 4. TRUST BAR — funding disclosure + partners + editorial policy ============ -->
     <section class="relative bg-ink-50 border-y border-ink-200" aria-labelledby="trust-h">
       <span class="spec" style="top:10px;right:10px">Sponsorship transparency · required on every indication</span>
       <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
