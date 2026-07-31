@@ -121,7 +121,7 @@
        ===================================================================== */
     var TENANTS = {
       amyloidosis: {
-        name:'Amyloidosis', nameLower:'amyloidosis',
+        name:'Amyloidosis', nameLower:'amyloidosis', shortName:'Amyloidosis',
         subtypes:'ATTR and AL amyloidosis', specialists:'amyloidosis specialists',
         trials:'42', articles:'186', centres:'26',
         heroAlt:'A woman in her sixties talking with her adult daughter in a bright kitchen',
@@ -153,7 +153,7 @@
         ]
       },
       scd: {
-        name:'Sickle Cell Disease', nameLower:'sickle cell disease',
+        name:'Sickle Cell Disease', nameLower:'sickle cell disease', shortName:'Sickle Cell',
         subtypes:'HbSS, HbSC and sickle beta thalassaemia', specialists:'haematology specialists',
         trials:'58', articles:'204', centres:'41',
         heroAlt:'A young man laughing with his mother on a sofa at home',
@@ -185,7 +185,7 @@
         ]
       },
       ph: {
-        name:'Pulmonary Hypertension', nameLower:'pulmonary hypertension',
+        name:'Pulmonary Hypertension', nameLower:'pulmonary hypertension', shortName:'Pulmonary Hypertension',
         subtypes:'PAH and CTEPH', specialists:'PH specialists',
         trials:'31', articles:'142', centres:'19',
         heroAlt:'A woman resting on a park bench with her partner after a short walk',
@@ -217,7 +217,7 @@
         ]
       },
       mg: {
-        name:'Myasthenia Gravis', nameLower:'myasthenia gravis',
+        name:'Myasthenia Gravis', nameLower:'myasthenia gravis', shortName:'Myasthenia Gravis',
         subtypes:'AChR- and MuSK-antibody myasthenia', specialists:'neuromuscular specialists',
         trials:'24', articles:'118', centres:'22',
         heroAlt:'A man reading with his young son at the end of the afternoon',
@@ -258,6 +258,9 @@
       cardExpert:function(t){ return t.centres + ' specialist centres and clinicians, searchable by country.'; },
       trust:     function(t){ return 'oneVoice ' + t.name + ' is supported by an independent medical education grant from '; },
       fl0:       function(t){ return 'What is ' + t.nameLower + '?'; },
+      /* Chrome label: shortName when config supplies one, else the full name */
+      lockup:    function(t){ return t.shortName || t.name; },
+      lockupAria:function(t){ return 'oneVoice ' + t.name + ', home'; },
       newsH2:    function(t){ return 'Latest ' + t.nameLower + ' news'; },
       sessionsH2:function(t){ return 'Upcoming ' + t.nameLower + ' sessions'; },
       newsIntro: function(t){ return 'Research, access and community updates, dated and clinician-checked.'; },
@@ -364,7 +367,7 @@
   </script>
 </head>
 <body>
-<div class="antialiased text-ink-800 bg-white pb-16 md:pb-0">
+<div class="antialiased text-ink-800 bg-white pb-16 lg:pb-0">
 
   <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-3 focus:left-3
      focus:bg-ink-900 focus:text-white focus:px-4 focus:py-3 focus:rounded-lg focus:text-[15px] focus:font-medium">
@@ -390,32 +393,38 @@
       <div class="h-16 lg:h-20 flex items-center gap-3 lg:gap-8">
 
         <!-- Logo lockup: fixed oneVoice mark + swappable indication mark -->
-        <a href="#" class="flex items-center gap-2.5 min-w-0 py-2 -my-2" aria-label="oneVoice Amyloidosis, home">
+        <a href="#" class="flex items-center gap-2.5 min-w-0 py-2 -my-2" data-t-alt="lockupAria" aria-label="oneVoice Amyloidosis, home">
           <span class="relative inline-flex items-center justify-center w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-accent-600 shrink-0">
             <svg class="w-5 h-5 lg:w-[22px] lg:h-[22px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true">
               <path d="M4 12v-1"/><path d="M8 15V9"/><path d="M12 18V6"/><path d="M16 15V9"/><path d="M20 12v-1"/>
             </svg>
           </span>
+          <!-- shortName keeps the chrome tidy for long conditions; `name` stays full for H1/breadcrumb.
+               max-w + truncate is the backstop for names longer than any config anticipates. -->
           <span class="min-w-0 leading-none">
             <span class="block font-display text-[19px] lg:text-[21px] font-semibold tracking-[-.015em] text-ink-900">oneVoice</span>
-            <span class="block text-[11.5px] lg:text-xs font-medium uppercase tracking-[.11em] text-accent-700 truncate" data-t="name">Amyloidosis</span>
+            <span class="block text-[11.5px] lg:text-xs font-medium uppercase tracking-[.11em] text-accent-700
+                         whitespace-nowrap truncate max-w-[13rem] sm:max-w-none lg:max-w-[13rem] xl:max-w-[17rem]"
+                  data-t="lockup">Amyloidosis</span>
           </span>
         </a>
 
-        <nav class="hidden md:flex items-center gap-1 lg:gap-2 ml-auto" aria-label="Main">
-          <a href="#" class="px-3 py-2.5 rounded-lg text-[15px] font-medium text-accent-800 bg-accent-50">Clinical trials</a>
-          <a href="#" class="px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Learn</a>
-          <a href="#" class="px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Community</a>
-          <a href="#" class="px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Find an expert</a>
-          <a href="#" class="px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">About</a>
+        <!-- Horizontal nav starts at lg. Below that the hamburger + bottom tab bar carry navigation:
+             5 items plus a long condition name will not fit at 834px for every indication. -->
+        <nav class="hidden lg:flex items-center gap-1 xl:gap-2 ml-auto" aria-label="Main">
+          <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-accent-800 bg-accent-50">Clinical trials</a>
+          <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Learn</a>
+          <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Community</a>
+          <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Find an expert</a>
+          <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">About</a>
         </nav>
 
-        <div class="flex items-center gap-1.5 ml-auto md:ml-0">
+        <div class="flex items-center gap-1.5 ml-auto lg:ml-0 shrink-0">
           <button class="w-11 h-11 grid place-items-center rounded-full text-ink-600 hover:bg-ink-100" aria-label="Search">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           </button>
-          <a href="#" class="hidden lg:inline-flex items-center h-11 px-4 rounded-full bg-ink-900 text-white text-[15px] font-semibold hover:bg-ink-800">Get updates</a>
-          <button class="md:hidden w-11 h-11 grid place-items-center rounded-full text-ink-700 hover:bg-ink-100" aria-label="Open menu" aria-expanded="false">
+          <a href="#" class="hidden xl:inline-flex items-center h-11 px-4 rounded-full bg-ink-900 text-white text-[15px] font-semibold whitespace-nowrap hover:bg-ink-800">Get updates</a>
+          <button class="lg:hidden w-11 h-11 grid place-items-center rounded-full text-ink-700 hover:bg-ink-100" aria-label="Open menu" aria-expanded="false">
             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
           </button>
         </div>
@@ -988,8 +997,8 @@
     </div>
   </footer>
 
-  <!-- ============ MOBILE THUMB NAV — fixed, 44px+ targets, md:hidden ============ -->
-  <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/97 backdrop-blur border-t border-ink-200
+  <!-- ============ THUMB NAV — fixed, 44px+ targets, covers mobile AND tablet (below lg) ============ -->
+  <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/97 backdrop-blur border-t border-ink-200
               pb-[env(safe-area-inset-bottom)]" aria-label="Quick navigation">
     <ul class="grid grid-cols-5">
       <li><a href="#" aria-current="page" class="flex flex-col items-center justify-center gap-1 h-[58px] text-accent-700">
