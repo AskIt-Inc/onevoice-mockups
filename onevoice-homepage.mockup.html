@@ -455,8 +455,10 @@
         if (!host) return;
         var tids = t.partnerTids || [];
         host.innerHTML = tids.map(function(p){
-          return '<li class="h-16 rounded-xl bg-white border border-ink-200 flex items-center justify-center px-3" ' +
-                     'data-logo="' + p.tid + '" data-cap="max-h-9 max-w-[128px]">' +
+          /* Partner wordmarks run up to 1462px wide; too small a cap turns them into
+             illegible smudges, so give the tile real height and the logo most of it. */
+          return '<li class="h-20 rounded-xl bg-white border border-ink-200 flex items-center justify-center px-4" ' +
+                     'data-logo="' + p.tid + '" data-cap="max-h-12 max-w-[150px]">' +
                    '<span class="text-[12px] font-semibold tracking-wide text-ink-400 text-center" data-logo-fallback>' +
                      p.name + '</span>' +
                  '</li>';
