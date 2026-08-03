@@ -51,17 +51,13 @@
   </script>
   <style>
     /* ---------- TOKENS: neutral base is fixed, accent swaps per tenant ---------- */
-    :root, html[data-tenant="amyloidosis"]{
-      --nv-accent-50:240 249 248;  --nv-accent-100:214 239 237; --nv-accent-200:173 223 220;
-      --nv-accent-300:123 199 196; --nv-accent-400:71 168 166;  --nv-accent-500:38 140 139;
-      --nv-accent-600:20 112 113;  --nv-accent-700:15 88 92;    --nv-accent-800:14 70 74;
-      --nv-accent-900:12 58 62;
-    }
-    html[data-tenant="scd"]{
-      --nv-accent-50:254 242 243;  --nv-accent-100:253 227 229; --nv-accent-200:250 203 207;
-      --nv-accent-300:243 162 169; --nv-accent-400:231 110 121; --nv-accent-500:212 68 79;
-      --nv-accent-600:178 40 54;   --nv-accent-700:147 31 46;   --nv-accent-800:122 29 42;
-      --nv-accent-900:104 28 39;
+    /* Launch pair keeps the established brand maroon #7C1419 (accent-700) so existing
+       equity carries over. Communities 3+ get their own hue, proving the token swap. */
+    :root, html[data-tenant="amyloidosis"], html[data-tenant="scd"]{
+      --nv-accent-50:251 242 242;  --nv-accent-100:247 227 227; --nv-accent-200:239 199 200;
+      --nv-accent-300:224 159 161; --nv-accent-400:200 111 114; --nv-accent-500:169 66 71;
+      --nv-accent-600:142 36 41;   --nv-accent-700:124 20 25;   --nv-accent-800:102 20 24;
+      --nv-accent-900:85 19 23;
     }
     html[data-tenant="ph"]{
       --nv-accent-50:243 244 254;  --nv-accent-100:230 232 253; --nv-accent-200:203 207 250;
@@ -106,8 +102,8 @@
     @media (min-width:768px){ #dt-control{bottom:14px} }
     #dt-control button{width:20px;height:20px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
     #dt-control button[aria-current="true"]{border-color:#fff}
-    #dt-control button[data-go="amyloidosis"]{background:#147071}
-    #dt-control button[data-go="scd"]{background:#B22836}
+    #dt-control button[data-go="amyloidosis"]{background:#7C1419}
+    #dt-control button[data-go="scd"]{background:#7C1419}
     #dt-control button[data-go="ph"]{background:#4A4EBB}
     #dt-control button[data-go="mg"]{background:#9E6714}
     #dt-control label{display:flex;align-items:center;gap:5px;color:#EEEAE4;font-size:11px;
@@ -142,7 +138,11 @@
         r1:'Dr A. Okafor, MD', r2:'Dr L. Haugen, PhD',
         quote:'“It took four years and six doctors to get my diagnosis. I want the next person to find it in four weeks.”',
         quoteBy:'Marta R.', quoteMeta:'— living with ATTR-CM, Valencia', firstName:'Marta',
-        partners:['PFIZER','AMYLOIDOSIS UK','ISA','EURORDIS'],
+        /* Real taxonomy terms from the STTT partner API */
+        partnerTids:[{tid:11,    name:'Pfizer'},
+                     {tid:12740, name:'Amyloidosis Foundation'},
+                     {tid:12353, name:'Amyloidosis Support Groups'},
+                     {tid:12352, name:'Amyloidosis Army'}],
         hcp:'Filter 42 open studies by phase and site, download the 2026 diagnostic pathway, or refer a patient to a specialist centre.',
         /* Spotlight Series — partner programmes featured month by month.
            Newest first. `partners` are keys resolved against the STTT logo API,
@@ -189,7 +189,9 @@
         r1:'Dr N. Mensah, MD', r2:'Dr P. Iyer, PhD',
         quote:'“For eleven years I was told my pain was exaggerated. Now I bring a written care plan to every visit.”',
         quoteBy:'Daniel A.', quoteMeta:'— living with HbSS, Birmingham', firstName:'Daniel',
-        partners:['PFIZER','SICKLE CELL SOCIETY','ASH','EURORDIS'],
+        /* The API holds no SCD-specific advocacy partners yet — the grid takes any count */
+        partnerTids:[{tid:11,    name:'Pfizer'},
+                     {tid:13459, name:'Somebody To Talk To'}],
         hcp:'Filter 58 open studies by phase and site, download the 2026 acute pain pathway, or refer a patient to a specialist centre.',
         news:[
           {k:'Treatment', d:'2026-07-29', dl:'29 Jul 2026', t:'Gene therapy approved for severe sickle cell disease in under-18s'},
@@ -221,7 +223,7 @@
         r1:'Dr M. Duarte, MD', r2:'Dr S. Volkov, PhD',
         quote:'“Two years of being told it was asthma. One test changed everything about my care.”',
         quoteBy:'Aisha K.', quoteMeta:'— living with PAH, Manchester', firstName:'Aisha',
-        partners:['PFIZER','PHA UK','ERS','EURORDIS'],
+        partnerTids:[{tid:11, name:'Pfizer'}],
         hcp:'Filter 31 open studies by phase and site, download the 2026 diagnostic algorithm, or refer a patient to a specialist centre.',
         news:[
           {k:'Research',  d:'2026-07-27', dl:'27 Jul 2026', t:'Triple therapy improves six-minute walk distance in PAH'},
@@ -253,7 +255,7 @@
         r1:'Dr R. Adeyemi, MD', r2:'Dr K. Larsen, PhD',
         quote:'“My eyelid drooped for a year before anyone joined the dots. I want that year back for someone else.”',
         quoteBy:'Tomas L.', quoteMeta:'— living with generalised MG, Kraków', firstName:'Tomas',
-        partners:['PFIZER','MYAWARE','EAN','EURORDIS'],
+        partnerTids:[{tid:11, name:'Pfizer'}],
         hcp:'Filter 24 open studies by phase and site, download the 2026 treatment pathway, or refer a patient to a specialist centre.',
         news:[
           {k:'Treatment', d:'2026-07-30', dl:'30 Jul 2026', t:'Second FcRn blocker recommended for generalised myasthenia gravis'},
@@ -284,6 +286,13 @@
       sessionsH2:function(t){ return 'Upcoming ' + t.nameLower + ' sessions'; },
       newsIntro: function(t){ return 'Research, access and community updates, dated and clinician-checked.'; },
       spotlightH2:function(t){ return 'Learn more about our ' + t.name + ' Program Spotlight Series'; },
+      /* While the imagery is stock, alt text and captions must describe the actual
+         photograph rather than a named patient — the models are not those people.
+         Delete these three once commissioned photography lands and the per-tenant
+         heroAlt / videoAlt / heroCaption values take over again. */
+      heroAlt:    function(t){ return 'A patient discussing her test results with her consultant'; },
+      videoAlt:   function(t){ return 'A patient talking with her care team during an appointment'; },
+      heroCaption:function(t){ return 'Appointments go better with your questions written down first.'; },
       watch:     function(t){ return 'Watch ' + t.firstName + '’s story'; },
       videoAlt:  function(t){ return t.firstName + ' speaking to camera about their diagnosis'; }
     };
@@ -292,7 +301,6 @@
       var ORDER = ['amyloidosis','scd','ph','mg'];
 
       function value(t, key){
-        if (key.indexOf('partner') === 0) return t.partners[+key.slice(7)];
         if (key.indexOf('pop') === 0)     return t.pop[+key.slice(3)];
         if (DERIVED[key])                 return DERIVED[key](t);
         if (key.indexOf('.') > -1) {      /* e.g. news.0.t, sessions.2.mm */
@@ -312,7 +320,9 @@
         });
         Array.prototype.forEach.call(document.querySelectorAll('[data-t-alt]'), function(el){
           var v = value(t, el.getAttribute('data-t-alt'));
-          if (v != null) el.setAttribute('aria-label', v);
+          if (v == null) return;
+          /* Images take alt; everything else takes aria-label */
+          if (el.tagName === 'IMG') el.alt = v; else el.setAttribute('aria-label', v);
         });
         /* Machine-readable dates stay in sync with the visible label */
         Array.prototype.forEach.call(document.querySelectorAll('[data-t-dt]'), function(el){
@@ -321,6 +331,17 @@
         });
 
         renderSpotlight(t);
+        renderTrustPartners(t);
+        resolveLogos(document);   /* picks up standalone slots, e.g. the footer parent brand */
+
+        /* Same chip list inside the menu sheet */
+        var menuOthers = document.querySelector('[data-menu-others]');
+        if (menuOthers) {
+          menuOthers.innerHTML = ORDER.filter(function(s){ return s !== slug; }).map(function(s){
+            return '<li><a href="#" data-menu-link class="inline-flex items-center min-h-[38px] px-3 rounded-full ' +
+                   'bg-ink-50 border border-ink-200 text-[14px] text-ink-700">' + TENANTS[s].name + '</a></li>';
+          }).join('');
+        }
 
         /* Cross-tenant internal links: every other community in the network */
         var host = document.querySelector('[data-others]');
@@ -423,9 +444,30 @@
           '</li>';
         }).join('');
 
+        resolveLogos(list);
+      }
+
+      /* Trust bar — funder and advocacy partners, same endpoint as the Spotlight Series.
+         Name plate first, real artwork swapped in when the API answers. */
+      function renderTrustPartners(t){
+        var host = document.querySelector('[data-trust-partners]');
+        if (!host) return;
+        var tids = t.partnerTids || [];
+        host.innerHTML = tids.map(function(p){
+          return '<li class="h-16 rounded-xl bg-white border border-ink-200 flex items-center justify-center px-3" ' +
+                     'data-logo="' + p.tid + '" data-cap="max-h-9 max-w-[128px]">' +
+                   '<span class="text-[12px] font-semibold tracking-wide text-ink-400 text-center" data-logo-fallback>' +
+                     p.name + '</span>' +
+                 '</li>';
+        }).join('');
+        resolveLogos(host);
+      }
+
+      /* Shared logo resolver: any container holding [data-logo] slots */
+      function resolveLogos(scope){
         fetchPartnerLogos().then(function(idx){
           if (!idx) return;   /* leave the name plates — never fabricate a logo */
-          Array.prototype.forEach.call(list.querySelectorAll('[data-logo]'), function(slot){
+          Array.prototype.forEach.call(scope.querySelectorAll('[data-logo]'), function(slot){
             var logo = idx[slot.getAttribute('data-logo')];
             if (!logo || !logo.url) return;
             var img = document.createElement('img');
@@ -437,9 +479,68 @@
             img.loading = 'lazy';
             img.decoding = 'async';
             img.alt = logo.alt || slot.querySelector('[data-logo-fallback]').textContent.trim();
-            img.className = slot.getAttribute('data-cap') + ' w-auto h-auto object-contain object-left';
+            img.className = slot.getAttribute('data-cap') + ' w-auto h-auto object-contain';
             img.onload = function(){ slot.textContent = ''; slot.appendChild(img); };
           });
+        });
+      }
+
+      /* ---------------- Menu sheet ---------------- */
+      function initMenu(){
+        var sheet = document.querySelector('[data-menu-sheet]');
+        if (!sheet || sheet.dataset.ready) return;
+        sheet.dataset.ready = '1';
+        var panel = sheet.querySelector('[data-menu-panel]');
+        var backdrop = sheet.querySelector('[data-menu-backdrop]');
+        var lastFocus = null;
+
+        function focusables(){
+          return Array.prototype.filter.call(
+            panel.querySelectorAll('a[href], button, input, [tabindex]:not([tabindex="-1"])'),
+            function(el){ return el.offsetParent !== null; });
+        }
+        function setExpanded(v){
+          Array.prototype.forEach.call(document.querySelectorAll('[data-menu-open]'), function(b){
+            b.setAttribute('aria-expanded', String(v));
+          });
+        }
+        function open(trigger){
+          lastFocus = trigger || document.activeElement;
+          sheet.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+          requestAnimationFrame(function(){
+            backdrop.classList.replace('opacity-0','opacity-100');
+            panel.classList.remove('translate-x-full');
+          });
+          setExpanded(true);
+          var f = focusables(); if (f.length) f[0].focus();
+        }
+        function close(){
+          backdrop.classList.replace('opacity-100','opacity-0');
+          panel.classList.add('translate-x-full');
+          document.body.style.overflow = '';
+          setExpanded(false);
+          setTimeout(function(){ sheet.classList.add('hidden'); }, 200);
+          if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }
+
+        Array.prototype.forEach.call(document.querySelectorAll('[data-menu-open]'), function(b){
+          b.addEventListener('click', function(){ open(b); });
+        });
+        sheet.querySelector('[data-menu-close]').addEventListener('click', close);
+        backdrop.addEventListener('click', close);
+        Array.prototype.forEach.call(panel.querySelectorAll('[data-menu-link]'), function(a){
+          a.addEventListener('click', close);
+        });
+        document.addEventListener('keydown', function(e){
+          if (sheet.classList.contains('hidden')) return;
+          if (e.key === 'Escape') { close(); return; }
+          if (e.key !== 'Tab') return;
+          /* Keep focus inside the sheet while it is modal */
+          var f = focusables(); if (!f.length) return;
+          var first = f[0], last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
         });
       }
 
@@ -485,9 +586,9 @@
       }
 
       apply(startTenant);
-      document.addEventListener('DOMContentLoaded', function(){ apply(startTenant); buildControl(); post(); });
+      document.addEventListener('DOMContentLoaded', function(){ apply(startTenant); buildControl(); initMenu(); post(); });
       window.addEventListener('load', function(){
-        buildControl();
+        buildControl(); initMenu();
         post(); setTimeout(post, 250); setTimeout(post, 900); setTimeout(post, 2000);
         if (window.ResizeObserver) new ResizeObserver(post).observe(document.documentElement);
       });
@@ -563,7 +664,8 @@
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           </button>
           <a href="#" class="hidden xl:inline-flex items-center h-11 px-4 rounded-full bg-ink-900 text-white text-[15px] font-semibold whitespace-nowrap hover:bg-ink-800">Get updates</a>
-          <button class="lg:hidden w-11 h-11 grid place-items-center rounded-full text-ink-700 hover:bg-ink-100" aria-label="Open menu" aria-expanded="false">
+          <button class="lg:hidden w-11 h-11 grid place-items-center rounded-full text-ink-700 hover:bg-ink-100"
+                  aria-label="Open menu" aria-expanded="false" aria-controls="menu-sheet" data-menu-open>
             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
           </button>
         </div>
@@ -658,29 +760,13 @@
             <!-- Ratio box + filling media = next/image `fill`.
                  Art direction: portrait on mobile, landscape on tablet, portrait again beside desktop copy. -->
             <div class="relative w-full aspect-[4/5] sm:aspect-[16/9] lg:aspect-[4/5] overflow-hidden rounded-3xl shadow-lift bg-accent-100">
-            <svg viewBox="0 0 480 560" preserveAspectRatio="xMidYMid slice" role="img" data-t-alt="heroAlt"
-                 class="absolute inset-0 w-full h-full"
-                 aria-label="A woman in her sixties talking with her adult daughter in a bright kitchen">
-              <defs>
-                <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="rgb(var(--nv-accent-200))"/>
-                  <stop offset="1" stop-color="rgb(var(--nv-accent-500))"/>
-                </linearGradient>
-              </defs>
-              <g>
-                <rect width="480" height="560" fill="url(#hg)"/>
-                <circle cx="366" cy="118" r="132" fill="rgb(var(--nv-accent-100))" opacity=".55"/>
-                <path d="M0 424c96-58 150 14 232-26s142-104 248-52v214H0z" fill="rgb(var(--nv-accent-700))" opacity=".35"/>
-                <circle cx="188" cy="256" r="58" fill="#fff" opacity=".92"/>
-                <path d="M96 470c0-52 42-94 92-94s92 42 92 94z" fill="#fff" opacity=".92"/>
-                <circle cx="316" cy="290" r="44" fill="#fff" opacity=".7"/>
-                <path d="M248 470c0-40 30-72 68-72s68 32 68 72z" fill="#fff" opacity=".7"/>
-              </g>
-            </svg>
+              <img src="assets/hero.jpg" width="960" height="720" fetchpriority="high" decoding="async"
+                   data-t-alt="heroAlt" alt="A woman in her sixties discussing her results with her consultant"
+                   class="absolute inset-0 w-full h-full object-cover">
             </div>
             <figcaption class="mt-3 text-[13px] text-ink-500">
-              <span data-t="heroCaption">Marta, living with ATTR-CM since 2019, and her daughter Elena.</span>
-              <a href="#" class="text-accent-700 font-medium underline underline-offset-2 hover:text-accent-800">Read their story</a>
+              <span data-t="heroCaption">Appointments go better with your questions written down first.</span>
+              <a href="#" class="text-accent-700 font-medium underline underline-offset-2 hover:text-accent-800">How to prepare</a>
             </figcaption>
           </figure>
         </div>
@@ -916,12 +1002,8 @@
               <a href="#" class="text-accent-700 font-medium underline underline-offset-2 hover:text-accent-800">Read our editorial policy</a>
             </p>
           </div>
-          <ul class="mt-6 lg:mt-0 grid grid-cols-2 sm:grid-cols-4 gap-3 flex-1">
-            <li class="h-16 rounded-xl bg-white border border-ink-200 grid place-items-center px-3 text-center text-[13px] font-semibold tracking-wide text-ink-400" data-t="partner0">PFIZER</li>
-            <li class="h-16 rounded-xl bg-white border border-ink-200 grid place-items-center px-3 text-center text-[13px] font-semibold tracking-wide text-ink-400" data-t="partner1">AMYLOIDOSIS UK</li>
-            <li class="h-16 rounded-xl bg-white border border-ink-200 grid place-items-center px-3 text-center text-[13px] font-semibold tracking-wide text-ink-400" data-t="partner2">ISA</li>
-            <li class="h-16 rounded-xl bg-white border border-ink-200 grid place-items-center px-3 text-center text-[13px] font-semibold tracking-wide text-ink-400" data-t="partner3">EURORDIS</li>
-          </ul>
+          <!-- Real partner artwork, same endpoint and fetch layer as the Spotlight Series -->
+          <ul class="mt-6 lg:mt-0 grid grid-cols-2 sm:grid-cols-4 gap-3 flex-1" data-trust-partners></ul>
         </div>
       </div>
     </section>
@@ -942,13 +1024,10 @@
 
       <ul class="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <li class="group flex flex-col">
-          <a href="#" class="block overflow-hidden rounded-2xl">
-            <svg viewBox="0 0 400 225" class="w-full h-auto group-hover:scale-[1.02] transition duration-300" role="img" aria-label="A cardiologist reviewing an echocardiogram">
-              <rect width="400" height="225" fill="rgb(var(--nv-accent-100))"/>
-              <circle cx="318" cy="52" r="70" fill="rgb(var(--nv-accent-200))"/>
-              <path d="M0 168c70-34 118 12 186-12s126-40 214 4v65H0z" fill="rgb(var(--nv-accent-400))" opacity=".55"/>
-              <circle cx="150" cy="104" r="34" fill="#fff" opacity=".9"/>
-            </svg>
+          <a href="#" class="block overflow-hidden rounded-2xl aspect-[16/9] bg-ink-100">
+            <img src="assets/article-1.jpg" width="800" height="450" loading="lazy" decoding="async"
+                 alt="A patient discussing her test results with her consultant"
+                 class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300">
           </a>
           <div class="mt-3.5 flex items-center gap-2 text-[12.5px] font-medium">
             <a href="#" class="px-2.5 py-1 rounded-full bg-accent-50 text-accent-800 hover:bg-accent-100" data-t="a1tag">Diagnosis</a>
@@ -965,13 +1044,10 @@
         </li>
 
         <li class="group flex flex-col">
-          <a href="#" class="block overflow-hidden rounded-2xl">
-            <svg viewBox="0 0 400 225" class="w-full h-auto group-hover:scale-[1.02] transition duration-300" role="img" aria-label="A patient preparing a weekly medication organiser">
-              <rect width="400" height="225" fill="rgb(var(--nv-accent-50))"/>
-              <path d="M0 0h400v225H0z" fill="rgb(var(--nv-accent-200))" opacity=".5"/>
-              <circle cx="90" cy="70" r="46" fill="#fff" opacity=".85"/>
-              <path d="M200 190c0-46 34-82 76-82s76 36 76 82z" fill="rgb(var(--nv-accent-500))" opacity=".6"/>
-            </svg>
+          <a href="#" class="block overflow-hidden rounded-2xl aspect-[16/9] bg-ink-100">
+            <img src="assets/article-2.jpg" width="800" height="450" loading="lazy" decoding="async"
+                 alt="A weekly medication organiser laid out on a table"
+                 class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300">
           </a>
           <div class="mt-3.5 flex items-center gap-2 text-[12.5px] font-medium">
             <a href="#" class="px-2.5 py-1 rounded-full bg-accent-50 text-accent-800 hover:bg-accent-100" data-t="a2tag">Treatment</a>
@@ -1016,13 +1092,9 @@
         <h2 id="voices-h" class="font-display text-[26px] sm:text-3xl lg:text-4xl font-semibold tracking-[-.015em] text-ink-900">In their words</h2>
         <div class="mt-7 lg:grid lg:grid-cols-5 lg:gap-8 lg:items-center">
           <a href="#" class="group relative block lg:col-span-3 overflow-hidden rounded-3xl shadow-card">
-            <svg viewBox="0 0 640 360" class="w-full h-auto" role="img" data-t-alt="videoAlt" aria-label="Marta sitting in her garden, speaking to camera">
-              <rect width="640" height="360" fill="rgb(var(--nv-accent-300))"/>
-              <circle cx="520" cy="80" r="110" fill="rgb(var(--nv-accent-200))" opacity=".7"/>
-              <path d="M0 250c110-56 190 20 300-16s200-64 340 10v116H0z" fill="rgb(var(--nv-accent-700))" opacity=".45"/>
-              <circle cx="250" cy="160" r="60" fill="#fff" opacity=".9"/>
-              <path d="M154 320c0-54 44-96 96-96s96 42 96 96z" fill="#fff" opacity=".9"/>
-            </svg>
+            <img src="assets/story.jpg" width="960" height="540" loading="lazy" decoding="async"
+                 data-t-alt="videoAlt" alt="A patient talking with her care team"
+                 class="w-full h-auto aspect-video object-cover bg-ink-100">
             <span class="absolute inset-0 grid place-items-center">
               <span class="w-16 h-16 lg:w-20 lg:h-20 grid place-items-center rounded-full bg-white/95 shadow-lift group-hover:scale-105 transition">
                 <svg class="w-7 h-7 lg:w-8 lg:h-8 text-accent-700 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m7 4 13 8-13 8z"/></svg>
@@ -1036,6 +1108,8 @@
             </blockquote>
             <p class="mt-4 text-[15px] text-ink-600"><span class="font-semibold text-ink-800" data-t="quoteBy">Marta R.</span>
               <span data-t="quoteMeta">— living with ATTR-CM, Valencia</span></p>
+            <!-- Standard practice while imagery is stock; drop it when real members are photographed -->
+            <p class="mt-1.5 text-[12.5px] text-ink-400">Illustrative photography. Name changed at their request.</p>
             <div class="mt-6 flex flex-wrap gap-2.5">
               <a href="#" class="inline-flex items-center min-h-[44px] px-5 rounded-full bg-ink-900 text-white text-[15px] font-semibold hover:bg-ink-800" data-t="watch">Watch Marta’s story</a>
               <a href="#" class="inline-flex items-center min-h-[44px] px-5 rounded-full border border-ink-300 text-ink-800 text-[15px] font-semibold hover:bg-white">Share yours</a>
@@ -1149,11 +1223,13 @@
             </span>
           </div>
           <!-- Parent brand: the network these communities belong to -->
-          <p class="flex items-center gap-2 text-[13px] text-ink-500 border-l border-ink-200 pl-5">
+          <p class="flex items-center gap-2.5 text-[13px] text-ink-500 border-l border-ink-200 pl-5">
             Part of
-            <a href="#" class="inline-flex items-center gap-1.5 font-semibold text-ink-700 hover:text-accent-700">
-              <svg class="w-4 h-4 text-accent-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-              Somebody To Talk To
+            <a href="#" class="inline-flex items-center" aria-label="Somebody To Talk To">
+              <!-- Parent-brand artwork from the same partner API (tid 13459) -->
+              <span class="flex items-center" data-logo="13459" data-cap="max-h-7 max-w-[148px]">
+                <span class="text-[13px] font-semibold text-ink-700" data-logo-fallback>Somebody To Talk To</span>
+              </span>
             </a>
           </p>
         </div>
@@ -1166,6 +1242,71 @@
       </div>
     </div>
   </footer>
+
+  <!-- ============ MENU SHEET — covers mobile and tablet, i.e. everything below lg.
+       Slides from the right, traps focus, closes on Esc / backdrop / link. ============ -->
+  <div id="menu-sheet" class="lg:hidden fixed inset-0 z-50 hidden" role="dialog" aria-modal="true"
+       aria-label="Menu" data-menu-sheet>
+    <div class="absolute inset-0 bg-ink-900/50 opacity-0 transition-opacity duration-200"
+         data-menu-backdrop></div>
+
+    <div class="absolute inset-y-0 right-0 w-[min(23rem,88vw)] bg-white shadow-lift flex flex-col
+                translate-x-full transition-transform duration-200 ease-out" data-menu-panel>
+
+      <div class="flex items-center justify-between gap-3 px-5 h-16 border-b border-ink-200 shrink-0">
+        <span class="font-wordmark text-[17px] leading-none text-ink-800">
+          <span class="font-light">one</span><span class="font-semibold text-accent-700" data-t="wordmark">AMYLOIDOSIS</span><span class="font-light">voice</span>
+        </span>
+        <button class="w-11 h-11 -mr-2 grid place-items-center rounded-full text-ink-700 hover:bg-ink-100"
+                aria-label="Close menu" data-menu-close>
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto overscroll-contain px-5 py-5">
+        <form class="relative" role="search" onsubmit="return false">
+          <label for="menu-search" class="sr-only">Search this community</label>
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="menu-search" type="search" placeholder="Search trials, articles, experts"
+                 class="w-full min-h-[48px] pl-11 pr-4 rounded-full bg-ink-50 border border-ink-200
+                        text-[16px] text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
+        </form>
+
+        <nav class="mt-5" aria-label="Menu">
+          <ul class="divide-y divide-ink-100 border-y border-ink-100">
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-accent-800" data-menu-link>
+              Clinical trials
+              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
+              Learn
+              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
+              Community
+              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
+              Find an expert
+              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
+              About
+              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+          </ul>
+        </nav>
+
+        <a href="#" class="mt-5 flex items-center justify-center min-h-[50px] px-5 rounded-full
+                  bg-accent-600 text-white text-[16px] font-semibold hover:bg-accent-700" data-menu-link>Get updates</a>
+
+        <div class="mt-6 pt-5 border-t border-ink-200">
+          <p class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">Other communities</p>
+          <ul class="mt-3 flex flex-wrap gap-2" data-menu-others></ul>
+        </div>
+
+        <ul class="mt-6 pt-5 border-t border-ink-200 space-y-1 text-[15px]">
+          <li><a href="#" class="flex items-center min-h-[44px] text-ink-700" data-menu-link>For clinicians</a></li>
+          <li><a href="#" class="flex items-center min-h-[44px] text-ink-700" data-menu-link>Español</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <!-- ============ THUMB NAV — fixed, 44px+ targets, covers mobile AND tablet (below lg) ============ -->
   <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/97 backdrop-blur border-t border-ink-200
@@ -1183,7 +1324,8 @@
       <li><a href="#" class="flex flex-col items-center justify-center gap-1 h-[58px] text-ink-500">
         <svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg>
         <span class="text-[11px] font-medium">Community</span></a></li>
-      <li><button class="w-full flex flex-col items-center justify-center gap-1 h-[58px] text-ink-500">
+      <li><button class="w-full flex flex-col items-center justify-center gap-1 h-[58px] text-ink-500"
+                  aria-label="Open menu" aria-expanded="false" aria-controls="menu-sheet" data-menu-open>
         <svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
         <span class="text-[11px] font-medium">More</span></button></li>
     </ul>
