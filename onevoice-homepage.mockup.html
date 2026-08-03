@@ -293,8 +293,9 @@
       heroAlt:    function(t){ return 'A patient discussing her test results with her consultant'; },
       videoAlt:   function(t){ return 'A patient talking with her care team during an appointment'; },
       heroCaption:function(t){ return 'Appointments go better with your questions written down first.'; },
-      watch:     function(t){ return 'Watch ' + t.firstName + '’s story'; },
-      videoAlt:  function(t){ return t.firstName + ' speaking to camera about their diagnosis'; }
+      watch:     function(t){ return 'Watch ' + t.firstName + '’s story'; }
+      /* videoAlt intentionally lives above with the other stock-photo overrides —
+         a second definition here would silently win, since later keys shadow earlier ones. */
     };
 
     (function(){
@@ -1026,7 +1027,7 @@
         <li class="group flex flex-col">
           <a href="#" class="block overflow-hidden rounded-2xl aspect-[16/9] bg-ink-100">
             <img src="assets/article-1.jpg" width="800" height="450" loading="lazy" decoding="async"
-                 alt="A patient discussing her test results with her consultant"
+                 alt="A consultant and nurse reviewing results with a patient at a desk"
                  class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300">
           </a>
           <div class="mt-3.5 flex items-center gap-2 text-[12.5px] font-medium">
