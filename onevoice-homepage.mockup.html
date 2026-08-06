@@ -108,6 +108,11 @@
     #dt-control button[data-go="mg"]{background:#9E6714}
     #dt-control label{display:flex;align-items:center;gap:5px;color:#EEEAE4;font-size:11px;
       padding-left:6px;margin-left:2px;border-left:1px solid #55504A;cursor:pointer}
+    #dt-control .dt-pages{display:flex;align-items:center;gap:7px;font-size:11px;
+      padding-left:7px;margin-left:1px;border-left:1px solid #55504A}
+    #dt-control .dt-pages a{color:#B8B2A9;text-decoration:none}
+    #dt-control .dt-pages a:hover{color:#fff;text-decoration:underline}
+    #dt-control .dt-pages b{color:#fff;font-weight:600}
     #dt-control input{width:13px;height:13px;accent-color:#fff;cursor:pointer}
     @media print{ #dt-control{display:none} }
   </style>
@@ -571,9 +576,20 @@
         if (embedded || document.getElementById('dt-control')) return;
         var bar = document.createElement('div');
         bar.id = 'dt-control';
+        var PAGES = [
+          { href:'onevoice-homepage.mockup.html', label:'Home' },
+          { href:'onevoice-news.mockup.html',     label:'News' },
+          { href:'onevoice-news-article.mockup.html', label:'Article' }
+        ];
+        var here = location.pathname.split('/').pop() || 'onevoice-homepage.mockup.html';
         bar.innerHTML = ORDER.map(function(s){
           return '<button data-go="' + s + '" title="' + TENANTS[s].name + '" aria-label="' + TENANTS[s].name + '"></button>';
-        }).join('') + '<label><input type="checkbox" id="dt-notes"> specs</label>';
+        }).join('') + '<label><input type="checkbox" id="dt-notes"> specs</label>' +
+        '<span class="dt-pages">' + PAGES.map(function(p){
+          return p.href === here
+            ? '<b>' + p.label + '</b>'
+            : '<a href="' + p.href + '">' + p.label + '</a>';
+        }).join('') + '</span>';
         document.body.appendChild(bar);
         bar.addEventListener('click', function(e){
           var b = e.target.closest('[data-go]'); if (!b) return;
@@ -699,11 +715,11 @@
         <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.5" fill="currentColor" stroke="none"/></svg>
         News
       </span>
-      <a href="#" class="min-w-0 flex-1 text-[14.5px] text-ink-800 truncate hover:text-accent-700 hover:underline underline-offset-2"
+      <a href="onevoice-news-article.mockup.html" class="min-w-0 flex-1 text-[14.5px] text-ink-800 truncate hover:text-accent-700 hover:underline underline-offset-2"
          data-t="news.0.t">ATTR-CM trial reports 30% fewer hospitalisations at 30 months</a>
       <time class="hidden sm:block shrink-0 text-[13px] text-ink-500 tabular-nums"
             data-t="news.0.dl" data-t-dt="news.0.d" datetime="2026-07-28">28 Jul 2026</time>
-      <a href="#" class="shrink-0 text-[13.5px] font-semibold text-accent-700 hover:text-accent-800 whitespace-nowrap">All news</a>
+      <a href="onevoice-news.mockup.html" class="shrink-0 text-[13.5px] font-semibold text-accent-700 hover:text-accent-800 whitespace-nowrap">All news</a>
     </div>
   </aside>
 
@@ -805,7 +821,7 @@
                 <time class="text-ink-500 tabular-nums" data-t="news.0.dl" data-t-dt="news.0.d" datetime="2026-07-28">28 Jul 2026</time>
               </div>
               <h3 class="mt-1.5 text-[17.5px] sm:text-[19px] font-semibold leading-snug text-ink-900">
-                <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.0.t">ATTR-CM trial reports 30% fewer hospitalisations at 30 months</a>
+                <a href="onevoice-news-article.mockup.html" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.0.t">ATTR-CM trial reports 30% fewer hospitalisations at 30 months</a>
               </h3>
             </li>
             <li class="group py-4">
@@ -814,7 +830,7 @@
                 <time class="text-ink-500 tabular-nums" data-t="news.1.dl" data-t-dt="news.1.d" datetime="2026-07-21">21 Jul 2026</time>
               </div>
               <h3 class="mt-1.5 text-[17.5px] sm:text-[19px] font-semibold leading-snug text-ink-900">
-                <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.1.t">NICE opens consultation on wider access to tafamidis</a>
+                <a href="onevoice-news-article.mockup.html" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.1.t">NICE opens consultation on wider access to tafamidis</a>
               </h3>
             </li>
             <li class="group py-4">
@@ -823,7 +839,7 @@
                 <time class="text-ink-500 tabular-nums" data-t="news.2.dl" data-t-dt="news.2.d" datetime="2026-07-14">14 Jul 2026</time>
               </div>
               <h3 class="mt-1.5 text-[17.5px] sm:text-[19px] font-semibold leading-snug text-ink-900">
-                <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.2.t">Amyloidosis Awareness Month: what the community achieved</a>
+                <a href="onevoice-news-article.mockup.html" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.2.t">Amyloidosis Awareness Month: what the community achieved</a>
               </h3>
             </li>
             <li class="group py-4">
@@ -832,7 +848,7 @@
                 <time class="text-ink-500 tabular-nums" data-t="news.3.dl" data-t-dt="news.3.d" datetime="2026-07-07">7 Jul 2026</time>
               </div>
               <h3 class="mt-1.5 text-[17.5px] sm:text-[19px] font-semibold leading-snug text-ink-900">
-                <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.3.t">Fatigue and pacing: what actually helped our members</a>
+                <a href="onevoice-news-article.mockup.html" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="news.3.t">Fatigue and pacing: what actually helped our members</a>
               </h3>
             </li>
           </ol>
@@ -840,7 +856,7 @@
           <!-- mt-auto on the wrapper anchors the action to the column foot, so this column
                ends level with the sessions panel instead of leaving a void below the list -->
           <div class="mt-auto pt-5">
-            <a href="#" class="flex items-center justify-center gap-1.5 min-h-[48px] rounded-full
+            <a href="onevoice-news.mockup.html" class="flex items-center justify-center gap-1.5 min-h-[48px] rounded-full
                       border border-ink-300 text-[15px] font-semibold text-ink-800 hover:bg-ink-100">
               All news
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -1038,7 +1054,7 @@
           <h2 id="feat-h" class="font-display text-[26px] sm:text-3xl lg:text-4xl font-semibold tracking-[-.015em] text-ink-900">Latest, reviewed</h2>
           <p class="mt-1.5 text-[15px] text-ink-500">Every article is checked by a clinician before publication.</p>
         </div>
-        <a href="#" class="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full border border-ink-300 text-[15px] font-semibold text-ink-800 hover:bg-ink-100">
+        <a href="onevoice-news.mockup.html" class="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full border border-ink-300 text-[15px] font-semibold text-ink-800 hover:bg-ink-100">
           All articles
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
@@ -1056,7 +1072,7 @@
             <span class="text-ink-500" data-t="a1read">6 min read</span>
           </div>
           <h3 class="mt-2 text-[19px] lg:text-xl font-semibold leading-snug text-ink-900">
-            <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="a1t">The 5 tests used to confirm ATTR amyloidosis</a>
+            <a href="onevoice-news-article.mockup.html" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="a1t">The 5 tests used to confirm ATTR amyloidosis</a>
           </h3>
           <p class="mt-1.5 text-[15px] text-ink-600 leading-relaxed" data-t="a1d">What each test looks for, what to expect on the day, and the questions worth asking.</p>
           <p class="mt-3 flex items-center gap-2 text-[13px] text-ink-500">
@@ -1076,7 +1092,7 @@
             <span class="text-ink-500" data-t="a2read">9 min read</span>
           </div>
           <h3 class="mt-2 text-[19px] lg:text-xl font-semibold leading-snug text-ink-900">
-            <a href="#" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="a2t">Living with a stabiliser: side effects and daily routine</a>
+            <a href="onevoice-news-article.mockup.html" class="hover:text-accent-700 hover:underline underline-offset-2" data-t="a2t">Living with a stabiliser: side effects and daily routine</a>
           </h3>
           <p class="mt-1.5 text-[15px] text-ink-600 leading-relaxed" data-t="a2d">Practical strategies from people two or more years into treatment.</p>
           <p class="mt-3 flex items-center gap-2 text-[13px] text-ink-500">
@@ -1089,16 +1105,16 @@
           <div class="h-full rounded-2xl border border-ink-200 bg-ink-50 p-5 lg:p-6">
             <h3 class="text-[17px] font-semibold text-ink-900">Popular right now</h3>
             <ol class="mt-3 divide-y divide-ink-200">
-              <li><a href="#" class="flex items-start gap-3 py-3 group">
+              <li><a href="onevoice-news-article.mockup.html" class="flex items-start gap-3 py-3 group">
                 <span class="font-display text-[15px] font-semibold text-accent-700 tabular-nums pt-0.5">01</span>
                 <span class="text-[15.5px] leading-snug text-ink-800 group-hover:text-accent-700" data-t="pop0">Is amyloidosis hereditary? What families should know</span></a></li>
-              <li><a href="#" class="flex items-start gap-3 py-3 group">
+              <li><a href="onevoice-news-article.mockup.html" class="flex items-start gap-3 py-3 group">
                 <span class="font-display text-[15px] font-semibold text-accent-700 tabular-nums pt-0.5">02</span>
                 <span class="text-[15.5px] leading-snug text-ink-800 group-hover:text-accent-700" data-t="pop1">Questions to ask at your first cardiology appointment</span></a></li>
-              <li><a href="#" class="flex items-start gap-3 py-3 group">
+              <li><a href="onevoice-news-article.mockup.html" class="flex items-start gap-3 py-3 group">
                 <span class="font-display text-[15px] font-semibold text-accent-700 tabular-nums pt-0.5">03</span>
                 <span class="text-[15.5px] leading-snug text-ink-800 group-hover:text-accent-700" data-t="pop2">AL vs ATTR amyloidosis: how they differ</span></a></li>
-              <li><a href="#" class="flex items-start gap-3 py-3 group">
+              <li><a href="onevoice-news-article.mockup.html" class="flex items-start gap-3 py-3 group">
                 <span class="font-display text-[15px] font-semibold text-accent-700 tabular-nums pt-0.5">04</span>
                 <span class="text-[15.5px] leading-snug text-ink-800 group-hover:text-accent-700" data-t="pop3">Travelling with a rare disease: a checklist</span></a></li>
             </ol>

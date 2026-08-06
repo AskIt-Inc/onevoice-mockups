@@ -116,6 +116,11 @@
     #dt-control button[data-go="mg"]{background:#9E6714}
     #dt-control label{display:flex;align-items:center;gap:5px;color:#EEEAE4;font-size:11px;
       padding-left:6px;margin-left:2px;border-left:1px solid #55504A;cursor:pointer}
+    #dt-control .dt-pages{display:flex;align-items:center;gap:7px;font-size:11px;
+      padding-left:7px;margin-left:1px;border-left:1px solid #55504A}
+    #dt-control .dt-pages a{color:#B8B2A9;text-decoration:none}
+    #dt-control .dt-pages a:hover{color:#fff;text-decoration:underline}
+    #dt-control .dt-pages b{color:#fff;font-weight:600}
     #dt-control input{width:13px;height:13px;accent-color:#fff;cursor:pointer}
     @media print{ #dt-control{display:none} }
   </style>`);
@@ -887,9 +892,20 @@
         if (embedded || document.getElementById('dt-control')) return;
         var bar = document.createElement('div');
         bar.id = 'dt-control';
+        var PAGES = [
+          { href:'onevoice-homepage.mockup.html', label:'Home' },
+          { href:'onevoice-news.mockup.html',     label:'News' },
+          { href:'onevoice-news-article.mockup.html', label:'Article' }
+        ];
+        var here = location.pathname.split('/').pop() || 'onevoice-homepage.mockup.html';
         bar.innerHTML = ORDER.map(function(s){
           return '<button data-go="' + s + '" title="' + TENANTS[s].name + '" aria-label="' + TENANTS[s].name + '"></button>';
-        }).join('') + '<label><input type="checkbox" id="dt-notes"> specs</label>';
+        }).join('') + '<label><input type="checkbox" id="dt-notes"> specs</label>' +
+        '<span class="dt-pages">' + PAGES.map(function(p){
+          return p.href === here
+            ? '<b>' + p.label + '</b>'
+            : '<a href="' + p.href + '">' + p.label + '</a>';
+        }).join('') + '</span>';
         document.body.appendChild(bar);
         bar.addEventListener('click', function(e){
           var b = e.target.closest('[data-go]'); if (!b) return;
