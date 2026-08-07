@@ -12,71 +12,80 @@
    via clinical_trials_fetcher — registry fields are read-only.
    Legacy /rarehub/* (54 URLs) 301s here.
 
-   Trial records below are REAL, pulled live from the ClinicalTrials.gov v2 API
-   and verified so the condition genuinely matches. Nothing here is invented.
+   Trial records below are REAL, pulled live from the ClinicalTrials.gov v2 API.
+
+   SCOPING (prompt 17): a study belongs to a community only if its accepted
+   condition term matches the registry's PRIMARY condition, or at least half of
+   its condition list. Terms are token sets, so inverted MeSH forms match too
+   ("Hypertension, Pulmonary Arterial" == "Pulmonary Hypertension"). Matching is
+   against the conditions array only, never the title. This keeps a tuberculosis
+   study that lists PH third off the PH community. Counts are the size of the
+   strictly-scoped recruiting set, not a page of raw results.
    --------------------------------------------------------------------------- */
 window.OV = {
   nav: 'trials',
   crumbs: [{ label: 'Clinical trials' }],
   synced: '7 August 2026',
   registry: {
-    amyloidosis: { total: 52, trials: [
+    amyloidosis: { total: 117, trials: [
+      {nct:'NCT07207811', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:292, enrol:1280, sp:'Novo Nordisk A/S', cond:'Transthyretin Amyloid Cardiomyopathy (ATTR CM)', where:'Phoenix, United States',
+       t:'CLEOPATTRA: A Research Study to Look at the Effects of Treatment With a Medicine Called Coramitug (NNC6019-0001) in People With Heart Failure Due to T'},
       {nct:'NCT07052903', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:240, enrol:1750, sp:'Alnylam Pharmaceuticals', cond:'Transthyretin Amyloidosis With Cardiomyopathy', where:'La Jolla, United States',
        t:'TRITON-CM: A Study to Evaluate Nucresiran in Patients With Transthyretin Amyloidosis With Cardiomyopathy'},
-      {nct:'NCT07081646', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:18, enrol:91, sp:'Alexion Pharmaceuticals, Inc.', cond:'Relapsed AL Amyloidosis, Refractory AL Amyloidosis', where:'Phoenix, United States',
-       t:'A Phase 1b/2 Study of CAR T Cell Therapy Targeting CD19 and BCMA in Participants With Relapsed or Refractory AL Amyloidosis.'},
-      {nct:'NCT06192979', ph:'NA', st:'Recruiting', ty:'Interventional', sites:7, enrol:41, sp:'Jin Lu, MD', cond:'Amyloidosis; Systemic, AL Amyloidosis', where:'Beijing, China',
-       t:'Optimize First-line Treatment for AL Amyloidosis With t (11; 14)'},
-      {nct:'NCT05145816', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:3, enrol:37, sp:'University of Texas Southwestern Medical Center', cond:'AL Amyloidosis, Amyloidosis', where:'Nashville, United States',
-       t:'Phase 1/2a Study of Belantamab Mafodotin in Relapsed or Refractory AL Amyloidosis'},
-      {nct:'NCT07110844', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:3, enrol:25, sp:'Rajshekhar Chakraborty, MD', cond:'Amyloid Light-chain Amyloidosis', where:'Boston, United States',
-       t:'Teclistamab-Daratumumab in AL Amyloidosis'},
-      {nct:'NCT04535349', ph:'NA', st:'Recruiting', ty:'Interventional', sites:2, enrol:35, sp:'University Hospital, Caen', cond:'Amyloidosis Transthyretin', where:'Caen, France',
-       t:'Quantitative Analysis of Myocardial Uptake of Bone Radiopharmaceuticals in Patients With Cardiac ATTR Amyloidosis'},
-      {nct:'NCT07039578', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:2, enrol:90, sp:'Keymed Biosciences Co.Ltd', cond:'Primary Light-Chain Amyloidosis', where:'Beijing, China',
-       t:'Study Evaluating the Efficacy and Safety of CM336 Injection in the Treatment of Light-Chain Amyloidosis'},
-      {nct:'NCT05098665', ph:'NA', st:'Recruiting', ty:'Interventional', sites:1, enrol:320, sp:'Richmond Research Institute', cond:'Cardiac Amyloidosis', where:'London, United Kingdom',
-       t:'PATHWAY-RCT: Preventing Admission To Hospital With Attr cardiomyopathY'},
+      {nct:'NCT06128629', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:132, enrol:1200, sp:'Intellia Therapeutics', cond:'Transthyretin Amyloidosis (ATTR) With Cardiomyopathy', where:'Tucson, United States',
+       t:'MAGNITUDE: A Phase 3 Study of NTLA-2001 in Participants With Transthyretin Amyloidosis With Cardiomyopathy (ATTR-CM)'},
+      {nct:'NCT06022939', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:117, enrol:338, sp:'SWOG Cancer Research Network', cond:'AL Amyloidosis', where:'Goodyear, United States',
+       t:'Comparing Dara-VCD Chemotherapy Plus Stem Cell Transplant to Dara-VCD Chemotherapy Alone for People Who Have Newly Diagnosed AL Amyloidosis'},
+      {nct:'NCT06563895', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:104, enrol:587, sp:'Eidos Therapeutics, a BridgeBio company', cond:'Amyloidosis, Transthyretin Amyloidosis', where:'La Jolla, United States',
+       t:'Acoramidis Transthyretin Amyloidosis Prevention Trial in the Young (ACT-EARLY) Study in Asymptomatic Carriers of a Pathogenic TTR Variant'},
+      {nct:'NCT07223203', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:41, enrol:125, sp:'Alnylam Pharmaceuticals', cond:'Hereditary Transthyretin-Mediated Amyloidosis With Polyneuropathy', where:'Aurora, United States',
+       t:'TRITON-PN: A Study to Evaluate the Efficacy and Safety of Nucresiran in Patients With Hereditary Transthyretin Amyloidosis With Polyneuropathy'},
+      {nct:'NCT05652335', ph:'Phase 1', st:'Recruiting', ty:'Interventional', sites:29, enrol:180, sp:'Janssen Research & Development, LLC', cond:'Previously Treated Amyloid Light-chain (AL) Amyloidosis', where:'Duarte, United States',
+       t:'A Study of JNJ-79635322 in Participants With Relapsed or Refractory Multiple Myeloma or Previously Treated Amyloid Light-chain (AL) Amyloidosis'},
+      {nct:'NCT07266116', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:27, enrol:70, sp:'Shanghai Chia Tai Tianqing Pharmaceutical Technology', cond:'Systemic Light Chain Amyloidosis', where:'Beijing, China',
+       t:'Assessment of the Efficacy and Safety of Injectable TQB2934 (Subcutaneous Injection) in Systemic Light Chain Amyloidosis Patients'},
     ] },
-    scd: { total: 59, trials: [
+    scd: { total: 138, trials: [
+      {nct:'NCT06612268', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:174, enrol:408, sp:'Novo Nordisk A/S', cond:'Sickle Cell Disease', where:'Birmingham, United States',
+       t:'A Study to Evaluate How Well Etavopivat Works in People With Sickle Cell Disease'},
+      {nct:'NCT06609226', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:105, enrol:480, sp:'Novo Nordisk A/S', cond:'Sickle Cell Disease', where:'Birmingham, United States',
+       t:'A Research Study Looking at Long-term Treatment With Etavopivat in People With Sickle Cell Disease or Thalassaemia'},
+      {nct:'NCT06975865', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:53, enrol:192, sp:'Sanofi', cond:'Sickle Cell Disease', where:'Birmingham, United States',
+       t:'The Efficacy and Safety of Rilzabrutinib in Participants Aged 10 to 65 Years With Sickle-cell Disease'},
       {nct:'NCT05431088', ph:'Phase 2, Phase 3', st:'Recruiting', ty:'Interventional', sites:49, enrol:389, sp:'Pfizer', cond:'Sickle Cell Disease', where:'New Haven, United States',
        t:'A Phase 2/3 Study in Adult and Adolescent Participants With SCD'},
-      {nct:'NCT06374238', ph:'NA', st:'Recruiting', ty:'Interventional', sites:14, enrol:470, sp:'University of Pittsburgh', cond:'Pain, Sickle Cell Disease', where:'Mobile, United States',
-       t:'Peer Support for Adolescents and Emerging Adults With Sickle Cell Pain'},
-      {nct:'NCT05953584', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:9, enrol:27, sp:'Forma Therapeutics, Inc.', cond:'Sickle Cell Disease', where:'Raipur, India',
-       t:'A Phase 2 Open-label Study to Evaluate the Activity of Etavopivat on Transcranial Doppler Velocities in Pediatric Patients With Sickle Cell Disease Wh'},
-      {nct:'NCT04819841', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:6, enrol:15, sp:'Kamau Therapeutics', cond:'Sickle Cell Disease', where:'Los Angeles, United States',
-       t:'Gene Correction in Autologous CD34+ Hematopoietic Stem Cells (HbS to HbA) to Treat Severe Sickle Cell Disease'},
-      {nct:'NCT07252050', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:4, enrol:24, sp:'Arkansas Children\'s Hospital Research Institute', cond:'Sickle Cell Disease, Hematopoetic Stem Cell Transplant', where:'Aurora, United States',
-       t:'Ruxolitinib-Enhanced Haplo HCT for Children and Young Adults With Sickle Cell Disease'},
-      {nct:'NCT06919224', ph:'NA', st:'Recruiting', ty:'Interventional', sites:4, enrol:287, sp:'Ohio State University', cond:'Sickle Cell Disease', where:'Chicago, United States',
-       t:'Delivering Patient-Facing Evidence-Based Guidelines Through mHealth to Adults With Sickle Cell Disease'},
-      {nct:'NCT06290401', ph:'NA', st:'Recruiting', ty:'Interventional', sites:4, enrol:310, sp:'Children\'s Hospital Medical Center, Cincinnati', cond:'Anemia, Sickle Cell', where:'Wilmington, United States',
-       t:'A Socio-ecological Approach for Improving Self-management in Adolescents With SCD'},
-      {nct:'NCT07656415', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:3, enrol:159, sp:'Agios Pharmaceuticals, Inc.', cond:'Sickle Cell Disease', where:'Indianapolis, United States',
-       t:'A Study to Investigate the Effect of Mitapivat on Transfusion Burden in Subjects With Sickle Cell Disease (SCD)'},
+      {nct:'NCT06481306', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:33, enrol:224, sp:'Bristol-Myers Squibb', cond:'Anemia, Sickle Cell', where:'Birmingham, United States',
+       t:'A Study to Evaluate BMS-986470 in Healthy Volunteers and Participants With Sickle Cell Disease'},
+      {nct:'NCT06439082', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:32, enrol:354, sp:'Novartis Pharmaceuticals', cond:'Sickle Cell Disease', where:'Birmingham, United States',
+       t:'A Study to Investigate the Efficacy and Safety of Crizanlizumab (5 mg/kg) Compared With Placebo in Adolescent and Adult Sickle Cell Disease Patients W'},
+      {nct:'NCT04657822', ph:'Phase 4', st:'Recruiting', ty:'Interventional', sites:31, enrol:130, sp:'Novartis Pharmaceuticals', cond:'Sickle Cell Disease', where:'Birmingham, United States',
+       t:'Rollover Study for Patients With Sickle Cell Disease Who Have Completed a Prior Novartis-Sponsored Crizanlizumab Study'},
+      {nct:'NCT06699849', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:19, enrol:70, sp:'CSL Behring', cond:'Sickle Cell Disease Vaso-occlusive Crisis', where:'Oakland, United States',
+       t:'Safety, Efficacy, and Pharmacokinetics of CSL889 in Adults and Adolescents With Sickle Cell Disease During Vaso-Occlusive Crisis'},
     ] },
-    ph: { total: 50, trials: [
-      {nct:'NCT07147114', ph:'Phase 4', st:'Recruiting', ty:'Interventional', sites:15, enrol:64, sp:'Gachon University Gil Medical Center', cond:'Combined Pre- and Post-capillary Pulmonary Hypertension, CpcPH', where:'Busan, South Korea',
-       t:'Clinical Trial to Evaluate the Efficacy and Safety in Concomitant Administration of Macitentan and Dapagliflozin in Patients With Heart Failure With M'},
-      {nct:'NCT05473520', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:6, enrol:150, sp:'National University Hospital, Singapore', cond:'Tuberculosis, Acute Coronary Syndrome', where:'Kota Kinabalu, Malaysia',
-       t:'Doxycycline Host-directed Therapy to Improve Lung Function and Decrease Tissue Destruction in Pulmonary Tuberculosis'},
-      {nct:'NCT06495970', ph:'NA', st:'Recruiting', ty:'Interventional', sites:3, enrol:20, sp:'Gradient Denervation Technologies', cond:'Pulmonary Hypertension', where:'Badalona, Spain',
-       t:'Pulmonary Artery DenerVation Clinical Study Using the Gradient Denervation System in Heart Failure Patients With Pulmonary Hypertension Group 2 (PreVa'},
-      {nct:'NCT06373289', ph:'NA', st:'Recruiting', ty:'Interventional', sites:2, enrol:39, sp:'University of Alabama at Birmingham', cond:'Bronchopulmonary Dysplasia, Pulmonary Hypertension', where:'Birmingham, United States',
-       t:'Pulmonary Hypertension and Oxygen Saturation Targeting in Preterm Infants'},
-      {nct:'NCT05110066', ph:'NA', st:'Recruiting', ty:'Interventional', sites:2, enrol:139, sp:'University of Aarhus', cond:'Chronic Thromboembolic Pulmonary Hypertension', where:'Aarhus, Denmark',
-       t:'BPA vs. PEA in CTEPH'},
-      {nct:'NCT06852924', ph:'NA', st:'Recruiting', ty:'Interventional', sites:1, enrol:100, sp:'Novlead Inc.', cond:'High Altitude Pulmonary Hypertension', where:'Lhasa, China',
-       t:'Inhaled Nitric Oxide for High Amplitude Pulmonary Edema (HAPE)'},
-      {nct:'NCT07245680', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:1, enrol:186, sp:'Assistance Publique - Hôpitaux de Paris', cond:'Pulmonary Arterial Hypertension (PAH), Comorbidities', where:'Le Kremlin-Bicêtre, France',
-       t:'COMMODITIES Trial: Initial Dual Oral Therapy vs Monotherapy in PAH With Cardiovascular Comorbidities'},
-      {nct:'NCT06947460', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:1, enrol:45, sp:'Beijing GoBroad Hospital', cond:'Refractory Lupus Nephritis, Systemic Sclerosis', where:'Beijing, China',
-       t:'CD19-BCMA CART Cell Therapy for Refractory SLE-LN, SSc, and pSS-PAH'},
+    ph: { total: 161, trials: [
+      {nct:'NCT07218029', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:129, enrol:815, sp:'Merck Sharp & Dohme LLC', cond:'Pulmonary Arterial Hypertension', where:'Phoenix, United States',
+       t:'A Clinical Study of Sotatercept (MK-7962) in People With Pulmonary Arterial Hypertension (MK-7962-038)'},
+      {nct:'NCT06274801', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:120, enrol:330, sp:'Gossamer Bio USA, Inc.', cond:'Pulmonary Arterial Hypertension', where:'Fresno, United States',
+       t:'Open-label Extension Study of Seralutinib in Adult Subjects With PAH (PROSERA-EXT)'},
+      {nct:'NCT07179380', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:109, enrol:344, sp:'Insmed Incorporated', cond:'Pulmonary Hypertension', where:'Los Angeles, United States',
+       t:'Efficacy and Safety Study of Treprostinil Palmitil Inhalation Powder (TPIP) in Participants With Pulmonary Hypertension Associated With Interstitial L'},
+      {nct:'NCT07288398', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:92, enrol:540, sp:'Tenax Therapeutics, Inc.', cond:'Pulmonary Hypertension Associated With HFpEF', where:'Alexander City, United States',
+       t:'LEVEL-2: LEVosimendan to Improve Exercise Limitation in Patients With PH-HFpEF-2'},
+      {nct:'NCT06649110', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:87, enrol:232, sp:'Novartis Pharmaceuticals', cond:'Healthy Volunteers, Pulmonary Arterial Hypertension', where:'Scottsdale, United States',
+       t:'A Study to Learn About the Treatment LTP001 in Healthy Participants (Part A) and in Participants With PAH (Part B)'},
+      {nct:'NCT07073820', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:48, enrol:36, sp:'Pfizer', cond:'Pulmonary Hypertension', where:'Sacramento, United States',
+       t:'A Study to Learn About the Study Medicine (Called PF-07868489) in People With Pulmonary Arterial Hypertension Who Have Previously Participated in a Cl'},
+      {nct:'NCT05179876', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:45, enrol:280, sp:'Actelion', cond:'Hypertension, Pulmonary', where:'Minsk, Belarus',
+       t:'A Study Providing Treatment Access in Participants With Pulmonary Hypertension Completing a Parent Study and Having no Other Option'},
+      {nct:'NCT05587712', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:35, enrol:42, sp:'Merck Sharp & Dohme LLC', cond:'Pulmonary Arterial Hypertension', where:'Los Angeles, United States',
+       t:'Study to Evaluate Sotatercept (MK-7962) in Children With Pulmonary Arterial Hypertension (PAH) (MK-7962-008)'},
     ] },
-    mg: { total: 58, trials: [
+    mg: { total: 74, trials: [
       {nct:'NCT06463587', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:145, enrol:264, sp:'Merck Healthcare KGaA, Darmstadt, Germany, an affili', cond:'Generalized Myasthenia Gravis', where:'Phoenix, United States',
        t:'Efficacy and Safety of a New Formulation of Oral Cladribine Compared With Placebo in Participants With Generalized Myasthenia Gravis (MyClad)'},
+      {nct:'NCT06744920', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:130, enrol:180, sp:'Novartis Pharmaceuticals', cond:'Generalized Myasthenia Gravis', where:'Phoenix, United States',
+       t:'A Study to Investigate the Efficacy, Safety and Tolerability of Remibrutinib Versus Placebo in Adult Patients With Generalized Myasthenia Gravis'},
       {nct:'NCT06517758', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:125, enrol:146, sp:'Novartis Pharmaceuticals', cond:'Generalized Myasthenia Gravis', where:'Scottsdale, United States',
        t:'A Phase III Study to Investigate Efficacy, Safety and Tolerability of Iptacopan Compared With Placebo in Participants Aged 18 to 85 Years With gMG.'},
       {nct:'NCT04951622', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:112, enrol:199, sp:'Janssen Research & Development, LLC', cond:'Myasthenia Gravis', where:'Paradise Valley, United States',
@@ -87,11 +96,10 @@ window.OV = {
        t:'Study to Assess the Efficacy and Safety of IMVT-1402 in Participants With Mild to Severe Generalized Myasthenia Gravis'},
       {nct:'NCT06414954', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:40, enrol:84, sp:'NMD Pharma A/S', cond:'Myasthenia Gravis, Myasthenia Gravis, MuSK', where:'Carlsbad, United States',
        t:'Safety and Efficacy of 3 Dose Levels of NMD670 in Adult Patients With Myasthenia Gravis'},
-      {nct:'NCT07250750', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:25, enrol:96, sp:'ImmunAbs Inc.', cond:'Myasthenia Gravis', where:'Altamonte Springs, United States',
-       t:'A Phase 1b/2 Study of IM-101 in Adult Participants With Generalized Myasthenia Gravis and Ocular Myasthenia Gravis'},
-      {nct:'NCT07284420', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:24, enrol:70, sp:'argenx', cond:'AChR-Ab Seropositive Generalized Myasthenia Gravis, Myasthenia G', where:'Carlsbad, United States',
-       t:'ADAPT Forward 1 - ISA1 - a Study to Evaluate Empasiprubart IV as add-on Therapy to Efgartigimod IV in Participants With AChR-Ab Seropositive Generaliz'},
-    ] },  }
+      {nct:'NCT07501702', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:26, enrol:30, sp:'Vertex Pharmaceuticals Incorporated', cond:'Myasthenia Gravis, Generalized', where:'Mission Hills, United States',
+       t:'A Phase 2 Study to Evaluate Povetacicept in Adults With Generalized Myasthenia Gravis'},
+    ] },
+  }
 };
 </script>
 <script src="assets/ov-kit.js"></script>
