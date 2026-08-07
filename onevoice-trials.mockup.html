@@ -280,6 +280,97 @@ window.OV = {
       (on ? '<span class="w-1.5 h-1.5 rounded-full bg-white/90"></span>' : '') + esc(st) + '</span>';
   }
 
+
+  /* ---------------- Express Interest (prompt 18) ----------------
+     Inline, per trial. The trial, its condition and the community are injected —
+     the visitor never reselects or retypes them. Nothing here implies that
+     expressing interest confers eligibility or a place on the study. */
+  var CONSENT_TEXT = 'I agree that oneVoice may share these details with the research team for this study.';
+
+  function eiForm(t){
+    var id = 'ei-' + t.nct;
+    return '' +
+    '<div id="' + id + '" class="hidden mt-4 pt-5 border-t border-ink-200" data-ei-panel data-nct="' + t.nct + '">' +
+      '<div data-ei-live aria-live="polite">' +
+        '<form novalidate="false" data-ei-form>' +
+          '<h4 class="font-display text-[19px] font-semibold tracking-[-.01em] text-ink-900">Express your interest in this trial</h4>' +
+          '<p class="mt-1.5 text-[14.5px] text-ink-600">A member of the research team will be in touch.</p>' +
+
+          /* The trial is carried, never re-entered */
+          '<p class="mt-3 rounded-xl bg-ink-50 border border-ink-200 px-3.5 py-2.5 text-[13.5px] text-ink-600">' +
+            'About: <span class="font-semibold text-ink-800">' + esc(t.t.slice(0,80)) + (t.t.length>80?'…':'') + '</span>' +
+            ' <span class="font-mono text-ink-500">' + esc(t.nct) + '</span></p>' +
+
+          '<div class="mt-4 grid gap-3.5 sm:grid-cols-2">' +
+            '<label class="block sm:col-span-2">' +
+              '<span class="block text-[14px] font-semibold text-ink-800">Full name <span class="text-accent-700">*</span></span>' +
+              '<input type="text" name="name" required autocomplete="name" ' +
+                'class="mt-1.5 w-full min-h-[48px] px-4 rounded-xl bg-white border border-ink-300 text-[16px] text-ink-900 focus:border-accent-600 focus:ring-0">' +
+            '</label>' +
+            '<label class="block">' +
+              '<span class="block text-[14px] font-semibold text-ink-800">Email address <span class="text-accent-700">*</span></span>' +
+              '<input type="email" name="email" required autocomplete="email" inputmode="email" ' +
+                'class="mt-1.5 w-full min-h-[48px] px-4 rounded-xl bg-white border border-ink-300 text-[16px] text-ink-900 focus:border-accent-600 focus:ring-0">' +
+            '</label>' +
+            '<label class="block">' +
+              '<span class="block text-[14px] font-semibold text-ink-800">Phone number <span class="font-normal text-ink-500">(optional)</span></span>' +
+              '<input type="tel" name="phone" autocomplete="tel" ' +
+                'class="mt-1.5 w-full min-h-[48px] px-4 rounded-xl bg-white border border-ink-300 text-[16px] text-ink-900 focus:border-accent-600 focus:ring-0">' +
+            '</label>' +
+          '</div>' +
+
+          /* Health data by inference -> explicit consent, not just a notice */
+          '<label class="mt-4 flex items-start gap-3 cursor-pointer">' +
+            '<input type="checkbox" name="consent" required class="mt-1 w-5 h-5 shrink-0 rounded border-ink-400 text-accent-600 focus:ring-accent-600">' +
+            '<span class="text-[14px] leading-relaxed text-ink-700">' + CONSENT_TEXT + '</span>' +
+          '</label>' +
+
+          '<p class="mt-3 flex items-start gap-2 text-[13px] leading-relaxed text-ink-500">' +
+            '<svg class="w-4 h-4 mt-0.5 shrink-0 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
+            'Your information will only be shared with the appropriate research team regarding this clinical trial. ' +
+            'Expressing interest does not mean you are eligible or enrolled.</p>' +
+
+          /* Spam controls: unreachable by keyboard or screen reader */
+          '<div class="absolute w-px h-px overflow-hidden -m-px" aria-hidden="true">' +
+            '<label>Leave this field empty<input type="text" name="_hp" tabindex="-1" autocomplete="off"></label>' +
+          '</div>' +
+          '<input type="hidden" name="_t" value="' + Date.now() + '">' +
+
+          /* Payload carried automatically — inspectable in the DOM */
+          '<input type="hidden" name="interest_type" value="clinical_trial">' +
+          '<input type="hidden" name="trial_id" value="' + esc(t.nct) + '">' +
+          '<input type="hidden" name="trial_name" value="' + esc(t.t) + '">' +
+          '<input type="hidden" name="condition" value="' + esc(t.cond) + '">' +
+          '<input type="hidden" name="sponsor" value="' + esc(t.sp) + '">' +
+          '<input type="hidden" name="community" data-ei-community value="">' +
+          '<input type="hidden" name="indication" data-ei-indication value="">' +
+          '<input type="hidden" name="partner_id" data-ei-partner value="">' +
+          '<input type="hidden" name="source_url" data-ei-url value="">' +
+          '<input type="hidden" name="consent_text" value="' + esc(CONSENT_TEXT) + '">' +
+
+          '<button type="submit" data-ei-submit ' +
+            'class="mt-5 w-full flex items-center justify-center min-h-[52px] px-6 rounded-full bg-accent-600 text-white ' +
+            'text-[16px] font-semibold hover:bg-accent-700 disabled:opacity-60 disabled:cursor-not-allowed">Submit Interest</button>' +
+          '<button type="button" data-ei-cancel class="mt-2.5 w-full min-h-[44px] text-[15px] font-semibold text-ink-600 hover:text-ink-900">Cancel</button>' +
+        '</form>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function eiSuccess(){
+    return '<div class="py-6 text-center">' +
+      '<svg class="w-12 h-12 mx-auto text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>' +
+      '<p class="mt-3 text-[16.5px] font-semibold text-ink-900">Thank you. The research team will be in touch soon.</p>' +
+      '</div>';
+  }
+
+  function eiError(msg){
+    return '<div class="rounded-xl border border-accent-300 bg-accent-50 p-4 flex items-start gap-3">' +
+      '<svg class="w-5 h-5 mt-0.5 shrink-0 text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>' +
+      '<div><p class="text-[15px] font-semibold text-ink-900">' + esc(msg) + '</p>' +
+      '<button type="button" data-ei-retry class="mt-2 min-h-[44px] text-[15px] font-semibold text-accent-700 hover:text-accent-800 underline underline-offset-2">Try again</button></div></div>';
+  }
+
   function card(t){
     /* A registry study can be interventional with no phase assigned. Do not call
        that "observational" — show the study type instead, and never both. */
@@ -312,7 +403,15 @@ window.OV = {
             'Registry record' +
             '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>' +
             '<span class="sr-only">(opens in a new tab)</span></a>' +
+          /* Secondary on the listing: reading the trial should come first.
+             On the detail page (prompt 04) this becomes the primary action. */
+          '<button type="button" data-ei-open aria-expanded="false" aria-controls="ei-' + t.nct + '" ' +
+                  'class="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full border border-accent-300 ' +
+                  'text-[14.5px] font-semibold text-accent-800 hover:bg-accent-50">' +
+            '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>' +
+            'Express interest</button>' +
         '</div>' +
+        eiForm(t) +
       '</article>' +
     '</li>';
   }
@@ -360,6 +459,7 @@ window.OV = {
   }
 
   window.OV.onTenant = function(t, slug){
+    window.OV.__tenant = { slug: slug, name: t.name, domainId: t.domainId || '' };
     cur = window.OV.registry[slug] || null;
     if (cur) {
       document.querySelector('[data-tr-total]').textContent = cur.total;
@@ -370,6 +470,96 @@ window.OV = {
     apply();
     document.title = t.name + ' clinical trials near you | oneVoice';
   };
+
+
+  /* ---------------- Express Interest behaviour ----------------
+     Mockup submission is simulated. Use an email starting with `error@` to see
+     the error state. Real implementation posts to an API route; the endpoint
+     must also rate-limit per IP and per email — a honeypot alone is not enough. */
+  var MIN_FILL_MS = 3000;
+
+  function eiFillContext(panel){
+    var t = window.OV.__tenant || {};
+    var set = function(sel, val){ var el = panel.querySelector(sel); if (el) el.value = val; };
+    set('[data-ei-community]',  t.slug || '');
+    set('[data-ei-indication]', t.name || '');
+    set('[data-ei-url]',        location.href);
+    set('[data-ei-partner]',    t.domainId || '');
+  }
+
+  function eiClose(panel, focusTrigger){
+    var card = panel.closest('article');
+    var trig = card && card.querySelector('[data-ei-open]');
+    panel.classList.add('hidden');
+    if (trig){ trig.setAttribute('aria-expanded','false'); if (focusTrigger) trig.focus(); }
+  }
+
+  document.addEventListener('click', function(e){
+    var open = e.target.closest('[data-ei-open]');
+    if (open){
+      var card = open.closest('article');
+      var panel = card.querySelector('[data-ei-panel]');
+      var isOpen = !panel.classList.contains('hidden');
+      if (isOpen){ eiClose(panel, true); return; }
+      /* One form at a time keeps the page calm and the focus predictable */
+      document.querySelectorAll('[data-ei-panel]').forEach(function(p){
+        if (p !== panel && !p.classList.contains('hidden')) eiClose(p, false);
+      });
+      panel.classList.remove('hidden');
+      open.setAttribute('aria-expanded','true');
+      eiFillContext(panel);
+      var stamp = panel.querySelector('[name="_t"]'); if (stamp) stamp.value = Date.now();
+      var first = panel.querySelector('input[name="name"]'); if (first) first.focus();
+      return;
+    }
+
+    var cancel = e.target.closest('[data-ei-cancel]');
+    if (cancel){ eiClose(cancel.closest('[data-ei-panel]'), true); return; }
+
+    var retry = e.target.closest('[data-ei-retry]');
+    if (retry){
+      var panel2 = retry.closest('[data-ei-panel]');
+      var form = panel2.__eiForm;
+      var live = panel2.querySelector('[data-ei-live]');
+      live.innerHTML = '';
+      live.appendChild(form);                       /* the user's input is still in it */
+      var btn = form.querySelector('[data-ei-submit]');
+      btn.disabled = false; btn.textContent = 'Submit Interest';
+      var f = form.querySelector('input[name="name"]'); if (f) f.focus();
+    }
+  });
+
+  document.addEventListener('submit', function(e){
+    var form = e.target.closest('[data-ei-form]');
+    if (!form) return;
+    e.preventDefault();
+    if (!form.reportValidity()) return;             /* native validation, not custom gatekeeping */
+
+    var panel = form.closest('[data-ei-panel]');
+    var live  = panel.querySelector('[data-ei-live]');
+    var btn   = form.querySelector('[data-ei-submit]');
+    var data  = Object.fromEntries(new FormData(form).entries());
+
+    /* Spam controls */
+    var tooFast = (Date.now() - Number(data._t || 0)) < MIN_FILL_MS;
+    if (data._hp) { live.innerHTML = eiSuccess(); return; }   /* bots get a quiet success */
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+    panel.__eiForm = form;                          /* keep it so Try again restores input */
+
+    setTimeout(function(){
+      var fail = tooFast || /^error@/i.test(data.email || '');
+      if (fail){
+        live.innerHTML = eiError(tooFast
+          ? 'That was submitted very quickly. Please try once more.'
+          : 'We could not send your interest just now.');
+      } else {
+        console.log('Express Interest payload', data);   /* inspectable during review */
+        live.innerHTML = eiSuccess();
+      }
+    }, 700);
+  });
 
   document.addEventListener('DOMContentLoaded', function(){
     var q = params();
