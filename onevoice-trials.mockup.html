@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" data-tenant="amyloidosis" data-notes="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Amyloidosis clinical trials near you | oneVoice</title>
+<script>
+/* ---------------------------------------------------------------------------
+   Prompt 03 — Clinical trials listing.  Next.js route /clinical-trials.
+   JSON:API node/clinical_trials, domain-filtered. Upstream: ClinicalTrials.gov
+   via clinical_trials_fetcher — registry fields are read-only.
+   Legacy /rarehub/* (54 URLs) 301s here.
+
+   Trial records below are REAL, pulled live from the ClinicalTrials.gov v2 API
+   and verified so the condition genuinely matches. Nothing here is invented.
+   --------------------------------------------------------------------------- */
+window.OV = {
+  nav: 'trials',
+  crumbs: [{ label: 'Clinical trials' }],
+  synced: '7 August 2026',
+  registry: {
+    amyloidosis: { total: 52, trials: [
+      {nct:'NCT07052903', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:240, enrol:1750, sp:'Alnylam Pharmaceuticals', cond:'Transthyretin Amyloidosis With Cardiomyopathy', where:'La Jolla, United States',
+       t:'TRITON-CM: A Study to Evaluate Nucresiran in Patients With Transthyretin Amyloidosis With Cardiomyopathy'},
+      {nct:'NCT07081646', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:18, enrol:91, sp:'Alexion Pharmaceuticals, Inc.', cond:'Relapsed AL Amyloidosis, Refractory AL Amyloidosis', where:'Phoenix, United States',
+       t:'A Phase 1b/2 Study of CAR T Cell Therapy Targeting CD19 and BCMA in Participants With Relapsed or Refractory AL Amyloidosis.'},
+      {nct:'NCT06192979', ph:'NA', st:'Recruiting', ty:'Interventional', sites:7, enrol:41, sp:'Jin Lu, MD', cond:'Amyloidosis; Systemic, AL Amyloidosis', where:'Beijing, China',
+       t:'Optimize First-line Treatment for AL Amyloidosis With t (11; 14)'},
+      {nct:'NCT05145816', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:3, enrol:37, sp:'University of Texas Southwestern Medical Center', cond:'AL Amyloidosis, Amyloidosis', where:'Nashville, United States',
+       t:'Phase 1/2a Study of Belantamab Mafodotin in Relapsed or Refractory AL Amyloidosis'},
+      {nct:'NCT07110844', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:3, enrol:25, sp:'Rajshekhar Chakraborty, MD', cond:'Amyloid Light-chain Amyloidosis', where:'Boston, United States',
+       t:'Teclistamab-Daratumumab in AL Amyloidosis'},
+      {nct:'NCT04535349', ph:'NA', st:'Recruiting', ty:'Interventional', sites:2, enrol:35, sp:'University Hospital, Caen', cond:'Amyloidosis Transthyretin', where:'Caen, France',
+       t:'Quantitative Analysis of Myocardial Uptake of Bone Radiopharmaceuticals in Patients With Cardiac ATTR Amyloidosis'},
+      {nct:'NCT07039578', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:2, enrol:90, sp:'Keymed Biosciences Co.Ltd', cond:'Primary Light-Chain Amyloidosis', where:'Beijing, China',
+       t:'Study Evaluating the Efficacy and Safety of CM336 Injection in the Treatment of Light-Chain Amyloidosis'},
+      {nct:'NCT05098665', ph:'NA', st:'Recruiting', ty:'Interventional', sites:1, enrol:320, sp:'Richmond Research Institute', cond:'Cardiac Amyloidosis', where:'London, United Kingdom',
+       t:'PATHWAY-RCT: Preventing Admission To Hospital With Attr cardiomyopathY'},
+    ] },
+    scd: { total: 59, trials: [
+      {nct:'NCT05431088', ph:'Phase 2, Phase 3', st:'Recruiting', ty:'Interventional', sites:49, enrol:389, sp:'Pfizer', cond:'Sickle Cell Disease', where:'New Haven, United States',
+       t:'A Phase 2/3 Study in Adult and Adolescent Participants With SCD'},
+      {nct:'NCT06374238', ph:'NA', st:'Recruiting', ty:'Interventional', sites:14, enrol:470, sp:'University of Pittsburgh', cond:'Pain, Sickle Cell Disease', where:'Mobile, United States',
+       t:'Peer Support for Adolescents and Emerging Adults With Sickle Cell Pain'},
+      {nct:'NCT05953584', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:9, enrol:27, sp:'Forma Therapeutics, Inc.', cond:'Sickle Cell Disease', where:'Raipur, India',
+       t:'A Phase 2 Open-label Study to Evaluate the Activity of Etavopivat on Transcranial Doppler Velocities in Pediatric Patients With Sickle Cell Disease Wh'},
+      {nct:'NCT04819841', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:6, enrol:15, sp:'Kamau Therapeutics', cond:'Sickle Cell Disease', where:'Los Angeles, United States',
+       t:'Gene Correction in Autologous CD34+ Hematopoietic Stem Cells (HbS to HbA) to Treat Severe Sickle Cell Disease'},
+      {nct:'NCT07252050', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:4, enrol:24, sp:'Arkansas Children\'s Hospital Research Institute', cond:'Sickle Cell Disease, Hematopoetic Stem Cell Transplant', where:'Aurora, United States',
+       t:'Ruxolitinib-Enhanced Haplo HCT for Children and Young Adults With Sickle Cell Disease'},
+      {nct:'NCT06919224', ph:'NA', st:'Recruiting', ty:'Interventional', sites:4, enrol:287, sp:'Ohio State University', cond:'Sickle Cell Disease', where:'Chicago, United States',
+       t:'Delivering Patient-Facing Evidence-Based Guidelines Through mHealth to Adults With Sickle Cell Disease'},
+      {nct:'NCT06290401', ph:'NA', st:'Recruiting', ty:'Interventional', sites:4, enrol:310, sp:'Children\'s Hospital Medical Center, Cincinnati', cond:'Anemia, Sickle Cell', where:'Wilmington, United States',
+       t:'A Socio-ecological Approach for Improving Self-management in Adolescents With SCD'},
+      {nct:'NCT07656415', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:3, enrol:159, sp:'Agios Pharmaceuticals, Inc.', cond:'Sickle Cell Disease', where:'Indianapolis, United States',
+       t:'A Study to Investigate the Effect of Mitapivat on Transfusion Burden in Subjects With Sickle Cell Disease (SCD)'},
+    ] },
+    ph: { total: 50, trials: [
+      {nct:'NCT07147114', ph:'Phase 4', st:'Recruiting', ty:'Interventional', sites:15, enrol:64, sp:'Gachon University Gil Medical Center', cond:'Combined Pre- and Post-capillary Pulmonary Hypertension, CpcPH', where:'Busan, South Korea',
+       t:'Clinical Trial to Evaluate the Efficacy and Safety in Concomitant Administration of Macitentan and Dapagliflozin in Patients With Heart Failure With M'},
+      {nct:'NCT05473520', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:6, enrol:150, sp:'National University Hospital, Singapore', cond:'Tuberculosis, Acute Coronary Syndrome', where:'Kota Kinabalu, Malaysia',
+       t:'Doxycycline Host-directed Therapy to Improve Lung Function and Decrease Tissue Destruction in Pulmonary Tuberculosis'},
+      {nct:'NCT06495970', ph:'NA', st:'Recruiting', ty:'Interventional', sites:3, enrol:20, sp:'Gradient Denervation Technologies', cond:'Pulmonary Hypertension', where:'Badalona, Spain',
+       t:'Pulmonary Artery DenerVation Clinical Study Using the Gradient Denervation System in Heart Failure Patients With Pulmonary Hypertension Group 2 (PreVa'},
+      {nct:'NCT06373289', ph:'NA', st:'Recruiting', ty:'Interventional', sites:2, enrol:39, sp:'University of Alabama at Birmingham', cond:'Bronchopulmonary Dysplasia, Pulmonary Hypertension', where:'Birmingham, United States',
+       t:'Pulmonary Hypertension and Oxygen Saturation Targeting in Preterm Infants'},
+      {nct:'NCT05110066', ph:'NA', st:'Recruiting', ty:'Interventional', sites:2, enrol:139, sp:'University of Aarhus', cond:'Chronic Thromboembolic Pulmonary Hypertension', where:'Aarhus, Denmark',
+       t:'BPA vs. PEA in CTEPH'},
+      {nct:'NCT06852924', ph:'NA', st:'Recruiting', ty:'Interventional', sites:1, enrol:100, sp:'Novlead Inc.', cond:'High Altitude Pulmonary Hypertension', where:'Lhasa, China',
+       t:'Inhaled Nitric Oxide for High Amplitude Pulmonary Edema (HAPE)'},
+      {nct:'NCT07245680', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:1, enrol:186, sp:'Assistance Publique - Hôpitaux de Paris', cond:'Pulmonary Arterial Hypertension (PAH), Comorbidities', where:'Le Kremlin-Bicêtre, France',
+       t:'COMMODITIES Trial: Initial Dual Oral Therapy vs Monotherapy in PAH With Cardiovascular Comorbidities'},
+      {nct:'NCT06947460', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:1, enrol:45, sp:'Beijing GoBroad Hospital', cond:'Refractory Lupus Nephritis, Systemic Sclerosis', where:'Beijing, China',
+       t:'CD19-BCMA CART Cell Therapy for Refractory SLE-LN, SSc, and pSS-PAH'},
+    ] },
+    mg: { total: 58, trials: [
+      {nct:'NCT06463587', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:145, enrol:264, sp:'Merck Healthcare KGaA, Darmstadt, Germany, an affili', cond:'Generalized Myasthenia Gravis', where:'Phoenix, United States',
+       t:'Efficacy and Safety of a New Formulation of Oral Cladribine Compared With Placebo in Participants With Generalized Myasthenia Gravis (MyClad)'},
+      {nct:'NCT06517758', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:125, enrol:146, sp:'Novartis Pharmaceuticals', cond:'Generalized Myasthenia Gravis', where:'Scottsdale, United States',
+       t:'A Phase III Study to Investigate Efficacy, Safety and Tolerability of Iptacopan Compared With Placebo in Participants Aged 18 to 85 Years With gMG.'},
+      {nct:'NCT04951622', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:112, enrol:199, sp:'Janssen Research & Development, LLC', cond:'Myasthenia Gravis', where:'Paradise Valley, United States',
+       t:'A Study of Nipocalimab Administered to Adults With Generalized Myasthenia Gravis'},
+      {nct:'NCT06456580', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:111, enrol:180, sp:'Vor Biopharma', cond:'Generalized Myasthenia Gravis', where:'Scottsdale, United States',
+       t:'A Study of Telitacicept for the Treatment of Generalized Myasthenia Gravis (UPSTREAM MG)'},
+      {nct:'NCT07039916', ph:'Phase 3', st:'Recruiting', ty:'Interventional', sites:88, enrol:231, sp:'Immunovant Sciences GmbH', cond:'Generalized Myasthenia Gravis', where:'Huntsville, United States',
+       t:'Study to Assess the Efficacy and Safety of IMVT-1402 in Participants With Mild to Severe Generalized Myasthenia Gravis'},
+      {nct:'NCT06414954', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:40, enrol:84, sp:'NMD Pharma A/S', cond:'Myasthenia Gravis, Myasthenia Gravis, MuSK', where:'Carlsbad, United States',
+       t:'Safety and Efficacy of 3 Dose Levels of NMD670 in Adult Patients With Myasthenia Gravis'},
+      {nct:'NCT07250750', ph:'Phase 1, Phase 2', st:'Recruiting', ty:'Interventional', sites:25, enrol:96, sp:'ImmunAbs Inc.', cond:'Myasthenia Gravis', where:'Altamonte Springs, United States',
+       t:'A Phase 1b/2 Study of IM-101 in Adult Participants With Generalized Myasthenia Gravis and Ocular Myasthenia Gravis'},
+      {nct:'NCT07284420', ph:'Phase 2', st:'Recruiting', ty:'Interventional', sites:24, enrol:70, sp:'argenx', cond:'AChR-Ab Seropositive Generalized Myasthenia Gravis, Myasthenia G', where:'Carlsbad, United States',
+       t:'ADAPT Forward 1 - ISA1 - a Study to Evaluate Empasiprubart IV as add-on Therapy to Efgartigimod IV in Participants With AChR-Ab Seropositive Generaliz'},
+    ] },  }
+};
+</script>
+<script src="assets/ov-kit.js"></script>
+</head>
+<body>
+
+<main id="main">
+
+  <!-- ============ HEADER — two-column band (15-column-voids rule) ============ -->
+  <section class="relative bg-gradient-to-b from-accent-50 to-white" aria-labelledby="tr-h1">
+    <span class="spec" style="top:10px;right:10px">H1 “{Indication} clinical trials near you” · CollectionPage + ItemList</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-7">
+        <h1 id="tr-h1" class="font-display text-[30px] sm:text-[38px] lg:text-[46px] font-semibold leading-[1.12] tracking-[-.02em] text-ink-900">
+          <span data-t="name">Amyloidosis</span> clinical trials near you</h1>
+        <p class="mt-4 text-[17px] lg:text-lg leading-relaxed text-ink-600">
+          A clinical trial is a research study that tests whether a treatment is safe and works.
+          Taking part is always your choice, and you can stop at any time. Listing a study here is
+          not a recommendation — talk it through with your own team.
+        </p>
+        <p class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[14.5px] text-ink-500">
+          <span><strong class="font-semibold text-ink-800 tabular-nums" data-tr-total>52</strong> recruiting studies</span>
+          <span class="hidden sm:inline" aria-hidden="true">·</span>
+          <span>From <a href="https://clinicaltrials.gov" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-accent-700">ClinicalTrials.gov</a></span>
+          <span class="hidden sm:inline" aria-hidden="true">·</span>
+          <span>Synced <time datetime="2026-08-07">7 August 2026</time></span>
+        </p>
+      </div>
+
+      <div class="mt-7 lg:mt-0 lg:col-span-4 lg:col-start-9">
+        <div class="rounded-2xl bg-white/70 border border-accent-200 p-5">
+          <h2 class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">Thinking about taking part?</h2>
+          <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink-600">
+            Three short reads before you contact a study team.
+          </p>
+          <ul class="mt-3 space-y-1">
+            <li><a href="onevoice-news-article.mockup.html" class="flex items-center justify-between gap-3 min-h-[42px] text-[15px] font-medium text-ink-800 hover:text-accent-700">
+              How clinical trials work
+              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            <li><a href="onevoice-news-article.mockup.html" class="flex items-center justify-between gap-3 min-h-[42px] text-[15px] font-medium text-ink-800 hover:text-accent-700">
+              Questions to ask the study team
+              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            <li><a href="onevoice-news-article.mockup.html" class="flex items-center justify-between gap-3 min-h-[42px] text-[15px] font-medium text-ink-800 hover:text-accent-700">
+              What phases mean
+              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FILTER BAR — state lives in the URL ============ -->
+  <section class="sticky top-16 lg:top-20 z-20 bg-white/95 backdrop-blur border-y border-ink-200" aria-label="Filter trials">
+    <span class="spec" style="top:8px;right:10px">?near=&amp;radius=&amp;phase=&amp;status= · list is server-rendered, map is enhancement</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-3">
+      <form class="flex flex-wrap items-center gap-2.5" onsubmit="return false" data-tr-filters>
+        <label class="relative flex-1 min-w-[190px]">
+          <span class="sr-only">Search trials</span>
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" name="q" placeholder="Search title, sponsor or NCT id" data-tr-q
+                 class="w-full min-h-[46px] pl-11 pr-4 rounded-full bg-ink-50 border border-ink-200 text-[15.5px] text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
+        </label>
+        <label class="min-w-[150px]">
+          <span class="sr-only">Phase</span>
+          <select name="phase" data-tr-phase class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
+            <option value="">Any phase</option>
+            <option>Phase 1</option><option>Phase 2</option><option>Phase 3</option><option>Phase 4</option>
+            <option value="NA">No phase assigned</option>
+          </select>
+        </label>
+        <label class="min-w-[150px]">
+          <span class="sr-only">Number of sites</span>
+          <select name="sites" data-tr-sites class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
+            <option value="">Any location</option>
+            <option value="multi">Multi-site (5+)</option>
+            <option value="single">Single site</option>
+          </select>
+        </label>
+        <button type="reset" data-tr-reset class="min-h-[46px] px-4 rounded-full text-[15px] font-semibold text-ink-600 hover:bg-ink-100">Clear</button>
+        <span class="ml-auto inline-flex rounded-full border border-ink-300 p-0.5" role="group" aria-label="View">
+          <button type="button" aria-pressed="true" data-tr-view="list" class="min-h-[38px] px-3.5 rounded-full text-[14px] font-semibold bg-ink-900 text-white">List</button>
+          <button type="button" aria-pressed="false" data-tr-view="map" class="min-h-[38px] px-3.5 rounded-full text-[14px] font-semibold text-ink-700">Map</button>
+        </span>
+      </form>
+      <ul class="mt-2.5 flex flex-wrap gap-2 hidden" data-tr-chips></ul>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12" aria-label="Trial results">
+    <div class="lg:col-span-8">
+      <p class="text-[14.5px] text-ink-500"><strong class="font-semibold text-ink-800 tabular-nums" data-tr-shown>8</strong> shown of <span class="tabular-nums" data-tr-count>52</span></p>
+
+      <!-- Map placeholder: enhancement only, never the sole route to a trial -->
+      <div class="hidden mt-4 rounded-2xl border border-ink-200 bg-ink-50 aspect-[16/10] grid place-items-center" data-tr-map>
+        <p class="text-[15px] text-ink-500 text-center px-6">Map view — study sites plotted from the
+          <code class="text-[13px]">location</code> paragraph geolocation.<br>Every trial here is also in the list.</p>
+      </div>
+
+      <ol class="mt-4 space-y-3" data-tr-list></ol>
+
+      <div class="hidden py-14 text-center" data-tr-empty>
+        <p class="font-display text-[22px] font-semibold text-ink-900">No trials match those filters</p>
+        <p class="mt-2 text-[15.5px] text-ink-600">Try a wider radius, or clear the phase filter.</p>
+        <button type="button" data-tr-reset class="mt-5 inline-flex items-center min-h-[48px] px-6 rounded-full bg-accent-600 text-white text-[16px] font-semibold hover:bg-accent-700">Clear all filters</button>
+      </div>
+
+      <nav class="mt-8 flex items-center justify-between gap-3" aria-label="Pagination" data-tr-pager>
+        <span class="text-[14.5px] text-ink-500">Page <strong class="text-ink-800">1</strong> of <span class="tabular-nums" data-tr-pages>7</span></span>
+        <ul class="flex items-center gap-1.5">
+          <li><span aria-disabled="true" class="grid place-items-center w-11 h-11 rounded-full text-ink-300">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></span></li>
+          <li><a href="#" aria-current="page" class="grid place-items-center w-11 h-11 rounded-full bg-accent-600 text-white text-[15px] font-semibold">1</a></li>
+          <li><a href="#" class="grid place-items-center w-11 h-11 rounded-full text-[15px] font-medium text-ink-700 hover:bg-ink-100">2</a></li>
+          <li><a href="#" class="grid place-items-center w-11 h-11 rounded-full text-[15px] font-medium text-ink-700 hover:bg-ink-100">3</a></li>
+          <li aria-hidden="true" class="px-1 text-ink-400">…</li>
+          <li><a href="#" class="grid place-items-center w-11 h-11 rounded-full text-[15px] font-medium text-ink-700 hover:bg-ink-100 tabular-nums" data-tr-last>7</a></li>
+          <li><a href="#" aria-label="Next page" class="grid place-items-center w-11 h-11 rounded-full text-ink-700 hover:bg-ink-100">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Sticky rail (15-column-voids rule) -->
+    <aside class="mt-10 lg:mt-0 lg:col-span-4 lg:sticky lg:top-24 lg:self-start space-y-4" aria-label="Trial support">
+      <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5">
+        <h2 class="font-display text-[19px] font-semibold text-ink-900">Not sure where to start?</h2>
+        <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">
+          Bring the trials you are considering to a live session, or ask a specialist centre near you.
+        </p>
+        <div class="mt-4 flex flex-col gap-2.5">
+          <a href="#" class="flex items-center justify-center min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">Upcoming sessions</a>
+          <a href="#" class="flex items-center justify-center min-h-[46px] px-5 rounded-full bg-white border border-ink-300 text-[15.5px] font-semibold text-ink-800 hover:bg-ink-50">Find an expert</a>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-ink-200 bg-ink-50 p-5">
+        <h2 class="text-[17px] font-semibold text-ink-900">Where the data comes from</h2>
+        <p class="mt-2 text-[14.5px] leading-relaxed text-ink-600">
+          Every study is taken from the public ClinicalTrials.gov registry and synced regularly.
+          We show the registry's own wording — we do not summarise or interpret eligibility.
+        </p>
+        <a href="https://clinicaltrials.gov" target="_blank" rel="noopener noreferrer"
+           class="mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:text-accent-800">
+          About the registry
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+          <span class="sr-only">(opens in a new tab)</span>
+        </a>
+      </div>
+
+      <div class="rounded-2xl border border-ink-200 p-5">
+        <h2 class="text-[17px] font-semibold text-ink-900">New trials, when they open</h2>
+        <p class="mt-1.5 text-[14.5px] text-ink-600">A monthly email when studies start recruiting near you.</p>
+        <form class="mt-3.5 flex flex-col gap-2.5" onsubmit="return false">
+          <label class="sr-only" for="tr-email">Email address</label>
+          <input id="tr-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com"
+                 class="min-h-[46px] px-4 rounded-full bg-white border border-ink-300 text-[15.5px] text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
+          <button type="submit" class="min-h-[46px] px-5 rounded-full bg-ink-900 text-white text-[15.5px] font-semibold hover:bg-ink-800">Subscribe</button>
+        </form>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<script>
+/* Rendering + filtering. Registry data is displayed verbatim; nothing is summarised. */
+(function(){
+  var cur = null;
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function params(){ return new URLSearchParams(location.search); }
+
+  /* Status colour comes from the neutral + accent scale, never raw green/red,
+     so it stays on-brand for every community. */
+  function statusBadge(st){
+    var on = /recruit/i.test(st);
+    return '<span class="inline-flex items-center gap-1.5 shrink-0 rounded-full px-2.5 py-1 text-[12px] font-semibold ' +
+      (on ? 'bg-accent-600 text-white' : 'bg-ink-200 text-ink-700') + '">' +
+      (on ? '<span class="w-1.5 h-1.5 rounded-full bg-white/90"></span>' : '') + esc(st) + '</span>';
+  }
+
+  function card(t){
+    /* A registry study can be interventional with no phase assigned. Do not call
+       that "observational" — show the study type instead, and never both. */
+    var hasPhase = t.ph && t.ph !== 'NA';
+    return '' +
+    '<li>' +
+      '<article class="group rounded-2xl border border-ink-200 bg-white p-5 shadow-card hover:border-accent-400 hover:shadow-lift transition">' +
+        '<div class="flex flex-wrap items-center gap-2">' +
+          statusBadge(t.st) +
+          '<span class="rounded-full bg-accent-50 text-accent-800 px-2.5 py-1 text-[12px] font-semibold">' +
+            esc(hasPhase ? t.ph : t.ty) + '</span>' +
+          (hasPhase ? '<span class="text-[12.5px] text-ink-500">' + esc(t.ty) + '</span>' : '') +
+          '<span class="ml-auto font-mono text-[12.5px] text-ink-500 tabular-nums">' + esc(t.nct) + '</span>' +
+        '</div>' +
+        '<h3 class="mt-3 text-[17.5px] sm:text-[19px] font-semibold leading-snug text-ink-900">' +
+          '<a href="#" class="hover:text-accent-800 hover:underline underline-offset-2">' + esc(t.t) + '</a></h3>' +
+        '<p class="mt-1.5 text-[14.5px] text-ink-600">' + esc(t.cond) + '</p>' +
+        '<dl class="mt-3.5 flex flex-wrap gap-x-6 gap-y-2 text-[13.5px] text-ink-600">' +
+          '<div class="flex items-center gap-1.5"><dt class="text-ink-500">Sites</dt><dd class="font-semibold text-ink-800 tabular-nums">' + t.sites + '</dd></div>' +
+          (t.enrol ? '<div class="flex items-center gap-1.5"><dt class="text-ink-500">Target</dt><dd class="font-semibold text-ink-800 tabular-nums">' + t.enrol + '</dd></div>' : '') +
+          (t.where ? '<div class="flex items-center gap-1.5"><dt class="sr-only">Nearest site</dt><dd>' + esc(t.where) + (t.sites > 1 ? ' <span class="text-ink-500">+' + (t.sites - 1) + ' more</span>' : '') + '</dd></div>' : '') +
+        '</dl>' +
+        '<p class="mt-2 text-[13px] text-ink-500">Sponsor: ' + esc(t.sp) + '</p>' +
+        '<div class="mt-4 pt-4 border-t border-ink-100 flex flex-wrap items-center gap-3">' +
+          '<a href="#" class="inline-flex items-center gap-1.5 min-h-[44px] px-5 rounded-full bg-accent-600 text-white text-[15px] font-semibold hover:bg-accent-700">' +
+            'View this trial' +
+            '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>' +
+          '<a href="https://clinicaltrials.gov/study/' + esc(t.nct) + '" target="_blank" rel="noopener noreferrer" ' +
+             'class="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full border border-ink-300 text-[14.5px] font-semibold text-ink-800 hover:bg-ink-100">' +
+            'Registry record' +
+            '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>' +
+            '<span class="sr-only">(opens in a new tab)</span></a>' +
+        '</div>' +
+      '</article>' +
+    '</li>';
+  }
+
+  function apply(){
+    if (!cur) return;
+    var q = params();
+    var term = (q.get('q') || '').toLowerCase();
+    var phase = q.get('phase') || '';
+    var sites = q.get('sites') || '';
+
+    var hits = cur.trials.filter(function(t){
+      if (phase === 'NA' && t.ph !== 'NA') return false;   /* "no phase assigned" */
+      if (phase && phase !== 'NA' && t.ph.indexOf(phase) < 0) return false;
+      if (sites === 'multi' && t.sites < 5) return false;
+      if (sites === 'single' && t.sites !== 1) return false;
+      if (term && (t.t + ' ' + t.sp + ' ' + t.nct + ' ' + t.cond).toLowerCase().indexOf(term) < 0) return false;
+      return true;
+    });
+
+    var filtering = !!(term || phase || sites);
+    document.querySelector('[data-tr-list]').innerHTML = hits.map(card).join('');
+    document.querySelector('[data-tr-empty]').classList.toggle('hidden', hits.length !== 0);
+    document.querySelector('[data-tr-pager]').classList.toggle('hidden', filtering);
+    document.querySelector('[data-tr-shown]').textContent = hits.length;
+    document.querySelector('[data-tr-count]').textContent = filtering ? hits.length : cur.total;
+
+    var chips = document.querySelector('[data-tr-chips]');
+    var active = [];
+    if (phase) active.push(['phase', phase === 'NA' ? 'Observational' : phase]);
+    if (sites) active.push(['sites', sites === 'multi' ? 'Multi-site (5+)' : 'Single site']);
+    if (term)  active.push(['q', '“' + term + '”']);
+    chips.innerHTML = active.map(function(p){
+      return '<li><button type="button" data-drop="' + p[0] + '" class="inline-flex items-center gap-1.5 min-h-[34px] px-3 rounded-full bg-accent-50 border border-accent-200 text-[13.5px] font-medium text-accent-800 hover:bg-accent-100">' +
+             esc(p[1]) + '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="sr-only">Remove filter</span></button></li>';
+    }).join('');
+    chips.classList.toggle('hidden', !active.length);
+  }
+
+  function setParam(k, v){
+    var q = params();
+    if (v) q.set(k, v); else q.delete(k);
+    history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
+    apply();
+  }
+
+  window.OV.onTenant = function(t, slug){
+    cur = window.OV.registry[slug] || null;
+    if (cur) {
+      document.querySelector('[data-tr-total]').textContent = cur.total;
+      var pages = Math.ceil(cur.total / 8);
+      document.querySelector('[data-tr-pages]').textContent = pages;
+      document.querySelector('[data-tr-last]').textContent = pages;
+    }
+    apply();
+    document.title = t.name + ' clinical trials near you | oneVoice';
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var q = params();
+    var qi = document.querySelector('[data-tr-q]'),
+        pi = document.querySelector('[data-tr-phase]'),
+        si = document.querySelector('[data-tr-sites]');
+    if (qi) qi.value = q.get('q') || '';
+    if (pi) pi.value = q.get('phase') || '';
+    if (si) si.value = q.get('sites') || '';
+    qi && qi.addEventListener('input',  function(){ setParam('q', this.value.trim()); });
+    pi && pi.addEventListener('change', function(){ setParam('phase', this.value); });
+    si && si.addEventListener('change', function(){ setParam('sites', this.value); });
+
+    document.addEventListener('click', function(e){
+      var drop = e.target.closest('[data-drop]');
+      if (drop){
+        var k = drop.getAttribute('data-drop');
+        setParam(k, '');
+        var el = document.querySelector('[data-tr-' + (k === 'phase' ? 'phase' : k === 'sites' ? 'sites' : 'q') + ']');
+        if (el) el.value = '';
+        return;
+      }
+      if (e.target.closest('[data-tr-reset]')){
+        history.replaceState(null, '', location.pathname);
+        [qi, pi, si].forEach(function(el){ if (el) el.value = ''; });
+        apply();
+        return;
+      }
+      var v = e.target.closest('[data-tr-view]');
+      if (v){
+        var map = v.getAttribute('data-tr-view') === 'map';
+        document.querySelectorAll('[data-tr-view]').forEach(function(b){
+          var on = b === v;
+          b.setAttribute('aria-pressed', String(on));
+          b.classList.toggle('bg-ink-900', on); b.classList.toggle('text-white', on);
+          b.classList.toggle('text-ink-700', !on);
+        });
+        /* The list is never removed — the map is an addition, not a replacement */
+        document.querySelector('[data-tr-map]').classList.toggle('hidden', !map);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

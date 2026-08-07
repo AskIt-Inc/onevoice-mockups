@@ -180,7 +180,7 @@
         <!-- Horizontal nav starts at lg. Below that the hamburger + bottom tab bar carry navigation:
              5 items plus a long condition name will not fit at 834px for every indication. -->
         <nav class="hidden lg:flex items-center gap-1 xl:gap-2 ml-auto" aria-label="Main">
-          <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-accent-800 bg-accent-50">Clinical trials</a>
+          <a href="onevoice-trials.mockup.html" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-accent-800 bg-accent-50">Clinical trials</a>
           <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Learn</a>
           <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Community</a>
           <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Find an expert</a>
@@ -318,7 +318,7 @@
 
         <nav class="mt-5" aria-label="Menu">
           <ul class="divide-y divide-ink-100 border-y border-ink-100">
-            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-accent-800" data-menu-link>
+            <li><a href="onevoice-trials.mockup.html" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-accent-800" data-menu-link>
               Clinical trials
               <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
             <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
@@ -895,7 +895,8 @@
         var PAGES = [
           { href:'onevoice-homepage.mockup.html', label:'Home' },
           { href:'onevoice-news.mockup.html',     label:'News' },
-          { href:'onevoice-news-article.mockup.html', label:'Article' }
+          { href:'onevoice-news-article.mockup.html', label:'Article' },
+          { href:'onevoice-trials.mockup.html', label:'Trials' }
         ];
         var here = location.pathname.split('/').pop() || 'onevoice-homepage.mockup.html';
         bar.innerHTML = ORDER.map(function(s){
