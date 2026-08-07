@@ -132,7 +132,9 @@ window.OV = {
 
     <!-- ============ LEAD IMAGE ============ -->
     <figure class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
-      <div class="overflow-hidden rounded-3xl aspect-[16/9] bg-ink-100 max-w-[62rem]">
+      <!-- Full container width: a capped lead image left a 320px-tall empty band on the
+           right. Art-directed to a wider crop on desktop so full width does not mean tall. -->
+      <div class="overflow-hidden rounded-3xl aspect-[16/9] lg:aspect-[21/9] 2xl:aspect-[24/9] bg-ink-100">
         <img src="assets/article-1.jpg" width="800" height="450" fetchpriority="high" decoding="async"
              alt="A consultant and nurse reviewing results with a patient at a desk"
              class="w-full h-full object-cover">
@@ -145,7 +147,7 @@ window.OV = {
     <!-- ============ BODY + SIDEBAR ============ -->
     <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
 
-      <div class="lg:col-span-6">
+      <div class="lg:col-span-6 2xl:col-span-5">
         <!-- Table of contents — shown for long articles only -->
         <nav aria-labelledby="toc-h" data-a-toc>
           <h2 id="toc-h" class="text-[12.5px] font-semibold uppercase tracking-[.12em] text-ink-500">On this page</h2>
