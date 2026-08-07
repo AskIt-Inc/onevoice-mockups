@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" data-tenant="amyloidosis" data-notes="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Expert profile | oneVoice</title>
+<script>
+/* ---------------------------------------------------------------------------
+   Prompt 10 — Expert profile. Route /find-an-expert/[node:title].
+   Source: `people` + taxonomies (type_of_expert, specialities, primary_role,
+   affiliation_info, qualification), filtered by field_domain_access.
+   Cross-links: news/education reviewed, clinical_trial_operations, sessions.
+
+   Which record: ?p={slug} from the directory. ?empty=1 forces the sparsest
+   record in the set — no affiliation, no address, no qualification, no contact
+   channel, no cross-links — because that is the common case across 510 records
+   and the state most likely to break a two-column header.
+
+   DATA IS ILLUSTRATIVE — same rules as the directory (09/10). Individuals and
+   their institutions are invented; the two centre records are real and carry
+   only facts already published on the approved homepage. Phone numbers use the
+   Ofcom drama range, emails the RFC 2606 reserved `example.org`.
+   --------------------------------------------------------------------------- */
+window.OV = {
+  nav: 'experts',
+  crumbs: [{ label: 'Find an expert', href: 'onevoice-experts.mockup.html' }, { label: 'Profile' }],
+
+  /* Same record set as onevoice-experts.mockup.html, so every "View profile"
+     link from the directory resolves to that person rather than a stand-in. */
+  dir: {
+    amyloidosis: { rows: [
+      { s:'okafor', n:'Dr A. Okafor', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
+        sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD',
+        af:'Northgate Cardiac Amyloidosis Unit', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0958', web:'#' },
+      { s:'haugen', n:'Dr L. Haugen', cr:'PhD', ro:'Principal research scientist', ty:'Researcher',
+        sp:['Genetics','Research'], qu:'PhD',
+        af:'Fjordvik Amyloid Research Institute', ci:'Bergen', co:'Norway', em:'l.haugen@example.org' },
+      { s:'vanderbilt', n:'Vanderbilt Amyloidosis Multidisciplinary Program', ro:'Multidisciplinary specialist centre',
+        ty:'Specialist centre', sp:['Diagnosis & imaging','Treatment & therapeutics'], centre:true,
+        af:'Vanderbilt Health', tid:12351, ci:'Nashville, Tennessee', co:'United States',
+        web:'https://vanderbilt.oneamyloidosisvoice.com' },
+      { s:'cityofhope', n:'City of Hope Amyloidosis Program', ro:'Multidisciplinary specialist centre',
+        ty:'Specialist centre', sp:['Treatment & therapeutics','Research'], centre:true,
+        af:'City of Hope', tid:12759, ci:'Duarte, California', co:'United States',
+        web:'https://cityofhope.oneamyloidosisvoice.com' },
+      { s:'ferreira', n:'Dr M. Ferreira', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
+        sp:['Treatment & therapeutics'], qu:'MD', af:'Rua Nova AL Amyloidosis Clinic', ci:'Lisbon', co:'Portugal', em:'m.ferreira@example.org' },
+      { s:'whitcombe', n:'S. Whitcombe', cr:'RN', ro:'Amyloidosis nurse specialist', ty:'Nurse specialist',
+        sp:['Supportive care'], qu:'RN', af:'Northgate Cardiac Amyloidosis Unit', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0961' },
+      { s:'castellanos', n:'Dr J. Castellanos', cr:'MD PhD', ro:'Consultant neurologist', ty:'Neurologist',
+        sp:['Diagnosis & imaging','Research'], qu:'MD PhD', af:'Cordillera Neuromuscular Centre', ci:'Madrid', co:'Spain', em:'j.castellanos@example.org' },
+      { s:'nakamura', n:'Dr H. Nakamura', cr:'MD', ro:'Consultant nephrologist', ty:'Nephrologist',
+        sp:['Treatment & therapeutics'], qu:'MD', af:'Kitahama Renal Amyloid Service', ci:'Osaka', co:'Japan' },
+      { s:'boateng', n:'Dr E. Boateng', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
+        sp:['Diagnosis & imaging'], qu:'MD', af:'Adinkra Cardiac Centre', ci:'Accra', co:'Ghana', em:'e.boateng@example.org' },
+      { s:'lindqvist', n:'P. Lindqvist', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'], sparse:true },
+      { s:'mahoney', n:'Dr R. Mahoney', cr:'MD', ro:'Consultant in palliative medicine', ty:'Pain & palliative care',
+        sp:['Supportive care'], qu:'MD', af:'Two Rivers Supportive Care Service', ci:'Dublin', co:'Ireland', em:'r.mahoney@example.org' },
+      { s:'farouk', n:'Dr Y. Farouk', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
+        sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD', af:'Nile Delta Amyloidosis Clinic', ci:'Cairo', co:'Egypt', em:'y.farouk@example.org' }
+    ]},
+    scd: { rows: [
+      { s:'mensah', n:'Dr N. Mensah', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
+        sp:['Treatment & therapeutics','Diagnosis & imaging'], qu:'MD', af:'Southbank Sickle Cell Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0342' },
+      { s:'iyer', n:'Dr P. Iyer', cr:'PhD', ro:'Senior research fellow', ty:'Researcher',
+        sp:['Research','Genetics'], qu:'PhD', af:'Meridian Haemoglobinopathy Research Unit', ci:'Bengaluru', co:'India', em:'p.iyer@example.org' },
+      { s:'adeyinka', n:'Dr C. Adeyinka', cr:'MD', ro:'Consultant paediatric haematologist', ty:'Paediatrician',
+        sp:['Paediatrics','Treatment & therapeutics'], qu:'MD', af:'Harmattan Children’s Haematology Service', ci:'Lagos', co:'Nigeria', em:'c.adeyinka@example.org' },
+      { s:'ofosu', n:'K. Ofosu', cr:'RN', ro:'Sickle cell nurse specialist', ty:'Nurse specialist',
+        sp:['Supportive care'], qu:'RN', af:'Southbank Sickle Cell Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0347' },
+      { s:'beaumont', n:'Dr T. Beaumont', cr:'MD', ro:'Consultant in pain medicine', ty:'Pain & palliative care',
+        sp:['Supportive care'], qu:'MD', af:'Riverbend Pain Service', ci:'Birmingham', co:'United Kingdom', tel:'+44 20 7946 0388' },
+      { s:'haddad', n:'Dr S. Haddad', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
+        sp:['Treatment & therapeutics'], qu:'MD', af:'Levant Haemoglobin Disorders Clinic', ci:'Beirut', co:'Lebanon', em:'s.haddad@example.org' },
+      { s:'nyathi', n:'Dr G. Nyathi', cr:'MD PhD', ro:'Transplant physician', ty:'Transplant physician',
+        sp:['Treatment & therapeutics','Research'], qu:'MD PhD', af:'Highveld Transplant Programme', ci:'Johannesburg', co:'South Africa' },
+      { s:'delacroix', n:'M. Delacroix', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'], sparse:true },
+      { s:'okonkwo', n:'Dr V. Okonkwo', cr:'MD', ro:'Consultant obstetrician', ty:'Obstetrician',
+        sp:['Supportive care'], qu:'MD', af:'Ilesa Maternal Haematology Service', ci:'Abuja', co:'Nigeria', em:'v.okonkwo@example.org' },
+      { s:'amara', n:'Dr B. Amara', cr:'MD', ro:'Consultant paediatrician', ty:'Paediatrician',
+        sp:['Paediatrics'], qu:'MD', af:'Cedar Grove Children’s Centre', ci:'Manchester', co:'United Kingdom', tel:'+44 20 7946 0410' },
+      { s:'rossi', n:'Dr F. Rossi', cr:'PhD', ro:'Research scientist, gene therapy', ty:'Researcher',
+        sp:['Research','Genetics'], qu:'PhD', af:'Tyrrhenian Gene Therapy Institute', ci:'Naples', co:'Italy', em:'f.rossi@example.org' },
+      { s:'chen', n:'Dr L. Chen', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
+        sp:['Treatment & therapeutics'], qu:'MD', af:'Pearl River Haemoglobinopathy Unit', ci:'Guangzhou', co:'China' }
+    ]},
+    ph: { rows: [
+      { s:'duarte', n:'Dr M. Duarte', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
+        sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD', af:'Mersey PH Referral Centre', ci:'Liverpool', co:'United Kingdom', tel:'+44 20 7946 0512' },
+      { s:'volkov', n:'Dr S. Volkov', cr:'PhD', ro:'Principal investigator', ty:'Researcher',
+        sp:['Research'], qu:'PhD', af:'Baltic Pulmonary Vascular Institute', ci:'Riga', co:'Latvia', em:'s.volkov@example.org' },
+      { s:'beaulieu', n:'Dr I. Beaulieu', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
+        sp:['Diagnosis & imaging'], qu:'MD', af:'Laurentide Cardiopulmonary Centre', ci:'Montréal', co:'Canada', em:'i.beaulieu@example.org' },
+      { s:'traore', n:'J. Traoré', cr:'RN', ro:'Pulmonary hypertension nurse specialist', ty:'Nurse specialist',
+        sp:['Supportive care'], qu:'RN', af:'Mersey PH Referral Centre', ci:'Liverpool', co:'United Kingdom', tel:'+44 20 7946 0518' },
+      { s:'sandoval', n:'Dr A. Sandoval', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
+        sp:['Treatment & therapeutics'], qu:'MD', af:'Altiplano Pulmonary Unit', ci:'Bogotá', co:'Colombia' },
+      { s:'brennan', n:'Dr K. Brennan', cr:'MD PhD', ro:'Interventional cardiologist, CTEPH', ty:'Cardiologist',
+        sp:['Treatment & therapeutics','Research'], qu:'MD PhD', af:'Two Rivers Thoracic Programme', ci:'Dublin', co:'Ireland', em:'k.brennan@example.org' },
+      { s:'rahimi', n:'Dr N. Rahimi', cr:'MD', ro:'Consultant paediatric cardiologist', ty:'Paediatrician',
+        sp:['Paediatrics','Diagnosis & imaging'], qu:'MD', af:'Silk Road Children’s Heart Centre', ci:'Tashkent', co:'Uzbekistan' },
+      { s:'falkenberg', n:'R. Falkenberg', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'], sparse:true },
+      { s:'adebayo', n:'Dr O. Adebayo', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
+        sp:['Diagnosis & imaging'], qu:'MD', af:'Lagoon Chest Clinic', ci:'Lagos', co:'Nigeria', em:'o.adebayo@example.org' },
+      { s:'lindgren', n:'Dr H. Lindgren', cr:'PhD', ro:'Exercise physiologist', ty:'Researcher',
+        sp:['Research','Supportive care'], qu:'PhD', af:'Norrland Cardiopulmonary Research Group', ci:'Umeå', co:'Sweden', em:'h.lindgren@example.org' },
+      { s:'marchetti', n:'Dr P. Marchetti', cr:'MD', ro:'Transplant physician', ty:'Transplant physician',
+        sp:['Treatment & therapeutics'], qu:'MD', af:'Po Valley Transplant Programme', ci:'Bologna', co:'Italy' },
+      { s:'karim', n:'Dr Z. Karim', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
+        sp:['Treatment & therapeutics'], qu:'MD', af:'Indus Pulmonary Vascular Clinic', ci:'Karachi', co:'Pakistan', em:'z.karim@example.org' }
+    ]},
+    mg: { rows: [
+      { s:'adeyemi', n:'Dr R. Adeyemi', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
+        sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD', af:'Kingsway Neuromuscular Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0720' },
+      { s:'larsen', n:'Dr K. Larsen', cr:'PhD', ro:'Senior research fellow', ty:'Researcher',
+        sp:['Research'], qu:'PhD', af:'Øresund Neuroimmunology Unit', ci:'Copenhagen', co:'Denmark', em:'k.larsen@example.org' },
+      { s:'nowak', n:'Dr W. Nowak', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
+        sp:['Treatment & therapeutics'], qu:'MD', af:'Wisła Neuromuscular Service', ci:'Kraków', co:'Poland', em:'w.nowak@example.org' },
+      { s:'bergstrom', n:'A. Bergström', cr:'RN', ro:'Neuromuscular nurse specialist', ty:'Nurse specialist',
+        sp:['Supportive care'], qu:'RN', af:'Kingsway Neuromuscular Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0724' },
+      { s:'yamashita', n:'Dr T. Yamashita', cr:'MD', ro:'Thoracic surgeon, thymectomy', ty:'Surgeon',
+        sp:['Treatment & therapeutics'], qu:'MD', af:'Setouchi Thoracic Programme', ci:'Hiroshima', co:'Japan' },
+      { s:'mbeki', n:'Dr C. Mbeki', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
+        sp:['Diagnosis & imaging'], qu:'MD', af:'Table Bay Neurology Service', ci:'Cape Town', co:'South Africa', em:'c.mbeki@example.org' },
+      { s:'fontaine', n:'Dr E. Fontaine', cr:'MD PhD', ro:'Neuroimmunologist', ty:'Researcher',
+        sp:['Research','Treatment & therapeutics'], qu:'MD PhD', af:'Rhône Neuroimmunology Institute', ci:'Lyon', co:'France', em:'e.fontaine@example.org' },
+      { s:'kowalczyk', n:'D. Kowalczyk', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'], sparse:true },
+      { s:'prasad', n:'Dr S. Prasad', cr:'MD', ro:'Consultant ophthalmologist, ocular MG', ty:'Ophthalmologist',
+        sp:['Diagnosis & imaging'], qu:'MD', af:'Deccan Neuro-ophthalmology Clinic', ci:'Hyderabad', co:'India', em:'s.prasad@example.org' },
+      { s:'halvorsen', n:'Dr M. Halvorsen', cr:'MD', ro:'Consultant in intensive care', ty:'Intensive care',
+        sp:['Supportive care'], qu:'MD', af:'Nordfjell Critical Care Unit', ci:'Trondheim', co:'Norway' },
+      { s:'ricci', n:'Dr J. Ricci', cr:'PhD', ro:'Clinical pharmacologist', ty:'Researcher',
+        sp:['Research'], qu:'PhD', af:'Arno Clinical Pharmacology Group', ci:'Florence', co:'Italy', em:'j.ricci@example.org' },
+      { s:'ortega', n:'Dr B. Ortega', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
+        sp:['Treatment & therapeutics','Paediatrics'], qu:'MD', af:'Sierra Madre Neuromuscular Clinic', ci:'Guadalajara', co:'Mexico' }
+    ]}
+  },
+
+  /* Cross-links exist only where the record actually has them. Most of 510 records
+     have none, which is why the sparse state is the one to design for. Reviewed
+     titles are the same articles that credit this reviewer on the news listing. */
+  extra: {
+    amyloidosis: {
+      okafor: {
+        bio: 'Consultant cardiologist with a specialist clinic in cardiac amyloidosis, and one of the clinicians who reviews oneVoice articles before publication. Referrals are accepted from GPs and from other cardiology services.',
+        reviewed: [
+          { k:'Research',    d:'28 Jul 2026', t:'ATTR-CM trial reports 30% fewer hospitalisations at 30 months' },
+          { k:'Living well', d:'7 Jul 2026',  t:'Fatigue and pacing: what actually helped our members' },
+          { k:'Research',    d:'2 Jun 2026',  t:'Genetic testing uptake among first-degree relatives' }
+        ],
+        trials: [
+          { t:'Open-label extension in ATTR cardiomyopathy', st:'Recruiting', ph:'Phase 3' },
+          { t:'Imaging substudy: early cardiac involvement in AL amyloidosis', st:'Recruiting', ph:'Observational' }
+        ],
+        sessions: [
+          { d:'2026-05-14', dl:'14 May 2026', t:'Ask the specialist: living with cardiac amyloidosis' },
+          { d:'2026-02-05', dl:'5 Feb 2026',  t:'Reading your echocardiogram report' }
+        ]
+      },
+      haugen: {
+        bio: 'Principal research scientist working on hereditary ATTR genetics, and a reviewer of oneVoice research coverage.',
+        reviewed: [
+          { k:'Access',   d:'21 Jul 2026', t:'NICE opens consultation on wider access to tafamidis' },
+          { k:'Research', d:'30 Jun 2026', t:'Early results for a next-generation stabiliser in ATTR' }
+        ]
+      },
+      vanderbilt: {
+        bio: 'A multidisciplinary amyloidosis programme featured in the oneVoice Program Spotlight Series. Cardiology, haematology, neurology and nephrology run a shared clinic, and recorded sessions from the team are published on the spotlight microsite.',
+        sessions: [ { d:'2026-08-01', dl:'August 2026', t:'Program Spotlight: meet the Vanderbilt amyloidosis team' } ]
+      }
+    },
+    scd: {
+      mensah: {
+        bio: 'Consultant haematologist running a sickle cell service, and one of the clinicians who reviews oneVoice articles before publication.',
+        reviewed: [
+          { k:'Treatment',   d:'29 Jul 2026', t:'Gene therapy approved for severe sickle cell disease in under-18s' },
+          { k:'Living well', d:'8 Jul 2026',  t:'Staying hydrated in a heatwave: what members recommend' },
+          { k:'Care',        d:'3 Jun 2026',  t:'Transition from paediatric to adult care remains the weakest link' }
+        ],
+        trials: [ { t:'Long-term follow-up after gene therapy in severe SCD', st:'Recruiting', ph:'Phase 3' } ],
+        sessions: [ { d:'2026-04-22', dl:'22 Apr 2026', t:'Pain crises: what to expect from your hospital' } ]
+      },
+      iyer: {
+        bio: 'Senior research fellow in haemoglobinopathy genetics, and a reviewer of oneVoice research coverage.',
+        reviewed: [
+          { k:'Care',     d:'22 Jul 2026', t:'New A&E pain pathway rolls out across 40 NHS trusts' },
+          { k:'Research', d:'1 Jul 2026',  t:'Long-term outcomes after haematopoietic stem cell transplant' }
+        ]
+      }
+    },
+    ph: {
+      duarte: {
+        bio: 'Consultant in respiratory medicine at a designated pulmonary hypertension referral centre, and one of the clinicians who reviews oneVoice articles before publication.',
+        reviewed: [
+          { k:'Research',  d:'27 Jul 2026', t:'Triple therapy improves six-minute walk distance in PAH' },
+          { k:'Diagnosis', d:'29 Jun 2026', t:'Time to diagnosis in PAH has barely moved in a decade' }
+        ],
+        trials: [ { t:'Inhaled therapy in CTEPH: open-label extension', st:'Recruiting', ph:'Phase 2' } ],
+        sessions: [ { d:'2026-03-11', dl:'11 Mar 2026', t:'Understanding your right-heart catheter results' } ]
+      },
+      volkov: {
+        bio: 'Principal investigator in pulmonary vascular research, and a reviewer of oneVoice research coverage.',
+        reviewed: [ { k:'Living well', d:'6 Jul 2026', t:'Pacing on stairs and hills: small changes that helped' } ]
+      }
+    },
+    mg: {
+      adeyemi: {
+        bio: 'Consultant neurologist with a neuromuscular clinic, and one of the clinicians who reviews oneVoice articles before publication.',
+        reviewed: [
+          { k:'Treatment',   d:'30 Jul 2026', t:'Second FcRn blocker recommended for generalised myasthenia gravis' },
+          { k:'Living well', d:'9 Jul 2026',  t:'Eyelid crutches and prisms: what members found useful' }
+        ],
+        trials: [ { t:'Complement inhibition beyond the first year', st:'Recruiting', ph:'Phase 3' } ],
+        sessions: [ { d:'2026-06-10', dl:'10 Jun 2026', t:'Fatigue, heat and flare-ups: managing daily energy' } ]
+      },
+      larsen: {
+        bio: 'Senior research fellow in neuroimmunology, and a reviewer of oneVoice research coverage.',
+        reviewed: [ { k:'Research', d:'23 Jul 2026', t:'Registry data links earlier thymectomy to lower steroid burden' } ]
+      }
+    }
+  }
+};
+</script>
+<script src="assets/ov-kit.js"></script>
+</head>
+<body>
+
+<main id="main">
+  <article class="relative">
+    <span class="spec" style="top:10px;right:10px">Person + MedicalOrganization affiliation · single H1 = name with credentials</span>
+
+    <!-- ============ HEADER — two-column band.
+         Left: identity. Right: the contact panel, which is what the reader opened the
+         page for, and what stops the right half of the band being empty (prompt 15). ============ -->
+    <header class="bg-gradient-to-b from-accent-50 to-white border-b border-ink-100">
+      <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-7">
+          <div class="flex items-start gap-4 sm:gap-5">
+            <!-- No portrait, ever: there are no consented ones, and a stock face on a
+                 named individual is the mistake in assets/CREDITS.md repeated.
+                 Initials are also the real production fallback. -->
+            <span data-p-tile class="shrink-0"></span>
+            <div class="min-w-0">
+              <h1 class="font-display text-[28px] sm:text-[34px] lg:text-[40px] font-semibold leading-[1.14] tracking-[-.02em] text-ink-900" data-p-name>Dr A. Okafor, MD</h1>
+              <p class="mt-2 text-[17px] leading-snug text-ink-700" data-p-role>Consultant cardiologist</p>
+              <p class="mt-1 text-[16px] leading-snug text-ink-600" data-p-aff hidden></p>
+              <p class="mt-1.5 flex items-center gap-1.5 text-[15px] text-ink-500" data-p-place>
+                <svg class="w-[16px] h-[16px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span data-p-placetext>London, United Kingdom</span>
+              </p>
+            </div>
+          </div>
+          <ul class="mt-5 flex flex-wrap gap-2" data-p-specs></ul>
+        </div>
+
+        <!-- Contact panel. Prompt 20: no form, because a form implies oneVoice forwards
+             the message, and it does not. State plainly what does not happen. -->
+        <section class="mt-7 lg:mt-0 lg:col-span-4 lg:col-start-9" aria-labelledby="contact-h">
+          <div class="rounded-2xl border border-ink-200 bg-white p-5 shadow-card">
+            <h2 id="contact-h" class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">Contact</h2>
+            <div class="mt-3 space-y-2.5" data-p-contact></div>
+            <p class="mt-4 pt-4 border-t border-ink-200 text-[13.5px] leading-relaxed text-ink-500">
+              oneVoice does not arrange appointments, make referrals, or pass messages on. Listings are
+              published at the clinician’s or centre’s request; we do not vet, rank or endorse anyone
+              listed. Ask your GP or current team about a referral.
+            </p>
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <!-- ============ BODY + RAIL.
+         Rich records get 7/4 with a sticky rail. A record with no cross-links collapses
+         to one column and the rail cards move inline — prompt 15's "if a rail has nothing
+         worth carrying, delete the rail", applied to content rather than to a page. ============ -->
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10" data-p-grid>
+
+      <div data-p-main>
+        <section aria-labelledby="about-h">
+          <h2 id="about-h" class="font-display text-[24px] font-semibold tracking-[-.015em] text-ink-900">About</h2>
+          <p class="mt-3 text-[17px] leading-[1.7] text-ink-700" data-p-bio></p>
+        </section>
+
+        <!-- The reason the profile exists: it closes the loop from the article byline -->
+        <section class="mt-9" aria-labelledby="rev-h" data-p-sec="reviewed" hidden>
+          <span class="spec" style="top:-4px;right:0">Closes the credibility loop — the reviewer link on the article resolves here</span>
+          <h2 id="rev-h" class="font-display text-[24px] font-semibold tracking-[-.015em] text-ink-900">Reviewed by this expert</h2>
+          <p class="mt-2 text-[15.5px] text-ink-600">Articles this reviewer checked before publication.</p>
+          <ol class="mt-4 border-t border-ink-100 divide-y divide-ink-100" data-p-reviewed></ol>
+        </section>
+
+        <section class="mt-9" aria-labelledby="tri-h" data-p-sec="trials" hidden>
+          <h2 id="tri-h" class="font-display text-[24px] font-semibold tracking-[-.015em] text-ink-900">Studies at this site</h2>
+          <p class="mt-2 text-[15.5px] text-ink-600">
+            Registry records are held on ClinicalTrials.gov, not republished here — see the trials listing.
+          </p>
+          <ul class="mt-4 grid gap-3 sm:grid-cols-2" data-p-trials></ul>
+        </section>
+
+        <section class="mt-9" aria-labelledby="ses-h" data-p-sec="sessions" hidden>
+          <h2 id="ses-h" class="font-display text-[24px] font-semibold tracking-[-.015em] text-ink-900">Sessions appeared in</h2>
+          <ol class="mt-4 border-t border-ink-100 divide-y divide-ink-100" data-p-sessions></ol>
+        </section>
+      </div>
+
+      <aside data-p-rail aria-label="About this listing">
+        <div class="rounded-2xl border border-ink-200 bg-ink-50 p-5">
+          <h2 class="text-[17px] font-semibold text-ink-900">At a glance</h2>
+          <dl class="mt-3 divide-y divide-ink-200 text-[15px]" data-p-glance></dl>
+        </div>
+
+        <div class="rounded-2xl border border-ink-200 p-5" data-p-relatedbox>
+          <h2 class="text-[17px] font-semibold text-ink-900" data-p-relhead>Also at this institution</h2>
+          <ul class="mt-3 divide-y divide-ink-200" data-p-related></ul>
+        </div>
+
+        <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5">
+          <h2 class="font-display text-[19px] font-semibold text-ink-900">Looking for someone closer?</h2>
+          <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">
+            Search the whole directory by place, specialty and type of expert.
+          </p>
+          <a href="onevoice-experts.mockup.html" class="mt-4 flex items-center justify-center gap-1.5 min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">
+            Find an expert
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </article>
+</main>
+
+<script>
+(function(){
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function attr(s){ return esc(s).replace(/"/g,'&quot;'); }
+  function params(){ return new URLSearchParams(location.search); }
+
+  function initials(r){
+    var parts = r.n.replace(/^Dr\s+/, '').split(/\s+/).filter(function(w){ return /[A-Za-zÀ-ÿ]/.test(w[0]); });
+    return (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
+  }
+
+  function contactRow(icon, label, href, text){
+    return '<p class="flex items-start gap-2.5 text-[15px] text-ink-700">' +
+      icon + '<span class="min-w-0"><span class="block text-[12.5px] uppercase tracking-[.08em] text-ink-400">' + esc(label) + '</span>' +
+      '<a href="' + attr(href) + '" class="break-words font-medium text-ink-800 underline underline-offset-2 hover:text-accent-700">' + esc(text) + '</a></span></p>';
+  }
+
+  var ICON = {
+    tel:'<svg class="w-[18px] h-[18px] mt-1 shrink-0 text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>',
+    em: '<svg class="w-[18px] h-[18px] mt-1 shrink-0 text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>',
+    web:'<svg class="w-[18px] h-[18px] mt-1 shrink-0 text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>'
+  };
+
+  function pick(rows){
+    var p = params();
+    if (p.get('empty') === '1') {
+      var sparse = rows.filter(function(r){ return r.sparse; })[0];
+      if (sparse) return sparse;
+    }
+    var want = p.get('p');
+    var hit = want && rows.filter(function(r){ return r.s === want; })[0];
+    /* Unknown slug: fall back to the first record so the page is always reviewable.
+       Production returns 404 — a person who is not in this domain must not resolve. */
+    return hit || rows[0];
+  }
+
+  window.OV.onTenant = function(t, slug){
+    var rows = (window.OV.dir[slug] || {}).rows || [];
+    if (!rows.length) return;
+    var r = pick(rows);
+    var x = ((window.OV.extra[slug] || {})[r.s]) || {};
+
+    /* ---- header ---- */
+    document.querySelector('[data-p-tile]').innerHTML = r.tid
+      ? '<span class="flex items-center justify-center w-[76px] h-[76px] sm:w-[88px] sm:h-[88px] rounded-2xl bg-white border border-ink-200 overflow-hidden p-2" ' +
+        'data-logo="' + r.tid + '" data-cap="max-h-14 max-w-[68px]">' +
+        '<span class="text-[10px] font-semibold leading-tight text-center text-ink-400" data-logo-fallback>' + esc(r.af) + '</span></span>'
+      : '<span aria-hidden="true" class="grid place-items-center w-[76px] h-[76px] sm:w-[88px] sm:h-[88px] rounded-2xl bg-accent-100 border border-accent-200 ' +
+        'font-display text-[30px] sm:text-[34px] font-semibold text-accent-800">' + esc(initials(r)) + '</span>';
+    if (r.tid && typeof window.OV.resolveLogos === 'function') window.OV.resolveLogos(document.querySelector('[data-p-tile]'));
+
+    document.querySelector('[data-p-name]').textContent = r.n + (r.cr ? ', ' + r.cr : '');
+    document.querySelector('[data-p-role]').textContent = r.ro;
+
+    var aff = document.querySelector('[data-p-aff]');
+    aff.hidden = !r.af;
+    if (r.af) aff.textContent = r.af;
+
+    var place = document.querySelector('[data-p-place]');
+    place.hidden = !r.ci;
+    if (r.ci) document.querySelector('[data-p-placetext]').textContent = r.ci + ', ' + r.co;
+
+    document.querySelector('[data-p-specs]').innerHTML = (r.sp || []).map(function(s){
+      return '<li><a href="onevoice-experts.mockup.html?spec=' + encodeURIComponent(s) + '" ' +
+        'class="inline-flex items-center min-h-[36px] px-3.5 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">' +
+        esc(s) + '</a></li>';
+    }).join('');
+
+    /* ---- contact: only what the record marks public, and say so when there is none ---- */
+    var cout = [];
+    if (r.tel) cout.push(contactRow(ICON.tel, 'Secretary’s line', 'tel:' + r.tel.replace(/\s/g,''), r.tel));
+    if (r.em)  cout.push(contactRow(ICON.em,  'Email', 'mailto:' + r.em, r.em));
+    if (r.web) cout.push(contactRow(ICON.web, 'Website', r.web, r.web === '#' ? 'Unit website' : r.web.replace(/^https?:\/\//, '')));
+    document.querySelector('[data-p-contact]').innerHTML = cout.length ? cout.join('')
+      : '<p class="text-[15px] leading-relaxed text-ink-500">This record has no contact details marked public.</p>';
+
+    /* ---- about. Hand-written only where a record has one; otherwise derived from the
+            fields themselves, because inventing a biography is inventing content. ---- */
+    document.querySelector('[data-p-bio]').textContent = x.bio || (
+      r.n + ' is listed in the oneVoice ' + t.name + ' directory as a ' + r.ro.toLowerCase() +
+      (r.af ? ' at ' + r.af : '') + (r.ci ? ', ' + r.ci + ', ' + r.co : '') +
+      '. This record holds ' + (r.sp || []).length + ' listed ' + ((r.sp || []).length === 1 ? 'specialty' : 'specialties') +
+      ' and no published biography.'
+    );
+
+    /* ---- cross-links, current domain only ---- */
+    var hasReviewed = !!(x.reviewed && x.reviewed.length);
+    var hasTrials   = !!(x.trials && x.trials.length);
+    var hasSessions = !!(x.sessions && x.sessions.length);
+
+    document.querySelector('[data-p-sec="reviewed"]').hidden = !hasReviewed;
+    document.querySelector('[data-p-sec="trials"]').hidden   = !hasTrials;
+    document.querySelector('[data-p-sec="sessions"]').hidden = !hasSessions;
+
+    if (hasReviewed) document.querySelector('[data-p-reviewed]').innerHTML = x.reviewed.map(function(a){
+      return '<li class="py-4"><a href="onevoice-news-article.mockup.html" class="group block">' +
+        '<span class="flex flex-wrap items-center gap-2.5 text-[12.5px] font-medium">' +
+          '<span class="px-2.5 py-1 rounded-full bg-accent-50 text-accent-800">' + esc(a.k) + '</span>' +
+          '<span class="text-ink-500 tabular-nums">' + esc(a.d) + '</span></span>' +
+        '<span class="mt-1.5 block text-[17px] font-semibold leading-snug text-ink-900 group-hover:text-accent-800">' + esc(a.t) + '</span></a></li>';
+    }).join('');
+
+    if (hasTrials) document.querySelector('[data-p-trials]').innerHTML = x.trials.map(function(tr){
+      return '<li class="flex flex-col rounded-2xl border border-ink-200 p-4 shadow-card">' +
+        '<span class="flex flex-wrap items-center gap-2 text-[12.5px] font-medium">' +
+          '<span class="px-2.5 py-1 rounded-full bg-accent-50 text-accent-800">' + esc(tr.st) + '</span>' +
+          '<span class="px-2.5 py-1 rounded-full bg-ink-100 text-ink-600">' + esc(tr.ph) + '</span></span>' +
+        '<span class="mt-2.5 text-[16px] font-semibold leading-snug text-ink-900">' + esc(tr.t) + '</span>' +
+        '<a href="onevoice-trials.mockup.html" class="mt-auto pt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:underline">' +
+          'See it in the trials listing' +
+          '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>';
+    }).join('');
+
+    if (hasSessions) document.querySelector('[data-p-sessions]').innerHTML = x.sessions.map(function(s){
+      return '<li class="py-4 flex items-start gap-3">' +
+        '<time datetime="' + attr(s.d) + '" class="shrink-0 text-[13px] text-ink-500 tabular-nums pt-0.5">' + esc(s.dl) + '</time>' +
+        '<span class="text-[16px] font-medium leading-snug text-ink-800">' + esc(s.t) + '</span></li>';
+    }).join('');
+
+    /* ---- at a glance ---- */
+    var g = [['Type of expert', r.ty], ['Qualification', r.qu || 'Not listed'],
+             ['Specialties', (r.sp || []).join(', ') || 'Not listed'],
+             ['Location', r.ci ? r.ci + ', ' + r.co : 'Not published']];
+    document.querySelector('[data-p-glance]').innerHTML = g.map(function(p){
+      return '<div class="flex gap-3 py-2.5"><dt class="w-[7.5rem] shrink-0 text-ink-500">' + esc(p[0]) + '</dt>' +
+             '<dd class="min-w-0 font-medium text-ink-800">' + esc(p[1]) + '</dd></div>';
+    }).join('');
+
+    /* ---- related: same institution first, then same type. Never another domain. ---- */
+    /* Institution → same type → shared specialty → anyone else in this community.
+       The last step matters: the only record with its specialty is exactly the sparse
+       record, and leaving the box empty there put a hole in the fallback layout. */
+    var sameAff = r.af ? rows.filter(function(o){ return o.s !== r.s && o.af === r.af; }) : [];
+    var relLabel = 'Also at this institution', rel = sameAff;
+    if (!rel.length) { rel = rows.filter(function(o){ return o.s !== r.s && o.ty === r.ty; }); relLabel = 'Others in this role'; }
+    if (!rel.length) { rel = rows.filter(function(o){ return o.s !== r.s && (o.sp || []).some(function(s){ return (r.sp || []).indexOf(s) > -1; }); }); relLabel = 'Others in this specialty'; }
+    if (!rel.length) { rel = rows.filter(function(o){ return o.s !== r.s; }); relLabel = 'Others in this community'; }
+    rel = rel.slice(0, 3);
+    document.querySelector('[data-p-relhead]').textContent = relLabel;
+    document.querySelector('[data-p-relatedbox]').hidden = !rel.length;
+    document.querySelector('[data-p-related]').innerHTML = rel.map(function(o){
+      return '<li><a href="onevoice-expert.mockup.html?p=' + encodeURIComponent(o.s) + '" class="flex items-center gap-3 py-3 group">' +
+        '<span aria-hidden="true" class="grid place-items-center w-9 h-9 shrink-0 rounded-lg bg-accent-50 border border-accent-200 text-[12.5px] font-semibold text-accent-800">' + esc(initials(o)) + '</span>' +
+        '<span class="min-w-0"><span class="block text-[15.5px] font-medium leading-snug text-ink-800 group-hover:text-accent-700">' + esc(o.n) + (o.cr ? ', ' + esc(o.cr) : '') + '</span>' +
+        '<span class="block text-[13.5px] text-ink-500">' + esc(o.ro) + '</span></span></a></li>';
+    }).join('');
+
+    /* ---- layout: two columns only when the body has enough to carry them ---- */
+    var rich = hasReviewed || hasTrials || hasSessions;
+    var grid = document.querySelector('[data-p-grid]');
+    var main = document.querySelector('[data-p-main]');
+    var rail = document.querySelector('[data-p-rail]');
+    grid.className = 'mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10' +
+                     (rich ? ' lg:grid lg:grid-cols-12 lg:gap-12' : '');
+    main.className = rich ? 'lg:col-span-7' : '';
+    /* Column count follows the number of cards actually rendered. A fixed 3-col grid
+       left a whole empty column whenever the related box was suppressed. */
+    var cards = Array.prototype.filter.call(rail.children, function(el){ return !el.hidden; }).length;
+    rail.className = rich
+      ? 'mt-10 lg:mt-0 lg:col-span-4 lg:col-start-9 lg:sticky lg:top-24 lg:self-start space-y-4'
+      : 'mt-9 grid gap-4 items-start ' + (cards >= 3 ? 'md:grid-cols-3' : cards === 2 ? 'md:grid-cols-2' : '');
+
+    document.title = r.n + (r.cr ? ', ' + r.cr : '') + ' | Find an expert | oneVoice';
+    var leaf = document.querySelector('nav[aria-label="Breadcrumb"] li[aria-current="page"]');
+    if (leaf) leaf.textContent = r.n;
+  };
+})();
+</script>
+</body>
+</html>

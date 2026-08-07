@@ -238,6 +238,13 @@ window.OV = {
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+  /* Reviewer → expert profile. Production carries the node reference; here the
+     directory slug is the surname, which is what onevoice-expert.mockup.html keys on. */
+  function revHref(name){
+    var surname = String(name).split(',')[0].trim().split(/\s+/).pop();
+    return 'onevoice-expert.mockup.html?p=' + encodeURIComponent(surname.toLowerCase());
+  }
+
   function leadHTML(a){
     return '' +
     '<a href="onevoice-news-article.mockup.html" class="block overflow-hidden rounded-3xl aspect-[16/9] bg-ink-100">' +
@@ -255,7 +262,7 @@ window.OV = {
     '<p class="mt-2 text-[16px] leading-relaxed text-ink-600 max-w-2xl">' + esc(a.dek) + '</p>' +
     (a.rev ? '<p class="mt-3 flex items-center gap-2 text-[13px] text-ink-500">' +
         '<span class="w-6 h-6 rounded-full bg-ink-200 shrink-0"></span>Reviewed by ' +
-        '<a href="#" title="Expert profile — prompt 10, not built yet" class="font-medium text-ink-700 underline underline-offset-2 hover:text-accent-700">' + esc(a.rev) + '</a></p>' : '');
+        '<a href="' + revHref(a.rev) + '" class="font-medium text-ink-700 underline underline-offset-2 hover:text-accent-700">' + esc(a.rev) + '</a></p>' : '');
   }
 
   function rowHTML(a){
@@ -272,7 +279,7 @@ window.OV = {
       '<p class="mt-1.5 text-[15px] leading-relaxed text-ink-600 max-w-2xl">' + esc(a.dek) + '</p>' +
       (a.rev ? '<p class="mt-2.5 flex items-center gap-2 text-[13px] text-ink-500">' +
           '<span class="w-5 h-5 rounded-full bg-ink-200 shrink-0"></span>Reviewed by ' +
-          '<span class="font-medium text-ink-700">' + esc(a.rev) + '</span></p>' : '') +
+          '<a href="' + revHref(a.rev) + '" class="font-medium text-ink-700 underline underline-offset-2 hover:text-accent-700">' + esc(a.rev) + '</a></p>' : '') +
     '</li>';
   }
 

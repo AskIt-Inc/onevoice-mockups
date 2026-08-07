@@ -58,6 +58,11 @@
     }
   </script>
   <style>
+    /* A Tailwind display utility (flex, grid, inline-flex) beats the UA rule for the
+       [hidden] attribute, so an element with both stays on screen. Pages toggle
+       .hidden *and* [hidden]; make the attribute win either way. */
+    [hidden]{display:none !important}
+
     /* ---------- TOKENS: neutral base is fixed, accent swaps per tenant ---------- */
     /* Launch pair keeps the established brand maroon #7C1419 (accent-700) so existing
        equity carries over. Communities 3+ get their own hue, proving the token swap. */
@@ -183,7 +188,7 @@
           <a href="onevoice-trials.mockup.html" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-accent-800 bg-accent-50">Clinical trials</a>
           <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Learn</a>
           <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Community</a>
-          <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Find an expert</a>
+          <a href="onevoice-experts.mockup.html" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Find an expert</a>
           <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">About</a>
         </nav>
 
@@ -327,7 +332,7 @@
             <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
               Community
               <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
-            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
+            <li><a href="onevoice-experts.mockup.html" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
               Find an expert
               <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
             <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
@@ -813,6 +818,11 @@
         });
       }
 
+      /* Pages that render their own logo slots after a tenant switch (the experts
+         directory builds its rows in onTenant, i.e. after the kit's own pass) need
+         to run the resolver over the markup they just produced. */
+      CFG.resolveLogos = resolveLogos;
+
       /* ---------------- Menu sheet ---------------- */
       function initMenu(){
         var sheet = document.querySelector('[data-menu-sheet]');
@@ -896,7 +906,9 @@
           { href:'onevoice-homepage.mockup.html', label:'Home' },
           { href:'onevoice-news.mockup.html',     label:'News' },
           { href:'onevoice-news-article.mockup.html', label:'Article' },
-          { href:'onevoice-trials.mockup.html', label:'Trials' }
+          { href:'onevoice-trials.mockup.html', label:'Trials' },
+          { href:'onevoice-experts.mockup.html', label:'Experts' },
+          { href:'onevoice-expert.mockup.html', label:'Profile' }
         ];
         var here = location.pathname.split('/').pop() || 'onevoice-homepage.mockup.html';
         bar.innerHTML = ORDER.map(function(s){

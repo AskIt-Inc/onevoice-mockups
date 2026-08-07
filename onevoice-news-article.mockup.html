@@ -117,7 +117,7 @@ window.OV = {
           <p class="mt-3 flex items-start gap-2.5 text-[14.5px] text-ink-600" data-a-block="reviewer">
             <svg class="w-[18px] h-[18px] mt-0.5 text-accent-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
             <span>Reviewed by
-              <a href="#" title="Expert profile — prompt 10, not built yet" class="font-semibold text-ink-800 underline underline-offset-2 hover:text-accent-700" data-a="reviewer">Dr A. Okafor, MD</a>,
+              <a href="onevoice-expert.mockup.html?p=okafor" class="font-semibold text-ink-800 underline underline-offset-2 hover:text-accent-700" data-a="reviewer" data-a-href="reviewer">Dr A. Okafor, MD</a>,
               <span data-a="reviewerRole">Consultant cardiologist</span>,
               on <time data-a-dt="reviewed" data-a="reviewedLabel" datetime="2026-07-29">29 July 2026</time>
             </span>
@@ -230,7 +230,7 @@ window.OV = {
           <p class="mt-1.5 text-[14.5px] text-ink-600">Bring your questions to a live session, or find a specialist near you.</p>
           <div class="mt-4 flex flex-col gap-2.5">
             <a href="#" class="flex items-center justify-center min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">Upcoming sessions</a>
-            <a href="#" class="flex items-center justify-center min-h-[46px] px-5 rounded-full bg-white border border-ink-300 text-[15.5px] font-semibold text-ink-800 hover:bg-ink-50">Find an expert</a>
+            <a href="onevoice-experts.mockup.html" class="flex items-center justify-center min-h-[46px] px-5 rounded-full bg-white border border-ink-300 text-[15.5px] font-semibold text-ink-800 hover:bg-ink-50">Find an expert</a>
           </div>
         </div>
       </aside>
@@ -254,6 +254,15 @@ window.OV = {
     document.querySelectorAll('[data-a-dt]').forEach(function(el){
       var v = a[el.getAttribute('data-a-dt')];
       if (v) el.setAttribute('datetime', v);
+    });
+
+    /* Reviewer name links to that person's profile — the credibility loop the
+       expert profile exists to close. Slug is the surname (see prompt 10). */
+    document.querySelectorAll('[data-a-href]').forEach(function(el){
+      var v = a[el.getAttribute('data-a-href')];
+      if (!v) return;
+      var surname = String(v).split(',')[0].trim().split(/\s+/).pop();
+      el.setAttribute('href', 'onevoice-expert.mockup.html?p=' + encodeURIComponent(surname.toLowerCase()));
     });
 
     /* Hide the reviewed-by row when the record has no reviewer — never an empty shell */
