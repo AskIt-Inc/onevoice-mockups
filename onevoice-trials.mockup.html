@@ -317,7 +317,10 @@ window.OV = {
      Inline, per trial. The trial, its condition and the community are injected —
      the visitor never reselects or retypes them. Nothing here implies that
      expressing interest confers eligibility or a place on the study. */
-  var CONSENT_TEXT = 'I agree that oneVoice may share these details with the research team for this study.';
+  /* Accurate, not alarming. Describes the purpose being opted into. We must never
+     promise "not shared with anyone" — the whole point is to pass details to the
+     study team, and a false privacy promise is a larger exposure than a blunt one. */
+  var CONSENT_TEXT = 'I would like my details sent to this study team so they can contact me about this trial.';
 
   function eiForm(t){
     var id = 'ei-' + t.nct;
@@ -359,7 +362,8 @@ window.OV = {
 
           '<p class="mt-3 flex items-start gap-2 text-[13px] leading-relaxed text-ink-500">' +
             '<svg class="w-4 h-4 mt-0.5 shrink-0 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
-            'Your information will only be shared with the appropriate research team regarding this clinical trial. ' +
+            'We use your details only to pass your interest to this study team. We do not sell your ' +
+            'information, share it with anyone else, or add you to any mailing list. ' +
             'Expressing interest does not mean you are eligible or enrolled.</p>' +
 
           /* Spam controls: unreachable by keyboard or screen reader */
@@ -604,7 +608,8 @@ window.OV = {
           ? 'That was submitted very quickly. Please try once more.'
           : 'We could not send your interest just now.');
       } else {
-        console.log('Express Interest payload', data);   /* inspectable during review */
+        /* REVIEW ONLY — must be removed before production (prompt 20). */
+        console.log('Express Interest payload', data);
         live.innerHTML = eiSuccess();
       }
     }, 700);
