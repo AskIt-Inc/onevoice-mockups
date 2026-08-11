@@ -63,6 +63,11 @@
        .hidden *and* [hidden]; make the attribute win either way. */
     [hidden]{display:none !important}
 
+    /* Map pins are focusable <g> elements; without this the focus ring is invisible
+       in Safari and inconsistent elsewhere. */
+    .ov-pin:focus{outline:none}
+    .ov-pin:focus-visible{outline:2px solid rgb(var(--nv-accent-700));outline-offset:3px;border-radius:50%}
+
     /* ---------- TOKENS: neutral base is fixed, accent swaps per tenant ---------- */
     /* Launch pair keeps the established brand maroon #7C1419 (accent-700) so existing
        equity carries over. Communities 3+ get their own hue, proving the token swap. */
@@ -165,7 +170,11 @@
   <!-- ============ HEADER ============ -->
   <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-ink-200">
     <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
-      <div class="h-16 lg:h-20 flex items-center gap-3 lg:gap-8">
+      <!-- Gaps tighten at xl, where six nav sections, the lockup and the right-hand
+           cluster are all competing for the same row. They were over budget by ~57px
+           at 1240, and the only shrinkable item is the lockup — so the brand silently
+           truncated. Budget first, truncation only as a backstop. -->
+      <div class="h-16 lg:h-20 flex items-center gap-3 lg:gap-6 xl:gap-4 2xl:gap-8">
 
         <!-- Logo lockup — the real brand pattern: shared mark + one{CODE}voice wordmark.
              Set as live text rather than artwork, so a new community needs a config entry,
@@ -176,32 +185,40 @@
                search and menu at a legible size on the narrowest phones. truncate is the
                backstop for codes longer than any config should supply. -->
           <span class="hidden min-[360px]:inline-block max-w-full truncate align-middle
-                       font-wordmark text-[16.5px] sm:text-[19px] lg:text-[22px] leading-none
+                       font-wordmark text-[15.5px] min-[400px]:text-[16.5px] sm:text-[19px] lg:text-[22px] leading-none
                        whitespace-nowrap text-ink-800">
             <span class="font-light">one</span><span class="font-semibold text-accent-700" data-t="wordmark">AMYLOIDOSIS</span><span class="font-light">voice</span>
           </span>
         </a>
 
-        <!-- Horizontal nav starts at lg. Below that the hamburger + bottom tab bar carry navigation:
-             5 items plus a long condition name will not fit at 834px for every indication. -->
-        <nav class="hidden lg:flex items-center gap-1 xl:gap-2 ml-auto" aria-label="Main">
-          <a href="onevoice-trials.mockup.html" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-accent-800 bg-accent-50">Clinical trials</a>
-          <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Learn</a>
-          <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Community</a>
-          <a href="onevoice-experts.mockup.html" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">Find an expert</a>
-          <a href="#" class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">About</a>
-        </nav>
+        <!-- Horizontal nav starts at xl. Six sections plus a long condition name do not fit at
+             lg for every community, and shrinking the type to make them fit is not a fix — so the
+             hamburger and the bottom thumb bar carry navigation through lg. Items are rendered
+             from MENU in the tenant layer; this element is deliberately empty in the template. -->
+        <nav class="hidden xl:flex items-center gap-0.5 ml-auto" aria-label="Main" data-nav></nav>
 
         <div class="flex items-center gap-1.5 ml-auto lg:ml-0 shrink-0">
           <button class="w-11 h-11 grid place-items-center rounded-full text-ink-600 hover:bg-ink-100" aria-label="Search">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           </button>
-          <a href="#" class="hidden xl:inline-flex items-center h-11 px-4 rounded-full bg-ink-900 text-white text-[15px] font-semibold whitespace-nowrap hover:bg-ink-800">Get updates</a>
+          <!-- Returns at 2xl. Between xl and 2xl the row cannot carry it without
+               squeezing the lockup, and the newsletter is also in the utility bar,
+               the footer and the menu sheet — the brand mark is not. -->
+          <a href="#" class="hidden 2xl:inline-flex items-center h-11 px-4 rounded-full bg-ink-900 text-white text-[15px] font-semibold whitespace-nowrap hover:bg-ink-800">Get updates</a>
           <button class="lg:hidden w-11 h-11 grid place-items-center rounded-full text-ink-700 hover:bg-ink-100"
                   aria-label="Open menu" aria-expanded="false" aria-controls="menu-sheet" data-menu-open>
             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
           </button>
         </div>
+      </div>
+    </div>
+
+    <!-- Mega panel. One host, repainted per section, so only one panel can ever be open.
+         It lives inside the sticky header and is anchored to the page container, so it
+         lines up with the content grid rather than with whichever trigger opened it. -->
+    <div class="hidden absolute inset-x-0 top-full pt-1" data-mega>
+      <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div class="rounded-2xl border border-ink-200 bg-white shadow-lift p-6" data-mega-panel role="group"></div>
       </div>
     </div>
   </header>
@@ -321,24 +338,10 @@
                         text-[16px] text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
         </form>
 
+        <!-- Same MENU data as the desktop nav, rendered as accordions. One source of truth,
+             two presentations — not a second hand-maintained list that drifts. -->
         <nav class="mt-5" aria-label="Menu">
-          <ul class="divide-y divide-ink-100 border-y border-ink-100">
-            <li><a href="onevoice-trials.mockup.html" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-accent-800" data-menu-link>
-              Clinical trials
-              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
-            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
-              Learn
-              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
-            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
-              Community
-              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
-            <li><a href="onevoice-experts.mockup.html" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
-              Find an expert
-              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
-            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>
-              About
-              <svg class="w-4 h-4 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
-          </ul>
+          <ul class="divide-y divide-ink-100 border-y border-ink-100" data-menu-nav></ul>
         </nav>
 
         <a href="#" class="mt-5 flex items-center justify-center min-h-[50px] px-5 rounded-full
@@ -400,18 +403,25 @@
   }
 
   /* Highlight the current section in both the desktop nav and the menu sheet. */
+  /* Highlight by section key rather than by matching visible text: labels are tenant
+     data now, and a nav that only highlights when the English happens to match is a
+     nav that silently stops highlighting the moment a label is edited. */
   function markActiveNav(){
     var key = CFG.nav;
-    if (!key) return;
-    var MAP = { trials:'Clinical trials', learn:'Learn', community:'Community',
-                experts:'Find an expert', about:'About' };
-    var label = MAP[key];
-    Array.prototype.forEach.call(document.querySelectorAll('nav[aria-label="Main"] a, [data-menu-sheet] nav a'), function(a){
-      var on = a.textContent.trim() === label;
-      a.classList.toggle('bg-accent-50', on && a.closest('nav[aria-label="Main"]') !== null);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-nav-trigger]'), function(b){
+      var on = b.getAttribute('data-nav-trigger') === key;
+      b.classList.toggle('bg-accent-50', on);
+      b.classList.toggle('text-accent-800', on);
+      b.classList.toggle('text-ink-700', !on);
+      if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-menu-nav] > li'), function(li, i){
+      var on = MENU[i] && MENU[i].key === key;
+      var a = li.querySelector('a');
+      if (!a) return;
       a.classList.toggle('text-accent-800', on);
-      a.classList.toggle('text-ink-700', !on);
-      if (on) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+      a.classList.toggle('text-ink-800', !on);
+      if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
   }
 
@@ -431,6 +441,90 @@
   }
 
   document.addEventListener('DOMContentLoaded', mountChrome);
+
+    /* =====================================================================
+       MAIN MENU — data, not markup.
+
+       Sourced from the two live sites, which have nothing in common:
+         oneAMYLOIDOSISvoice (Drupal, menu `oav-menu`, domain-filtered):
+           Home · Patient Care Center · Clinical Trials · Providers (Therapeutics,
+           People, Places) · Community Center (Community Stories, Social Media,
+           Community Content, Financial Assistance) · News (7 children) ·
+           Trusted Resources (Education, Videos & Visuals) · Event Calendar
+         oneSCDvoice (different platform, different IA):
+           Social Wall · Trusted Resources (Education & Research, People & Places,
+           News & Events, Videos & Visuals, Community Center) ·
+           SCD Education (Clinical Trial Education, Gene Therapy 101, Blog,
+           Legislation & Policy)
+
+       Two launch communities, two unrelated navigations. Copying either would bake
+       one community's IA into the template, which is the thing this project exists
+       to stop. So the structure below is shared and the legacy sections are
+       *translated* into the route map in 00-SPEC.md §3b — nothing is dropped, and a
+       new community is a config entry rather than a header change.
+
+       News gets a top-level entry here. It has 467 published articles, its own
+       listing, and a live menu entry on the amyloidosis site; the IA gap noted in
+       every handoff so far is settled by what is already shipped, not by preference.
+
+       `feat` is the one genuinely useful thing per section — resolved per tenant at
+       render time, so it is never decoration.
+       ===================================================================== */
+    var MENU = [
+      { key:'trials', label:'Clinical trials', href:'onevoice-trials.mockup.html',
+        blurb:'Every recruiting study for this community, straight from the public registry.',
+        items:[
+          { label:'Trial finder', href:'onevoice-trials.mockup.html', d:'Search recruiting studies by phase, site and location.' },
+          { label:'How clinical trials work', href:'#', d:'Phases, eligibility and what taking part involves.' },
+          { label:'Expressing interest', href:'onevoice-trials.mockup.html', d:'What happens after you send your details to a study team.' }
+        ], feat:'trials' },
+
+      { key:'learn', label:'Learn', href:'#',
+        blurb:'Clinician-checked explainers, research summaries and video.',
+        items:[
+          { label:'Education & research', href:'#', d:'Explainers and published research, checked before publishing.' },
+          { label:'Videos & visuals', href:'#', d:'Short video and diagrams for the things text explains badly.' },
+          { label:'Newly diagnosed', href:'#', d:'Where to start in the first few weeks.' },
+          { label:'__CONDITION__ 101', href:'#', d:'The basics, in plain language.' }
+        ], feat:'learn' },
+
+      { key:'news', label:'News', href:'onevoice-news.mockup.html',
+        blurb:'Research readouts, access decisions and community updates — dated and sourced.',
+        items:[
+          { label:'Research & trials', href:'onevoice-news.mockup.html?category=Research', d:'Readouts, and how to read them.' },
+          { label:'Access & policy', href:'onevoice-news.mockup.html?category=Access', d:'Approvals, reimbursement and consultations.' },
+          { label:'Community events', href:'onevoice-news.mockup.html?category=Community', d:'What the community did, and what came of it.' },
+          { label:'Spotlight', href:'#', d:'The partner programme featured this month.' }
+        ], feat:'news' },
+
+      { key:'community', label:'Community', href:'#',
+        blurb:'Other people living with this, and the practical help around it.',
+        items:[
+          { label:'Community stories', href:'#', d:'First-hand accounts from members and carers.' },
+          { label:'Community content', href:'#', d:'Everything members have shared, in one place.' },
+          { label:'Social wall', href:'#', d:'The conversation as it happens.' },
+          { label:'Financial assistance', href:'#', d:'Programmes that help with the cost of care.' },
+          { label:'Events & sessions', href:'#', d:'Live sessions, recorded if you cannot make it.' }
+        ], feat:'sessions' },
+
+      { key:'experts', label:'Find an expert', href:'onevoice-experts.mockup.html',
+        blurb:'Specialists, nurse specialists and multidisciplinary centers across the US.',
+        items:[
+          { label:'Specialists & centers', href:'onevoice-experts.mockup.html', d:'Search by city, state and specialty.' },
+          { label:'Partner organizations', href:'#', d:'The companies and foundations working in this condition.' },
+          { label:'Preparing for an appointment', href:'#', d:'What to bring, and what to ask.' }
+        ], feat:'experts' },
+
+      { key:'about', label:'About', href:'#',
+        blurb:'Who publishes this, how it is checked, and who pays for it.',
+        items:[
+          { label:'Who we are', href:'#', d:'The organisation behind oneVoice.' },
+          { label:'Editorial policy', href:'#', d:'How content is written, reviewed and dated.' },
+          { label:'Medical review board', href:'#', d:'The clinicians who sign content off.' },
+          { label:'Funding & partners', href:'#', d:'Where the money comes from.' },
+          { label:'Contact', href:'#', d:'How to reach us.' }
+        ], feat:null }
+    ];
 
     /* =====================================================================
        TENANT LAYER — everything below is data, not markup.
@@ -624,6 +718,7 @@
 
     (function(){
       var ORDER = ['amyloidosis','scd','ph','mg'];
+      function esc(v){ return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
       function value(t, key){
         if (key.indexOf('pop') === 0)     return t.pop[+key.slice(3)];
@@ -655,6 +750,8 @@
           if (v != null) el.setAttribute('datetime', v);
         });
 
+        renderNav(t);            /* menu items are tenant data, so they re-render on a switch */
+        closeMega(false);
         renderSpotlight(t);
         renderTrustPartners(t);
         resolveLogos(document);   /* picks up standalone slots, e.g. the footer parent brand */
@@ -823,6 +920,192 @@
          to run the resolver over the markup they just produced. */
       CFG.resolveLogos = resolveLogos;
 
+      /* ---------------- Main navigation ----------------
+         Rendered from MENU for both the desktop bar and the menu sheet, so the two
+         cannot drift apart. Opens on hover and on click/Enter/Space: hover alone is
+         unreachable by keyboard and meaningless on touch. Escape closes and puts
+         focus back on the trigger; tabbing out of the panel closes it too. */
+      function menuFor(t){
+        return MENU.map(function(sec){
+          return {
+            key: sec.key, label: sec.label, href: sec.href, blurb: sec.blurb, feat: sec.feat,
+            items: sec.items.map(function(it){
+              return { label: it.label.replace('__CONDITION__', t.shortName || t.name), href: it.href, d: it.d };
+            })
+          };
+        });
+      }
+
+      /* The third column of a panel. One useful, current thing per section — pulled
+         from the same tenant record the page uses, never invented for the menu. */
+      function featureHTML(kind, t){
+        var head = function(l, b){ return '<p class="text-[11.5px] font-semibold uppercase tracking-[.12em] text-ink-400">' + l + '</p>' + b; };
+        if (kind === 'news' && t.news && t.news[0]) {
+          var n = t.news[0];
+          return head('Latest', '<a href="onevoice-news-article.mockup.html" class="mt-2 block group">' +
+            '<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-accent-50 text-accent-800 text-[12px] font-medium">' + esc(n.k) + '</span>' +
+            '<span class="mt-2 block text-[15px] font-semibold leading-snug text-ink-900 group-hover:text-accent-700">' + esc(n.t) + '</span>' +
+            '<span class="mt-1 block text-[13px] text-ink-500 tabular-nums">' + esc(n.dl) + '</span></a>');
+        }
+        if (kind === 'sessions' && t.sessions && t.sessions[0]) {
+          var v = t.sessions[0];
+          return head('Next session', '<a href="#" class="mt-2 flex gap-3 group">' +
+            '<span class="shrink-0 w-11 text-center rounded-lg border border-ink-200 py-1">' +
+              '<span class="block text-[15px] font-semibold text-ink-900 tabular-nums">' + esc(v.dd) + '</span>' +
+              '<span class="block text-[11px] uppercase tracking-wide text-ink-500">' + esc(v.mm) + '</span></span>' +
+            '<span class="min-w-0"><span class="block text-[15px] font-semibold leading-snug text-ink-900 group-hover:text-accent-700">' + esc(v.t) + '</span>' +
+            '<span class="mt-0.5 block text-[13px] text-ink-500">' + esc(v.w) + '</span></span></a>');
+        }
+        if (kind === 'trials') {
+          return head('Right now', '<p class="mt-2 text-[15px] leading-snug text-ink-700"><strong class="font-semibold text-ink-900 tabular-nums">' +
+            esc(t.trials) + '</strong> ' + esc(t.nameLower) + ' studies are recruiting.</p>' +
+            '<a href="onevoice-trials.mockup.html" class="mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:underline">Open the trial finder →</a>');
+        }
+        if (kind === 'experts') {
+          return head('Directory', '<p class="mt-2 text-[15px] leading-snug text-ink-700"><strong class="font-semibold text-ink-900 tabular-nums">' +
+            esc(t.centres) + '</strong> specialist centers, searchable by city and state.</p>' +
+            '<a href="onevoice-experts.mockup.html" class="mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:underline">Find someone near you →</a>');
+        }
+        if (kind === 'learn') {
+          return head('Start here', '<p class="mt-2 text-[15px] leading-snug text-ink-700">Newly diagnosed? The starter guide covers the first appointments and the questions worth asking.</p>' +
+            '<a href="#" class="mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:underline">Read the starter guide →</a>');
+        }
+        return '';
+      }
+
+      var megaOpen = null, closeTimer = null;
+
+      function panelHTML(sec, t){
+        var feat = featureHTML(sec.feat, t);
+        var cols = sec.items.map(function(it){
+          return '<li><a href="' + it.href + '" class="block rounded-xl p-3 -m-0.5 hover:bg-accent-50 focus-visible:bg-accent-50">' +
+            '<span class="block text-[15.5px] font-semibold text-ink-900">' + esc(it.label) + '</span>' +
+            '<span class="mt-0.5 block text-[13.5px] leading-snug text-ink-500">' + esc(it.d) + '</span></a></li>';
+        }).join('');
+        return '<div class="grid gap-6 ' + (feat ? 'grid-cols-[1fr_1fr_minmax(200px,240px)]' : 'grid-cols-2') + '">' +
+          '<div class="col-span-2 grid grid-cols-2 gap-x-6 gap-y-1"><ul class="contents">' + cols + '</ul></div>' +
+          (feat ? '<div class="border-l border-ink-200 pl-6">' + feat + '</div>' : '') +
+          '</div>' +
+          '<div class="mt-5 pt-4 border-t border-ink-100 flex items-center justify-between gap-4">' +
+            '<p class="text-[13.5px] text-ink-500">' + esc(sec.blurb) + '</p>' +
+            '<a href="' + sec.href + '" class="shrink-0 inline-flex items-center gap-1.5 min-h-[40px] px-4 rounded-full bg-ink-900 text-white text-[14.5px] font-semibold hover:bg-ink-800">' +
+              'All ' + esc(sec.label.toLowerCase()) +
+              '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>' +
+          '</div>';
+      }
+
+      function closeMega(restoreFocus){
+        var wrap = document.querySelector('[data-mega]');
+        if (!wrap || !megaOpen) return;
+        wrap.classList.add('hidden');
+        var trig = document.querySelector('[data-nav-trigger="' + megaOpen + '"]');
+        if (trig) { trig.setAttribute('aria-expanded', 'false'); if (restoreFocus) trig.focus(); }
+        megaOpen = null;
+      }
+
+      function openMega(key, t){
+        var sec = menuFor(t).filter(function(s){ return s.key === key; })[0];
+        var wrap = document.querySelector('[data-mega]');
+        if (!sec || !wrap) return;
+        if (megaOpen && megaOpen !== key) closeMega(false);
+        document.querySelector('[data-mega-panel]').innerHTML = panelHTML(sec, t);
+        document.querySelector('[data-mega-panel]').setAttribute('aria-label', sec.label);
+        wrap.classList.remove('hidden');
+        var trig = document.querySelector('[data-nav-trigger="' + key + '"]');
+        if (trig) trig.setAttribute('aria-expanded', 'true');
+        megaOpen = key;
+      }
+
+      function renderNav(t){
+        var data = menuFor(t);
+        var bar = document.querySelector('[data-nav]');
+        if (bar) {
+          bar.innerHTML = data.map(function(sec){
+            return '<div class="relative" data-nav-item="' + sec.key + '">' +
+              '<button type="button" data-nav-trigger="' + sec.key + '" aria-expanded="false" aria-controls="ov-mega" ' +
+                'class="flex items-center gap-1 shrink-0 whitespace-nowrap px-2 2xl:px-3 py-2.5 rounded-lg text-[15px] font-medium text-ink-700 hover:bg-ink-100">' +
+                esc(sec.label) +
+                '<svg class="w-3.5 h-3.5 text-ink-400 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>' +
+              '</button></div>';
+          }).join('');
+        }
+        var panel = document.querySelector('[data-mega-panel]');
+        if (panel) panel.id = 'ov-mega';
+
+        /* Menu sheet: the same sections as accordions */
+        var sheet = document.querySelector('[data-menu-nav]');
+        if (sheet) {
+          sheet.innerHTML = data.map(function(sec){
+            return '<li>' +
+              '<div class="flex items-center">' +
+                '<a href="' + sec.href + '" class="flex-1 flex items-center min-h-[54px] text-[17px] font-medium text-ink-800" data-menu-link>' + esc(sec.label) + '</a>' +
+                '<button type="button" data-acc="' + sec.key + '" aria-expanded="false" ' +
+                  'class="w-11 h-11 -mr-2 grid place-items-center rounded-full text-ink-500 hover:bg-ink-100">' +
+                  '<span class="sr-only">Show ' + esc(sec.label) + ' sections</span>' +
+                  '<svg class="w-4 h-4 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>' +
+                '</button>' +
+              '</div>' +
+              '<ul class="hidden pb-3 pl-3 space-y-0.5" data-acc-panel="' + sec.key + '">' +
+                sec.items.map(function(it){
+                  return '<li><a href="' + it.href + '" class="flex items-center min-h-[46px] text-[15.5px] text-ink-600 hover:text-accent-700" data-menu-link>' + esc(it.label) + '</a></li>';
+                }).join('') +
+              '</ul></li>';
+          }).join('');
+        }
+        markActiveNav();
+      }
+
+      function initNav(){
+        if (document.documentElement.dataset.navReady) return;
+        document.documentElement.dataset.navReady = '1';
+        var t = function(){ return TENANTS[document.documentElement.dataset.tenant] || TENANTS.amyloidosis; };
+
+        document.addEventListener('click', function(e){
+          var trig = e.target.closest('[data-nav-trigger]');
+          if (trig) {
+            var k = trig.getAttribute('data-nav-trigger');
+            if (megaOpen === k) closeMega(false); else openMega(k, t());
+            return;
+          }
+          var acc = e.target.closest('[data-acc]');
+          if (acc) {
+            var pan = document.querySelector('[data-acc-panel="' + acc.getAttribute('data-acc') + '"]');
+            var open = acc.getAttribute('aria-expanded') === 'true';
+            acc.setAttribute('aria-expanded', String(!open));
+            acc.querySelector('svg').style.transform = open ? '' : 'rotate(180deg)';
+            if (pan) pan.classList.toggle('hidden', open);
+            return;
+          }
+          /* Anything outside the bar and the panel dismisses it */
+          if (megaOpen && !e.target.closest('[data-mega]') && !e.target.closest('[data-nav]')) closeMega(false);
+        });
+
+        document.addEventListener('keydown', function(e){
+          if (e.key === 'Escape' && megaOpen) { closeMega(true); return; }
+          var trig = e.target.closest && e.target.closest('[data-nav-trigger]');
+          if (trig && (e.key === 'ArrowDown')) { e.preventDefault(); openMega(trig.getAttribute('data-nav-trigger'), t());
+            var first = document.querySelector('[data-mega-panel] a'); if (first) first.focus(); }
+        });
+
+        /* Hover, with a grace period: a diagonal path from trigger to panel crosses
+           dead space, and dismissing there makes the menu feel broken. */
+        function hoverIn(k){ clearTimeout(closeTimer); openMega(k, t()); }
+        function hoverOut(){ clearTimeout(closeTimer); closeTimer = setTimeout(function(){ closeMega(false); }, 220); }
+        document.addEventListener('mouseover', function(e){
+          var item = e.target.closest('[data-nav-item]');
+          if (item) return hoverIn(item.getAttribute('data-nav-item'));
+          if (e.target.closest('[data-mega]')) { clearTimeout(closeTimer); return; }
+          if (megaOpen && (e.target.closest('header') || e.target.closest('main'))) hoverOut();
+        });
+
+        /* Tabbing out of the panel closes it, so focus never lands behind an overlay */
+        document.addEventListener('focusin', function(e){
+          if (!megaOpen) return;
+          if (e.target.closest('[data-mega]') || e.target.closest('[data-nav]')) return;
+          closeMega(false);
+        });
+      }
+
       /* ---------------- Menu sheet ---------------- */
       function initMenu(){
         var sheet = document.querySelector('[data-menu-sheet]');
@@ -938,9 +1221,9 @@
       }
 
       apply(startTenant);
-      document.addEventListener('DOMContentLoaded', function(){ apply(startTenant); buildControl(); initMenu(); post(); });
+      document.addEventListener('DOMContentLoaded', function(){ apply(startTenant); buildControl(); initMenu(); initNav(); post(); });
       window.addEventListener('load', function(){
-        buildControl(); initMenu();
+        buildControl(); initMenu(); initNav();
         post(); setTimeout(post, 250); setTimeout(post, 900); setTimeout(post, 2000);
         if (window.ResizeObserver) new ResizeObserver(post).observe(document.documentElement);
       });

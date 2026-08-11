@@ -12,8 +12,17 @@
    point 20-privacy-language.md makes about third-party requests. This map costs
    no request at all.
 
-   Usage:  OV_USMAP.render(hostEl, { places:[{key,label,st,lat,lon,n,href}],
-                                     offshore:[{label,n}], caption, note })
+   Clicking a pin opens a dialog with a Google map of that place. Google is contacted
+   only after that click — the page itself still loads with no third-party map request,
+   which is the distinction 20-privacy-language.md actually draws. Nothing is
+   pre-connected or pre-fetched; doing so would quietly undo it.
+
+   Production: use the Maps Embed API with a key and a referrer restriction rather than
+   the keyless `output=embed` URL used here, and name Google as a recipient in the
+   privacy policy.
+
+   Usage:  OV_USMAP.render(hostEl, { places:[{key,label,st,lat,lon,n,href,rows}],
+                                     offshore:[{label,n}], caption, note, placeNote })
    ============================================================================ */
 (function(){
   var STATES = [
@@ -106,6 +115,9 @@
   function render(host, opt){
     if (!host) return;
     opt = opt || {};
+    lastPlaces = opt.places || [];
+    lastOpts = opt;
+    closeDialog();
     var places = (opt.places || []).filter(function(p){ return p.lat != null && p.lon != null; });
     var offshore = opt.offshore || [];
 
@@ -128,15 +140,20 @@
              'stroke-linejoin="round" data-state="' + s.c + '">' + t + '</path>';
     }).join('');
 
+    /* Pins are real controls: focusable, Enter/Space activate, visible focus ring.
+       An <svg> circle with a click handler is not a button and cannot be reached. */
     var pins = places.map(function(p){
       var xy = project(p.lat, p.lon);
       var n = p.n || 1;
       var r = 5 + Math.min(9, Math.sqrt(n) * 2.2);
-      return '<g data-pin="' + attr(p.key || p.label) + '">' +
+      var k = p.key || p.label;
+      return '<g data-pin="' + attr(k) + '" role="button" tabindex="0" class="ov-pin cursor-pointer" ' +
+        'aria-label="' + attr(p.label + (n > 1 ? ', ' + n + ' listings' : '') + ' — show on a map') + '">' +
+        '<circle cx="' + xy[0].toFixed(1) + '" cy="' + xy[1].toFixed(1) + '" r="' + (r + 6).toFixed(1) + '" fill="transparent"/>' +
         '<circle cx="' + xy[0].toFixed(1) + '" cy="' + xy[1].toFixed(1) + '" r="' + r.toFixed(1) + '" ' +
           'fill="rgb(var(--nv-accent-700))" fill-opacity="0.9" stroke="#fff" stroke-width="1.5"/>' +
         (n > 1 ? '<text x="' + xy[0].toFixed(1) + '" y="' + (xy[1] + 3.4).toFixed(1) + '" text-anchor="middle" ' +
-          'font-size="10" font-weight="700" fill="#fff">' + n + '</text>' : '') +
+          'font-size="10" font-weight="700" fill="#fff" pointer-events="none">' + n + '</text>' : '') +
         '<title>' + esc(p.label) + (n > 1 ? ' — ' + n : '') + '</title></g>';
     }).join('');
 
@@ -144,9 +161,16 @@
        crawlable version of the same information, and it is not optional. */
     var list = places.slice().sort(function(a, b){ return (b.n || 1) - (a.n || 1) || a.label.localeCompare(b.label); })
       .map(function(p){
-        return '<li><a href="' + attr(p.href || '#') + '" class="flex items-center justify-between gap-3 min-h-[44px] px-3.5 ' +
-          'rounded-xl bg-white border border-ink-200 text-[14.5px] text-ink-700 hover:border-accent-400 hover:text-accent-700">' +
-          esc(p.label) + '<span class="text-ink-400 tabular-nums text-[13px]">' + (p.n || 1) + '</span></a></li>';
+        var k = p.key || p.label;
+        return '<li class="flex items-stretch gap-1.5">' +
+          '<a href="' + attr(p.href || '#') + '" class="flex-1 flex items-center justify-between gap-3 min-h-[44px] px-3.5 ' +
+            'rounded-xl bg-white border border-ink-200 text-[14.5px] text-ink-700 hover:border-accent-400 hover:text-accent-700">' +
+            esc(p.label) + '<span class="text-ink-400 tabular-nums text-[13px]">' + (p.n || 1) + '</span></a>' +
+          '<button type="button" data-pin="' + attr(k) + '" class="shrink-0 w-11 grid place-items-center rounded-xl bg-white ' +
+            'border border-ink-200 text-ink-500 hover:border-accent-400 hover:text-accent-700">' +
+            '<span class="sr-only">Show ' + esc(p.label) + ' on a map</span>' +
+            '<svg class="w-[17px] h-[17px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+          '</button></li>';
       }).join('');
 
     host.innerHTML =
@@ -166,6 +190,106 @@
           offshore.map(function(o){ return esc(o.label) + ' (' + o.n + ')'; }).join(', ') + '.</p>'
         : '');
   }
+
+  /* ---------------- Place dialog ----------------
+     Opens over the map on a pin click. Focus moves in and returns to the pin that
+     opened it; Escape and a backdrop click close it. The Google iframe is created
+     here and nowhere else, so no request leaves the page until this runs. */
+  var lastPlaces = [], lastOpts = {}, lastTrigger = null;
+
+  function dialogHTML(p, opts){
+    var q = p.lat.toFixed(4) + ',' + p.lon.toFixed(4);
+    var rows = (p.rows || []).map(function(r){
+      return '<li><a href="' + attr(r.href || '#') + '" class="block py-2.5 group">' +
+        '<span class="block text-[15.5px] font-semibold leading-snug text-ink-900 group-hover:text-accent-700">' + esc(r.title) + '</span>' +
+        (r.sub ? '<span class="mt-0.5 block text-[13.5px] text-ink-500">' + esc(r.sub) + '</span>' : '') +
+        '</a></li>';
+    }).join('');
+    return '' +
+      '<div class="absolute inset-0 bg-ink-900/40" data-map-backdrop></div>' +
+      '<div role="dialog" aria-modal="true" aria-labelledby="ov-map-dlg-h" ' +
+        'class="relative mx-auto my-6 w-[min(680px,calc(100%-2rem))] max-h-[calc(100%-3rem)] overflow-y-auto ' +
+        'rounded-2xl border border-ink-200 bg-white shadow-lift">' +
+        '<div class="flex items-start justify-between gap-4 p-5 pb-3">' +
+          '<div><h4 id="ov-map-dlg-h" class="font-display text-[21px] font-semibold text-ink-900">' + esc(p.label) + '</h4>' +
+          '<p class="mt-1 text-[14px] text-ink-500">' + (p.n || 1) + ((p.n || 1) === 1 ? ' listing here' : ' listings here') + '</p></div>' +
+          '<button type="button" data-map-close class="shrink-0 w-11 h-11 -mt-1 -mr-1 grid place-items-center rounded-full text-ink-600 hover:bg-ink-100">' +
+            '<span class="sr-only">Close</span>' +
+            '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' +
+          '</button>' +
+        '</div>' +
+        '<div class="px-5">' +
+          '<div class="overflow-hidden rounded-xl border border-ink-200 bg-ink-100">' +
+            '<iframe title="Google map of ' + attr(p.label) + '" width="100%" height="260" style="border:0;display:block" ' +
+              'loading="lazy" referrerpolicy="no-referrer-when-downgrade" ' +
+              'src="https://maps.google.com/maps?q=' + encodeURIComponent(q) + '&z=11&output=embed"></iframe>' +
+          '</div>' +
+          /* Say what the pin means. The records carry a city, not a street address, and a
+             pin on a Google map otherwise implies a building. */
+          '<p class="mt-2.5 text-[13px] leading-relaxed text-ink-500">' +
+            esc(opts.placeNote || 'This map shows the city, not a street address — the record does not hold one.') +
+            ' Opening it contacted Google; nothing else on this page does.' +
+          '</p>' +
+          '<a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q) + '" target="_blank" rel="noopener noreferrer" ' +
+            'class="mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:underline">' +
+            'Open in Google Maps' +
+            '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>' +
+        '</div>' +
+        (rows
+          ? '<div class="mt-4 px-5 pb-5 pt-4 border-t border-ink-100">' +
+              '<p class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">Listed here</p>' +
+              '<ul class="mt-1 divide-y divide-ink-100">' + rows + '</ul></div>'
+          : '<div class="h-5"></div>') +
+      '</div>';
+  }
+
+  function closeDialog(){
+    var host = document.querySelector('[data-map-dialog]');
+    if (!host) return;
+    host.remove();
+    document.removeEventListener('keydown', onKey, true);
+    if (lastTrigger && lastTrigger.isConnected) lastTrigger.focus();
+    lastTrigger = null;
+  }
+
+  function onKey(e){
+    if (e.key === 'Escape') { e.stopPropagation(); closeDialog(); return; }
+    if (e.key !== 'Tab') return;
+    var dlg = document.querySelector('[data-map-dialog] [role="dialog"]');
+    if (!dlg) return;
+    var f = Array.prototype.filter.call(dlg.querySelectorAll('a[href],button,iframe,[tabindex]:not([tabindex="-1"])'),
+      function(el){ return el.offsetParent !== null || el.tagName === 'IFRAME'; });
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  function openDialog(key, trigger){
+    var p = lastPlaces.filter(function(x){ return (x.key || x.label) === key; })[0];
+    if (!p) return;
+    closeDialog();
+    lastTrigger = trigger || null;
+    var host = document.createElement('div');
+    host.setAttribute('data-map-dialog', '');
+    host.className = 'fixed inset-0 z-50 overflow-y-auto';
+    host.innerHTML = dialogHTML(p, lastOpts);
+    document.body.appendChild(host);
+    document.addEventListener('keydown', onKey, true);
+    var close = host.querySelector('[data-map-close]');
+    if (close) close.focus();
+  }
+
+  document.addEventListener('click', function(e){
+    if (e.target.closest('[data-map-close]') || e.target.closest('[data-map-backdrop]')) { closeDialog(); return; }
+    var pin = e.target.closest('[data-pin]');
+    if (pin) { e.preventDefault(); openDialog(pin.getAttribute('data-pin'), pin); }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var pin = e.target.closest && e.target.closest('g[data-pin]');
+    if (pin) { e.preventDefault(); openDialog(pin.getAttribute('data-pin'), pin); }
+  });
 
   window.OV_USMAP = { render: render, project: project, states: STATES, viewBox: '0 0 975 610' };
 })();

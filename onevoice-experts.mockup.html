@@ -738,13 +738,18 @@ window.OV = {
         var ll = coords(r);
         if (!ll) { unplaced++; return; }
         var key = placeLabel(r);
-        if (!cities[key]) cities[key] = { key:key, label:key, st:r.st, lat:ll[0], lon:ll[1], n:0,
+        if (!cities[key]) cities[key] = { key:key, label:key, st:r.st, lat:ll[0], lon:ll[1], n:0, rows:[],
                                           href:'?state=' + encodeURIComponent(r.st) };
         cities[key].n++;
+        /* The dialog lists who is actually there, so a pin is a shortcut into the
+           data rather than a decoration you have to close again. */
+        cities[key].rows.push({ title:r.n, sub:r.ro + (r.af ? ' · ' + r.af : ''),
+                                href:'onevoice-expert.mockup.html?p=' + encodeURIComponent(r.s) });
       });
       var places = Object.keys(cities).map(function(k){ return cities[k]; });
       window.OV_USMAP.render(document.querySelector('[data-ov-mapfig]'), {
         places: places,
+        placeNote: 'This map shows the city, not a street address — these records do not hold one.',
         caption: 'Map of the United States with ' + places.length + ' locations marked, shaded by number of listings per state',
         note: unplaced
           ? (unplaced === 1

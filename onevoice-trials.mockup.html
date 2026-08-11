@@ -491,13 +491,16 @@ window.OV = {
       var g = country === 'United States' ? SITE[city] : null;
       if (!g) { var k = country || 'Location not given'; offshore[k] = (offshore[k] || 0) + 1; return; }
       var key = city + ', ' + g[0];
-      if (!cities[key]) cities[key] = { key:key, label:key, st:g[0], lat:g[1], lon:g[2], n:0,
+      if (!cities[key]) cities[key] = { key:key, label:key, st:g[0], lat:g[1], lon:g[2], n:0, rows:[],
                                         href:'?q=' + encodeURIComponent(city) };
       cities[key].n++;
+      cities[key].rows.push({ title:t.t || t.cond, sub:t.ph + ' · ' + t.st + ' · ' + t.nct,
+                              href:'https://clinicaltrials.gov/study/' + t.nct });
     });
     var places = Object.keys(cities).map(function(k){ return cities[k]; });
     window.OV_USMAP.render(host, {
       places: places,
+      placeNote: 'The pin is the study\'s first listed site, and shows that city rather than a street address.',
       offshore: Object.keys(offshore).map(function(k){ return { label:k, n:offshore[k] }; }),
       caption: 'Map of the United States with ' + places.length + ' study locations marked',
       note: 'One pin per study, at its first listed site. Most of these studies recruit at many more ' +

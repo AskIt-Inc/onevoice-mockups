@@ -288,24 +288,24 @@ window.OV = {
          Left: identity. Right: the contact panel, which is what the reader opened the
          page for, and what stops the right half of the band being empty (prompt 15). ============ -->
     <header class="bg-gradient-to-b from-accent-50 to-white border-b border-ink-100">
-      <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
+      <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-7 lg:py-8 lg:grid lg:grid-cols-12 lg:gap-12">
         <div class="lg:col-span-7">
+          <!-- Three blocks, not five. The header used to repeat role, affiliation,
+               location and specialties that "At a glance" then repeated again — the
+               gap between the two duplicates is what read as wasted space. -->
           <div class="flex items-start gap-4 sm:gap-5">
-            <!-- No portrait, ever: there are no consented ones, and a stock face on a
-                 named individual is the mistake in assets/CREDITS.md repeated.
-                 Initials are also the real production fallback. -->
+            <!-- Portrait where the record has a consented one; initials otherwise, in
+                 the same tile geometry so there is no layout shift between the two.
+                 The mockup has no consented portraits and will not borrow a face —
+                 assets/CREDITS.md. Centre records show the affiliation logo. -->
             <span data-p-tile class="shrink-0"></span>
             <div class="min-w-0">
-              <h1 class="font-display text-[28px] sm:text-[34px] lg:text-[40px] font-semibold leading-[1.14] tracking-[-.02em] text-ink-900" data-p-name>Dr A. Okafor, MD</h1>
-              <p class="mt-2 text-[17px] leading-snug text-ink-700" data-p-role>Cardiologist</p>
-              <p class="mt-1 text-[16px] leading-snug text-ink-600" data-p-aff hidden></p>
-              <p class="mt-1.5 flex items-center gap-1.5 text-[15px] text-ink-500" data-p-place>
-                <svg class="w-[16px] h-[16px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span data-p-placetext>Boston, Massachusetts</span>
-              </p>
+              <h1 class="font-display text-[28px] sm:text-[34px] lg:text-[38px] font-semibold leading-[1.1] tracking-[-.02em] text-ink-900" data-p-name>Dr A. Okafor, MD</h1>
+              <p class="mt-1.5 text-[16.5px] leading-snug text-ink-700" data-p-meta></p>
+              <p class="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px] text-ink-500" data-p-facts></p>
             </div>
           </div>
-          <ul class="mt-5 flex flex-wrap gap-2" data-p-specs></ul>
+          <ul class="mt-4 flex flex-wrap gap-2" data-p-specs></ul>
         </div>
 
         <!-- Contact panel. Prompt 20: no form, because a form implies oneVoice forwards
@@ -323,6 +323,21 @@ window.OV = {
         </section>
       </div>
     </header>
+
+    <!-- Illustrative-data notice. It names the portrait question explicitly, because
+         "why is there no photo?" is the first thing a reviewer asks and the answer
+         (no consented portraits exist) is not visible from the design. -->
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 pt-5">
+      <p class="flex items-start gap-2.5 rounded-2xl border border-ink-200 bg-ink-50 px-4 py-3 text-[14px] leading-relaxed text-ink-600">
+        <svg class="w-[18px] h-[18px] mt-0.5 shrink-0 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>
+        <span><strong class="font-semibold text-ink-800">Illustrative record.</strong>
+          This person and their institution are invented for design review.
+          <strong class="font-semibold text-ink-800">A headshot appears here where a clinician has
+          consented to one</strong> — the template supports it, and falls back to initials otherwise.
+          None of the people in this directory have consented to a portrait, so none is shown; a stock
+          face on a named clinician would be a claim about a real person.</span>
+      </p>
+    </div>
 
     <!-- ============ BODY + RAIL.
          Rich records get 7/4 with a sticky rail. A record with no cross-links collapses
@@ -358,15 +373,36 @@ window.OV = {
         </section>
       </div>
 
+      <!-- "At a glance" is gone: it repeated role, specialties and location from the
+           header verbatim. Its two non-duplicated facts (type of expert, qualification)
+           are now in the header meta line. -->
       <aside data-p-rail aria-label="About this listing">
-        <div class="rounded-2xl border border-ink-200 bg-ink-50 p-5">
-          <h2 class="text-[17px] font-semibold text-ink-900">At a glance</h2>
-          <dl class="mt-3 divide-y divide-ink-200 text-[15px]" data-p-glance></dl>
-        </div>
+        <!-- A jump list, not a repeat of the header: it is the one rail element that
+             grows with the record, which is what a rail beside a variable-length body
+             needs. Hidden when there is only one section to jump to. -->
+        <nav class="rounded-2xl border border-ink-200 bg-ink-50 p-5" data-p-toc hidden aria-labelledby="toc-h">
+          <h2 id="toc-h" class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">On this page</h2>
+          <ol class="mt-3 space-y-1 border-l-2 border-ink-200 pl-4"></ol>
+        </nav>
 
         <div class="rounded-2xl border border-ink-200 p-5" data-p-relatedbox>
           <h2 class="text-[17px] font-semibold text-ink-900" data-p-relhead>Also at this institution</h2>
           <ul class="mt-3 divide-y divide-ink-200" data-p-related></ul>
+        </div>
+
+        <!-- Directory records go stale, and the people in them are the ones who know.
+             This is the most useful thing a profile rail can carry, and it matches the
+             "Ask us to add a specialist" exit on the directory. -->
+        <div class="rounded-2xl border border-ink-200 p-5">
+          <h2 class="text-[17px] font-semibold text-ink-900">Keep this listing accurate</h2>
+          <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">
+            Listings change when the clinician or center tells us they have. If something here is out
+            of date — or if this is your listing and you want it removed — say so and we will fix it.
+          </p>
+          <a href="#" class="mt-3.5 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:underline">
+            Report a problem with this listing
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </div>
 
         <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5">
@@ -439,25 +475,42 @@ window.OV = {
     var r = pick(rows);
     var x = ((window.OV.extra[slug] || {})[r.s]) || {};
 
-    /* ---- header ---- */
-    document.querySelector('[data-p-tile]').innerHTML = r.tid
-      ? '<span class="flex items-center justify-center w-[76px] h-[76px] sm:w-[88px] sm:h-[88px] rounded-2xl bg-white border border-ink-200 overflow-hidden p-2" ' +
-        'data-logo="' + r.tid + '" data-cap="max-h-14 max-w-[68px]">' +
-        '<span class="text-[10px] font-semibold leading-tight text-center text-ink-400" data-logo-fallback>' + esc(r.af) + '</span></span>'
-      : '<span aria-hidden="true" class="grid place-items-center w-[76px] h-[76px] sm:w-[88px] sm:h-[88px] rounded-2xl bg-accent-100 border border-accent-200 ' +
+    /* ---- header ----
+       One tile geometry for all three states — portrait, institution logo, initials —
+       so swapping between them costs no layout shift. */
+    var TILE = 'w-[76px] h-[76px] sm:w-24 sm:h-24 rounded-2xl';
+    var tile = document.querySelector('[data-p-tile]');
+    if (r.photo) {
+      tile.innerHTML = '<img src="' + attr(r.photo) + '" width="96" height="96" decoding="async" ' +
+        'alt="' + attr(baseName(r.n)) + '" class="' + TILE + ' object-cover border border-ink-200">';
+    } else if (r.tid) {
+      tile.innerHTML = '<span class="flex items-center justify-center ' + TILE + ' bg-white border border-ink-200 overflow-hidden p-2" ' +
+        'data-logo="' + r.tid + '" data-cap="max-h-16 max-w-[76px]">' +
+        '<span class="text-[10px] font-semibold leading-tight text-center text-ink-400" data-logo-fallback>' + esc(r.af) + '</span></span>';
+      if (typeof window.OV.resolveLogos === 'function') window.OV.resolveLogos(tile);
+    } else {
+      tile.innerHTML = '<span aria-hidden="true" class="grid place-items-center ' + TILE + ' bg-accent-100 border border-accent-200 ' +
         'font-display text-[30px] sm:text-[34px] font-semibold text-accent-800">' + esc(initials(r)) + '</span>';
-    if (r.tid && typeof window.OV.resolveLogos === 'function') window.OV.resolveLogos(document.querySelector('[data-p-tile]'));
+    }
 
     document.querySelector('[data-p-name]').textContent = r.n;
-    document.querySelector('[data-p-role]').textContent = r.ro;
 
-    var aff = document.querySelector('[data-p-aff]');
-    aff.hidden = !r.af;
-    if (r.af) aff.textContent = r.af;
+    /* Role, affiliation and location on one line rather than three stacked ones */
+    var meta = [r.ro, r.af].filter(Boolean).join(' · ');
+    document.querySelector('[data-p-meta]').textContent = meta;
 
-    var place = document.querySelector('[data-p-place]');
-    place.hidden = !r.ci;
-    if (r.ci) document.querySelector('[data-p-placetext]').textContent = r.ci + ', ' + (STATE_NAME[r.st] || r.st);
+    /* The only two facts the old "At a glance" card held that the header did not */
+    var facts = [];
+    if (r.ci) facts.push('<span class="inline-flex items-center gap-1.5">' +
+      '<svg class="w-[15px] h-[15px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+      esc(r.ci + ', ' + (STATE_NAME[r.st] || r.st)) + '</span>');
+    /* Type of expert is often the same word as the role ("Genetic counselor"), and
+       printing it twice in adjacent lines is exactly the duplication this pass is
+       removing — so only show it when it adds something. */
+    if (r.ty && r.ro.toLowerCase().indexOf(r.ty.toLowerCase()) < 0) facts.push('<span>' + esc(r.ty) + '</span>');
+    if (r.qu) facts.push('<span>' + esc(r.qu) + '</span>');
+    document.querySelector('[data-p-facts]').innerHTML =
+      facts.join('<span class="text-ink-300" aria-hidden="true">·</span>');
 
     document.querySelector('[data-p-specs]').innerHTML = (r.sp || []).map(function(s){
       return '<li><a href="onevoice-experts.mockup.html?spec=' + encodeURIComponent(s) + '" ' +
@@ -515,15 +568,6 @@ window.OV = {
         '<span class="text-[16px] font-medium leading-snug text-ink-800">' + esc(s.t) + '</span></li>';
     }).join('');
 
-    /* ---- at a glance ---- */
-    var g = [['Type of expert', r.ty], ['Qualification', r.qu || 'Not listed'],
-             ['Specialties', (r.sp || []).join(', ') || 'Not listed'],
-             ['Location', r.ci ? r.ci + ', ' + (STATE_NAME[r.st] || r.st) : 'Not published']];
-    document.querySelector('[data-p-glance]').innerHTML = g.map(function(p){
-      return '<div class="flex gap-3 py-2.5"><dt class="w-[7.5rem] shrink-0 text-ink-500">' + esc(p[0]) + '</dt>' +
-             '<dd class="min-w-0 font-medium text-ink-800">' + esc(p[1]) + '</dd></div>';
-    }).join('');
-
     /* ---- related: same institution first, then same type. Never another domain. ---- */
     /* Institution → same type → shared specialty → anyone else in this community.
        The last step matters: the only record with its specialty is exactly the sparse
@@ -541,6 +585,17 @@ window.OV = {
         '<span aria-hidden="true" class="grid place-items-center w-9 h-9 shrink-0 rounded-lg bg-accent-50 border border-accent-200 text-[12.5px] font-semibold text-accent-800">' + esc(initials(o)) + '</span>' +
         '<span class="min-w-0"><span class="block text-[15.5px] font-medium leading-snug text-ink-800 group-hover:text-accent-700">' + esc(o.n) + '</span>' +
         '<span class="block text-[13.5px] text-ink-500">' + esc(o.ro) + '</span></span></a></li>';
+    }).join('');
+
+    /* ---- jump list, built from the sections that actually rendered ---- */
+    var toc = document.querySelector('[data-p-toc]');
+    var secs = [{ id:'about-h', label:'About' }]
+      .concat(hasReviewed ? [{ id:'rev-h', label:'Reviewed by this expert' }] : [])
+      .concat(hasTrials   ? [{ id:'tri-h', label:'Studies at this site' }]     : [])
+      .concat(hasSessions ? [{ id:'ses-h', label:'Sessions appeared in' }]     : []);
+    toc.hidden = secs.length < 2;
+    toc.querySelector('ol').innerHTML = secs.map(function(x){
+      return '<li><a href="#' + x.id + '" class="block py-1 text-[15px] text-ink-600 hover:text-accent-700">' + esc(x.label) + '</a></li>';
     }).join('');
 
     /* ---- layout: two columns only when the body has enough to carry them ---- */
