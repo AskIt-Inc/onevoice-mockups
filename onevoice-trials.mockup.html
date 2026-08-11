@@ -135,6 +135,7 @@ window.OV = {
 };
 </script>
 <script src="assets/ov-kit.js"></script>
+<script src="assets/ov-usmap.js"></script>
 </head>
 <body>
 
@@ -203,9 +204,9 @@ window.OV = {
           </select>
         </label>
         <label class="min-w-[150px]">
-          <span class="sr-only">Number of sites</span>
+          <span class="sr-only">Number of study sites</span>
           <select name="sites" data-tr-sites class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
-            <option value="">Any location</option>
+            <option value="">Any number of sites</option>
             <option value="multi">Multi-site (5+)</option>
             <option value="single">Single site</option>
           </select>
@@ -225,10 +226,14 @@ window.OV = {
     <div class="lg:col-span-8">
       <p class="text-[14.5px] text-ink-500"><strong class="font-semibold text-ink-800 tabular-nums" data-tr-shown>8</strong> shown of <span class="tabular-nums" data-tr-count>52</span></p>
 
-      <!-- Map placeholder: enhancement only, never the sole route to a trial -->
-      <div class="hidden mt-4 rounded-2xl border border-ink-200 bg-ink-50 aspect-[16/10] grid place-items-center" data-tr-map>
-        <p class="text-[15px] text-ink-500 text-center px-6">Map view — study sites plotted from the
-          <code class="text-[13px]">location</code> paragraph geolocation.<br>Every trial here is also in the list.</p>
+      <!-- Map: an enhancement, never the sole route to a trial. Geometry is baked
+           into assets/ov-usmap.js, so this costs no third-party request — see
+           internal-pages/20-privacy-language.md on what a tile provider learns
+           from a request made on a page about one condition. -->
+      <div class="hidden mt-4 rounded-2xl border border-ink-200 bg-ink-50 p-6" data-tr-map>
+        <span class="spec" style="top:8px;right:10px">First listed site only — a study with 292 sites is one pin, and the caption says so</span>
+        <h3 class="font-display text-[20px] font-semibold text-ink-900">Where these studies start</h3>
+        <div class="mt-4" data-tr-mapfig></div>
       </div>
 
       <ol class="mt-4 space-y-3" data-tr-list></ol>
@@ -260,7 +265,7 @@ window.OV = {
       <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5">
         <h2 class="font-display text-[19px] font-semibold text-ink-900">Not sure where to start?</h2>
         <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">
-          Bring the trials you are considering to a live session, or ask a specialist centre near you.
+          Bring the trials you are considering to a live session, or ask a specialist center near you.
         </p>
         <div class="mt-4 flex flex-col gap-2.5">
           <a href="#" class="flex items-center justify-center min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">Upcoming sessions</a>
@@ -460,6 +465,46 @@ window.OV = {
     '</li>';
   }
 
+  /* Coordinates for the first listed site of every study in this set. The registry
+     gives a city and country string, not a point; these are the real coordinates of
+     those cities. A study with 292 sites still gets one pin — the caption says so
+     rather than letting the map imply the study runs in one place. */
+  var SITE = {
+    'Alexander City':  ['AL', 32.944,  -85.954], 'Aurora':         ['CO', 39.729, -104.832],
+    'Birmingham':      ['AL', 33.521,  -86.802], 'Carlsbad':       ['CA', 33.158, -117.351],
+    'Duarte':          ['CA', 34.139, -117.977], 'Fresno':         ['CA', 36.738, -119.787],
+    'Goodyear':        ['AZ', 33.435, -112.358], 'Huntsville':     ['AL', 34.730,  -86.586],
+    'La Jolla':        ['CA', 32.845, -117.274], 'Los Angeles':    ['CA', 34.052, -118.244],
+    'Mission Hills':   ['CA', 34.264, -118.461], 'New Haven':      ['CT', 41.308,  -72.928],
+    'Oakland':         ['CA', 37.804, -122.271], 'Paradise Valley':['AZ', 33.531, -111.943],
+    'Phoenix':         ['AZ', 33.448, -112.074], 'Sacramento':     ['CA', 38.582, -121.494],
+    'Scottsdale':      ['AZ', 33.494, -111.926], 'Tucson':         ['AZ', 32.222, -110.975]
+  };
+
+  function drawMap(hits){
+    var host = document.querySelector('[data-tr-mapfig]');
+    if (!host || !window.OV_USMAP) return;
+    var cities = {}, offshore = {};
+    hits.forEach(function(t){
+      var parts = String(t.where || '').split(',');
+      var city = parts[0].trim(), country = (parts[1] || '').trim();
+      var g = country === 'United States' ? SITE[city] : null;
+      if (!g) { var k = country || 'Location not given'; offshore[k] = (offshore[k] || 0) + 1; return; }
+      var key = city + ', ' + g[0];
+      if (!cities[key]) cities[key] = { key:key, label:key, st:g[0], lat:g[1], lon:g[2], n:0,
+                                        href:'?q=' + encodeURIComponent(city) };
+      cities[key].n++;
+    });
+    var places = Object.keys(cities).map(function(k){ return cities[k]; });
+    window.OV_USMAP.render(host, {
+      places: places,
+      offshore: Object.keys(offshore).map(function(k){ return { label:k, n:offshore[k] }; }),
+      caption: 'Map of the United States with ' + places.length + ' study locations marked',
+      note: 'One pin per study, at its first listed site. Most of these studies recruit at many more ' +
+            'sites than one — the registry record on ClinicalTrials.gov has the full list.'
+    });
+  }
+
   function apply(){
     if (!cur) return;
     var q = params();
@@ -478,6 +523,7 @@ window.OV = {
 
     var filtering = !!(term || phase || sites);
     document.querySelector('[data-tr-list]').innerHTML = hits.map(card).join('');
+    drawMap(hits);
     document.querySelector('[data-tr-empty]').classList.toggle('hidden', hits.length !== 0);
     document.querySelector('[data-tr-pager]').classList.toggle('hidden', filtering);
     document.querySelector('[data-tr-shown]').textContent = hits.length;

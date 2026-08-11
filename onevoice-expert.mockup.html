@@ -17,10 +17,13 @@
    channel, no cross-links — because that is the common case across 510 records
    and the state most likely to break a two-column header.
 
+   UNITED STATES ONLY, and NO TELEPHONE NUMBERS. A listed person is reached
+   through their institution; the `people` phone field must not be rendered.
+
    DATA IS ILLUSTRATIVE — same rules as the directory (09/10). Individuals and
-   their institutions are invented; the two centre records are real and carry
-   only facts already published on the approved homepage. Phone numbers use the
-   Ofcom drama range, emails the RFC 2606 reserved `example.org`.
+   their institutions are invented; the two center records are real and carry
+   only facts already published on the approved homepage. Email addresses are
+   departmental, not personal, and use the RFC 2606 reserved `example.org`.
    --------------------------------------------------------------------------- */
 window.OV = {
   nav: 'experts',
@@ -29,112 +32,163 @@ window.OV = {
   /* Same record set as onevoice-experts.mockup.html, so every "View profile"
      link from the directory resolves to that person rather than a stand-in. */
   dir: {
-    amyloidosis: { rows: [
-      { s:'okafor', n:'Dr A. Okafor', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
-        sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD',
-        af:'Northgate Cardiac Amyloidosis Unit', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0958', web:'#' },
-      { s:'haugen', n:'Dr L. Haugen', cr:'PhD', ro:'Principal research scientist', ty:'Researcher',
-        sp:['Genetics','Research'], qu:'PhD',
-        af:'Fjordvik Amyloid Research Institute', ci:'Bergen', co:'Norway', em:'l.haugen@example.org' },
-      { s:'vanderbilt', n:'Vanderbilt Amyloidosis Multidisciplinary Program', ro:'Multidisciplinary specialist centre',
-        ty:'Specialist centre', sp:['Diagnosis & imaging','Treatment & therapeutics'], centre:true,
-        af:'Vanderbilt Health', tid:12351, ci:'Nashville, Tennessee', co:'United States',
-        web:'https://vanderbilt.oneamyloidosisvoice.com' },
-      { s:'cityofhope', n:'City of Hope Amyloidosis Program', ro:'Multidisciplinary specialist centre',
-        ty:'Specialist centre', sp:['Treatment & therapeutics','Research'], centre:true,
-        af:'City of Hope', tid:12759, ci:'Duarte, California', co:'United States',
-        web:'https://cityofhope.oneamyloidosisvoice.com' },
-      { s:'ferreira', n:'Dr M. Ferreira', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
-        sp:['Treatment & therapeutics'], qu:'MD', af:'Rua Nova AL Amyloidosis Clinic', ci:'Lisbon', co:'Portugal', em:'m.ferreira@example.org' },
-      { s:'whitcombe', n:'S. Whitcombe', cr:'RN', ro:'Amyloidosis nurse specialist', ty:'Nurse specialist',
-        sp:['Supportive care'], qu:'RN', af:'Northgate Cardiac Amyloidosis Unit', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0961' },
-      { s:'castellanos', n:'Dr J. Castellanos', cr:'MD PhD', ro:'Consultant neurologist', ty:'Neurologist',
-        sp:['Diagnosis & imaging','Research'], qu:'MD PhD', af:'Cordillera Neuromuscular Centre', ci:'Madrid', co:'Spain', em:'j.castellanos@example.org' },
-      { s:'nakamura', n:'Dr H. Nakamura', cr:'MD', ro:'Consultant nephrologist', ty:'Nephrologist',
-        sp:['Treatment & therapeutics'], qu:'MD', af:'Kitahama Renal Amyloid Service', ci:'Osaka', co:'Japan' },
-      { s:'boateng', n:'Dr E. Boateng', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
-        sp:['Diagnosis & imaging'], qu:'MD', af:'Adinkra Cardiac Centre', ci:'Accra', co:'Ghana', em:'e.boateng@example.org' },
-      { s:'lindqvist', n:'P. Lindqvist', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'], sparse:true },
-      { s:'mahoney', n:'Dr R. Mahoney', cr:'MD', ro:'Consultant in palliative medicine', ty:'Pain & palliative care',
-        sp:['Supportive care'], qu:'MD', af:'Two Rivers Supportive Care Service', ci:'Dublin', co:'Ireland', em:'r.mahoney@example.org' },
-      { s:'farouk', n:'Dr Y. Farouk', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
-        sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD', af:'Nile Delta Amyloidosis Clinic', ci:'Cairo', co:'Egypt', em:'y.farouk@example.org' }
-    ]},
-    scd: { rows: [
-      { s:'mensah', n:'Dr N. Mensah', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
-        sp:['Treatment & therapeutics','Diagnosis & imaging'], qu:'MD', af:'Southbank Sickle Cell Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0342' },
-      { s:'iyer', n:'Dr P. Iyer', cr:'PhD', ro:'Senior research fellow', ty:'Researcher',
-        sp:['Research','Genetics'], qu:'PhD', af:'Meridian Haemoglobinopathy Research Unit', ci:'Bengaluru', co:'India', em:'p.iyer@example.org' },
-      { s:'adeyinka', n:'Dr C. Adeyinka', cr:'MD', ro:'Consultant paediatric haematologist', ty:'Paediatrician',
-        sp:['Paediatrics','Treatment & therapeutics'], qu:'MD', af:'Harmattan Children’s Haematology Service', ci:'Lagos', co:'Nigeria', em:'c.adeyinka@example.org' },
-      { s:'ofosu', n:'K. Ofosu', cr:'RN', ro:'Sickle cell nurse specialist', ty:'Nurse specialist',
-        sp:['Supportive care'], qu:'RN', af:'Southbank Sickle Cell Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0347' },
-      { s:'beaumont', n:'Dr T. Beaumont', cr:'MD', ro:'Consultant in pain medicine', ty:'Pain & palliative care',
-        sp:['Supportive care'], qu:'MD', af:'Riverbend Pain Service', ci:'Birmingham', co:'United Kingdom', tel:'+44 20 7946 0388' },
-      { s:'haddad', n:'Dr S. Haddad', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
-        sp:['Treatment & therapeutics'], qu:'MD', af:'Levant Haemoglobin Disorders Clinic', ci:'Beirut', co:'Lebanon', em:'s.haddad@example.org' },
-      { s:'nyathi', n:'Dr G. Nyathi', cr:'MD PhD', ro:'Transplant physician', ty:'Transplant physician',
-        sp:['Treatment & therapeutics','Research'], qu:'MD PhD', af:'Highveld Transplant Programme', ci:'Johannesburg', co:'South Africa' },
-      { s:'delacroix', n:'M. Delacroix', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'], sparse:true },
-      { s:'okonkwo', n:'Dr V. Okonkwo', cr:'MD', ro:'Consultant obstetrician', ty:'Obstetrician',
-        sp:['Supportive care'], qu:'MD', af:'Ilesa Maternal Haematology Service', ci:'Abuja', co:'Nigeria', em:'v.okonkwo@example.org' },
-      { s:'amara', n:'Dr B. Amara', cr:'MD', ro:'Consultant paediatrician', ty:'Paediatrician',
-        sp:['Paediatrics'], qu:'MD', af:'Cedar Grove Children’s Centre', ci:'Manchester', co:'United Kingdom', tel:'+44 20 7946 0410' },
-      { s:'rossi', n:'Dr F. Rossi', cr:'PhD', ro:'Research scientist, gene therapy', ty:'Researcher',
-        sp:['Research','Genetics'], qu:'PhD', af:'Tyrrhenian Gene Therapy Institute', ci:'Naples', co:'Italy', em:'f.rossi@example.org' },
-      { s:'chen', n:'Dr L. Chen', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
-        sp:['Treatment & therapeutics'], qu:'MD', af:'Pearl River Haemoglobinopathy Unit', ci:'Guangzhou', co:'China' }
-    ]},
-    ph: { rows: [
-      { s:'duarte', n:'Dr M. Duarte', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
-        sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD', af:'Mersey PH Referral Centre', ci:'Liverpool', co:'United Kingdom', tel:'+44 20 7946 0512' },
-      { s:'volkov', n:'Dr S. Volkov', cr:'PhD', ro:'Principal investigator', ty:'Researcher',
-        sp:['Research'], qu:'PhD', af:'Baltic Pulmonary Vascular Institute', ci:'Riga', co:'Latvia', em:'s.volkov@example.org' },
-      { s:'beaulieu', n:'Dr I. Beaulieu', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
-        sp:['Diagnosis & imaging'], qu:'MD', af:'Laurentide Cardiopulmonary Centre', ci:'Montréal', co:'Canada', em:'i.beaulieu@example.org' },
-      { s:'traore', n:'J. Traoré', cr:'RN', ro:'Pulmonary hypertension nurse specialist', ty:'Nurse specialist',
-        sp:['Supportive care'], qu:'RN', af:'Mersey PH Referral Centre', ci:'Liverpool', co:'United Kingdom', tel:'+44 20 7946 0518' },
-      { s:'sandoval', n:'Dr A. Sandoval', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
-        sp:['Treatment & therapeutics'], qu:'MD', af:'Altiplano Pulmonary Unit', ci:'Bogotá', co:'Colombia' },
-      { s:'brennan', n:'Dr K. Brennan', cr:'MD PhD', ro:'Interventional cardiologist, CTEPH', ty:'Cardiologist',
-        sp:['Treatment & therapeutics','Research'], qu:'MD PhD', af:'Two Rivers Thoracic Programme', ci:'Dublin', co:'Ireland', em:'k.brennan@example.org' },
-      { s:'rahimi', n:'Dr N. Rahimi', cr:'MD', ro:'Consultant paediatric cardiologist', ty:'Paediatrician',
-        sp:['Paediatrics','Diagnosis & imaging'], qu:'MD', af:'Silk Road Children’s Heart Centre', ci:'Tashkent', co:'Uzbekistan' },
-      { s:'falkenberg', n:'R. Falkenberg', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'], sparse:true },
-      { s:'adebayo', n:'Dr O. Adebayo', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
-        sp:['Diagnosis & imaging'], qu:'MD', af:'Lagoon Chest Clinic', ci:'Lagos', co:'Nigeria', em:'o.adebayo@example.org' },
-      { s:'lindgren', n:'Dr H. Lindgren', cr:'PhD', ro:'Exercise physiologist', ty:'Researcher',
-        sp:['Research','Supportive care'], qu:'PhD', af:'Norrland Cardiopulmonary Research Group', ci:'Umeå', co:'Sweden', em:'h.lindgren@example.org' },
-      { s:'marchetti', n:'Dr P. Marchetti', cr:'MD', ro:'Transplant physician', ty:'Transplant physician',
-        sp:['Treatment & therapeutics'], qu:'MD', af:'Po Valley Transplant Programme', ci:'Bologna', co:'Italy' },
-      { s:'karim', n:'Dr Z. Karim', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
-        sp:['Treatment & therapeutics'], qu:'MD', af:'Indus Pulmonary Vascular Clinic', ci:'Karachi', co:'Pakistan', em:'z.karim@example.org' }
-    ]},
-    mg: { rows: [
-      { s:'adeyemi', n:'Dr R. Adeyemi', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
-        sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD', af:'Kingsway Neuromuscular Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0720' },
-      { s:'larsen', n:'Dr K. Larsen', cr:'PhD', ro:'Senior research fellow', ty:'Researcher',
-        sp:['Research'], qu:'PhD', af:'Øresund Neuroimmunology Unit', ci:'Copenhagen', co:'Denmark', em:'k.larsen@example.org' },
-      { s:'nowak', n:'Dr W. Nowak', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
-        sp:['Treatment & therapeutics'], qu:'MD', af:'Wisła Neuromuscular Service', ci:'Kraków', co:'Poland', em:'w.nowak@example.org' },
-      { s:'bergstrom', n:'A. Bergström', cr:'RN', ro:'Neuromuscular nurse specialist', ty:'Nurse specialist',
-        sp:['Supportive care'], qu:'RN', af:'Kingsway Neuromuscular Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0724' },
-      { s:'yamashita', n:'Dr T. Yamashita', cr:'MD', ro:'Thoracic surgeon, thymectomy', ty:'Surgeon',
-        sp:['Treatment & therapeutics'], qu:'MD', af:'Setouchi Thoracic Programme', ci:'Hiroshima', co:'Japan' },
-      { s:'mbeki', n:'Dr C. Mbeki', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
-        sp:['Diagnosis & imaging'], qu:'MD', af:'Table Bay Neurology Service', ci:'Cape Town', co:'South Africa', em:'c.mbeki@example.org' },
-      { s:'fontaine', n:'Dr E. Fontaine', cr:'MD PhD', ro:'Neuroimmunologist', ty:'Researcher',
-        sp:['Research','Treatment & therapeutics'], qu:'MD PhD', af:'Rhône Neuroimmunology Institute', ci:'Lyon', co:'France', em:'e.fontaine@example.org' },
-      { s:'kowalczyk', n:'D. Kowalczyk', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'], sparse:true },
-      { s:'prasad', n:'Dr S. Prasad', cr:'MD', ro:'Consultant ophthalmologist, ocular MG', ty:'Ophthalmologist',
-        sp:['Diagnosis & imaging'], qu:'MD', af:'Deccan Neuro-ophthalmology Clinic', ci:'Hyderabad', co:'India', em:'s.prasad@example.org' },
-      { s:'halvorsen', n:'Dr M. Halvorsen', cr:'MD', ro:'Consultant in intensive care', ty:'Intensive care',
-        sp:['Supportive care'], qu:'MD', af:'Nordfjell Critical Care Unit', ci:'Trondheim', co:'Norway' },
-      { s:'ricci', n:'Dr J. Ricci', cr:'PhD', ro:'Clinical pharmacologist', ty:'Researcher',
-        sp:['Research'], qu:'PhD', af:'Arno Clinical Pharmacology Group', ci:'Florence', co:'Italy', em:'j.ricci@example.org' },
-      { s:'ortega', n:'Dr B. Ortega', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
-        sp:['Treatment & therapeutics','Paediatrics'], qu:'MD', af:'Sierra Madre Neuromuscular Clinic', ci:'Guadalajara', co:'Mexico' }
-    ]}
+    amyloidosis: {
+      rows: [
+        { s:'okafor',      n:'Dr A. Okafor, MD', ro:'Cardiologist, Director of the Cardiac Amyloidosis Program', ty:'Cardiologist',
+          sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD',
+          af:'Northgate Cardiac Amyloidosis Center', ci:'Boston', st:'MA', web:'#' },
+        { s:'haugen',      n:'Dr L. Haugen, PhD', ro:'Principal research scientist', ty:'Researcher',
+          sp:['Genetics','Research'], qu:'PhD',
+          af:'Lakeshore Amyloid Research Institute', ci:'Minneapolis', st:'MN', em:'amyloid.research@example.org' },
+        { s:'vanderbilt',  n:'Vanderbilt Amyloidosis Multidisciplinary Program', ro:'Multidisciplinary specialist center',
+          ty:'Specialist center', sp:['Diagnosis & imaging','Treatment & therapeutics'], centre:true,
+          af:'Vanderbilt Health', tid:12351, ci:'Nashville', st:'TN',
+          web:'https://vanderbilt.oneamyloidosisvoice.com' },
+        { s:'cityofhope',  n:'City of Hope Amyloidosis Program', ro:'Multidisciplinary specialist center',
+          ty:'Specialist center', sp:['Treatment & therapeutics','Research'], centre:true,
+          af:'City of Hope', tid:12759, ci:'Duarte', st:'CA',
+          web:'https://cityofhope.oneamyloidosisvoice.com' },
+        { s:'ferreira',    n:'Dr M. Ferreira, MD', ro:'Hematologist', ty:'Hematologist',
+          sp:['Treatment & therapeutics'], qu:'MD',
+          af:'Bayfront AL Amyloidosis Clinic', ci:'Tampa', st:'FL', em:'al.clinic@example.org' },
+        { s:'whitcombe',   n:'S. Whitcombe, RN', ro:'Amyloidosis nurse coordinator', ty:'Nurse specialist',
+          sp:['Supportive care'], qu:'RN',
+          af:'Northgate Cardiac Amyloidosis Center', ci:'Boston', st:'MA', em:'amyloid.nursing@example.org' },
+        { s:'castellanos', n:'Dr J. Castellanos, MD PhD', ro:'Neurologist', ty:'Neurologist',
+          sp:['Diagnosis & imaging','Research'], qu:'MD PhD',
+          af:'Cordillera Neuromuscular Center', ci:'Denver', st:'CO', em:'neuromuscular@example.org' },
+        { s:'nakamura',    n:'Dr H. Nakamura, MD', ro:'Nephrologist', ty:'Nephrologist',
+          sp:['Treatment & therapeutics'], qu:'MD',
+          af:'Puget Renal Amyloid Service', ci:'Seattle', st:'WA' },
+        { s:'boateng',     n:'Dr E. Boateng, MD', ro:'Cardiologist', ty:'Cardiologist',
+          sp:['Diagnosis & imaging'], qu:'MD',
+          af:'Riverbend Heart Institute', ci:'St. Louis', st:'MO', em:'heart.institute@example.org' },
+        /* Deliberately sparse: no affiliation, no qualification, no address, no public
+           channel. Acceptance criterion — the row must still read as a real record. */
+        { s:'lindqvist', sparse:true,   n:'P. Lindqvist', ro:'Genetic counselor', ty:'Genetic counselor',
+          sp:['Genetics'] },
+        { s:'mahoney',     n:'Dr R. Mahoney, MD', ro:'Palliative care physician', ty:'Pain & palliative care',
+          sp:['Supportive care'], qu:'MD',
+          af:'Two Rivers Supportive Care Service', ci:'Pittsburgh', st:'PA', em:'supportive.care@example.org' },
+        { s:'farouk',      n:'Dr Y. Farouk, MD', ro:'Cardiologist', ty:'Cardiologist',
+          sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD',
+          af:'Sun Corridor Amyloidosis Clinic', ci:'Phoenix', st:'AZ', em:'amyloidosis.clinic@example.org' }
+      ]
+    },
+    scd: {
+      rows: [
+        { s:'mensah',    n:'Dr N. Mensah, MD', ro:'Hematologist, Director of the Sickle Cell Center', ty:'Hematologist',
+          sp:['Treatment & therapeutics','Diagnosis & imaging'], qu:'MD',
+          af:'Southbank Sickle Cell Center', ci:'Atlanta', st:'GA', web:'#' },
+        { s:'iyer',      n:'Dr P. Iyer, PhD', ro:'Senior research fellow', ty:'Researcher',
+          sp:['Research','Genetics'], qu:'PhD',
+          af:'Meridian Hemoglobinopathy Research Unit', ci:'Chapel Hill', st:'NC', em:'hemoglobin.research@example.org' },
+        { s:'adeyinka',  n:'Dr C. Adeyinka, MD', ro:'Pediatric hematologist', ty:'Pediatrician',
+          sp:['Pediatrics','Treatment & therapeutics'], qu:'MD',
+          af:'Harmattan Children’s Hematology Service', ci:'Detroit', st:'MI', em:'peds.hematology@example.org' },
+        { s:'ofosu',     n:'K. Ofosu, RN', ro:'Sickle cell nurse coordinator', ty:'Nurse specialist',
+          sp:['Supportive care'], qu:'RN',
+          af:'Southbank Sickle Cell Center', ci:'Atlanta', st:'GA', em:'sicklecell.nursing@example.org' },
+        { s:'beaumont',  n:'Dr T. Beaumont, MD', ro:'Pain medicine physician', ty:'Pain & palliative care',
+          sp:['Supportive care'], qu:'MD',
+          af:'Riverbend Pain Service', ci:'Baltimore', st:'MD', em:'pain.service@example.org' },
+        { s:'haddad',    n:'Dr S. Haddad, MD', ro:'Hematologist', ty:'Hematologist',
+          sp:['Treatment & therapeutics'], qu:'MD',
+          af:'Cedar Ridge Hemoglobin Disorders Clinic', ci:'Houston', st:'TX', em:'hemoglobin.clinic@example.org' },
+        { s:'nyathi',    n:'Dr G. Nyathi, MD PhD', ro:'Transplant physician', ty:'Transplant physician',
+          sp:['Treatment & therapeutics','Research'], qu:'MD PhD',
+          af:'Great Lakes Transplant Program', ci:'Cleveland', st:'OH' },
+        { s:'delacroix', sparse:true, n:'M. Delacroix', ro:'Genetic counselor', ty:'Genetic counselor', sp:['Genetics'] },
+        { s:'okonkwo',   n:'Dr V. Okonkwo, MD', ro:'Obstetrician', ty:'Obstetrician',
+          sp:['Supportive care'], qu:'MD',
+          af:'Prairie Maternal Hematology Service', ci:'Chicago', st:'IL', em:'maternal.hematology@example.org' },
+        { s:'amara',     n:'Dr B. Amara, MD', ro:'Pediatrician', ty:'Pediatrician',
+          sp:['Pediatrics'], qu:'MD',
+          af:'Cedar Grove Children’s Center', ci:'Philadelphia', st:'PA', em:'childrens.center@example.org' },
+        { s:'rossi',     n:'Dr F. Rossi, PhD', ro:'Research scientist, gene therapy', ty:'Researcher',
+          sp:['Research','Genetics'], qu:'PhD',
+          af:'Bay Meadow Gene Therapy Institute', ci:'Oakland', st:'CA', em:'gene.therapy@example.org' },
+        { s:'chen',      n:'Dr L. Chen, MD', ro:'Hematologist', ty:'Hematologist',
+          sp:['Treatment & therapeutics'], qu:'MD',
+          af:'Delta Hemoglobinopathy Unit', ci:'Memphis', st:'TN' }
+      ]
+    },
+    ph: {
+      rows: [
+        { s:'duarte',    n:'Dr M. Duarte, MD', ro:'Pulmonologist, Director of the PH Referral Center', ty:'Pulmonologist',
+          sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD',
+          af:'Three Rivers PH Referral Center', ci:'Pittsburgh', st:'PA', web:'#' },
+        { s:'volkov',    n:'Dr S. Volkov, PhD', ro:'Principal investigator', ty:'Researcher',
+          sp:['Research'], qu:'PhD',
+          af:'Northlake Pulmonary Vascular Institute', ci:'Chicago', st:'IL', em:'pv.research@example.org' },
+        { s:'beaulieu',  n:'Dr I. Beaulieu, MD', ro:'Cardiologist', ty:'Cardiologist',
+          sp:['Diagnosis & imaging'], qu:'MD',
+          af:'Green Mountain Cardiopulmonary Center', ci:'Burlington', st:'VT', em:'cardiopulmonary@example.org' },
+        { s:'traore',    n:'J. Traoré, RN', ro:'Pulmonary hypertension nurse coordinator', ty:'Nurse specialist',
+          sp:['Supportive care'], qu:'RN',
+          af:'Three Rivers PH Referral Center', ci:'Pittsburgh', st:'PA', em:'ph.nursing@example.org' },
+        { s:'sandoval',  n:'Dr A. Sandoval, MD', ro:'Pulmonologist', ty:'Pulmonologist',
+          sp:['Treatment & therapeutics'], qu:'MD',
+          af:'High Desert Pulmonary Unit', ci:'Albuquerque', st:'NM' },
+        { s:'brennan',   n:'Dr K. Brennan, MD PhD', ro:'Interventional cardiologist, CTEPH', ty:'Cardiologist',
+          sp:['Treatment & therapeutics','Research'], qu:'MD PhD',
+          af:'Charles River Thoracic Program', ci:'Boston', st:'MA', em:'cteph.program@example.org' },
+        { s:'rahimi',    n:'Dr N. Rahimi, MD', ro:'Pediatric cardiologist', ty:'Pediatrician',
+          sp:['Pediatrics','Diagnosis & imaging'], qu:'MD',
+          af:'Prairie Children’s Heart Center', ci:'Kansas City', st:'MO' },
+        { s:'falkenberg', sparse:true,n:'R. Falkenberg', ro:'Genetic counselor', ty:'Genetic counselor', sp:['Genetics'] },
+        { s:'adebayo',   n:'Dr O. Adebayo, MD', ro:'Pulmonologist', ty:'Pulmonologist',
+          sp:['Diagnosis & imaging'], qu:'MD',
+          af:'Gulf Coast Chest Clinic', ci:'New Orleans', st:'LA', em:'chest.clinic@example.org' },
+        { s:'lindgren',  n:'Dr H. Lindgren, PhD', ro:'Exercise physiologist', ty:'Researcher',
+          sp:['Research','Supportive care'], qu:'PhD',
+          af:'Cascade Cardiopulmonary Research Group', ci:'Portland', st:'OR', em:'cp.research@example.org' },
+        { s:'marchetti', n:'Dr P. Marchetti, MD', ro:'Transplant physician', ty:'Transplant physician',
+          sp:['Treatment & therapeutics'], qu:'MD',
+          af:'Twin Cities Transplant Program', ci:'Minneapolis', st:'MN' },
+        { s:'karim',     n:'Dr Z. Karim, MD', ro:'Pulmonologist', ty:'Pulmonologist',
+          sp:['Treatment & therapeutics'], qu:'MD',
+          af:'Sonoran Pulmonary Vascular Clinic', ci:'Tucson', st:'AZ', em:'pv.clinic@example.org' }
+      ]
+    },
+    mg: {
+      rows: [
+        { s:'adeyemi',   n:'Dr R. Adeyemi, MD', ro:'Neurologist, Director of the Neuromuscular Center', ty:'Neurologist',
+          sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD',
+          af:'Kingsway Neuromuscular Center', ci:'New York', st:'NY', web:'#' },
+        { s:'larsen',    n:'Dr K. Larsen, PhD', ro:'Senior research fellow', ty:'Researcher',
+          sp:['Research'], qu:'PhD',
+          af:'Sound View Neuroimmunology Unit', ci:'Seattle', st:'WA', em:'neuroimmunology@example.org' },
+        { s:'nowak',     n:'Dr W. Nowak, MD', ro:'Neurologist', ty:'Neurologist',
+          sp:['Treatment & therapeutics'], qu:'MD',
+          af:'Lakefront Neuromuscular Service', ci:'Milwaukee', st:'WI', em:'neuromuscular.service@example.org' },
+        { s:'bergstrom', n:'A. Bergström, RN', ro:'Neuromuscular nurse coordinator', ty:'Nurse specialist',
+          sp:['Supportive care'], qu:'RN',
+          af:'Kingsway Neuromuscular Center', ci:'New York', st:'NY', em:'nm.nursing@example.org' },
+        { s:'yamashita', n:'Dr T. Yamashita, MD', ro:'Thoracic surgeon, thymectomy', ty:'Surgeon',
+          sp:['Treatment & therapeutics'], qu:'MD',
+          af:'Bayview Thoracic Program', ci:'San Francisco', st:'CA' },
+        { s:'mbeki',     n:'Dr C. Mbeki, MD', ro:'Neurologist', ty:'Neurologist',
+          sp:['Diagnosis & imaging'], qu:'MD',
+          af:'Piedmont Neurology Service', ci:'Charlotte', st:'NC', em:'neurology.service@example.org' },
+        { s:'fontaine',  n:'Dr E. Fontaine, MD PhD', ro:'Neuroimmunologist', ty:'Researcher',
+          sp:['Research','Treatment & therapeutics'], qu:'MD PhD',
+          af:'Bluegrass Neuroimmunology Institute', ci:'Louisville', st:'KY', em:'ni.institute@example.org' },
+        { s:'kowalczyk', sparse:true, n:'D. Kowalczyk', ro:'Genetic counselor', ty:'Genetic counselor', sp:['Genetics'] },
+        { s:'prasad',    n:'Dr S. Prasad, MD', ro:'Neuro-ophthalmologist, ocular MG', ty:'Ophthalmologist',
+          sp:['Diagnosis & imaging'], qu:'MD',
+          af:'Front Range Neuro-ophthalmology Clinic', ci:'Denver', st:'CO', em:'neuro.ophthalmology@example.org' },
+        { s:'halvorsen', n:'Dr M. Halvorsen, MD', ro:'Critical care physician', ty:'Critical care',
+          sp:['Supportive care'], qu:'MD',
+          af:'North Star Critical Care Unit', ci:'Fargo', st:'ND' },
+        { s:'ricci',     n:'Dr J. Ricci, PhD', ro:'Clinical pharmacologist', ty:'Researcher',
+          sp:['Research'], qu:'PhD',
+          af:'Ohio Valley Clinical Pharmacology Group', ci:'Cincinnati', st:'OH', em:'pharmacology@example.org' },
+        { s:'ortega',    n:'Dr B. Ortega, MD', ro:'Neurologist', ty:'Neurologist',
+          sp:['Treatment & therapeutics','Pediatrics'], qu:'MD',
+          af:'Alamo Neuromuscular Clinic', ci:'San Antonio', st:'TX' }
+      ]
+    }
   },
 
   /* Cross-links exist only where the record actually has them. Most of 510 records
@@ -143,7 +197,7 @@ window.OV = {
   extra: {
     amyloidosis: {
       okafor: {
-        bio: 'Consultant cardiologist with a specialist clinic in cardiac amyloidosis, and one of the clinicians who reviews oneVoice articles before publication. Referrals are accepted from GPs and from other cardiology services.',
+        bio: 'Cardiologist running a dedicated cardiac amyloidosis clinic, and one of the clinicians who reviews oneVoice articles before publication. Referrals are accepted from primary care and from other cardiology practices.',
         reviewed: [
           { k:'Research',    d:'28 Jul 2026', t:'ATTR-CM trial reports 30% fewer hospitalisations at 30 months' },
           { k:'Living well', d:'7 Jul 2026',  t:'Fatigue and pacing: what actually helped our members' },
@@ -166,13 +220,13 @@ window.OV = {
         ]
       },
       vanderbilt: {
-        bio: 'A multidisciplinary amyloidosis programme featured in the oneVoice Program Spotlight Series. Cardiology, haematology, neurology and nephrology run a shared clinic, and recorded sessions from the team are published on the spotlight microsite.',
+        bio: 'A multidisciplinary amyloidosis program featured in the oneVoice Program Spotlight Series. Cardiology, hematology, neurology and nephrology run a shared clinic, and recorded sessions from the team are published on the spotlight microsite.',
         sessions: [ { d:'2026-08-01', dl:'August 2026', t:'Program Spotlight: meet the Vanderbilt amyloidosis team' } ]
       }
     },
     scd: {
       mensah: {
-        bio: 'Consultant haematologist running a sickle cell service, and one of the clinicians who reviews oneVoice articles before publication.',
+        bio: 'Hematologist running a sickle cell service, and one of the clinicians who reviews oneVoice articles before publication.',
         reviewed: [
           { k:'Treatment',   d:'29 Jul 2026', t:'Gene therapy approved for severe sickle cell disease in under-18s' },
           { k:'Living well', d:'8 Jul 2026',  t:'Staying hydrated in a heatwave: what members recommend' },
@@ -182,7 +236,7 @@ window.OV = {
         sessions: [ { d:'2026-04-22', dl:'22 Apr 2026', t:'Pain crises: what to expect from your hospital' } ]
       },
       iyer: {
-        bio: 'Senior research fellow in haemoglobinopathy genetics, and a reviewer of oneVoice research coverage.',
+        bio: 'Senior research fellow in hemoglobinopathy genetics, and a reviewer of oneVoice research coverage.',
         reviewed: [
           { k:'Care',     d:'22 Jul 2026', t:'New A&E pain pathway rolls out across 40 NHS trusts' },
           { k:'Research', d:'1 Jul 2026',  t:'Long-term outcomes after haematopoietic stem cell transplant' }
@@ -191,7 +245,7 @@ window.OV = {
     },
     ph: {
       duarte: {
-        bio: 'Consultant in respiratory medicine at a designated pulmonary hypertension referral centre, and one of the clinicians who reviews oneVoice articles before publication.',
+        bio: 'Pulmonologist at a designated pulmonary hypertension referral center, and one of the clinicians who reviews oneVoice articles before publication.',
         reviewed: [
           { k:'Research',  d:'27 Jul 2026', t:'Triple therapy improves six-minute walk distance in PAH' },
           { k:'Diagnosis', d:'29 Jun 2026', t:'Time to diagnosis in PAH has barely moved in a decade' }
@@ -206,7 +260,7 @@ window.OV = {
     },
     mg: {
       adeyemi: {
-        bio: 'Consultant neurologist with a neuromuscular clinic, and one of the clinicians who reviews oneVoice articles before publication.',
+        bio: 'Neurologist with a neuromuscular clinic, and one of the clinicians who reviews oneVoice articles before publication.',
         reviewed: [
           { k:'Treatment',   d:'30 Jul 2026', t:'Second FcRn blocker recommended for generalised myasthenia gravis' },
           { k:'Living well', d:'9 Jul 2026',  t:'Eyelid crutches and prisms: what members found useful' }
@@ -243,11 +297,11 @@ window.OV = {
             <span data-p-tile class="shrink-0"></span>
             <div class="min-w-0">
               <h1 class="font-display text-[28px] sm:text-[34px] lg:text-[40px] font-semibold leading-[1.14] tracking-[-.02em] text-ink-900" data-p-name>Dr A. Okafor, MD</h1>
-              <p class="mt-2 text-[17px] leading-snug text-ink-700" data-p-role>Consultant cardiologist</p>
+              <p class="mt-2 text-[17px] leading-snug text-ink-700" data-p-role>Cardiologist</p>
               <p class="mt-1 text-[16px] leading-snug text-ink-600" data-p-aff hidden></p>
               <p class="mt-1.5 flex items-center gap-1.5 text-[15px] text-ink-500" data-p-place>
                 <svg class="w-[16px] h-[16px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span data-p-placetext>London, United Kingdom</span>
+                <span data-p-placetext>Boston, Massachusetts</span>
               </p>
             </div>
           </div>
@@ -262,7 +316,7 @@ window.OV = {
             <div class="mt-3 space-y-2.5" data-p-contact></div>
             <p class="mt-4 pt-4 border-t border-ink-200 text-[13.5px] leading-relaxed text-ink-500">
               oneVoice does not arrange appointments, make referrals, or pass messages on. Listings are
-              published at the clinician’s or centre’s request; we do not vet, rank or endorse anyone
+              published at the clinician’s or center’s request; we do not vet, rank or endorse anyone
               listed. Ask your GP or current team about a referral.
             </p>
           </div>
@@ -336,10 +390,22 @@ window.OV = {
   function attr(s){ return esc(s).replace(/"/g,'&quot;'); }
   function params(){ return new URLSearchParams(location.search); }
 
+  /* Credentials follow the first comma in the name; strip them before initialling. */
+  function baseName(n){ return String(n).split(',')[0].trim(); }
   function initials(r){
-    var parts = r.n.replace(/^Dr\s+/, '').split(/\s+/).filter(function(w){ return /[A-Za-zÀ-ÿ]/.test(w[0]); });
+    var parts = baseName(r.n).replace(/^Dr\s+/, '').split(/\s+/).filter(function(w){ return /[A-Za-zÀ-ÿ]/.test(w[0]); });
     return (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
   }
+
+  var STATE_NAME = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',
+    CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',
+    ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',
+    ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',
+    MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',
+    NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',
+    OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',
+    TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',
+    WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
 
   function contactRow(icon, label, href, text){
     return '<p class="flex items-start gap-2.5 text-[15px] text-ink-700">' +
@@ -347,8 +413,9 @@ window.OV = {
       '<a href="' + attr(href) + '" class="break-words font-medium text-ink-800 underline underline-offset-2 hover:text-accent-700">' + esc(text) + '</a></span></p>';
   }
 
+  /* No telephone icon and no telephone row: this template never publishes a
+     direct or cell number for a named individual. */
   var ICON = {
-    tel:'<svg class="w-[18px] h-[18px] mt-1 shrink-0 text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>',
     em: '<svg class="w-[18px] h-[18px] mt-1 shrink-0 text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>',
     web:'<svg class="w-[18px] h-[18px] mt-1 shrink-0 text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>'
   };
@@ -381,7 +448,7 @@ window.OV = {
         'font-display text-[30px] sm:text-[34px] font-semibold text-accent-800">' + esc(initials(r)) + '</span>';
     if (r.tid && typeof window.OV.resolveLogos === 'function') window.OV.resolveLogos(document.querySelector('[data-p-tile]'));
 
-    document.querySelector('[data-p-name]').textContent = r.n + (r.cr ? ', ' + r.cr : '');
+    document.querySelector('[data-p-name]').textContent = r.n;
     document.querySelector('[data-p-role]').textContent = r.ro;
 
     var aff = document.querySelector('[data-p-aff]');
@@ -390,7 +457,7 @@ window.OV = {
 
     var place = document.querySelector('[data-p-place]');
     place.hidden = !r.ci;
-    if (r.ci) document.querySelector('[data-p-placetext]').textContent = r.ci + ', ' + r.co;
+    if (r.ci) document.querySelector('[data-p-placetext]').textContent = r.ci + ', ' + (STATE_NAME[r.st] || r.st);
 
     document.querySelector('[data-p-specs]').innerHTML = (r.sp || []).map(function(s){
       return '<li><a href="onevoice-experts.mockup.html?spec=' + encodeURIComponent(s) + '" ' +
@@ -400,17 +467,16 @@ window.OV = {
 
     /* ---- contact: only what the record marks public, and say so when there is none ---- */
     var cout = [];
-    if (r.tel) cout.push(contactRow(ICON.tel, 'Secretary’s line', 'tel:' + r.tel.replace(/\s/g,''), r.tel));
-    if (r.em)  cout.push(contactRow(ICON.em,  'Email', 'mailto:' + r.em, r.em));
-    if (r.web) cout.push(contactRow(ICON.web, 'Website', r.web, r.web === '#' ? 'Unit website' : r.web.replace(/^https?:\/\//, '')));
+    if (r.em)  cout.push(contactRow(ICON.em,  'Department email', 'mailto:' + r.em, r.em));
+    if (r.web) cout.push(contactRow(ICON.web, 'Website', r.web, r.web === '#' ? 'Institution website' : r.web.replace(/^https?:\/\//, '')));
     document.querySelector('[data-p-contact]').innerHTML = cout.length ? cout.join('')
-      : '<p class="text-[15px] leading-relaxed text-ink-500">This record has no contact details marked public.</p>';
+      : '<p class="text-[15px] leading-relaxed text-ink-500">This record has no contact details marked public. Ask for this name at your own clinic.</p>';
 
     /* ---- about. Hand-written only where a record has one; otherwise derived from the
             fields themselves, because inventing a biography is inventing content. ---- */
     document.querySelector('[data-p-bio]').textContent = x.bio || (
-      r.n + ' is listed in the oneVoice ' + t.name + ' directory as a ' + r.ro.toLowerCase() +
-      (r.af ? ' at ' + r.af : '') + (r.ci ? ', ' + r.ci + ', ' + r.co : '') +
+      baseName(r.n) + ' is listed in the oneVoice ' + t.name + ' directory as a ' + r.ro.toLowerCase() +
+      (r.af ? ' at ' + r.af : '') + (r.ci ? ' in ' + r.ci + ', ' + (STATE_NAME[r.st] || r.st) : '') +
       '. This record holds ' + (r.sp || []).length + ' listed ' + ((r.sp || []).length === 1 ? 'specialty' : 'specialties') +
       ' and no published biography.'
     );
@@ -452,7 +518,7 @@ window.OV = {
     /* ---- at a glance ---- */
     var g = [['Type of expert', r.ty], ['Qualification', r.qu || 'Not listed'],
              ['Specialties', (r.sp || []).join(', ') || 'Not listed'],
-             ['Location', r.ci ? r.ci + ', ' + r.co : 'Not published']];
+             ['Location', r.ci ? r.ci + ', ' + (STATE_NAME[r.st] || r.st) : 'Not published']];
     document.querySelector('[data-p-glance]').innerHTML = g.map(function(p){
       return '<div class="flex gap-3 py-2.5"><dt class="w-[7.5rem] shrink-0 text-ink-500">' + esc(p[0]) + '</dt>' +
              '<dd class="min-w-0 font-medium text-ink-800">' + esc(p[1]) + '</dd></div>';
@@ -473,7 +539,7 @@ window.OV = {
     document.querySelector('[data-p-related]').innerHTML = rel.map(function(o){
       return '<li><a href="onevoice-expert.mockup.html?p=' + encodeURIComponent(o.s) + '" class="flex items-center gap-3 py-3 group">' +
         '<span aria-hidden="true" class="grid place-items-center w-9 h-9 shrink-0 rounded-lg bg-accent-50 border border-accent-200 text-[12.5px] font-semibold text-accent-800">' + esc(initials(o)) + '</span>' +
-        '<span class="min-w-0"><span class="block text-[15.5px] font-medium leading-snug text-ink-800 group-hover:text-accent-700">' + esc(o.n) + (o.cr ? ', ' + esc(o.cr) : '') + '</span>' +
+        '<span class="min-w-0"><span class="block text-[15.5px] font-medium leading-snug text-ink-800 group-hover:text-accent-700">' + esc(o.n) + '</span>' +
         '<span class="block text-[13.5px] text-ink-500">' + esc(o.ro) + '</span></span></a></li>';
     }).join('');
 
@@ -492,9 +558,9 @@ window.OV = {
       ? 'mt-10 lg:mt-0 lg:col-span-4 lg:col-start-9 lg:sticky lg:top-24 lg:self-start space-y-4'
       : 'mt-9 grid gap-4 items-start ' + (cards >= 3 ? 'md:grid-cols-3' : cards === 2 ? 'md:grid-cols-2' : '');
 
-    document.title = r.n + (r.cr ? ', ' + r.cr : '') + ' | Find an expert | oneVoice';
+    document.title = r.n + ' | Find an expert | oneVoice';
     var leaf = document.querySelector('nav[aria-label="Breadcrumb"] li[aria-current="page"]');
-    if (leaf) leaf.textContent = r.n;
+    if (leaf) leaf.textContent = baseName(r.n);
   };
 })();
 </script>

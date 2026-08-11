@@ -4,20 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Find an amyloidosis specialist or centre | oneVoice</title>
+<title>Find an amyloidosis specialist or center | oneVoice</title>
 <script>
 /* ---------------------------------------------------------------------------
    Prompt 09 — Find an expert directory.  Route /find-an-expert.
    Source: `people` (510 nodes site-wide) + `companies` (8) for centre records,
    filtered by field_domain_access. Facets: type_of_expert (41), specialities (6),
-   qualification (34), affiliation_info (135), country.
+   qualification (34), affiliation_info (135), state.
+
+   UNITED STATES ONLY. Every record, the place search and the map are US-scoped;
+   the filter is state, not country. International listings are out of scope until
+   the product is.
+
+   NO TELEPHONE NUMBERS ANYWHERE. Publishing a direct or cell number for a named
+   individual is not something this directory does — a listed person can be reached
+   through their institution. The `people` content type has a phone field; the
+   template must not render it. See 09-experts-directory.md.
 
    DATA IS ILLUSTRATIVE. No real `people` records were available. Individuals and
    their institutions are invented; see 09-experts-directory.md. The only real
-   records are the two amyloidosis Spotlight centres, which are already published
-   on the approved homepage and carry no invented person and no invented number.
-   Phone numbers use the Ofcom drama range (+44 20 7946 0xxx); email addresses use
-   the RFC 2606 reserved `example.org`. Neither can reach a real person.
+   records are the two amyloidosis Spotlight centers, which are already published
+   on the approved homepage. Email addresses are departmental, not personal, and
+   use the RFC 2606 reserved `example.org` — none of them reaches anyone.
    --------------------------------------------------------------------------- */
 window.OV = {
   nav: 'experts',
@@ -31,170 +39,169 @@ window.OV = {
     amyloidosis: {
       experts: 312, centres: 26,
       rows: [
-        { s:'okafor',      n:'Dr A. Okafor', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
+        { s:'okafor',      n:'Dr A. Okafor, MD', ro:'Cardiologist, Director of the Cardiac Amyloidosis Program', ty:'Cardiologist',
           sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD',
-          af:'Northgate Cardiac Amyloidosis Unit', ci:'London', co:'United Kingdom',
-          tel:'+44 20 7946 0958', web:'#' },
-        { s:'haugen',      n:'Dr L. Haugen', cr:'PhD', ro:'Principal research scientist', ty:'Researcher',
+          af:'Northgate Cardiac Amyloidosis Center', ci:'Boston', st:'MA', web:'#' },
+        { s:'haugen',      n:'Dr L. Haugen, PhD', ro:'Principal research scientist', ty:'Researcher',
           sp:['Genetics','Research'], qu:'PhD',
-          af:'Fjordvik Amyloid Research Institute', ci:'Bergen', co:'Norway',
-          em:'l.haugen@example.org' },
-        { s:'vanderbilt',  n:'Vanderbilt Amyloidosis Multidisciplinary Program', ro:'Multidisciplinary specialist centre',
-          ty:'Specialist centre', sp:['Diagnosis & imaging','Treatment & therapeutics'], centre:true,
-          af:'Vanderbilt Health', tid:12351, ci:'Nashville, Tennessee', co:'United States',
+          af:'Lakeshore Amyloid Research Institute', ci:'Minneapolis', st:'MN', em:'amyloid.research@example.org' },
+        { s:'vanderbilt',  n:'Vanderbilt Amyloidosis Multidisciplinary Program', ro:'Multidisciplinary specialist center',
+          ty:'Specialist center', sp:['Diagnosis & imaging','Treatment & therapeutics'], centre:true,
+          af:'Vanderbilt Health', tid:12351, ci:'Nashville', st:'TN',
           web:'https://vanderbilt.oneamyloidosisvoice.com' },
-        { s:'cityofhope',  n:'City of Hope Amyloidosis Program', ro:'Multidisciplinary specialist centre',
-          ty:'Specialist centre', sp:['Treatment & therapeutics','Research'], centre:true,
-          af:'City of Hope', tid:12759, ci:'Duarte, California', co:'United States',
+        { s:'cityofhope',  n:'City of Hope Amyloidosis Program', ro:'Multidisciplinary specialist center',
+          ty:'Specialist center', sp:['Treatment & therapeutics','Research'], centre:true,
+          af:'City of Hope', tid:12759, ci:'Duarte', st:'CA',
           web:'https://cityofhope.oneamyloidosisvoice.com' },
-        { s:'ferreira',    n:'Dr M. Ferreira', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
+        { s:'ferreira',    n:'Dr M. Ferreira, MD', ro:'Hematologist', ty:'Hematologist',
           sp:['Treatment & therapeutics'], qu:'MD',
-          af:'Rua Nova AL Amyloidosis Clinic', ci:'Lisbon', co:'Portugal', em:'m.ferreira@example.org' },
-        { s:'whitcombe',   n:'S. Whitcombe', cr:'RN', ro:'Amyloidosis nurse specialist', ty:'Nurse specialist',
+          af:'Bayfront AL Amyloidosis Clinic', ci:'Tampa', st:'FL', em:'al.clinic@example.org' },
+        { s:'whitcombe',   n:'S. Whitcombe, RN', ro:'Amyloidosis nurse coordinator', ty:'Nurse specialist',
           sp:['Supportive care'], qu:'RN',
-          af:'Northgate Cardiac Amyloidosis Unit', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0961' },
-        { s:'castellanos', n:'Dr J. Castellanos', cr:'MD PhD', ro:'Consultant neurologist', ty:'Neurologist',
+          af:'Northgate Cardiac Amyloidosis Center', ci:'Boston', st:'MA', em:'amyloid.nursing@example.org' },
+        { s:'castellanos', n:'Dr J. Castellanos, MD PhD', ro:'Neurologist', ty:'Neurologist',
           sp:['Diagnosis & imaging','Research'], qu:'MD PhD',
-          af:'Cordillera Neuromuscular Centre', ci:'Madrid', co:'Spain', em:'j.castellanos@example.org' },
-        { s:'nakamura',    n:'Dr H. Nakamura', cr:'MD', ro:'Consultant nephrologist', ty:'Nephrologist',
+          af:'Cordillera Neuromuscular Center', ci:'Denver', st:'CO', em:'neuromuscular@example.org' },
+        { s:'nakamura',    n:'Dr H. Nakamura, MD', ro:'Nephrologist', ty:'Nephrologist',
           sp:['Treatment & therapeutics'], qu:'MD',
-          af:'Kitahama Renal Amyloid Service', ci:'Osaka', co:'Japan' },
-        { s:'boateng',     n:'Dr E. Boateng', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
+          af:'Puget Renal Amyloid Service', ci:'Seattle', st:'WA' },
+        { s:'boateng',     n:'Dr E. Boateng, MD', ro:'Cardiologist', ty:'Cardiologist',
           sp:['Diagnosis & imaging'], qu:'MD',
-          af:'Adinkra Cardiac Centre', ci:'Accra', co:'Ghana', em:'e.boateng@example.org' },
+          af:'Riverbend Heart Institute', ci:'St. Louis', st:'MO', em:'heart.institute@example.org' },
         /* Deliberately sparse: no affiliation, no qualification, no address, no public
            channel. Acceptance criterion — the row must still read as a real record. */
-        { s:'lindqvist',   n:'P. Lindqvist', ro:'Genetic counsellor', ty:'Genetic counsellor',
+        { s:'lindqvist',   n:'P. Lindqvist', ro:'Genetic counselor', ty:'Genetic counselor',
           sp:['Genetics'] },
-        { s:'mahoney',     n:'Dr R. Mahoney', cr:'MD', ro:'Consultant in palliative medicine', ty:'Pain & palliative care',
+        { s:'mahoney',     n:'Dr R. Mahoney, MD', ro:'Palliative care physician', ty:'Pain & palliative care',
           sp:['Supportive care'], qu:'MD',
-          af:'Two Rivers Supportive Care Service', ci:'Dublin', co:'Ireland', em:'r.mahoney@example.org' },
-        { s:'farouk',      n:'Dr Y. Farouk', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
+          af:'Two Rivers Supportive Care Service', ci:'Pittsburgh', st:'PA', em:'supportive.care@example.org' },
+        { s:'farouk',      n:'Dr Y. Farouk, MD', ro:'Cardiologist', ty:'Cardiologist',
           sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD',
-          af:'Nile Delta Amyloidosis Clinic', ci:'Cairo', co:'Egypt', em:'y.farouk@example.org' }
+          af:'Sun Corridor Amyloidosis Clinic', ci:'Phoenix', st:'AZ', em:'amyloidosis.clinic@example.org' }
       ]
     },
     scd: {
       experts: 188, centres: 41,
       rows: [
-        { s:'mensah',    n:'Dr N. Mensah', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
+        { s:'mensah',    n:'Dr N. Mensah, MD', ro:'Hematologist, Director of the Sickle Cell Center', ty:'Hematologist',
           sp:['Treatment & therapeutics','Diagnosis & imaging'], qu:'MD',
-          af:'Southbank Sickle Cell Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0342' },
-        { s:'iyer',      n:'Dr P. Iyer', cr:'PhD', ro:'Senior research fellow', ty:'Researcher',
+          af:'Southbank Sickle Cell Center', ci:'Atlanta', st:'GA', web:'#' },
+        { s:'iyer',      n:'Dr P. Iyer, PhD', ro:'Senior research fellow', ty:'Researcher',
           sp:['Research','Genetics'], qu:'PhD',
-          af:'Meridian Haemoglobinopathy Research Unit', ci:'Bengaluru', co:'India', em:'p.iyer@example.org' },
-        { s:'adeyinka',  n:'Dr C. Adeyinka', cr:'MD', ro:'Consultant paediatric haematologist', ty:'Paediatrician',
-          sp:['Paediatrics','Treatment & therapeutics'], qu:'MD',
-          af:'Harmattan Children’s Haematology Service', ci:'Lagos', co:'Nigeria', em:'c.adeyinka@example.org' },
-        { s:'ofosu',     n:'K. Ofosu', cr:'RN', ro:'Sickle cell nurse specialist', ty:'Nurse specialist',
+          af:'Meridian Hemoglobinopathy Research Unit', ci:'Chapel Hill', st:'NC', em:'hemoglobin.research@example.org' },
+        { s:'adeyinka',  n:'Dr C. Adeyinka, MD', ro:'Pediatric hematologist', ty:'Pediatrician',
+          sp:['Pediatrics','Treatment & therapeutics'], qu:'MD',
+          af:'Harmattan Children’s Hematology Service', ci:'Detroit', st:'MI', em:'peds.hematology@example.org' },
+        { s:'ofosu',     n:'K. Ofosu, RN', ro:'Sickle cell nurse coordinator', ty:'Nurse specialist',
           sp:['Supportive care'], qu:'RN',
-          af:'Southbank Sickle Cell Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0347' },
-        { s:'beaumont',  n:'Dr T. Beaumont', cr:'MD', ro:'Consultant in pain medicine', ty:'Pain & palliative care',
+          af:'Southbank Sickle Cell Center', ci:'Atlanta', st:'GA', em:'sicklecell.nursing@example.org' },
+        { s:'beaumont',  n:'Dr T. Beaumont, MD', ro:'Pain medicine physician', ty:'Pain & palliative care',
           sp:['Supportive care'], qu:'MD',
-          af:'Riverbend Pain Service', ci:'Birmingham', co:'United Kingdom', tel:'+44 20 7946 0388' },
-        { s:'haddad',    n:'Dr S. Haddad', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
+          af:'Riverbend Pain Service', ci:'Baltimore', st:'MD', em:'pain.service@example.org' },
+        { s:'haddad',    n:'Dr S. Haddad, MD', ro:'Hematologist', ty:'Hematologist',
           sp:['Treatment & therapeutics'], qu:'MD',
-          af:'Levant Haemoglobin Disorders Clinic', ci:'Beirut', co:'Lebanon', em:'s.haddad@example.org' },
-        { s:'nyathi',    n:'Dr G. Nyathi', cr:'MD PhD', ro:'Transplant physician', ty:'Transplant physician',
+          af:'Cedar Ridge Hemoglobin Disorders Clinic', ci:'Houston', st:'TX', em:'hemoglobin.clinic@example.org' },
+        { s:'nyathi',    n:'Dr G. Nyathi, MD PhD', ro:'Transplant physician', ty:'Transplant physician',
           sp:['Treatment & therapeutics','Research'], qu:'MD PhD',
-          af:'Highveld Transplant Programme', ci:'Johannesburg', co:'South Africa' },
-        { s:'delacroix', n:'M. Delacroix', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'] },
-        { s:'okonkwo',   n:'Dr V. Okonkwo', cr:'MD', ro:'Consultant obstetrician', ty:'Obstetrician',
+          af:'Great Lakes Transplant Program', ci:'Cleveland', st:'OH' },
+        { s:'delacroix', n:'M. Delacroix', ro:'Genetic counselor', ty:'Genetic counselor', sp:['Genetics'] },
+        { s:'okonkwo',   n:'Dr V. Okonkwo, MD', ro:'Obstetrician', ty:'Obstetrician',
           sp:['Supportive care'], qu:'MD',
-          af:'Ilesa Maternal Haematology Service', ci:'Abuja', co:'Nigeria', em:'v.okonkwo@example.org' },
-        { s:'amara',     n:'Dr B. Amara', cr:'MD', ro:'Consultant paediatrician', ty:'Paediatrician',
-          sp:['Paediatrics'], qu:'MD',
-          af:'Cedar Grove Children’s Centre', ci:'Manchester', co:'United Kingdom', tel:'+44 20 7946 0410' },
-        { s:'rossi',     n:'Dr F. Rossi', cr:'PhD', ro:'Research scientist, gene therapy', ty:'Researcher',
+          af:'Prairie Maternal Hematology Service', ci:'Chicago', st:'IL', em:'maternal.hematology@example.org' },
+        { s:'amara',     n:'Dr B. Amara, MD', ro:'Pediatrician', ty:'Pediatrician',
+          sp:['Pediatrics'], qu:'MD',
+          af:'Cedar Grove Children’s Center', ci:'Philadelphia', st:'PA', em:'childrens.center@example.org' },
+        { s:'rossi',     n:'Dr F. Rossi, PhD', ro:'Research scientist, gene therapy', ty:'Researcher',
           sp:['Research','Genetics'], qu:'PhD',
-          af:'Tyrrhenian Gene Therapy Institute', ci:'Naples', co:'Italy', em:'f.rossi@example.org' },
-        { s:'chen',      n:'Dr L. Chen', cr:'MD', ro:'Consultant haematologist', ty:'Haematologist',
+          af:'Bay Meadow Gene Therapy Institute', ci:'Oakland', st:'CA', em:'gene.therapy@example.org' },
+        { s:'chen',      n:'Dr L. Chen, MD', ro:'Hematologist', ty:'Hematologist',
           sp:['Treatment & therapeutics'], qu:'MD',
-          af:'Pearl River Haemoglobinopathy Unit', ci:'Guangzhou', co:'China' }
+          af:'Delta Hemoglobinopathy Unit', ci:'Memphis', st:'TN' }
       ]
     },
     ph: {
       experts: 96, centres: 19,
       rows: [
-        { s:'duarte',    n:'Dr M. Duarte', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
+        { s:'duarte',    n:'Dr M. Duarte, MD', ro:'Pulmonologist, Director of the PH Referral Center', ty:'Pulmonologist',
           sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD',
-          af:'Mersey PH Referral Centre', ci:'Liverpool', co:'United Kingdom', tel:'+44 20 7946 0512' },
-        { s:'volkov',    n:'Dr S. Volkov', cr:'PhD', ro:'Principal investigator', ty:'Researcher',
+          af:'Three Rivers PH Referral Center', ci:'Pittsburgh', st:'PA', web:'#' },
+        { s:'volkov',    n:'Dr S. Volkov, PhD', ro:'Principal investigator', ty:'Researcher',
           sp:['Research'], qu:'PhD',
-          af:'Baltic Pulmonary Vascular Institute', ci:'Riga', co:'Latvia', em:'s.volkov@example.org' },
-        { s:'beaulieu',  n:'Dr I. Beaulieu', cr:'MD', ro:'Consultant cardiologist', ty:'Cardiologist',
+          af:'Northlake Pulmonary Vascular Institute', ci:'Chicago', st:'IL', em:'pv.research@example.org' },
+        { s:'beaulieu',  n:'Dr I. Beaulieu, MD', ro:'Cardiologist', ty:'Cardiologist',
           sp:['Diagnosis & imaging'], qu:'MD',
-          af:'Laurentide Cardiopulmonary Centre', ci:'Montréal', co:'Canada', em:'i.beaulieu@example.org' },
-        { s:'traore',    n:'J. Traoré', cr:'RN', ro:'Pulmonary hypertension nurse specialist', ty:'Nurse specialist',
+          af:'Green Mountain Cardiopulmonary Center', ci:'Burlington', st:'VT', em:'cardiopulmonary@example.org' },
+        { s:'traore',    n:'J. Traoré, RN', ro:'Pulmonary hypertension nurse coordinator', ty:'Nurse specialist',
           sp:['Supportive care'], qu:'RN',
-          af:'Mersey PH Referral Centre', ci:'Liverpool', co:'United Kingdom', tel:'+44 20 7946 0518' },
-        { s:'sandoval',  n:'Dr A. Sandoval', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
+          af:'Three Rivers PH Referral Center', ci:'Pittsburgh', st:'PA', em:'ph.nursing@example.org' },
+        { s:'sandoval',  n:'Dr A. Sandoval, MD', ro:'Pulmonologist', ty:'Pulmonologist',
           sp:['Treatment & therapeutics'], qu:'MD',
-          af:'Altiplano Pulmonary Unit', ci:'Bogotá', co:'Colombia' },
-        { s:'brennan',   n:'Dr K. Brennan', cr:'MD PhD', ro:'Interventional cardiologist, CTEPH', ty:'Cardiologist',
+          af:'High Desert Pulmonary Unit', ci:'Albuquerque', st:'NM' },
+        { s:'brennan',   n:'Dr K. Brennan, MD PhD', ro:'Interventional cardiologist, CTEPH', ty:'Cardiologist',
           sp:['Treatment & therapeutics','Research'], qu:'MD PhD',
-          af:'Two Rivers Thoracic Programme', ci:'Dublin', co:'Ireland', em:'k.brennan@example.org' },
-        { s:'rahimi',    n:'Dr N. Rahimi', cr:'MD', ro:'Consultant paediatric cardiologist', ty:'Paediatrician',
-          sp:['Paediatrics','Diagnosis & imaging'], qu:'MD',
-          af:'Silk Road Children’s Heart Centre', ci:'Tashkent', co:'Uzbekistan' },
-        { s:'falkenberg',n:'R. Falkenberg', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'] },
-        { s:'adebayo',   n:'Dr O. Adebayo', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
+          af:'Charles River Thoracic Program', ci:'Boston', st:'MA', em:'cteph.program@example.org' },
+        { s:'rahimi',    n:'Dr N. Rahimi, MD', ro:'Pediatric cardiologist', ty:'Pediatrician',
+          sp:['Pediatrics','Diagnosis & imaging'], qu:'MD',
+          af:'Prairie Children’s Heart Center', ci:'Kansas City', st:'MO' },
+        { s:'falkenberg',n:'R. Falkenberg', ro:'Genetic counselor', ty:'Genetic counselor', sp:['Genetics'] },
+        { s:'adebayo',   n:'Dr O. Adebayo, MD', ro:'Pulmonologist', ty:'Pulmonologist',
           sp:['Diagnosis & imaging'], qu:'MD',
-          af:'Lagoon Chest Clinic', ci:'Lagos', co:'Nigeria', em:'o.adebayo@example.org' },
-        { s:'lindgren',  n:'Dr H. Lindgren', cr:'PhD', ro:'Exercise physiologist', ty:'Researcher',
+          af:'Gulf Coast Chest Clinic', ci:'New Orleans', st:'LA', em:'chest.clinic@example.org' },
+        { s:'lindgren',  n:'Dr H. Lindgren, PhD', ro:'Exercise physiologist', ty:'Researcher',
           sp:['Research','Supportive care'], qu:'PhD',
-          af:'Norrland Cardiopulmonary Research Group', ci:'Umeå', co:'Sweden', em:'h.lindgren@example.org' },
-        { s:'marchetti', n:'Dr P. Marchetti', cr:'MD', ro:'Transplant physician', ty:'Transplant physician',
+          af:'Cascade Cardiopulmonary Research Group', ci:'Portland', st:'OR', em:'cp.research@example.org' },
+        { s:'marchetti', n:'Dr P. Marchetti, MD', ro:'Transplant physician', ty:'Transplant physician',
           sp:['Treatment & therapeutics'], qu:'MD',
-          af:'Po Valley Transplant Programme', ci:'Bologna', co:'Italy' },
-        { s:'karim',     n:'Dr Z. Karim', cr:'MD', ro:'Consultant in respiratory medicine', ty:'Respiratory physician',
+          af:'Twin Cities Transplant Program', ci:'Minneapolis', st:'MN' },
+        { s:'karim',     n:'Dr Z. Karim, MD', ro:'Pulmonologist', ty:'Pulmonologist',
           sp:['Treatment & therapeutics'], qu:'MD',
-          af:'Indus Pulmonary Vascular Clinic', ci:'Karachi', co:'Pakistan', em:'z.karim@example.org' }
+          af:'Sonoran Pulmonary Vascular Clinic', ci:'Tucson', st:'AZ', em:'pv.clinic@example.org' }
       ]
     },
     mg: {
       experts: 74, centres: 22,
       rows: [
-        { s:'adeyemi',   n:'Dr R. Adeyemi', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
+        { s:'adeyemi',   n:'Dr R. Adeyemi, MD', ro:'Neurologist, Director of the Neuromuscular Center', ty:'Neurologist',
           sp:['Diagnosis & imaging','Treatment & therapeutics'], qu:'MD',
-          af:'Kingsway Neuromuscular Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0720' },
-        { s:'larsen',    n:'Dr K. Larsen', cr:'PhD', ro:'Senior research fellow', ty:'Researcher',
+          af:'Kingsway Neuromuscular Center', ci:'New York', st:'NY', web:'#' },
+        { s:'larsen',    n:'Dr K. Larsen, PhD', ro:'Senior research fellow', ty:'Researcher',
           sp:['Research'], qu:'PhD',
-          af:'Øresund Neuroimmunology Unit', ci:'Copenhagen', co:'Denmark', em:'k.larsen@example.org' },
-        { s:'nowak',     n:'Dr W. Nowak', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
+          af:'Sound View Neuroimmunology Unit', ci:'Seattle', st:'WA', em:'neuroimmunology@example.org' },
+        { s:'nowak',     n:'Dr W. Nowak, MD', ro:'Neurologist', ty:'Neurologist',
           sp:['Treatment & therapeutics'], qu:'MD',
-          af:'Wisła Neuromuscular Service', ci:'Kraków', co:'Poland', em:'w.nowak@example.org' },
-        { s:'bergstrom', n:'A. Bergström', cr:'RN', ro:'Neuromuscular nurse specialist', ty:'Nurse specialist',
+          af:'Lakefront Neuromuscular Service', ci:'Milwaukee', st:'WI', em:'neuromuscular.service@example.org' },
+        { s:'bergstrom', n:'A. Bergström, RN', ro:'Neuromuscular nurse coordinator', ty:'Nurse specialist',
           sp:['Supportive care'], qu:'RN',
-          af:'Kingsway Neuromuscular Centre', ci:'London', co:'United Kingdom', tel:'+44 20 7946 0724' },
-        { s:'yamashita', n:'Dr T. Yamashita', cr:'MD', ro:'Thoracic surgeon, thymectomy', ty:'Surgeon',
+          af:'Kingsway Neuromuscular Center', ci:'New York', st:'NY', em:'nm.nursing@example.org' },
+        { s:'yamashita', n:'Dr T. Yamashita, MD', ro:'Thoracic surgeon, thymectomy', ty:'Surgeon',
           sp:['Treatment & therapeutics'], qu:'MD',
-          af:'Setouchi Thoracic Programme', ci:'Hiroshima', co:'Japan' },
-        { s:'mbeki',     n:'Dr C. Mbeki', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
+          af:'Bayview Thoracic Program', ci:'San Francisco', st:'CA' },
+        { s:'mbeki',     n:'Dr C. Mbeki, MD', ro:'Neurologist', ty:'Neurologist',
           sp:['Diagnosis & imaging'], qu:'MD',
-          af:'Table Bay Neurology Service', ci:'Cape Town', co:'South Africa', em:'c.mbeki@example.org' },
-        { s:'fontaine',  n:'Dr E. Fontaine', cr:'MD PhD', ro:'Neuroimmunologist', ty:'Researcher',
+          af:'Piedmont Neurology Service', ci:'Charlotte', st:'NC', em:'neurology.service@example.org' },
+        { s:'fontaine',  n:'Dr E. Fontaine, MD PhD', ro:'Neuroimmunologist', ty:'Researcher',
           sp:['Research','Treatment & therapeutics'], qu:'MD PhD',
-          af:'Rhône Neuroimmunology Institute', ci:'Lyon', co:'France', em:'e.fontaine@example.org' },
-        { s:'kowalczyk', n:'D. Kowalczyk', ro:'Genetic counsellor', ty:'Genetic counsellor', sp:['Genetics'] },
-        { s:'prasad',    n:'Dr S. Prasad', cr:'MD', ro:'Consultant ophthalmologist, ocular MG', ty:'Ophthalmologist',
+          af:'Bluegrass Neuroimmunology Institute', ci:'Louisville', st:'KY', em:'ni.institute@example.org' },
+        { s:'kowalczyk', n:'D. Kowalczyk', ro:'Genetic counselor', ty:'Genetic counselor', sp:['Genetics'] },
+        { s:'prasad',    n:'Dr S. Prasad, MD', ro:'Neuro-ophthalmologist, ocular MG', ty:'Ophthalmologist',
           sp:['Diagnosis & imaging'], qu:'MD',
-          af:'Deccan Neuro-ophthalmology Clinic', ci:'Hyderabad', co:'India', em:'s.prasad@example.org' },
-        { s:'halvorsen', n:'Dr M. Halvorsen', cr:'MD', ro:'Consultant in intensive care', ty:'Intensive care',
+          af:'Front Range Neuro-ophthalmology Clinic', ci:'Denver', st:'CO', em:'neuro.ophthalmology@example.org' },
+        { s:'halvorsen', n:'Dr M. Halvorsen, MD', ro:'Critical care physician', ty:'Critical care',
           sp:['Supportive care'], qu:'MD',
-          af:'Nordfjell Critical Care Unit', ci:'Trondheim', co:'Norway' },
-        { s:'ricci',     n:'Dr J. Ricci', cr:'PhD', ro:'Clinical pharmacologist', ty:'Researcher',
+          af:'North Star Critical Care Unit', ci:'Fargo', st:'ND' },
+        { s:'ricci',     n:'Dr J. Ricci, PhD', ro:'Clinical pharmacologist', ty:'Researcher',
           sp:['Research'], qu:'PhD',
-          af:'Arno Clinical Pharmacology Group', ci:'Florence', co:'Italy', em:'j.ricci@example.org' },
-        { s:'ortega',    n:'Dr B. Ortega', cr:'MD', ro:'Consultant neurologist', ty:'Neurologist',
-          sp:['Treatment & therapeutics','Paediatrics'], qu:'MD',
-          af:'Sierra Madre Neuromuscular Clinic', ci:'Guadalajara', co:'Mexico' }
+          af:'Ohio Valley Clinical Pharmacology Group', ci:'Cincinnati', st:'OH', em:'pharmacology@example.org' },
+        { s:'ortega',    n:'Dr B. Ortega, MD', ro:'Neurologist', ty:'Neurologist',
+          sp:['Treatment & therapeutics','Pediatrics'], qu:'MD',
+          af:'Alamo Neuromuscular Clinic', ci:'San Antonio', st:'TX' }
       ]
     }
   }
 };
 </script>
 <script src="assets/ov-kit.js"></script>
+<script src="assets/ov-usmap.js"></script>
 </head>
 <body>
 
@@ -205,23 +212,24 @@ window.OV = {
        the primary task, so the right column of the band carries it rather than
        sitting empty (prompt 15) or pushing it below the filter bar. ============ -->
   <section class="relative bg-gradient-to-b from-accent-50 to-white" aria-labelledby="dir-h1">
-    <span class="spec" style="top:10px;right:10px">H1 pattern “Find an {indication} specialist or centre” · CollectionPage</span>
+    <span class="spec" style="top:10px;right:10px">H1 pattern “Find an {indication} specialist or center” · CollectionPage · US-scoped</span>
     <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
       <div class="lg:col-span-7">
         <h1 id="dir-h1" class="font-display text-[30px] sm:text-[38px] lg:text-[46px] font-semibold leading-[1.12] tracking-[-.02em] text-ink-900">
           <!-- "a" / "an" is per-community data, not a constant: amyloidosis takes "an",
                sickle cell disease takes "a". Getting this from the tenant record is the
                difference between a template and a template that only fits one word. -->
-          Find a<span data-ov-article>n</span> <span data-t="nameLower">amyloidosis</span> specialist or centre</h1>
+          Find a<span data-ov-article>n</span> <span data-t="nameLower">amyloidosis</span> specialist or center</h1>
         <p class="mt-4 text-[17px] lg:text-lg leading-relaxed text-ink-600">
-          Clinicians, nurse specialists, researchers and multidisciplinary centres who work in
-          <span data-t="nameLower">amyloidosis</span> — searchable by name, place and specialty, so you can
-          take a specific name to your GP or your care team.
+          Clinicians, nurse specialists, researchers and multidisciplinary centers across the United
+          States who work in <span data-t="nameLower">amyloidosis</span> — searchable by name, city,
+          state and specialty, so you can take a specific name to your primary care provider or your
+          care team.
         </p>
         <p class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[14.5px] text-ink-500">
           <span><strong class="font-semibold text-ink-800 tabular-nums" data-ov-total>338</strong> <span data-ov-total-word>listings</span></span>
           <span class="hidden sm:inline" aria-hidden="true">·</span>
-          <span><span class="tabular-nums" data-ov-centres>26</span> specialist centres</span>
+          <span><span class="tabular-nums" data-ov-centres>26</span> specialist centers</span>
           <span class="hidden sm:inline" aria-hidden="true">·</span>
           <span>Free, no login required</span>
         </p>
@@ -233,8 +241,8 @@ window.OV = {
           <h2 id="near-h" class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">Who is near you?</h2>
           <form class="mt-3 space-y-2.5" onsubmit="return false" data-ov-near-form>
             <label class="block">
-              <span class="sr-only">Town, city or postcode</span>
-              <input type="text" name="near" placeholder="Town or city" list="ov-places" data-ov-near
+              <span class="sr-only">City or state</span>
+              <input type="text" name="near" placeholder="City or state" list="ov-places" data-ov-near
                      class="w-full min-h-[46px] px-4 rounded-full bg-white border border-ink-300 text-[15.5px] text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
               <!-- Production geocodes freely; the mockup can only resolve the places it
                    holds coordinates for, so it offers them rather than failing silently. -->
@@ -244,11 +252,12 @@ window.OV = {
               <label class="flex-1">
                 <span class="sr-only">Search radius</span>
                 <select name="radius" data-ov-radius class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
-                  <option value="50">Within 50 km</option>
-                  <option value="150">Within 150 km</option>
-                  <option value="500" selected>Within 500 km</option>
-                  <option value="2000">Within 2,000 km</option>
-                  <option value="">Any distance</option>
+                  <option value="25">Within 25 miles</option>
+                  <option value="50">Within 50 miles</option>
+                  <option value="100">Within 100 miles</option>
+                  <option value="250" selected>Within 250 miles</option>
+                  <option value="500">Within 500 miles</option>
+                  <option value="">Anywhere in the US</option>
                 </select>
               </label>
               <button type="submit" class="min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">Search</button>
@@ -268,14 +277,15 @@ window.OV = {
       <svg class="w-[18px] h-[18px] mt-0.5 shrink-0 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>
       <span><strong class="font-semibold text-ink-800">Illustrative directory.</strong>
         The people and institutions below are invented for design review. The two Vanderbilt and
-        City&nbsp;of&nbsp;Hope centre listings are real, and carry only facts already published on the
-        oneVoice homepage. No number or address here reaches anyone.</span>
+        City&nbsp;of&nbsp;Hope center listings are real, and carry only facts already published on the
+        oneVoice homepage. Nothing here reaches anyone — and no telephone number is published for
+        anybody, by design.</span>
     </p>
   </div>
 
   <!-- ============ FILTER BAR — real controls, state mirrored into the URL ============ -->
   <section class="sticky top-16 lg:top-20 z-20 mt-6 bg-white/95 backdrop-blur border-y border-ink-200" aria-label="Filter and sort the directory">
-    <span class="spec" style="top:8px;right:10px">Query params (?q=&amp;country=&amp;type=&amp;spec=&amp;qual=&amp;near=&amp;radius=&amp;sort=&amp;view=) — every result view is linkable and crawlable</span>
+    <span class="spec" style="top:8px;right:10px">Query params (?q=&amp;state=&amp;type=&amp;spec=&amp;qual=&amp;near=&amp;radius=&amp;sort=&amp;view=) — every result view is linkable and crawlable</span>
     <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-3">
       <form class="flex flex-wrap items-center gap-2.5" onsubmit="return false" data-ov-filters>
         <label class="relative flex-1 min-w-[200px]">
@@ -285,9 +295,9 @@ window.OV = {
                  class="w-full min-h-[46px] pl-11 pr-4 rounded-full bg-ink-50 border border-ink-200 text-[15.5px] text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
         </label>
         <label class="min-w-[160px]">
-          <span class="sr-only">Country</span>
-          <select name="country" data-ov-country class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
-            <option value="">All countries</option>
+          <span class="sr-only">State</span>
+          <select name="state" data-ov-state class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
+            <option value="">All states</option>
           </select>
         </label>
         <label class="min-w-[150px]">
@@ -323,17 +333,14 @@ window.OV = {
       <!-- Dense rows, not cards: this is a directory, not a gallery -->
       <ol class="mt-4 border-t border-ink-100 divide-y divide-ink-100" data-ov-rows></ol>
 
-      <!-- Map: progressive enhancement over the list above -->
+      <!-- Map: an enhancement over the list, never a replacement. Geometry is baked
+           into assets/ov-usmap.js, so plotting the results costs no third-party
+           request — the point 20-privacy-language.md makes about what a tile
+           provider would learn from a request on a page about one condition. -->
       <div class="hidden mt-4 rounded-2xl border border-ink-200 bg-ink-50 p-6" data-ov-map>
-        <h3 class="font-display text-[20px] font-semibold text-ink-900">Map view</h3>
-        <p class="mt-2 text-[15px] leading-relaxed text-ink-600 max-w-[46rem]">
-          In production this plots the results you have already filtered. It is an enhancement over the
-          list, never a replacement — the list is what is server-rendered, crawled, and read by a screen
-          reader. No third-party map tiles are loaded in this mockup, because every third-party request
-          from a page about a specific condition tells that third party something about the visitor.
-        </p>
-        <p class="mt-4 text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">Results by country</p>
-        <ul class="mt-3 grid gap-2.5 sm:grid-cols-2" data-ov-mapcountries></ul>
+        <span class="spec" style="top:8px;right:10px">Albers USA, states-10m, projected at build time · no tile provider</span>
+        <h3 class="font-display text-[20px] font-semibold text-ink-900">Where these listings are</h3>
+        <div class="mt-4" data-ov-mapfig></div>
         <button type="button" data-ov-view="list" class="mt-5 inline-flex items-center min-h-[46px] px-5 rounded-full bg-white border border-ink-300 text-[15.5px] font-semibold text-ink-800 hover:bg-ink-100">Back to the list</button>
       </div>
 
@@ -380,7 +387,7 @@ window.OV = {
       <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5">
         <h2 class="font-display text-[19px] font-semibold text-ink-900">Not sure who to look for?</h2>
         <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">
-          Most people start with a cardiologist or haematologist and are referred on. A nurse specialist
+          Most people start with a cardiologist or hematologist and are referred on. A nurse specialist
           is often the fastest route to an answer between appointments.
         </p>
         <a href="#" class="mt-4 flex items-center justify-center gap-1.5 min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">
@@ -406,10 +413,10 @@ window.OV = {
         </span>
       </a>
       <a href="#" class="group flex flex-col rounded-2xl border border-ink-200 bg-white p-6 shadow-card hover:shadow-lift transition">
-        <h2 class="font-display text-[21px] font-semibold text-ink-900 group-hover:text-accent-800">Ask us to add a specialist or centre</h2>
+        <h2 class="font-display text-[21px] font-semibold text-ink-900 group-hover:text-accent-800">Ask us to add a specialist or center</h2>
         <p class="mt-2 text-[15.5px] leading-relaxed text-ink-600">
           Tell us who is missing and we will contact them for permission to list. We add a record only
-          once the clinician or centre has agreed to it.
+          once the clinician or center has agreed to it.
         </p>
         <span class="mt-auto pt-4 inline-flex items-center gap-1.5 text-[15.5px] font-semibold text-accent-700">
           Suggest an addition
@@ -428,50 +435,89 @@ window.OV = {
 (function(){
   var current = null, PER_PAGE = 12;
 
-  /* Distance has to be computed, not stored. A fixed per-record `km` field would
-     report the same distance whatever place you typed — a directory whose whole
-     premise is "who is near me" cannot fake that. Coordinates below are the real
-     ones for each listed city; production geocodes the query server-side and does
-     this in the database. Places with no listing are included on purpose, so the
-     "no one within X km" state is reachable. */
-  var GEO = {
-    'london':[51.507,-0.128], 'birmingham':[52.489,-1.898], 'manchester':[53.480,-2.242],
-    'liverpool':[53.408,-2.992], 'dublin':[53.350,-6.260], 'bergen':[60.393,5.325],
-    'copenhagen':[55.677,12.569], 'trondheim':[63.430,10.395], 'umeå':[63.826,20.263],
-    'umea':[63.826,20.263], 'riga':[56.949,24.105], 'kraków':[50.065,19.945],
-    'krakow':[50.065,19.945], 'lisbon':[38.722,-9.139], 'madrid':[40.417,-3.704],
-    'lyon':[45.764,4.836], 'naples':[40.852,14.268], 'bologna':[44.494,11.343],
-    'florence':[43.770,11.256], 'nashville, tennessee':[36.163,-86.781],
-    'nashville':[36.163,-86.781], 'duarte, california':[34.139,-117.977],
-    'los angeles':[34.052,-118.244], 'new york':[40.713,-74.006],
-    'montréal':[45.502,-73.567], 'montreal':[45.502,-73.567], 'guadalajara':[20.677,-103.347],
-    'bogotá':[4.711,-74.072], 'bogota':[4.711,-74.072], 'accra':[5.603,-0.187],
-    'lagos':[6.524,3.379], 'abuja':[9.058,7.495], 'cairo':[30.044,31.236],
-    'beirut':[33.888,35.495], 'johannesburg':[-26.204,28.047], 'cape town':[-33.925,18.424],
-    'tashkent':[41.299,69.240], 'karachi':[24.861,67.010], 'hyderabad':[17.385,78.487],
-    'bengaluru':[12.972,77.594], 'osaka':[34.694,135.502], 'hiroshima':[34.385,132.455],
-    'guangzhou':[23.129,113.264], 'sydney':[-33.869,151.209], 'reykjavik':[64.147,-21.942],
-    'anchorage':[61.218,-149.900], 'perth':[-31.953,115.857]
-  };
-  var PLACES = ['London','Birmingham','Manchester','Liverpool','Dublin','Madrid','Lisbon','Naples',
-                'Copenhagen','Riga','Kraków','New York','Los Angeles','Montréal','Nashville',
-                'Lagos','Accra','Cairo','Cape Town','Bengaluru','Osaka','Sydney','Reykjavik'];
+  /* Distance has to be computed, not stored. A fixed per-record distance would
+     report the same number whatever place you typed — a directory whose whole
+     premise is "who is near me" cannot fake that. Coordinates are the real ones
+     for each listed city. Production geocodes the query server-side (including
+     ZIP codes) and does this in the database; the mockup can only resolve the
+     places it holds, so it offers them rather than failing silently.
 
-  function geocode(s){ return GEO[String(s || '').trim().toLowerCase()] || null; }
+     Miles, not kilometres: this is a US-only directory. */
+  var GEO = {
+    /* every city with a listing */
+    'boston':[42.360,-71.058],        'boston, ma':[42.360,-71.058],
+    'minneapolis':[44.978,-93.265],   'minneapolis, mn':[44.978,-93.265],
+    'nashville':[36.163,-86.781],     'nashville, tn':[36.163,-86.781],
+    'duarte':[34.139,-117.977],       'duarte, ca':[34.139,-117.977],
+    'tampa':[27.951,-82.457],         'denver':[39.739,-104.990],
+    'seattle':[47.606,-122.332],      'st. louis':[38.627,-90.199], 'st louis':[38.627,-90.199],
+    'pittsburgh':[40.441,-79.996],    'phoenix':[33.448,-112.074],
+    'atlanta':[33.749,-84.388],       'chapel hill':[35.913,-79.056],
+    'detroit':[42.331,-83.046],       'baltimore':[39.290,-76.612],
+    'houston':[29.760,-95.370],       'cleveland':[41.505,-81.681],
+    'chicago':[41.878,-87.630],       'philadelphia':[39.953,-75.165],
+    'oakland':[37.804,-122.271],      'memphis':[35.150,-90.049],
+    'burlington':[44.476,-73.212],    'albuquerque':[35.084,-106.651],
+    'kansas city':[39.100,-94.579],   'new orleans':[29.951,-90.072],
+    'portland':[45.515,-122.678],     'tucson':[32.222,-110.975],
+    'new york':[40.713,-74.006],      'milwaukee':[43.039,-87.906],
+    'san francisco':[37.775,-122.419],'charlotte':[35.227,-80.843],
+    'louisville':[38.253,-85.758],    'fargo':[46.877,-96.790],
+    'cincinnati':[39.103,-84.512],    'san antonio':[29.424,-98.494],
+    /* and places with none, so "no one within X miles" is reachable */
+    'los angeles':[34.052,-118.244],  'miami':[25.762,-80.192],
+    'dallas':[32.777,-96.797],        'las vegas':[36.170,-115.139],
+    'salt lake city':[40.761,-111.891],'billings':[45.783,-108.501],
+    'boise':[43.615,-116.202],        'anchorage':[61.218,-149.900],
+    'honolulu':[21.307,-157.858],     'omaha':[41.257,-95.938],
+    'oklahoma city':[35.468,-97.516], 'little rock':[34.746,-92.290],
+    'washington':[38.907,-77.037],    'washington, dc':[38.907,-77.037]
+  };
+  var PLACES = ['Atlanta','Baltimore','Boston','Chicago','Cleveland','Dallas','Denver','Detroit',
+                'Houston','Las Vegas','Los Angeles','Memphis','Miami','Minneapolis','Nashville',
+                'New Orleans','New York','Philadelphia','Phoenix','Pittsburgh','Portland',
+                'San Antonio','San Francisco','Seattle','St. Louis','Washington, DC'];
+
+  /* USPS code -> name, for the state filter and the chips */
+  var STATE_NAME = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',
+    CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',
+    ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',
+    ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',
+    MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',
+    NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',
+    OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',
+    TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',
+    WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
+
+  function geocode(s){
+    var k = String(s || '').trim().toLowerCase();
+    if (GEO[k]) return GEO[k];
+    /* a bare state name or code centres on nothing useful, so treat it as a state
+       filter instead — handled by the caller, which is why this returns null */
+    return null;
+  }
+  function stateFromQuery(s){
+    var k = String(s || '').trim().toUpperCase();
+    if (STATE_NAME[k]) return k;
+    for (var c in STATE_NAME) if (STATE_NAME[c].toUpperCase() === k) return c;
+    return null;
+  }
   function haversine(a, b){
-    var R = 6371, rad = Math.PI / 180;
+    var R = 3959, rad = Math.PI / 180;          /* miles */
     var dLat = (b[0] - a[0]) * rad, dLon = (b[1] - a[1]) * rad;
     var h = Math.sin(dLat/2)*Math.sin(dLat/2) +
             Math.cos(a[0]*rad)*Math.cos(b[0]*rad)*Math.sin(dLon/2)*Math.sin(dLon/2);
     return Math.round(2 * R * Math.asin(Math.sqrt(h)));
   }
+  function coords(r){ return r.ci ? geocode(r.ci) : null; }
   /* null when the record has no address — an unknown distance is not zero, and the
      record must not be claimed to be within any radius. */
   function distance(r, origin){
     if (!origin || !r.ci) return null;
-    var to = geocode(r.ci);
+    var to = coords(r);
     return to ? haversine(origin, to) : null;
   }
+  function placeLabel(r){ return r.ci ? r.ci + ', ' + r.st : null; }
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function attr(s){ return esc(s).replace(/"/g,'&quot;'); }
@@ -481,8 +527,12 @@ window.OV = {
   /* Initials for the fallback tile. No portraits anywhere: there are no consented
      ones, and a stock face attached to a named individual is the mistake in
      assets/CREDITS.md repeated. Initials are the real production fallback too. */
+  /* Credentials live after the first comma in the name, so strip them before
+     taking initials — otherwise "Dr A. Okafor, MD" initials as "AM". */
+  function baseName(n){ return String(n).split(',')[0].trim(); }
+  function credential(n){ var i = String(n).indexOf(','); return i < 0 ? '' : String(n).slice(i + 1).trim(); }
   function initials(r){
-    var parts = r.n.replace(/^Dr\s+/, '').split(/\s+/).filter(function(w){ return /[A-Za-zÀ-ÿ]/.test(w[0]); });
+    var parts = baseName(r.n).replace(/^Dr\s+/, '').split(/\s+/).filter(function(w){ return /[A-Za-zÀ-ÿ]/.test(w[0]); });
     return (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
   }
 
@@ -498,11 +548,12 @@ window.OV = {
            'font-display text-[18px] font-semibold text-accent-800">' + esc(initials(r)) + '</span>';
   }
 
+  /* No telephone channel is rendered here or anywhere else on these two pages.
+     The `people` content type carries a phone field; publishing a direct or cell
+     number for a named individual is not what this directory does. A listed person
+     is reached through their institution. */
   function contactHTML(r){
     var out = [];
-    if (r.tel) out.push('<a href="tel:' + attr(r.tel.replace(/\s/g,'')) + '" class="inline-flex items-center gap-1.5 text-ink-600 underline underline-offset-2 hover:text-accent-700">' +
-      '<svg class="w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>' +
-      esc(r.tel) + '</a>');
     if (r.em) out.push('<a href="mailto:' + attr(r.em) + '" class="inline-flex items-center gap-1.5 text-ink-600 underline underline-offset-2 hover:text-accent-700">' +
       '<svg class="w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>' +
       'Email</a>');
@@ -510,20 +561,20 @@ window.OV = {
       '<svg class="w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>' +
       'Website</a>');
     /* Absence is stated, not hidden — the record simply has nothing marked public */
-    if (!out.length) return '<p class="mt-2 text-[13.5px] text-ink-400">No contact details marked public</p>';
+    if (!out.length) return '<p class="mt-2 text-[13.5px] text-ink-400">Contact through the institution</p>';
     return '<p class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[13.5px]">' + out.join('') + '</p>';
   }
 
   function rowHTML(r, origin){
-    var km = distance(r, origin);
-    var place = r.ci ? esc(r.ci) + ', ' + esc(r.co) : 'Location not published';
+    var mi = distance(r, origin);
+    var place = r.ci ? esc(r.ci) + ', ' + esc(r.st) : 'Location not published';
     return '' +
     '<li class="py-5 grid gap-x-4 gap-y-3 grid-cols-[52px_1fr] sm:grid-cols-[52px_1fr_auto] items-start">' +
       tileHTML(r) +
       '<div class="min-w-0">' +
         '<h3 class="text-[17.5px] sm:text-[19px] font-semibold leading-snug text-ink-900">' +
           '<a href="onevoice-expert.mockup.html?p=' + encodeURIComponent(r.s) + '" class="hover:text-accent-800 hover:underline underline-offset-2">' +
-          esc(r.n) + (r.cr ? ', <span class="font-medium text-ink-700">' + esc(r.cr) + '</span>' : '') + '</a></h3>' +
+          esc(baseName(r.n)) + (credential(r.n) ? ', <span class="font-medium text-ink-700">' + esc(credential(r.n)) + '</span>' : '') + '</a></h3>' +
         '<p class="mt-1 text-[15px] leading-snug text-ink-600">' + esc(r.ro) +
           (r.af ? ' · <span class="text-ink-700">' + esc(r.af) + '</span>' : '') + '</p>' +
         '<p class="mt-1 flex items-center gap-1.5 text-[14px] text-ink-500">' +
@@ -535,8 +586,8 @@ window.OV = {
         contactHTML(r) +
       '</div>' +
       '<div class="col-start-2 sm:col-start-3 sm:row-start-1 flex sm:flex-col items-start sm:items-end gap-2.5">' +
-        (km != null
-          ? '<span class="inline-flex items-center h-7 px-2.5 rounded-full bg-accent-50 text-[12.5px] font-semibold text-accent-800 tabular-nums whitespace-nowrap">' + km.toLocaleString() + ' km</span>'
+        (mi != null
+          ? '<span class="inline-flex items-center h-7 px-2.5 rounded-full bg-accent-50 text-[12.5px] font-semibold text-accent-800 tabular-nums whitespace-nowrap">' + mi.toLocaleString() + ' mi</span>'
           : '') +
         '<a href="onevoice-expert.mockup.html?p=' + encodeURIComponent(r.s) + '" class="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full border border-ink-300 text-[14.5px] font-semibold text-ink-800 hover:bg-ink-100 whitespace-nowrap">' +
           'View profile' +
@@ -548,15 +599,16 @@ window.OV = {
   /* ---------------- filtering ---------------- */
 
   function matches(r, f, ignore){
-    if (f.q && (r.n + ' ' + (r.af || '') + ' ' + r.ro + ' ' + (r.ci || '')).toLowerCase().indexOf(f.q) < 0) return false;
-    if (ignore !== 'country' && f.country && r.co !== f.country) return false;
+    if (f.q && (r.n + ' ' + (r.af || '') + ' ' + r.ro + ' ' + (r.ci || '') + ' ' + (r.st || '')).toLowerCase().indexOf(f.q) < 0) return false;
+    if (ignore !== 'state' && f.state && r.st !== f.state) return false;
     if (ignore !== 'type' && f.type.length && f.type.indexOf(r.ty) < 0) return false;
     if (ignore !== 'spec' && f.spec.length && !(r.sp || []).some(function(s){ return f.spec.indexOf(s) > -1; })) return false;
     if (ignore !== 'qual' && f.qual.length && f.qual.indexOf(r.qu || 'No qualification listed') < 0) return false;
-    if (f.near && !f.origin) return false;                      /* place not recognised */
+    if (f.near && !f.origin && !f.nearState) return false;      /* place not recognised */
+    if (f.nearState && r.st !== f.nearState) return false;      /* a state name typed into the place box */
     if (f.origin && f.radius) {
-      var km = distance(r, f.origin);
-      if (km == null || km > f.radius) return false;
+      var mi = distance(r, f.origin);
+      if (mi == null || mi > f.radius) return false;
     }
     return true;
   }
@@ -566,9 +618,11 @@ window.OV = {
     var near = p.get('near') || '';
     return {
       q: (p.get('q') || '').toLowerCase(),
-      country: p.get('country') || '',
+      state: p.get('state') || '',
       type: list(p.get('type')), spec: list(p.get('spec')), qual: list(p.get('qual')),
-      near: near, origin: near ? geocode(near) : null, radius: +(p.get('radius') || 0),
+      near: near, origin: near ? geocode(near) : null,
+      nearState: near && !geocode(near) ? stateFromQuery(near) : null,
+      radius: +(p.get('radius') || 0),
       sort: p.get('sort') || '', view: p.get('view') === 'map' ? 'map' : 'list'
     };
   }
@@ -628,7 +682,7 @@ window.OV = {
       return (da == null ? 1e9 : da) - (db == null ? 1e9 : db);
     });
 
-    var filtering = !!(f.q || f.country || f.type.length || f.spec.length || f.qual.length || f.near);
+    var filtering = !!(f.q || f.state || f.type.length || f.spec.length || f.qual.length || f.near);
     var total = filtering ? hits.length : current.experts + current.centres;
 
     /* Counts */
@@ -645,8 +699,9 @@ window.OV = {
       : 'Showing ' + hits.length + ' of ' + total.toLocaleString() + ' listings';
 
     var nearNote = document.querySelector('[data-ov-nearnote]');
-    nearNote.hidden = !f.origin;
-    if (f.origin) nearNote.textContent = 'Straight-line distances from ' + f.near + (f.radius ? ', within ' + f.radius.toLocaleString() + ' km' : '');
+    nearNote.hidden = !(f.origin || f.nearState);
+    if (f.nearState) nearNote.textContent = 'Everyone listed in ' + STATE_NAME[f.nearState];
+    else if (f.origin) nearNote.textContent = 'Straight-line miles from ' + f.near + (f.radius ? ', within ' + f.radius.toLocaleString() + ' miles' : '');
 
     /* Rows */
     var ol = document.querySelector('[data-ov-rows]');
@@ -675,28 +730,43 @@ window.OV = {
     });
 
     if (mapOn) {
-      var byCountry = {};
-      hits.forEach(function(r){ var c = r.co || 'Location not published'; byCountry[c] = (byCountry[c] || 0) + 1; });
-      document.querySelector('[data-ov-mapcountries]').innerHTML = Object.keys(byCountry).sort().map(function(c){
-        return '<li><a href="?country=' + encodeURIComponent(c === 'Location not published' ? '' : c) + '" ' +
-          'class="flex items-center justify-between gap-3 min-h-[46px] px-4 rounded-xl bg-white border border-ink-200 text-[15px] text-ink-700 hover:border-accent-400 hover:text-accent-700">' +
-          esc(c) + '<span class="text-ink-400 tabular-nums text-[13.5px]">' + byCountry[c] + '</span></a></li>';
-      }).join('');
+      /* One pin per city, sized by how many listings share it. Records with no
+         published address cannot be plotted and are counted separately rather
+         than dropped silently. */
+      var cities = {}, unplaced = 0;
+      hits.forEach(function(r){
+        var ll = coords(r);
+        if (!ll) { unplaced++; return; }
+        var key = placeLabel(r);
+        if (!cities[key]) cities[key] = { key:key, label:key, st:r.st, lat:ll[0], lon:ll[1], n:0,
+                                          href:'?state=' + encodeURIComponent(r.st) };
+        cities[key].n++;
+      });
+      var places = Object.keys(cities).map(function(k){ return cities[k]; });
+      window.OV_USMAP.render(document.querySelector('[data-ov-mapfig]'), {
+        places: places,
+        caption: 'Map of the United States with ' + places.length + ' locations marked, shaded by number of listings per state',
+        note: unplaced
+          ? (unplaced === 1
+              ? 'One listing has no published address and cannot be plotted. It is still in the list.'
+              : unplaced + ' listings have no published address and cannot be plotted. They are still in the list.')
+          : 'Every listing in the current results is plotted. The list above is the source of truth.'
+      });
     }
 
     /* Zero-results recovery: only offer the actions that would actually recover it.
        A place we cannot resolve is a different failure from "nobody is near you",
        and saying so is the difference between a dead end and a next step. */
-    var badPlace = !!(f.near && !f.origin);
+    var badPlace = !!(f.near && !f.origin && !f.nearState);
     document.querySelector('[data-ov-widen]').hidden = !(f.origin && f.radius);
     document.querySelector('[data-ov-clearspec]').hidden = !f.spec.length;
     document.querySelector('[data-ov-clearnear]').hidden = !f.near;
     document.querySelector('[data-ov-emptytitle]').textContent = badPlace
       ? 'We could not find that place' : 'No one matches those filters';
     document.querySelector('[data-ov-emptyhint]').textContent = badPlace
-      ? '“' + f.near + '” is not a place this mockup can locate. Try ' + PLACES.slice(0, 4).join(', ') + ' — or clear the location and browse.'
+      ? '“' + f.near + '” is not a US city or state this mockup can locate. Try ' + PLACES.slice(0, 4).join(', ') + ' — or clear the location and browse.'
       : (f.origin && f.radius
-          ? 'No one in the directory is within ' + f.radius.toLocaleString() + ' km of ' + f.near + '.'
+          ? 'No one in the directory is within ' + f.radius.toLocaleString() + ' miles of ' + f.near + '.'
           : 'Try removing a filter, or search the whole directory.');
 
     /* Facets. With nothing left to refine the card would be a heading and a Reset
@@ -709,9 +779,9 @@ window.OV = {
 
     /* Removable chips */
     var active = [];
-    if (f.q)       active.push(['q', '“' + f.q + '”']);
-    if (f.country) active.push(['country', f.country]);
-    if (f.near)    active.push(['near', 'Near ' + f.near]);
+    if (f.q)     active.push(['q', '“' + f.q + '”']);
+    if (f.state) active.push(['state', STATE_NAME[f.state] || f.state]);
+    if (f.near)  active.push(['near', (f.nearState ? 'In ' : 'Near ') + f.near]);
     f.type.forEach(function(v){ active.push(['type:' + v, v]); });
     f.spec.forEach(function(v){ active.push(['spec:' + v, v]); });
     f.qual.forEach(function(v){ active.push(['qual:' + v, v]); });
@@ -723,12 +793,15 @@ window.OV = {
     }).join('');
     chips.classList.toggle('hidden', !active.length);
 
-    /* Country select, built from the record set so it never offers an empty option */
-    var sel = document.querySelector('[data-ov-country]');
-    var countries = rows.map(function(r){ return r.co; }).filter(Boolean)
-      .filter(function(c, i, a){ return a.indexOf(c) === i; }).sort();
-    sel.innerHTML = '<option value="">All countries</option>' + countries.map(function(c){
-      return '<option' + (c === f.country ? ' selected' : '') + '>' + esc(c) + '</option>';
+    /* State select, built from the record set so it never offers an empty option.
+       Value is the USPS code; the label is the full name, because a filter that
+       reads "MA" is a filter you have to decode. */
+    var sel = document.querySelector('[data-ov-state]');
+    var states = rows.map(function(r){ return r.st; }).filter(Boolean)
+      .filter(function(c, i, a){ return a.indexOf(c) === i; })
+      .sort(function(a, b){ return (STATE_NAME[a] || a).localeCompare(STATE_NAME[b] || b); });
+    sel.innerHTML = '<option value="">All states</option>' + states.map(function(c){
+      return '<option value="' + c + '"' + (c === f.state ? ' selected' : '') + '>' + esc(STATE_NAME[c] || c) + '</option>';
     }).join('');
   }
 
@@ -738,7 +811,7 @@ window.OV = {
     var an = /^[aeiou]/i.test(t.nameLower) ? 'n' : '';
     document.querySelector('[data-ov-article]').textContent = an;
     render();
-    document.title = 'Find a' + an + ' ' + t.nameLower + ' specialist or centre | oneVoice';
+    document.title = 'Find a' + an + ' ' + t.nameLower + ' specialist or center | oneVoice';
   };
 
   document.addEventListener('DOMContentLoaded', function(){
@@ -756,7 +829,7 @@ window.OV = {
 
     qi && qi.addEventListener('input', function(){ setParam('q', this.value.trim()); });
     si && si.addEventListener('change', function(){ setParam('sort', this.value); });
-    document.querySelector('[data-ov-country]').addEventListener('change', function(){ setParam('country', this.value); });
+    document.querySelector('[data-ov-state]').addEventListener('change', function(){ setParam('state', this.value); });
 
     document.querySelector('[data-ov-near-form]').addEventListener('submit', function(){
       var pr = params();
@@ -797,7 +870,7 @@ window.OV = {
       if (e.target.closest('[data-ov-reset]')) {
         history.replaceState(null, '', location.pathname);
         if (qi) qi.value = ''; if (si) si.value = ''; if (ni) ni.value = '';
-        if (ri) ri.value = '500';
+        if (ri) ri.value = '250';
         render();
       }
     });
