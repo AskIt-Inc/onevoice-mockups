@@ -1,5 +1,5 @@
 /* ============================================================================
-   oneVoice mockup kit — shared chrome, tokens and behaviour for every page.
+   oneVoice mockup kit — shared chrome, tokens and behavior for every page.
 
    A page includes this once in <head> and supplies only its own <main>:
 
@@ -140,7 +140,7 @@
      focus:bg-ink-900 focus:text-white focus:px-4 focus:py-3 focus:rounded-lg focus:text-[15px] focus:font-medium">
      Skip to main content</a>
 
-  <!-- ============ BRAND MARK — one shared asset, inherits colour from the accent token.
+  <!-- ============ BRAND MARK — one shared asset, inherits color from the accent token.
        Paths lifted verbatim from the supplied oneAMYLOIDOSISvoice SVG; fills swapped to
        currentColor so a single mark serves every community. ============ -->
   <svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false">
@@ -494,7 +494,7 @@
           { label:'Research & trials', href:'onevoice-news.mockup.html?category=Research', d:'Readouts, and how to read them.' },
           { label:'Access & policy', href:'onevoice-news.mockup.html?category=Access', d:'Approvals, reimbursement and consultations.' },
           { label:'Community events', href:'onevoice-news.mockup.html?category=Community', d:'What the community did, and what came of it.' },
-          { label:'Spotlight', href:'#', d:'The partner programme featured this month.' }
+          { label:'Spotlight', href:'#', d:'The partner program featured this month.' }
         ], feat:'news' },
 
       { key:'community', label:'Community', href:'#',
@@ -518,7 +518,7 @@
       { key:'about', label:'About', href:'#',
         blurb:'Who publishes this, how it is checked, and who pays for it.',
         items:[
-          { label:'Who we are', href:'#', d:'The organisation behind oneVoice.' },
+          { label:'Who we are', href:'#', d:'The organization behind oneVoice.' },
           { label:'Editorial policy', href:'#', d:'How content is written, reviewed and dated.' },
           { label:'Medical review board', href:'#', d:'The clinicians who sign content off.' },
           { label:'Funding & partners', href:'#', d:'Where the money comes from.' },
@@ -543,7 +543,7 @@
         a1t:'The 5 tests used to confirm ATTR amyloidosis',
         a1d:'What each test looks for, what to expect on the day, and the questions worth asking.',
         a2tag:'Treatment', a2read:'9 min read',
-        a2t:'Living with a stabiliser: side effects and daily routine',
+        a2t:'Living with a stabilizer: side effects and daily routine',
         a2d:'Practical strategies from people two or more years into treatment.',
         pop:['Is amyloidosis hereditary? What families should know',
              'Questions to ask at your first cardiology appointment',
@@ -557,8 +557,8 @@
                      {tid:12740, name:'Amyloidosis Foundation'},
                      {tid:12353, name:'Amyloidosis Support Groups'},
                      {tid:12352, name:'Amyloidosis Army'}],
-        hcp:'Filter 42 open studies by phase and site, download the 2026 diagnostic pathway, or refer a patient to a specialist centre.',
-        /* Spotlight Series — partner programmes featured month by month.
+        hcp:'Filter 42 open studies by phase and site, download the 2026 diagnostic pathway, or refer a patient to a specialist center.',
+        /* Spotlight Series — partner programs featured month by month.
            Newest first. `partners` are keys resolved against the STTT logo API,
            never hardcoded image URLs. A community with no series renders nothing. */
         spotlight:[
@@ -566,15 +566,15 @@
            blurb:'Meet the multidisciplinary team and watch the recorded sessions.',
            partners:[{tid:12351, name:'Vanderbilt Health'}], slug:'vanderbilt'},
           {month:'July 2026', name:'City of Hope Amyloidosis Program',
-           blurb:'Meet the programme team, explore its sessions and patient resources.',
+           blurb:'Meet the program team, explore its sessions and patient resources.',
            partners:[{tid:12759, name:'City of Hope'}], slug:'cityofhope'},
           {month:'June 2026', name:'University of Chicago & Endeavor Health',
-           blurb:'Two partner centres, one shared spotlight — sessions from both teams.',
+           blurb:'Two partner centers, one shared spotlight — sessions from both teams.',
            partners:[{tid:12758, name:'University of Chicago'},
                      {tid:12761, name:'Endeavor Health'}], slug:'uchicago'}
         ],
         news:[
-          {k:'Research', d:'2026-07-28', dl:'28 Jul 2026', t:'ATTR-CM trial reports 30% fewer hospitalisations at 30 months'},
+          {k:'Research', d:'2026-07-28', dl:'28 Jul 2026', t:'ATTR-CM trial reports 30% fewer hospitalizations at 30 months'},
           {k:'Access',   d:'2026-07-21', dl:'21 Jul 2026', t:'NICE opens consultation on wider access to tafamidis'},
           {k:'Community',d:'2026-07-14', dl:'14 Jul 2026', t:'Amyloidosis Awareness Month: what the community achieved'},
           {k:'Living well', d:'2026-07-07', dl:'7 Jul 2026', t:'Fatigue and pacing: what actually helped our members'}
@@ -587,7 +587,7 @@
       },
       scd: {
         wordmark:'SCD', name:'Sickle Cell Disease', nameLower:'sickle cell disease', shortName:'Sickle Cell', domainId:'onescdvoice', hostname:'onescdvoice.com',
-        subtypes:'HbSS, HbSC and sickle beta thalassaemia', specialists:'haematology specialists',
+        subtypes:'HbSS, HbSC and sickle beta thalassemia', specialists:'hematology specialists',
         trials:'58', articles:'204', centres:'41',
         heroAlt:'A young man laughing with his mother on a sofa at home',
         heroCaption:'Daniel, living with HbSS since birth, and his mother Grace.',
@@ -596,7 +596,7 @@
         a1d:'A step-by-step plan you can share with family, your school or your employer.',
         a2tag:'Treatment', a2read:'11 min read',
         a2t:'Hydroxyurea, voxelotor and gene therapy: how treatments compare',
-        a2d:'What each option does, who it suits, and the questions to ask your haematologist.',
+        a2d:'What each option does, who it suits, and the questions to ask your hematologist.',
         pop:['Sickle cell trait: what it means for your children',
              'Getting proper pain relief in A&E: know your rights',
              'Newborn screening, explained',
@@ -607,7 +607,7 @@
         /* The API holds no SCD-specific advocacy partners yet — the grid takes any count */
         partnerTids:[{tid:11,    name:'Pfizer'},
                      {tid:13459, name:'Somebody To Talk To'}],
-        hcp:'Filter 58 open studies by phase and site, download the 2026 acute pain pathway, or refer a patient to a specialist centre.',
+        hcp:'Filter 58 open studies by phase and site, download the 2026 acute pain pathway, or refer a patient to a specialist center.',
         news:[
           {k:'Treatment', d:'2026-07-29', dl:'29 Jul 2026', t:'Gene therapy approved for severe sickle cell disease in under-18s'},
           {k:'Care',      d:'2026-07-22', dl:'22 Jul 2026', t:'New A&E pain pathway rolls out across 40 NHS trusts'},
@@ -616,7 +616,7 @@
         ],
         sessions:[
           {d:'2026-08-14', dd:'14', mm:'Aug', t:'Managing a pain crisis: building your care plan', w:'18:00–19:00 BST', m:'Online'},
-          {d:'2026-09-05', dd:'5',  mm:'Sep', t:'Transition clinic: moving from paediatric to adult care', w:'17:30–18:30 BST', m:'Online'},
+          {d:'2026-09-05', dd:'5',  mm:'Sep', t:'Transition clinic: moving from pediatric to adult care', w:'17:30–18:30 BST', m:'Online'},
           {d:'2026-09-26', dd:'26', mm:'Sep', t:'Sickle cell and work: your rights explained', w:'12:30–13:30 BST', m:'Online + Birmingham'}
         ]
       },
@@ -640,7 +640,7 @@
         quote:'“Two years of being told it was asthma. One test changed everything about my care.”',
         quoteBy:'Aisha K.', quoteMeta:'— living with PAH, Manchester', firstName:'Aisha',
         partnerTids:[{tid:11, name:'Pfizer'}],
-        hcp:'Filter 31 open studies by phase and site, download the 2026 diagnostic algorithm, or refer a patient to a specialist centre.',
+        hcp:'Filter 31 open studies by phase and site, download the 2026 diagnostic algorithm, or refer a patient to a specialist center.',
         news:[
           {k:'Research',  d:'2026-07-27', dl:'27 Jul 2026', t:'Triple therapy improves six-minute walk distance in PAH'},
           {k:'Access',    d:'2026-07-20', dl:'20 Jul 2026', t:'Home oxygen assessment waits halve in pilot regions'},
@@ -658,7 +658,7 @@
         subtypes:'AChR- and MuSK-antibody myasthenia', specialists:'neuromuscular specialists',
         trials:'24', articles:'118', centres:'22',
         heroAlt:'A man reading with his young son at the end of the afternoon',
-        heroCaption:'Tomas, living with generalised MG since 2020, and his son Piotr.',
+        heroCaption:'Tomas, living with generalized MG since 2020, and his son Piotr.',
         a1tag:'Symptoms', a1read:'5 min read',
         a1t:'Why symptoms get worse as the day goes on',
         a1d:'Fatigable weakness explained, and how to plan your day around it.',
@@ -667,15 +667,15 @@
         a2d:'What the evidence shows for each, and the order treatments are usually tried.',
         pop:['Myasthenic crisis: the warning signs to act on',
              'Medicines to avoid with myasthenia gravis',
-             'Ocular vs generalised MG: how they differ',
+             'Ocular vs generalized MG: how they differ',
              'Heat, stress and flare-ups: practical tips'],
         r1:'Dr R. Adeyemi, MD', r2:'Dr K. Larsen, PhD',
         quote:'“My eyelid drooped for a year before anyone joined the dots. I want that year back for someone else.”',
-        quoteBy:'Tomas L.', quoteMeta:'— living with generalised MG, Kraków', firstName:'Tomas',
+        quoteBy:'Tomas L.', quoteMeta:'— living with generalized MG, Kraków', firstName:'Tomas',
         partnerTids:[{tid:11, name:'Pfizer'}],
-        hcp:'Filter 24 open studies by phase and site, download the 2026 treatment pathway, or refer a patient to a specialist centre.',
+        hcp:'Filter 24 open studies by phase and site, download the 2026 treatment pathway, or refer a patient to a specialist center.',
         news:[
-          {k:'Treatment', d:'2026-07-30', dl:'30 Jul 2026', t:'Second FcRn blocker recommended for generalised myasthenia gravis'},
+          {k:'Treatment', d:'2026-07-30', dl:'30 Jul 2026', t:'Second FcRn blocker recommended for generalized myasthenia gravis'},
           {k:'Research',  d:'2026-07-23', dl:'23 Jul 2026', t:'Registry data links earlier thymectomy to lower steroid burden'},
           {k:'Community', d:'2026-07-16', dl:'16 Jul 2026', t:'Myasthenia awareness campaign reaches two million people'},
           {k:'Living well', d:'2026-07-09', dl:'9 Jul 2026', t:'Eyelid crutches and prisms: what members found useful'}
@@ -693,7 +693,7 @@
       h1:        function(t){ return t.name + ': information, clinical trials and community support'; },
       eyebrow:   function(t){ return 'Reviewed by ' + t.specialists; },
       cardTrials:function(t){ return 'Search ' + t.trials + ' active ' + t.nameLower + ' studies by location, phase and eligibility.'; },
-      cardExpert:function(t){ return t.centres + ' specialist centres and clinicians, searchable by country.'; },
+      cardExpert:function(t){ return t.centres + ' specialist centers and clinicians, searchable by country.'; },
       trust:     function(t){ return 'oneVoice ' + t.name + ' is supported by an independent medical education grant from '; },
       fl0:       function(t){ return 'What is ' + t.nameLower + '?'; },
       /* Chrome label: shortName when config supplies one, else the full name */

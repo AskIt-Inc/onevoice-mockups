@@ -277,7 +277,7 @@ window.OV = {
         <h2 class="text-[17px] font-semibold text-ink-900">Where the data comes from</h2>
         <p class="mt-2 text-[14.5px] leading-relaxed text-ink-600">
           Every study is taken from the public ClinicalTrials.gov registry and synced regularly.
-          We show the registry's own wording — we do not summarise or interpret eligibility.
+          We show the registry's own wording — we do not summarize or interpret eligibility.
         </p>
         <a href="https://clinicaltrials.gov" target="_blank" rel="noopener noreferrer"
            class="mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:text-accent-800">
@@ -308,7 +308,7 @@ window.OV = {
   function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function params(){ return new URLSearchParams(location.search); }
 
-  /* Status colour comes from the neutral + accent scale, never raw green/red,
+  /* Status color comes from the neutral + accent scale, never raw green/red,
      so it stays on-brand for every community. */
   function statusBadge(st){
     var on = /recruit/i.test(st);
@@ -565,7 +565,7 @@ window.OV = {
   };
 
 
-  /* ---------------- Express Interest behaviour ----------------
+  /* ---------------- Express Interest behavior ----------------
      Mockup submission is simulated. Use an email starting with `error@` to see
      the error state. Real implementation posts to an API route; the endpoint
      must also rate-limit per IP and per email — a honeypot alone is not enough. */

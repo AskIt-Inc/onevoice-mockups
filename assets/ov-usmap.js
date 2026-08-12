@@ -81,7 +81,7 @@
 
   var RAD = Math.PI / 180;
 
-  /* d3.geoConicEqualArea, unrolled. rot shifts longitude; c is the centre in
+  /* d3.geoConicEqualArea, unrolled. rot shifts longitude; c is the center in
      rotated coordinates; p0/p1 are the standard parallels. */
   function cea(rot, cLon, cLat, p0, p1, k, tx, ty){
     var sy0 = Math.sin(p0 * RAD), n = (sy0 + Math.sin(p1 * RAD)) / 2;
