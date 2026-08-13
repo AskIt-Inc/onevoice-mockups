@@ -161,14 +161,14 @@
            Summaries are each program's own published microsite copy; the blurbs
            that were here before were written for the mockup. */
         spotlight:[
-          {month:'September 2026', name:'Mayo Clinic Amyloidosis Program',
-           blurb:'Investigators here helped define key amyloidosis subtypes and the treatment recommendations for AL amyloidosis.',
-           partners:[{tid:13455, name:'Mayo Clinic'}], slug:'mayo'},
-          {month:'August 2026', name:'Vanderbilt Amyloidosis Multidisciplinary Program',
-           blurb:'A pivotal global study site for ATTR-ACT, APOLLO-B and CARDIO-TTRansform, and a contributor to the THAOS registry.',
+          {month:'2026-09', monthLabel:'September 2026', name:'Mayo Clinic Amyloidosis Program',
+           summary:'Investigators here helped define key amyloidosis subtypes and the treatment recommendations for AL amyloidosis.',
+           partners:[{tid:13455, name:'Mayo Clinic'}], slug:'mayo', counts:{team:63, sessions:12}},
+          {month:'2026-08', monthLabel:'August 2026', name:'Vanderbilt Amyloidosis Multidisciplinary Program',
+           summary:'A pivotal global study site for ATTR-ACT, APOLLO-B and CARDIO-TTRansform, and a contributor to the THAOS registry.',
            partners:[{tid:12351, name:'Vanderbilt Health'}], slug:'vanderbilt'},
-          {month:'July 2026', name:'City of Hope Amyloidosis Program',
-           blurb:'A founding member of the National Comprehensive Cancer Network, helping define national treatment standards.',
+          {month:'2026-07', monthLabel:'July 2026', name:'City of Hope Amyloidosis Program',
+           summary:'A founding member of the National Comprehensive Cancer Network, helping define national treatment standards.',
            partners:[{tid:12759, name:'City of Hope'}], slug:'cityofhope'}
         ],
         news:[
@@ -347,7 +347,9 @@
           if (v != null) el.setAttribute('datetime', v);
         });
 
-        renderSpotlight(t);
+        /* Hero first: it claims the current program, and the band below then shows
+           what is genuinely previous rather than repeating it. */
+        renderSpotlight(t, renderHeroSpotlight(t));
         renderTrustPartners(t);
         resolveLogos(document);   /* picks up standalone slots, e.g. the footer parent brand */
 
@@ -422,20 +424,85 @@
         }).join('');
       }
 
-      function renderSpotlight(t){
+      /* The month the page treats as "now". Server clock in production; explicit here
+         so a screenshot taken next month still shows the same hero program. */
+      var CURRENT_MONTH = '2026-08';
+
+      /* Microsites live at {slug}.{community hostname}, e.g.
+         vanderbilt.oneamyloidosisvoice.com — so a new month needs a slug, not a URL.
+         An explicit `microsite` still wins if one ever sits off-pattern.
+         Note those hostnames are WILDCARDED: every subdomain answers 200, including
+         nonsense ones, which then redirect to the community homepage. A 200 is not
+         evidence a microsite exists — see internal-pages/13-spotlight-index.md §1.3. */
+      function micrositeHref(s, t){
+        return s.microsite || ('https://' + s.slug + '.' + t.hostname + '/');
+      }
+
+      /* ---------------- Hero: this month's Spotlight Series ----------------
+         Takes the hero's right column when the community has a current program,
+         and hands the slot back to the hero image when it does not. Returns the
+         program it used so the band below can leave it out and stay honestly
+         "previous". */
+      function renderHeroSpotlight(t){
+        var block = document.querySelector('[data-hero-spotlight]');
+        var media = document.querySelector('[data-hero-media]');
+        if (!block || !media) return null;
+
+        var pub = (t.spotlight || []).filter(function(s){ return s.published !== false; });
+        /* This month if there is one; otherwise the most recent, which is still a
+           real program with an open microsite. Never a month that has not started. */
+        var cur = pub.filter(function(s){ return s.month === CURRENT_MONTH; })[0] ||
+                  pub.filter(function(s){ return s.month < CURRENT_MONTH; })[0] ||
+                  null;
+
+        block.hidden = !cur;
+        media.hidden = !!cur;
+        if (!cur) {
+          /* Emptied, not merely hidden. `hidden` keeps one community's program in
+             another community's HTML source, and cross-disease leakage is the exact
+             failure this whole architecture exists to prevent. */
+          block.querySelector('[data-hero-spot-logos]').innerHTML = '';
+          block.querySelector('[data-hero-spot-month]').textContent = '';
+          block.querySelector('[data-hero-spot-month]').removeAttribute('datetime');
+          block.querySelector('[data-hero-spot-name]').textContent = '';
+          block.querySelector('[data-hero-spot-summary]').textContent = '';
+          block.querySelector('[data-hero-spot-meta]').textContent = '';
+          block.querySelector('[data-hero-spot-link]').href = '#';
+          return null;
+        }
+
+        block.querySelector('[data-hero-spot-month]').textContent = cur.monthLabel;
+        block.querySelector('[data-hero-spot-month]').setAttribute('datetime', cur.month);
+        block.querySelector('[data-hero-spot-name]').textContent = cur.name;
+        block.querySelector('[data-hero-spot-summary]').textContent = cur.summary || '';
+        block.querySelector('[data-hero-spot-link]').href = micrositeHref(cur, t);
+        block.querySelector('[data-hero-spot-logos]').innerHTML = logoWell(cur.partners);
+
+        /* Counts only ever come from a real API response. No record, no line. */
+        var meta = [];
+        if (cur.counts && cur.counts.sessions) meta.push(cur.counts.sessions + ' sessions');
+        if (cur.counts && cur.counts.team)     meta.push(cur.counts.team + ' team members');
+        var metaEl = block.querySelector('[data-hero-spot-meta]');
+        metaEl.hidden = !meta.length;
+        metaEl.textContent = meta.join(' · ');
+
+        resolveLogos(block);
+        return cur;
+      }
+
+      function renderSpotlight(t, exclude){
         var section = document.querySelector('[data-spotlight]');
         var list = document.querySelector('[data-spotlight-list]');
         if (!section || !list) return;
-        var items = t.spotlight || [];
+        /* Whatever the hero is showing is not "previous", so it is left out here
+           rather than printed twice on one screen. */
+        var items = (t.spotlight || []).filter(function(s){ return s !== exclude; });
         /* Reusable means it disappears cleanly when there is nothing to show */
         if (!items.length) { section.hidden = true; list.innerHTML = ''; return; }
         section.hidden = false;
 
         list.innerHTML = items.map(function(s){
-          /* Microsites live at {slug}.{community hostname}, e.g.
-             vanderbilt.oneamyloidosisvoice.com — so a new month needs a slug, not a URL.
-             An explicit `microsite` still wins if one ever sits off-pattern. */
-          var href = s.microsite || ('https://' + s.slug + '.' + t.hostname + '/');
+          var href = micrositeHref(s, t);
           return '' +
           '<li>' +
             '<a href="' + href + '" target="_blank" rel="noopener noreferrer" ' +
@@ -444,11 +511,11 @@
               /* Fixed-height logo well keeps every card on the same scan line, however */
               /* many partners a month has and whatever proportions their artwork is */
               '<span class="h-12 flex items-center justify-start gap-3.5">' + logoWell(s.partners) + '</span>' +
-              '<span class="mt-5 inline-flex self-start items-center rounded-full bg-accent-50 text-accent-800 ' +
-                    'text-[12px] font-semibold uppercase tracking-[.09em] px-2.5 py-1">' + s.month + '</span>' +
+              '<time datetime="' + s.month + '" class="mt-5 inline-flex self-start items-center rounded-full bg-accent-50 text-accent-800 ' +
+                    'text-[12px] font-semibold uppercase tracking-[.09em] px-2.5 py-1">' + s.monthLabel + '</time>' +
               '<h3 class="mt-2.5 text-[18px] font-semibold leading-snug text-ink-900 group-hover:text-accent-800">' +
                 s.name + '</h3>' +
-              '<p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">' + s.blurb + '</p>' +
+              '<p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">' + s.summary + '</p>' +
               '<span class="mt-auto pt-4 flex items-center gap-1.5 text-[15px] font-semibold text-accent-700">' +
                 'Visit microsite' +
                 '<svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" viewBox="0 0 24 24" ' +
@@ -495,11 +562,19 @@
                up front, so swapping the name plate for artwork costs no layout shift */
             if (logo.width)  img.width  = logo.width;
             if (logo.height) img.height = logo.height;
-            img.loading = 'lazy';
+            /* NOT loading="lazy". The image is built detached and only enters the
+               document in onload, and a detached lazy image has no position for the
+               viewport heuristic to test — so it may load, or may never load, and
+               scrolling cannot help an element that is not in the document. Measured
+               on the published build 2026-08-13: 0 of 5 logos on two runs, 5 of 5 on
+               a third, same URL. Same fix in assets/ov-kit.js. */
+            img.loading = 'eager';
             img.decoding = 'async';
             img.alt = logo.alt || slot.querySelector('[data-logo-fallback]').textContent.trim();
             img.className = slot.getAttribute('data-cap') + ' w-auto h-auto object-contain';
             img.onload = function(){ slot.textContent = ''; slot.appendChild(img); };
+            /* A failed fetch leaves the neutral name plate. Never a broken image. */
+            img.onerror = function(){ img.onload = null; };
           });
         });
       }
@@ -787,8 +862,63 @@
             </dl>
           </div>
 
-          <!-- Hero media: real <img> component slot, never a CSS background -->
-          <figure class="relative mt-10 lg:mt-0 lg:col-span-5">
+          <!-- ============ HERO RIGHT COLUMN — two states, one slot.
+               The community's CURRENT Spotlight Series program takes the slot when
+               there is one, because a named program with a real team and live
+               sessions this month is worth more here than a stock photograph — and
+               the photography cannot ship anyway (assets/CREDITS.md: CC0 covers
+               copyright, not likeness).
+
+               Falls back to the hero image when the community has no program, which
+               is three of the four today. The hero must not carry a hole, and an
+               invitation to become a partner is not what a newly diagnosed patient
+               came to the homepage for.
+
+               Data is the same tenant `spotlight` registry the band and the index
+               use — the current month, published only. Neutral container: the
+               partner's own brand colour never tints it. ============ -->
+          <div hidden data-hero-spotlight class="relative mt-10 lg:mt-0 lg:col-span-5">
+            <span class="spec" style="top:10px;left:10px">Current month · GET /api/spotlight/microsite/series · logo resolved by tid</span>
+            <div class="rounded-3xl bg-white border border-ink-200 shadow-lift overflow-hidden">
+              <div class="p-6 sm:p-7">
+                <p class="flex items-center gap-2 text-[12.5px] font-semibold uppercase tracking-[.14em] text-accent-700">
+                  <svg class="w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v2"/><path d="M5.6 5.6l1.4 1.4"/><path d="M3 12h2"/><path d="M17 17.6a6 6 0 1 0-10 0"/><path d="M9.5 21h5"/><path d="M18.4 5.6 17 7"/><path d="M21 12h-2"/></svg>
+                  This month’s Spotlight Series
+                </p>
+
+                <!-- Fixed-height well, same rule as every other logo slot: artwork
+                     runs from 1:1 to 9.5:1, so cap width as well as height. -->
+                <div class="mt-5 h-14 flex items-center justify-start gap-4" data-hero-spot-logos></div>
+
+                <p class="mt-5">
+                  <time class="inline-flex items-center rounded-full bg-accent-50 text-accent-800 text-[12px] font-semibold uppercase tracking-[.09em] px-2.5 py-1"
+                        data-hero-spot-month>August 2026</time>
+                </p>
+                <h2 class="mt-2.5 font-display text-[24px] sm:text-[27px] font-semibold leading-snug tracking-[-.015em] text-ink-900"
+                    data-hero-spot-name>Vanderbilt Amyloidosis Multidisciplinary Program</h2>
+                <p class="mt-2.5 text-[15.5px] leading-relaxed text-ink-600" data-hero-spot-summary></p>
+                <p class="mt-3 text-[13.5px] font-medium text-ink-500" data-hero-spot-meta hidden></p>
+
+                <a data-hero-spot-link href="#" target="_blank" rel="noopener noreferrer"
+                   class="mt-6 inline-flex items-center justify-center gap-2 min-h-[48px] px-5 rounded-full
+                          bg-ink-900 text-white text-[16px] font-semibold hover:bg-ink-800 transition">
+                  Visit the microsite
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+                  <span class="sr-only">(opens in a new tab)</span>
+                </a>
+              </div>
+              <p class="border-t border-ink-100 bg-ink-50 px-6 sm:px-7 py-3.5 text-[14.5px]">
+                <a href="onevoice-spotlight-series.mockup.html" class="inline-flex items-center gap-1.5 font-semibold text-accent-700 hover:text-accent-800">
+                  See every featured program
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Hero media: real <img> component slot, never a CSS background.
+               Fallback for a community with no current program. -->
+          <figure data-hero-media class="relative mt-10 lg:mt-0 lg:col-span-5">
             <span class="spec" style="top:10px;left:10px">&lt;img&gt; · required alt · AVIF/WebP · art-directed 4:5 → 16:9 → 4:5</span>
             <!-- Ratio box + filling media = next/image `fill`.
                  Art direction: portrait on mobile, landscape on tablet, portrait again beside desktop copy. -->
