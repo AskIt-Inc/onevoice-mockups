@@ -274,7 +274,7 @@
             <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Sickle Cell Disease</a></li>
             <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Pulmonary Hypertension</a></li>
             <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Myasthenia Gravis</a></li>
-            <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Haemophilia</a></li>
+            <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Hemophilia</a></li>
             <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-ink-900 text-white text-[14px] font-medium hover:bg-ink-800">All 100+ →</a></li>
           </ul>
         </div>
@@ -494,7 +494,7 @@
           { label:'Research & trials', href:'onevoice-news.mockup.html?category=Research', d:'Readouts, and how to read them.' },
           { label:'Access & policy', href:'onevoice-news.mockup.html?category=Access', d:'Approvals, reimbursement and consultations.' },
           { label:'Community events', href:'onevoice-news.mockup.html?category=Community', d:'What the community did, and what came of it.' },
-          { label:'Spotlight', href:'#', d:'The partner program featured this month.' }
+          { label:'Spotlight Series', href:'onevoice-spotlight-series.mockup.html', d:'The partner program featured this month, and the archive.' }
         ], feat:'news' },
 
       { key:'community', label:'Community', href:'#',
@@ -558,20 +558,61 @@
                      {tid:12353, name:'Amyloidosis Support Groups'},
                      {tid:12352, name:'Amyloidosis Army'}],
         hcp:'Filter 42 open studies by phase and site, download the 2026 diagnostic pathway, or refer a patient to a specialist center.',
-        /* Spotlight Series — partner programs featured month by month.
-           Newest first. `partners` are keys resolved against the STTT logo API,
-           never hardcoded image URLs. A community with no series renders nothing. */
+        /* ---------------------------------------------------------------------
+           Spotlight Series — partner programs featured month by month, newest
+           first. `partners` are keys resolved against the STTT logo API, never
+           hardcoded image URLs. A community with no series renders nothing.
+
+           Shape mirrors the authoritative store — the STTT Spotlight microsite
+           API, GET /api/spotlight/microsite/series?partner={tid} — so the
+           production port is a fetch, not a re-model:
+             month      <- series.month        ("2026-09", machine-readable)
+             monthLabel <- series.month_label  ("September 2026")
+             published  <- series.published
+             seriesId   <- series.id
+           Measured against the live endpoints 2026-08-13; see
+           internal-pages/13-spotlight-index.md §2.
+
+           `apiSeries:false` means the program is LIVE as a microsite but has no
+           Series record yet — the API 404s for that partner TID, and this
+           metadata came from the microsite bundle instead. Those three need a
+           backfill; the index says so on the page, and the notice goes when they
+           land. `counts` is only ever set from a real API response.
+
+           `summary` is deliberately empty where the API has nothing worth
+           showing: series.description is a generated stub ("Houston Methodist.
+           Amyloidosis. October 2026.") that restates the logo, community and
+           month chip beside it. An empty summary renders the missing-field
+           state rather than inventing copy. Sourced summaries below are lifted
+           from each program's own published microsite copy.
+           --------------------------------------------------------------------- */
         spotlight:[
-          {month:'August 2026', name:'Vanderbilt Amyloidosis Multidisciplinary Program',
-           blurb:'Meet the multidisciplinary team and watch the recorded sessions.',
-           partners:[{tid:12351, name:'Vanderbilt Health'}], slug:'vanderbilt'},
-          {month:'July 2026', name:'City of Hope Amyloidosis Program',
-           blurb:'Meet the program team, explore its sessions and patient resources.',
-           partners:[{tid:12759, name:'City of Hope'}], slug:'cityofhope'},
-          {month:'June 2026', name:'University of Chicago & Endeavor Health',
-           blurb:'Two partner centers, one shared spotlight — sessions from both teams.',
+          {month:'2026-10', monthLabel:'October 2026', name:'Tufts Medicine Amyloidosis Program',
+           summary:'', slug:'tuftsmedicine', published:false, seriesId:7, apiSeries:true,
+           counts:{team:0, sessions:0},
+           partners:[{tid:13477, name:'Tufts Medicine'}]},
+          {month:'2026-10', monthLabel:'October 2026', name:'Houston Methodist Amyloidosis Program',
+           summary:'', slug:'houstonmethodist', published:false, seriesId:6, apiSeries:true,
+           counts:{team:5, sessions:0},
+           partners:[{tid:13475, name:'Houston Methodist'}]},
+          {month:'2026-09', monthLabel:'September 2026', name:'Mayo Clinic Amyloidosis Program',
+           summary:'Mayo Clinic investigators helped define key amyloidosis subtypes and contributed to widely used diagnostic and treatment recommendations for AL amyloidosis.',
+           slug:'mayo', published:true, seriesId:5, apiSeries:true,
+           counts:{team:63, sessions:12},
+           partners:[{tid:13455, name:'Mayo Clinic'}]},
+          {month:'2026-08', monthLabel:'August 2026', name:'Vanderbilt Amyloidosis Multidisciplinary Program',
+           summary:'A pivotal global study site for ATTR-ACT, APOLLO-B and CARDIO-TTRansform, and a contributor to the international THAOS registry.',
+           slug:'vanderbilt', published:true, apiSeries:false, counts:null,
+           partners:[{tid:12351, name:'Vanderbilt Health'}]},
+          {month:'2026-07', monthLabel:'July 2026', name:'City of Hope Amyloidosis Program',
+           summary:'A founding member of the National Comprehensive Cancer Network, helping define national treatment standards for amyloidosis and cancer care.',
+           slug:'cityofhope', published:true, apiSeries:false, counts:null,
+           partners:[{tid:12759, name:'City of Hope'}]},
+          {month:'2026-06', monthLabel:'June 2026', name:'University of Chicago & Endeavor Health',
+           summary:'Seven specialties across cardiology, hematology, neurology, nephrology, gastroenterology, orthopedics and cardiovascular genetics — one coordinated care plan.',
+           slug:'uchicago', published:true, apiSeries:false, counts:null,
            partners:[{tid:12758, name:'University of Chicago'},
-                     {tid:12761, name:'Endeavor Health'}], slug:'uchicago'}
+                     {tid:12761, name:'Endeavor Health'}]}
         ],
         news:[
           {k:'Research', d:'2026-07-28', dl:'28 Jul 2026', t:'ATTR-CM trial reports 30% fewer hospitalizations at 30 months'},
@@ -780,7 +821,7 @@
                    TENANTS[s].name + '</a></li>';
           }).join('') +
           '<li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border ' +
-          'border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Haemophilia</a></li>' +
+          'border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Hemophilia</a></li>' +
           '<li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-ink-900 text-white ' +
           'text-[14px] font-medium hover:bg-ink-800">All 100+ →</a></li>';
         }
@@ -833,44 +874,111 @@
         }).join('');
       }
 
+      /* Microsites live at {slug}.{community hostname}, e.g.
+         vanderbilt.oneamyloidosisvoice.com — so a new month needs a slug, not a URL.
+         An explicit `microsite` still wins if one ever sits off-pattern.
+         Note: those hostnames are WILDCARDED — every subdomain answers 200, including
+         nonsense ones, which then redirect to the community homepage. A 200 is not
+         evidence a microsite exists. See internal-pages/13-spotlight-index.md §1.3. */
+      function micrositeHref(s, t){
+        return s.microsite || ('https://' + s.slug + '.' + t.hostname + '/');
+      }
+
+      /* THE spotlight card. One definition, used by the homepage band and by the
+         Spotlight Series index, so "reuse the homepage card unchanged" is literal
+         rather than a copy that drifts. `size` only changes type scale and padding —
+         never the structure, and never the neutral container: a partner's own brand
+         colour must not tint a card on a page that lists seven of them. */
+      function spotlightCard(s, t, size){
+        var big  = size === 'lg';
+        var href = micrositeHref(s, t);
+        var meta = [];
+        /* Only ever rendered from a real API count. No record, no line. */
+        if (s.counts && s.counts.sessions) meta.push(s.counts.sessions + ' sessions');
+        if (s.counts && s.counts.team)     meta.push(s.counts.team + ' team members');
+
+        var chips =
+          '<span class="flex flex-wrap items-center gap-2">' +
+            '<time datetime="' + s.month + '" class="inline-flex items-center rounded-full bg-accent-50 text-accent-800 ' +
+                  'text-[12px] font-semibold uppercase tracking-[.09em] px-2.5 py-1">' + s.monthLabel + '</time>' +
+            (s.published ? '' :
+              '<span class="inline-flex items-center rounded-full bg-ink-100 text-ink-600 border border-ink-200 ' +
+                    'text-[12px] font-semibold uppercase tracking-[.09em] px-2.5 py-1">Not published</span>') +
+          '</span>';
+
+        /* Fixed-height logo well keeps every card on the same scan line, however
+           many partners a month has and whatever proportions their artwork is */
+        var well = '<span class="' + (big ? 'h-14' : 'h-12') + ' flex items-center justify-start gap-3.5">' +
+                     logoWell(s.partners) + '</span>';
+
+        var title = '<h3 class="font-semibold leading-snug text-ink-900 group-hover:text-accent-800 ' +
+                    (big ? 'text-[22px] sm:text-[25px]' : 'text-[18px]') + '">' + s.name + '</h3>';
+
+        /* Empty summary renders the missing-field state, never invented copy */
+        var summary = s.summary
+          ? '<p class="leading-relaxed text-ink-600 ' + (big ? 'text-[16.5px]' : 'text-[14.5px]') + '">' + s.summary + '</p>'
+          : '<p class="text-[14.5px] leading-relaxed text-ink-400 italic">No summary available right now.</p>';
+
+        var metaLine = meta.length
+          ? '<p class="mt-3 text-[13.5px] font-medium text-ink-500">' + meta.join(' · ') + '</p>' : '';
+
+        var cta =
+          '<span class="flex items-center gap-1.5 font-semibold text-accent-700 ' + (big ? 'text-[16px]' : 'text-[15px]') + '">' +
+            'Visit microsite' +
+            '<svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" viewBox="0 0 24 24" ' +
+                 'fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+              '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/>' +
+            '</svg>' +
+            '<span class="sr-only">(opens in a new tab)</span>' +
+          '</span>';
+
+        var shell = '<a href="' + href + '" target="_blank" rel="noopener noreferrer" ' +
+          'class="group h-full rounded-2xl bg-white border border-ink-200 shadow-card ' +
+          'hover:border-accent-400 hover:shadow-lift focus-visible:border-accent-600 transition ' +
+          (big ? 'block p-6 sm:p-7' : 'flex flex-col p-5') + '">';
+
+        /* The wide variant is a two-column band, not a stretched narrow card.
+           A single full-width card with a 62ch column of text left two thirds of
+           its own box empty — and because the box is bordered, the void detector
+           read that border as ink and passed it. Found by eye, not by measurement:
+           the sixth time a layout number has been the wrong kind of true. */
+        if (big) {
+          return '<li>' + shell +
+            '<span class="sm:grid sm:grid-cols-12 sm:gap-8">' +
+              '<span class="block sm:col-span-5">' + well +
+                '<span class="mt-5 block">' + chips + '</span>' +
+                '<span class="mt-2.5 block">' + title + '</span>' +
+              '</span>' +
+              '<span class="mt-4 sm:mt-0 block sm:col-span-7 sm:self-center">' +
+                summary + metaLine +
+                '<span class="mt-4 block">' + cta + '</span>' +
+              '</span>' +
+            '</span>' +
+          '</a></li>';
+        }
+
+        return '<li class="h-full">' + shell +
+          well +
+          '<span class="mt-5 block">' + chips + '</span>' +
+          '<span class="mt-2.5 block">' + title + '</span>' +
+          '<span class="mt-1.5 block">' + summary + '</span>' + metaLine +
+          '<span class="mt-auto pt-4 block">' + cta + '</span>' +
+        '</a></li>';
+      }
+
       function renderSpotlight(t){
         var section = document.querySelector('[data-spotlight]');
         var list = document.querySelector('[data-spotlight-list]');
         if (!section || !list) return;
-        var items = t.spotlight || [];
+        /* The homepage band shows only what is publicly published — the API carries
+           unpublished future months, and a band on the homepage is not the place to
+           leak one. Newest three; the full set lives on the index. */
+        var items = (t.spotlight || []).filter(function(s){ return s.published; }).slice(0, 3);
         /* Reusable means it disappears cleanly when there is nothing to show */
         if (!items.length) { section.hidden = true; list.innerHTML = ''; return; }
         section.hidden = false;
 
-        list.innerHTML = items.map(function(s){
-          /* Microsites live at {slug}.{community hostname}, e.g.
-             vanderbilt.oneamyloidosisvoice.com — so a new month needs a slug, not a URL.
-             An explicit `microsite` still wins if one ever sits off-pattern. */
-          var href = s.microsite || ('https://' + s.slug + '.' + t.hostname + '/');
-          return '' +
-          '<li>' +
-            '<a href="' + href + '" target="_blank" rel="noopener noreferrer" ' +
-               'class="group h-full flex flex-col rounded-2xl bg-white border border-ink-200 p-5 shadow-card ' +
-               'hover:border-accent-400 hover:shadow-lift focus-visible:border-accent-600 transition">' +
-              /* Fixed-height logo well keeps every card on the same scan line, however */
-              /* many partners a month has and whatever proportions their artwork is */
-              '<span class="h-12 flex items-center justify-start gap-3.5">' + logoWell(s.partners) + '</span>' +
-              '<span class="mt-5 inline-flex self-start items-center rounded-full bg-accent-50 text-accent-800 ' +
-                    'text-[12px] font-semibold uppercase tracking-[.09em] px-2.5 py-1">' + s.month + '</span>' +
-              '<h3 class="mt-2.5 text-[18px] font-semibold leading-snug text-ink-900 group-hover:text-accent-800">' +
-                s.name + '</h3>' +
-              '<p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">' + s.blurb + '</p>' +
-              '<span class="mt-auto pt-4 flex items-center gap-1.5 text-[15px] font-semibold text-accent-700">' +
-                'Visit microsite' +
-                '<svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" viewBox="0 0 24 24" ' +
-                     'fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-                  '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/>' +
-                '</svg>' +
-                '<span class="sr-only">(opens in a new tab)</span>' +
-              '</span>' +
-            '</a>' +
-          '</li>';
-        }).join('');
+        list.innerHTML = items.map(function(s){ return spotlightCard(s, t); }).join('');
 
         resolveLogos(list);
       }
@@ -919,6 +1027,12 @@
          directory builds its rows in onTenant, i.e. after the kit's own pass) need
          to run the resolver over the markup they just produced. */
       CFG.resolveLogos = resolveLogos;
+
+      /* The Spotlight Series index renders the same card in three places (featured,
+         coming next, archive). Exported rather than copied so there is exactly one
+         card in the system. */
+      CFG.spotlightCard  = spotlightCard;
+      CFG.micrositeHref  = micrositeHref;
 
       /* ---------------- Main navigation ----------------
          Rendered from MENU for both the desktop bar and the menu sheet, so the two

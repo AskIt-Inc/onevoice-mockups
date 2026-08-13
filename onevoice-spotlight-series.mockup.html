@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" data-tenant="amyloidosis" data-notes="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Amyloidosis Program Spotlight Series | oneVoice</title>
+<script>
+/* ---------------------------------------------------------------------------
+   Prompt 13 — Spotlight Series index.  Route /spotlight-series.
+
+   Route, not /spotlight: `/spotlight` already 301s to `/news/spotlight` on the
+   live site, which is a taxonomy listing of ~50 news articles tagged Spotlight.
+   Taking either URL would displace those listings, against the 2026-08-11
+   "the URLs do not change" decision. Client chose /spotlight-series 2026-08-13.
+
+   Data: the STTT Spotlight microsite API is the only content authority —
+     GET /api/spotlight/microsite/series?partner={tid}   (404 = no program)
+     GET /api/spotlight/microsite/profiles|sessions|team?partner={tid}&base64=no
+   The program registry lives in the kit's tenant layer in the API's own shape
+   (month / month_label / published / series id), so the production port is a
+   fetch rather than a re-model. Measured 2026-08-13; see
+   internal-pages/13-spotlight-index.md §2 for the full sweep and its defects.
+
+   Three of the six amyloidosis programs are live microsites with NO Series
+   record — the API 404s for their partner TIDs. The page says so rather than
+   presenting a complete-looking archive. Notice goes when the backfill lands.
+
+   ?preview=1 reveals unpublished programs behind an internal banner, the same
+   way ?empty=1 works on the expert profile.
+   --------------------------------------------------------------------------- */
+window.OV = {
+  /* Spotlight sits under News in the mega menu, so News is the active section. */
+  nav: 'news',
+  crumbs: [{ label: 'News', href: 'onevoice-news.mockup.html' }, { label: 'Spotlight Series' }],
+
+  /* The month the page treats as "now". In production this is the server clock;
+     here it is explicit so a screenshot taken next month still demonstrates the
+     same three buckets, and so the n=0 / n=1 / n=2 featured cases are testable
+     with ?month=2026-10 rather than by waiting. */
+  currentMonth: '2026-08'
+};
+</script>
+<script src="assets/ov-kit.js"></script>
+</head>
+<body>
+
+<main id="main">
+
+  <!-- ============ HEADER — two-column band (prompt 15).
+       Left: H1, intro, the honest counts. Right: how a program is selected —
+       three criteria plus the become-a-partner link, so the band carries a
+       crawlable internal link rather than half a screen of nothing. ============ -->
+  <section class="relative bg-gradient-to-b from-accent-50 to-white" aria-labelledby="ss-h1">
+    <span class="spec" style="top:10px;right:10px">H1 “{Indication} Program Spotlight Series” · CollectionPage · route /spotlight-series</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-7">
+        <h1 id="ss-h1" class="font-display text-[30px] sm:text-[38px] lg:text-[46px] font-semibold leading-[1.12] tracking-[-.02em] text-ink-900">
+          <span data-t="name">Amyloidosis</span> Program Spotlight Series</h1>
+        <p class="mt-4 text-[17px] lg:text-lg leading-relaxed text-ink-600">
+          Each month we feature one clinical program working in
+          <span data-t="nameLower">amyloidosis</span> and give it a microsite of its own: the team,
+          how they run the clinic, the trials they are part of, and live sessions you can join and
+          ask questions in. Every program below is still there to visit after its month ends.
+        </p>
+        <p class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[14.5px] text-ink-500" data-ss-counts></p>
+      </div>
+
+      <div class="mt-8 lg:mt-0 lg:col-span-4 lg:col-start-9">
+        <div class="rounded-2xl bg-white border border-ink-200 shadow-card p-5">
+          <h2 class="text-[15px] font-semibold text-ink-900">How a program is selected</h2>
+          <ul class="mt-3 space-y-3 text-[14.5px] leading-relaxed text-ink-600">
+            <!-- The sentence is one flex item. Left as bare text with an inline
+                 [data-t] span, the span becomes a sibling flex item and the
+                 sentence renders as three shuffled columns — which is exactly how
+                 it shipped to the first screenshot. -->
+            <li class="flex gap-2.5">
+              <svg class="w-[18px] h-[18px] mt-[3px] shrink-0 text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+              <span>A multidisciplinary team that treats <span data-t="nameLower">amyloidosis</span>
+              as its own specialty rather than as an occasional referral.</span>
+            </li>
+            <li class="flex gap-2.5">
+              <svg class="w-[18px] h-[18px] mt-[3px] shrink-0 text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+              <span>Clinicians willing to answer patient questions live, on the record, in open sessions.</span>
+            </li>
+            <li class="flex gap-2.5">
+              <svg class="w-[18px] h-[18px] mt-[3px] shrink-0 text-accent-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+              <span>Active research or trial participation, so the program can say what is coming as
+              well as what is available now.</span>
+            </li>
+          </ul>
+          <p class="mt-4 pt-4 border-t border-ink-100 text-[14.5px] text-ink-600">
+            Programs are not paid placements and funders have no say in who is featured.
+            <a href="#become" class="text-accent-700 font-medium underline underline-offset-2 hover:text-accent-800">Become a spotlight partner</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Internal preview banner — only with ?preview=1 -->
+  <div hidden data-ss-preview-banner class="bg-ink-900 text-white">
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px]">
+      <span class="inline-flex items-center rounded-full bg-white/15 px-2.5 py-0.5 text-[12px] font-semibold uppercase tracking-[.09em]">Internal preview</span>
+      <span>Unpublished programs are visible on this page. They are not on the public version.</span>
+      <a href="?" class="underline underline-offset-2 font-medium">Leave preview</a>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+
+    <!-- Provenance. Three of six programs have no Series record in the authoritative
+         store; a precise-looking archive invites a reviewer to read it as complete.
+         Same reasoning as the experts directory's placeholder notice. Delete when
+         the backfill lands. -->
+    <div hidden data-ss-provenance class="mt-8 rounded-xl border border-ink-200 bg-ink-50 p-4 flex gap-3">
+      <svg class="w-[18px] h-[18px] mt-[2px] shrink-0 text-ink-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <p class="text-[14px] leading-relaxed text-ink-600" data-ss-provenance-text></p>
+    </div>
+
+    <!-- ============ FEATURED — the current month.
+         A list, not a single record: two Series already share October 2026, so
+         "one program per month" is an assumption the data has outgrown. Renders
+         one wide card at n=1, a two-up at n=2, the standard grid above that, and
+         falls back to the newest published program (labelled "Most recent",
+         never "current") when the month has none. ============ -->
+    <section class="mt-8 lg:mt-10" aria-labelledby="ss-now-h" data-ss-now-section>
+      <span class="spec" style="top:-4px;right:10px">Featured slot takes n current programs · never labelled “this month” when it is not</span>
+      <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <h2 id="ss-now-h" class="font-display text-[24px] sm:text-[28px] font-semibold tracking-[-.015em] text-ink-900"
+            data-ss-now-h>This month</h2>
+        <p class="text-[14.5px] text-ink-500" data-ss-now-sub></p>
+      </div>
+      <ul class="mt-5 grid gap-4" data-ss-now></ul>
+    </section>
+
+    <!-- ============ COMING NEXT — published future months.
+         Real: Mayo Clinic is published for September while August is current. ============ -->
+    <section hidden class="mt-10 lg:mt-12" aria-labelledby="ss-next-h" data-ss-next-section>
+      <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <h2 id="ss-next-h" class="font-display text-[24px] sm:text-[28px] font-semibold tracking-[-.015em] text-ink-900">Coming next</h2>
+        <p class="text-[14.5px] text-ink-500">Announced, with its microsite already open.</p>
+      </div>
+      <ul class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-ss-next></ul>
+    </section>
+
+    <!-- ============ ARCHIVE — grouped by year, newest first.
+         Cards are the homepage card, literally: OV.spotlightCard. No filter until
+         the archive passes ~12 entries — a control with two things to choose
+         between is furniture. ============ -->
+    <section hidden class="mt-10 lg:mt-12" aria-labelledby="ss-arch-h" data-ss-archive-section>
+      <span class="spec" style="top:-4px;right:10px">Homepage spotlight card reused unchanged · month is machine-readable &lt;time&gt;</span>
+      <h2 id="ss-arch-h" class="font-display text-[24px] sm:text-[28px] font-semibold tracking-[-.015em] text-ink-900">Previously featured</h2>
+      <div class="mt-5 space-y-8" data-ss-archive></div>
+    </section>
+
+    <!-- ============ EMPTY STATE — SCD, PH and MG have no programs at all.
+         Three of four communities land here, so it is a designed page and not a
+         shrug: what the series is, what a program gets, and the way in. ============ -->
+    <section hidden class="mt-8 lg:mt-10" aria-labelledby="ss-empty-h" data-ss-empty>
+      <span class="spec" style="top:-4px;right:10px">Designed empty state · no Series record exists for this community</span>
+      <div class="rounded-2xl border border-ink-200 bg-white shadow-card p-6 sm:p-8 lg:grid lg:grid-cols-12 lg:gap-10">
+        <div class="lg:col-span-7">
+          <h2 id="ss-empty-h" class="font-display text-[24px] sm:text-[28px] font-semibold tracking-[-.015em] text-ink-900">
+            No <span data-t="nameLower">sickle cell disease</span> program is featured yet</h2>
+          <p class="mt-3 text-[16.5px] leading-relaxed text-ink-600 max-w-[62ch]">
+            The Spotlight Series runs where there is a clinical program willing to open its team,
+            its clinic and its trial work to the community for a month. We have not featured a
+            <span data-t="nameLower">sickle cell disease</span> program yet — and the fastest way
+            for that to change is a suggestion from someone who is treated by one.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href="#become" class="inline-flex items-center min-h-[44px] px-5 rounded-full bg-accent-700 text-white text-[15px] font-semibold hover:bg-accent-800">
+              Suggest a program</a>
+            <a href="onevoice-experts.mockup.html" class="inline-flex items-center min-h-[44px] px-5 rounded-full border border-ink-300 text-ink-800 text-[15px] font-semibold hover:border-accent-400 hover:text-accent-800">
+              Find a specialist or center</a>
+          </div>
+        </div>
+        <div class="mt-7 lg:mt-0 lg:col-span-5">
+          <p class="text-[12.5px] font-semibold uppercase tracking-[.12em] text-ink-400">What a featured month includes</p>
+          <ul class="mt-3 space-y-2.5 text-[14.5px] leading-relaxed text-ink-600">
+            <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>A microsite for the program, open permanently after the month ends.</li>
+            <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>The team, by name and role, with what each of them actually does.</li>
+            <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>Live sessions, with questions taken from the community.</li>
+            <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>The trials the program is running, linked to the registry record.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BECOME A PARTNER — foot panel.
+         Institutional email only: no telephone number for any individual
+         (21-NEXT-SESSION §0.2), no named person, and no promise about what
+         happens to a message that the product does not implement (prompt 20). ============ -->
+    <section id="become" class="mt-10 lg:mt-12 mb-12 lg:mb-16 scroll-mt-24" aria-labelledby="ss-become-h">
+      <span class="spec" style="top:-4px;right:10px">Institutional email · no phone number · no promise the product cannot keep</span>
+      <div class="rounded-2xl bg-ink-900 text-white p-6 sm:p-8 lg:grid lg:grid-cols-12 lg:gap-10 lg:items-center">
+        <div class="lg:col-span-7">
+          <h2 id="ss-become-h" class="font-display text-[24px] sm:text-[28px] font-semibold tracking-[-.015em]">
+            Become a spotlight partner</h2>
+          <p class="mt-3 text-[16px] leading-relaxed text-white/80 max-w-[62ch]">
+            If you run a <span data-t="nameLower">amyloidosis</span> program and want a month, tell us
+            about the team and what you would want to cover in your sessions. Patients and family
+            members are welcome to suggest a program too — say which one and why.
+          </p>
+        </div>
+        <div class="mt-6 lg:mt-0 lg:col-span-5">
+          <p class="text-[12.5px] font-semibold uppercase tracking-[.12em] text-white/50">Get in touch</p>
+          <a class="mt-2 inline-flex items-center gap-2 text-[17px] font-semibold underline underline-offset-4 decoration-white/40 hover:decoration-white"
+             href="mailto:spotlight@somebodytotalkto.com">
+            <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            spotlight@somebodytotalkto.com
+          </a>
+          <p class="mt-3 text-[13.5px] leading-relaxed text-white/60">
+            Your message goes to the oneVoice programs team. We reply to the address you write from,
+            and we do not add it to the newsletter unless you ask.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+(function(){
+  var q = new URLSearchParams(location.search);
+  var PREVIEW = q.get('preview') === '1';
+  /* ?month= overrides "now" so the n=0 / n=1 / n=2 featured cases are testable */
+  var NOW = q.get('month') || window.OV.currentMonth;
+
+  function el(sel){ return document.querySelector(sel); }
+  /* A three-column grid holding one card leaves two thirds of the row empty, which
+     is prompt 15's cause 1 in miniature — and the detector caught it at 1440 and
+     1920 on the first run. Every card row is therefore sized to its own count, and
+     a lone card takes the wide variant so a full-width row reads as deliberate. */
+  function gridFor(n){
+    return 'grid gap-4' + (n <= 1 ? '' : n === 2 ? ' sm:grid-cols-2' : ' sm:grid-cols-2 lg:grid-cols-3');
+  }
+  function cardsFor(list, t){
+    return list.map(function(s){
+      return window.OV.spotlightCard(s, t, list.length === 1 ? 'lg' : null);
+    }).join('');
+  }
+  function monthLabel(m){
+    var names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var p = String(m).split('-');
+    return names[+p[1] - 1] + ' ' + p[0];
+  }
+
+  window.OV.onTenant = function(t, slug){
+    var all = t.spotlight || [];
+    /* published:false never renders publicly. Two of the three Series records are
+       unpublished right now, so this is the live case, not a hypothetical. */
+    var items = all.filter(function(s){ return PREVIEW || s.published; });
+
+    el('[data-ss-preview-banner]').hidden = !PREVIEW;
+
+    var now     = items.filter(function(s){ return s.month === NOW; });
+    var future  = items.filter(function(s){ return s.month > NOW; });
+    var past    = items.filter(function(s){ return s.month < NOW; });
+
+    /* No program this month: feature the newest published one and say what it is.
+       A past month labelled "This month" is a lie the layout would tell for free. */
+    var featured = now, heading = 'This month', sub = monthLabel(NOW);
+    if (!featured.length && past.length) {
+      featured = [past[0]]; heading = 'Most recent'; sub = 'No program is running this month.';
+      past = past.slice(1);
+    }
+
+    /* ---- counts, all of them real ----
+       Counted over `items`, the set actually on the page. Deriving the count from
+       the visible set and the date range from the full set would publish the
+       existence of an unpublished October to anyone reading the header. */
+    var pub    = all.filter(function(s){ return s.published; }).length;
+    var counts = el('[data-ss-counts]');
+    counts.innerHTML = items.length
+      ? '<span><strong class="font-semibold text-ink-800 tabular-nums">' + items.length +
+          '</strong> programs</span>' +
+        '<span class="hidden sm:inline" aria-hidden="true">·</span>' +
+        '<span>' + monthLabel(items[items.length - 1].month) + ' – ' + monthLabel(items[0].month) + '</span>' +
+        (PREVIEW && all.length !== pub
+          ? '<span class="hidden sm:inline" aria-hidden="true">·</span>' +
+            '<span class="text-ink-600">' + (all.length - pub) + ' not yet published</span>'
+          : '')
+      : '';
+
+    /* ---- provenance ---- */
+    var missing = all.filter(function(s){ return !s.apiSeries; });
+    var prov = el('[data-ss-provenance]');
+    prov.hidden = !missing.length;
+    if (missing.length) {
+      el('[data-ss-provenance-text]').innerHTML =
+        '<strong class="font-semibold text-ink-800">' + missing.length + ' of ' + all.length +
+        ' programs have no record in the Spotlight API.</strong> ' +
+        missing.map(function(s){ return s.monthLabel; }).join(', ') +
+        ' are live as microsites, but <code class="text-[13px]">/series?partner={tid}</code> returns 404 for them, so their ' +
+        'month and title here came from the microsite build rather than the content store. ' +
+        'They need Series records backfilling; this notice goes when they land.';
+    }
+
+    /* ---- render ---- */
+    var nowUl = el('[data-ss-now]');
+    el('[data-ss-now-h]').textContent   = heading;
+    el('[data-ss-now-sub]').textContent = featured.length ? sub : '';
+    el('[data-ss-now-section]').hidden  = !featured.length;
+    /* One wide card, a two-up, then the standard grid — the slot must not assume one */
+    nowUl.className = 'mt-5 ' + gridFor(featured.length);
+    nowUl.innerHTML = cardsFor(featured, t);
+
+    el('[data-ss-next-section]').hidden = !future.length;
+    var nextUl = el('[data-ss-next]');
+    nextUl.className = 'mt-5 ' + gridFor(future.length);
+    nextUl.innerHTML = cardsFor(future, t);
+
+    /* Archive grouped by year, newest first */
+    var years = [], byYear = {};
+    past.forEach(function(s){
+      var y = s.month.slice(0, 4);
+      if (!byYear[y]) { byYear[y] = []; years.push(y); }
+      byYear[y].push(s);
+    });
+    el('[data-ss-archive-section]').hidden = !past.length;
+    el('[data-ss-archive]').innerHTML = years.map(function(y){
+      /* The year is a group label, not a heading: the card title is an h3 in every
+         other slot on this page and on the homepage, and a year heading above it
+         would either outrank it inconsistently or force a second card variant. */
+      return '<div role="group" aria-label="Programs featured in ' + y + '">' +
+        '<p aria-hidden="true" class="text-[13px] font-semibold uppercase tracking-[.12em] text-ink-500">' + y + '</p>' +
+        '<ul class="mt-3 ' + gridFor(byYear[y].length) + '">' + cardsFor(byYear[y], t) + '</ul></div>';
+    }).join('');
+
+    el('[data-ss-empty]').hidden = !!all.length;
+
+    /* The kit inserts artwork on img.onload, so anything built here has to be
+       handed back to the resolver — the kit's own pass ran before this. */
+    window.OV.resolveLogos(document);
+  };
+})();
+</script>
+
+</body>
+</html>

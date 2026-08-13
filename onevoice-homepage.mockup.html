@@ -149,20 +149,27 @@
                      {tid:12353, name:'Amyloidosis Support Groups'},
                      {tid:12352, name:'Amyloidosis Army'}],
         hcp:'Filter 42 open studies by phase and site, download the 2026 diagnostic pathway, or refer a patient to a specialist center.',
-        /* Spotlight Series — partner programmes featured month by month.
-           Newest first. `partners` are keys resolved against the STTT logo API,
-           never hardcoded image URLs. A community with no series renders nothing. */
+        /* Spotlight Series — partner programs featured month by month, newest
+           first. `partners` are keys resolved against the STTT logo API, never
+           hardcoded image URLs. A community with no series renders nothing.
+
+           The three newest PUBLISHED programs. Measured against the authoritative
+           store 2026-08-13 — GET /api/spotlight/microsite/series?partner={tid} —
+           along with two further programs that are not yet published and so do not
+           belong on a homepage. Full set, provenance and the API gaps are on the
+           index: internal-pages/13-spotlight-index.md §2.
+           Summaries are each program's own published microsite copy; the blurbs
+           that were here before were written for the mockup. */
         spotlight:[
+          {month:'September 2026', name:'Mayo Clinic Amyloidosis Program',
+           blurb:'Investigators here helped define key amyloidosis subtypes and the treatment recommendations for AL amyloidosis.',
+           partners:[{tid:13455, name:'Mayo Clinic'}], slug:'mayo'},
           {month:'August 2026', name:'Vanderbilt Amyloidosis Multidisciplinary Program',
-           blurb:'Meet the multidisciplinary team and watch the recorded sessions.',
+           blurb:'A pivotal global study site for ATTR-ACT, APOLLO-B and CARDIO-TTRansform, and a contributor to the THAOS registry.',
            partners:[{tid:12351, name:'Vanderbilt Health'}], slug:'vanderbilt'},
           {month:'July 2026', name:'City of Hope Amyloidosis Program',
-           blurb:'Meet the program team, explore its sessions and patient resources.',
-           partners:[{tid:12759, name:'City of Hope'}], slug:'cityofhope'},
-          {month:'June 2026', name:'University of Chicago & Endeavor Health',
-           blurb:'Two partner centers, one shared spotlight — sessions from both teams.',
-           partners:[{tid:12758, name:'University of Chicago'},
-                     {tid:12761, name:'Endeavor Health'}], slug:'uchicago'}
+           blurb:'A founding member of the National Comprehensive Cancer Network, helping define national treatment standards.',
+           partners:[{tid:12759, name:'City of Hope'}], slug:'cityofhope'}
         ],
         news:[
           {k:'Research', d:'2026-07-28', dl:'28 Jul 2026', t:'ATTR-CM trial reports 30% fewer hospitalizations at 30 months'},
@@ -362,7 +369,7 @@
                    TENANTS[s].name + '</a></li>';
           }).join('') +
           '<li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border ' +
-          'border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Haemophilia</a></li>' +
+          'border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Hemophilia</a></li>' +
           '<li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-ink-900 text-white ' +
           'text-[14px] font-medium hover:bg-ink-800">All 100+ →</a></li>';
         }
@@ -1024,6 +1031,17 @@
           Visit a featured microsite to meet the program, explore its sessions, and access its resources.</p>
 
         <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-spotlight-list></ul>
+
+        <!-- The band shows the three newest; the archive and the current month live on
+             the index. Route is /spotlight-series, not /spotlight — that one already
+             301s to a news taxonomy listing. See internal-pages/13-spotlight-index.md §1.1 -->
+        <p class="mt-5">
+          <a href="onevoice-spotlight-series.mockup.html"
+             class="inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:text-accent-800">
+            See every featured program
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+        </p>
       </div>
     </section>
 
@@ -1251,7 +1269,7 @@
             <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Sickle Cell Disease</a></li>
             <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Pulmonary Hypertension</a></li>
             <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Myasthenia Gravis</a></li>
-            <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Haemophilia</a></li>
+            <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">Hemophilia</a></li>
             <li><a href="#" class="inline-flex items-center min-h-[36px] px-3 rounded-full bg-ink-900 text-white text-[14px] font-medium hover:bg-ink-800">All 100+ →</a></li>
           </ul>
         </div>
