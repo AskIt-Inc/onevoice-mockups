@@ -1014,11 +1014,21 @@
                up front, so swapping the name plate for artwork costs no layout shift */
             if (logo.width)  img.width  = logo.width;
             if (logo.height) img.height = logo.height;
-            img.loading = 'lazy';
+            /* NOT loading="lazy". The image is built detached and only enters the
+               document in onload, and a detached lazy image has no position for the
+               viewport heuristic to test — so it may load, or may never load, with
+               nothing on the page able to change the outcome. Scrolling cannot help
+               an element that is not in the document. That is why partner logos
+               resolved on some published loads and not others: measured on the live
+               build 2026-08-13, 0 of 5 on two runs and 5 of 5 on a third, same URL.
+               These are at most seven small logos; eager and swap-on-load is right. */
+            img.loading = 'eager';
             img.decoding = 'async';
             img.alt = logo.alt || slot.querySelector('[data-logo-fallback]').textContent.trim();
             img.className = slot.getAttribute('data-cap') + ' w-auto h-auto object-contain';
             img.onload = function(){ slot.textContent = ''; slot.appendChild(img); };
+            /* A failed fetch leaves the neutral name plate. Never a broken image. */
+            img.onerror = function(){ img.onload = null; };
           });
         });
       }
