@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en" data-tenant="amyloidosis" data-notes="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>SPECULATIVE — Amyloidosis stories from our community | oneVoice</title>
+<script>
+/* ===========================================================================
+   ⚠ SPECULATIVE — NOT APPROVED WORK, NOT IN THE REVIEW INDEX
+
+   Prompt 07 — Community stories listing. Route /community.
+
+   This page is blocked on two client decisions that were asked on 2026-08-17 and
+   not answered (00-SPEC.md §3, decisions 1 and 4). Per 21-NEXT-SESSION.md §2.3 it
+   is built, labelled speculative on the page, and deliberately NOT linked from
+   index.html. Reachable by direct URL only.
+
+     Decision 1 — merge `video` + `video_visuals` into `community_center`?
+       Built as: frontend union, medium as a derived facet.
+       Alternative viewable at ?merge=0 (separate sources, no medium facet).
+
+     Decision 4 — do social posts become embeds?
+       Built as: native render, quoted with attribution, zero third-party requests.
+       Alternative viewable at ?embeds=1 (click-to-load embed cards).
+
+   Source: `community_center` (205 published, 143 OAV) + `video` (7) +
+   `video_visuals` (10) = 17 union nodes, NOT 33. 33 is the URL count in
+   00-SPEC.md §3b. See internal-pages/07-stories-listing.md §0.1.
+
+   Standing rules enforced here — see 21-NEXT-SESSION.md §0 and §4:
+     · US only: city + two-letter state, state facet, US English.
+     · No telephone number for any contributor, anywhere.
+     · NO portraits of named individuals. Identity is initials in an accent tile,
+       which is also the production fallback. A video poster frame of a named
+       contributor IS a portrait, so there are no posters on this page — this
+       overrides the original brief. 07 §3.1 records why.
+     · Video is poster-only until clicked, captions required, transcript expandable.
+     · Consent is per-field: an anonymous story shows no name AND no face.
+   =========================================================================== */
+window.OV = {
+  nav: 'community',
+  crumbs: [{ label: 'Community' }],
+
+  /* Every storyteller below is FICTIONAL, and the page says so in a visible
+     notice. No real community_center node was available. Attributing an invented
+     patient story to a real named person would be a false claim about them —
+     the same reasoning that governs the experts directory.
+
+     `src` names the content type each record would come from. It is rendered on
+     each card when `specs` annotations are on, so the client can see precisely
+     what decision 1 merges.
+
+     `name:null` means consent for the name was NOT given → Anonymous, and the
+     identity tile carries no initials, because initials identify.
+     `dur` only exists on timed media. `transcript` only where one really exists.
+
+     COUNTS. `ccTotal` is the number of `community_center` records in this
+     community. Only the Amyloidosis figure (143) has a documented source —
+     PROJECT_OVERVIEW.md via 00-SPEC.md §2. The other three are NOT measured and
+     the page says so, for the same reason the experts directory says it about its
+     per-community totals: the real split is unknowable until the 541 nodes with
+     no `field_domain_source` are fixed (21-NEXT-SESSION.md §2.1).
+
+     `mediaNodes` is 17 SITE-WIDE — 7 `video` + 10 `video_visuals` across every
+     community. It is deliberately not divided between communities, because that
+     division is exactly what is not knowable yet. Under the merged view the page
+     therefore shows the community-record count and names the 17 separately,
+     rather than adding an invented per-community share to a real number. */
+  mediaNodes: 17,
+
+  stories: {
+    amyloidosis: {
+      ccTotal: 143, ccMeasured: true,
+      rows: [
+        { slug:'marta', src:'community_center', medium:'video', who:'patient', feat:true,
+          name:'Marta R.', initials:'MR', situation:'Living with ATTR-CM since 2019',
+          city:'Nashville', st:'TN', cat:'Diagnosis journey', tags:['ATTR-CM','misdiagnosis','cardiology'],
+          dur:'8:24', captions:true, transcript:true, d:'2026-07-24', dl:'24 Jul 2026',
+          quote:'It took four years and six doctors to get my diagnosis. I want the next person to find it in four weeks.' },
+
+        { slug:'ken', src:'community_center', medium:'written', who:'patient',
+          name:'Ken A.', initials:'KA', situation:'Living with AL amyloidosis since 2022',
+          city:'Boston', st:'MA', cat:'Treatment', tags:['AL amyloidosis','chemotherapy','hematology'],
+          read:'7 min', d:'2026-07-17', dl:'17 Jul 2026',
+          quote:'I kept a one-page summary of every cycle. My hematologist now gives it to new patients.' },
+
+        { slug:'anon', src:'community_center', medium:'written', who:'patient',
+          name:null, initials:null, situation:'Living with hereditary ATTR',
+          city:null, st:'CA', cat:'Family & genetics', tags:['genetic testing','family screening'],
+          read:'5 min', d:'2026-07-10', dl:'10 Jul 2026',
+          quote:'I have not told my brothers yet. Writing this down was the first step to telling them.' },
+
+        { slug:'deborah', src:'community_center', medium:'audio', who:'carer',
+          name:'Deborah W.', initials:'DW', situation:'Caring for her husband, diagnosed 2021',
+          city:'Chicago', st:'IL', cat:'Caregiving', tags:['caregiving','appointments'],
+          dur:'22:10', captions:true, transcript:true, d:'2026-07-03', dl:'3 Jul 2026',
+          quote:'Nobody hands the carer a plan. We built ours out of index cards and stubbornness.' },
+
+        { slug:'ray', src:'video', medium:'video', who:'patient',
+          name:'Ray T.', initials:'RT', situation:'Living with ATTR-CM since 2017',
+          city:'Houston', st:'TX', cat:'Living well', tags:['exercise','pacing','ATTR-CM'],
+          dur:'5:47', captions:true, transcript:true, d:'2026-06-26', dl:'26 Jun 2026',
+          quote:'The cardiologist said walk. She did not say how far, so I worked it out one mailbox at a time.' },
+
+        { slug:'joanne', src:'community_center', medium:'social', who:'family',
+          name:'Joanne P.', initials:'JP', situation:'Daughter of a patient diagnosed 2020',
+          city:'Rochester', st:'MN', cat:'Family & genetics', tags:['family screening','advocacy'],
+          net:'Instagram', handle:'@joanne.p', d:'2026-06-19', dl:'19 Jun 2026',
+          quote:'Three generations, one gene, and a family group chat that finally talks about it.' },
+
+        { slug:'miguel', src:'community_center', medium:'written', who:'patient',
+          name:'Miguel S.', initials:'MS', situation:'Living with AL amyloidosis since 2023',
+          city:'Phoenix', st:'AZ', cat:'Work & money', tags:['insurance','employment','copay'],
+          read:'9 min', d:'2026-06-12', dl:'12 Jun 2026',
+          quote:'The appeal letter that finally worked was four sentences long. Here it is.' },
+
+        { slug:'brenda', src:'video_visuals', medium:'video', who:'patient',
+          name:'Brenda O.', initials:'BO', situation:'Living with ATTR-PN since 2018',
+          city:'Atlanta', st:'GA', cat:'Diagnosis journey', tags:['ATTR-PN','neurology','misdiagnosis'],
+          dur:'11:02', captions:true, transcript:false, d:'2026-06-05', dl:'5 Jun 2026',
+          quote:'Two neurologists called it idiopathic. The third one asked about my grandmother.' },
+
+        { slug:'anon-carer', src:'community_center', medium:'audio', who:'carer',
+          name:null, initials:null, situation:'Caring for a parent',
+          city:null, st:'OR', cat:'Caregiving', tags:['caregiving','end of life'],
+          dur:'14:38', captions:true, transcript:true, d:'2026-05-29', dl:'29 May 2026',
+          quote:'I recorded this because I could not have said it to a room.' },
+
+        { slug:'walter', src:'community_center', medium:'written', who:'patient',
+          name:'Walter H.', initials:'WH', situation:'Living with ATTR-CM since 2015',
+          city:'Miami', st:'FL', cat:'Living well', tags:['travel','pacing','diet'],
+          read:'6 min', d:'2026-05-22', dl:'22 May 2026',
+          quote:'Eleven years in. I plan trips around bathrooms and benches, and I still go.' }
+      ]
+    },
+
+    scd: {
+      ccTotal: 167, ccMeasured: false,
+      rows: [
+        { slug:'daniel', src:'community_center', medium:'video', who:'patient', feat:true,
+          name:'Daniel A.', initials:'DA', situation:'Living with HbSS since birth',
+          city:'Atlanta', st:'GA', cat:'Treatment', tags:['HbSS','pain crisis','emergency care'],
+          dur:'9:15', captions:true, transcript:true, d:'2026-07-25', dl:'25 Jul 2026',
+          quote:'For eleven years I was told my pain was exaggerated. Now I bring a written care plan to every visit.' },
+
+        { slug:'tasha', src:'community_center', medium:'written', who:'patient',
+          name:'Tasha M.', initials:'TM', situation:'Living with HbSC since childhood',
+          city:'Detroit', st:'MI', cat:'Work & money', tags:['employment','accommodations'],
+          read:'8 min', d:'2026-07-18', dl:'18 Jul 2026',
+          quote:'The accommodation I asked for cost my employer nothing. It took nine months to get it.' },
+
+        { slug:'anon', src:'community_center', medium:'written', who:'patient',
+          name:null, initials:null, situation:'Living with sickle cell disease',
+          city:null, st:'MD', cat:'Treatment', tags:['gene therapy','decision making'],
+          read:'6 min', d:'2026-07-11', dl:'11 Jul 2026',
+          quote:'I said no to the trial. That was also a choice about my future, and nobody writes about that one.' },
+
+        { slug:'grace', src:'community_center', medium:'audio', who:'carer',
+          name:'Grace A.', initials:'GA', situation:'Mother of a young adult with HbSS',
+          city:'Oakland', st:'CA', cat:'Caregiving', tags:['caregiving','transition','pediatric'],
+          dur:'19:44', captions:true, transcript:true, d:'2026-07-04', dl:'4 Jul 2026',
+          quote:'At eighteen the pediatric team let go of his hand, and nobody was waiting to take it.' },
+
+        { slug:'andre', src:'video', medium:'video', who:'patient',
+          name:'Andre B.', initials:'AB', situation:'Living with HbSS, post-transplant 2024',
+          city:'Memphis', st:'TN', cat:'Treatment', tags:['transplant','recovery'],
+          dur:'12:31', captions:true, transcript:true, d:'2026-06-27', dl:'27 Jun 2026',
+          quote:'Day one hundred was the first morning I woke up without doing a pain inventory.' },
+
+        { slug:'nia', src:'community_center', medium:'social', who:'patient',
+          name:'Nia F.', initials:'NF', situation:'Living with sickle beta thalassemia',
+          city:'Philadelphia', st:'PA', cat:'Living well', tags:['hydration','summer','self-advocacy'],
+          net:'Instagram', handle:'@nia.writes', d:'2026-06-20', dl:'20 Jun 2026',
+          quote:'Water bottle, heat pack, care plan, ID card. My going-out kit has not changed in six years.' },
+
+        { slug:'ray-w', src:'community_center', medium:'written', who:'family',
+          name:'Ray W.', initials:'RW', situation:'Brother of a patient, and a carrier',
+          city:'Houston', st:'TX', cat:'Family & genetics', tags:['sickle cell trait','family planning'],
+          read:'5 min', d:'2026-06-13', dl:'13 Jun 2026',
+          quote:'Carrier is not nothing. It is a conversation you have before you need to have it.' },
+
+        { slug:'imani', src:'video_visuals', medium:'video', who:'patient',
+          name:'Imani K.', initials:'IK', situation:'Living with HbSS since birth',
+          city:'Chicago', st:'IL', cat:'Diagnosis journey', tags:['newborn screening','pediatric'],
+          dur:'7:08', captions:true, transcript:false, d:'2026-06-06', dl:'6 Jun 2026',
+          quote:'My mother has kept the heel-prick letter in a drawer for twenty-six years.' },
+
+        { slug:'anon-work', src:'community_center', medium:'audio', who:'patient',
+          name:null, initials:null, situation:'Living with HbSC',
+          city:null, st:'AL', cat:'Work & money', tags:['disability','benefits'],
+          dur:'16:20', captions:true, transcript:true, d:'2026-05-30', dl:'30 May 2026',
+          quote:'I am anonymous here because my employer does not know, and that is the whole story.' },
+
+        { slug:'yvette', src:'community_center', medium:'written', who:'carer',
+          name:'Yvette D.', initials:'YD', situation:'Caring for two children with HbSS',
+          city:'New Orleans', st:'LA', cat:'Caregiving', tags:['caregiving','school','pediatric'],
+          read:'10 min', d:'2026-05-23', dl:'23 May 2026',
+          quote:'The school nurse and I wrote a plan together. It is two pages and it has prevented four admissions.' }
+      ]
+    },
+
+    ph: {
+      ccTotal: 96, ccMeasured: false,
+      rows: [
+        { slug:'aisha', src:'community_center', medium:'video', who:'patient', feat:true,
+          name:'Aisha K.', initials:'AK', situation:'Living with PAH since 2021',
+          city:'Denver', st:'CO', cat:'Diagnosis journey', tags:['PAH','misdiagnosis','asthma'],
+          dur:'7:52', captions:true, transcript:true, d:'2026-07-23', dl:'23 Jul 2026',
+          quote:'Two years of being told it was asthma. One test changed everything about my care.' },
+
+        { slug:'pete', src:'community_center', medium:'written', who:'patient',
+          name:'Pete L.', initials:'PL', situation:'Living with CTEPH since 2019',
+          city:'Cleveland', st:'OH', cat:'Treatment', tags:['CTEPH','surgery','recovery'],
+          read:'9 min', d:'2026-07-16', dl:'16 Jul 2026',
+          quote:'They told me the surgery was a cure. It was closer to a reset, and I needed to hear the difference.' },
+
+        { slug:'anon', src:'community_center', medium:'written', who:'carer',
+          name:null, initials:null, situation:'Caring for a partner with PAH',
+          city:null, st:'MA', cat:'Caregiving', tags:['caregiving','oxygen'],
+          read:'4 min', d:'2026-07-09', dl:'9 Jul 2026',
+          quote:'I learned to carry the bag without making it a thing. That took a year.' },
+
+        { slug:'rosa', src:'video', medium:'video', who:'patient',
+          name:'Rosa V.', initials:'RV', situation:'Living with PAH since 2023',
+          city:'San Diego', st:'CA', cat:'Living well', tags:['pacing','stairs','exercise'],
+          dur:'6:19', captions:true, transcript:true, d:'2026-07-02', dl:'2 Jul 2026',
+          quote:'Eleven steps, then a pause. I counted them so I would stop apologizing for the pause.' },
+
+        { slug:'howard', src:'community_center', medium:'audio', who:'patient',
+          name:'Howard N.', initials:'HN', situation:'Living with PAH since 2016',
+          city:'Minneapolis', st:'MN', cat:'Treatment', tags:['combination therapy','infusion'],
+          dur:'25:03', captions:true, transcript:true, d:'2026-06-25', dl:'25 Jun 2026',
+          quote:'Three drugs, one pump, and a schedule I could recite in my sleep. Ask me anything about the pump.' },
+
+        { slug:'kelly', src:'community_center', medium:'social', who:'family',
+          name:'Kelly R.', initials:'KR', situation:'Daughter of a patient with CTEPH',
+          city:'Dallas', st:'TX', cat:'Family & genetics', tags:['advocacy','awareness'],
+          net:'Facebook', handle:'Kelly R.', d:'2026-06-18', dl:'18 Jun 2026',
+          quote:'Dad walked the whole 5K this year. Slowly. Loudly. With a sign.' },
+
+        { slug:'ben', src:'video_visuals', medium:'video', who:'carer',
+          name:'Ben H.', initials:'BH', situation:'Partner of a patient with PAH',
+          city:'Seattle', st:'WA', cat:'Caregiving', tags:['caregiving','travel','oxygen'],
+          dur:'9:41', captions:true, transcript:false, d:'2026-06-11', dl:'11 Jun 2026',
+          quote:'Planning a flight with oxygen takes six weeks. We have done it eleven times.' },
+
+        { slug:'lorraine', src:'community_center', medium:'written', who:'patient',
+          name:'Lorraine T.', initials:'LT', situation:'Living with PAH since 2020',
+          city:'Charlotte', st:'NC', cat:'Work & money', tags:['insurance','specialty pharmacy'],
+          read:'7 min', d:'2026-06-04', dl:'4 Jun 2026',
+          quote:'The specialty pharmacy and the insurer each said it was the other one. I recorded the dates.' }
+      ]
+    },
+
+    mg: {
+      ccTotal: 88, ccMeasured: false,
+      rows: [
+        { slug:'tomas', src:'community_center', medium:'video', who:'patient', feat:true,
+          name:'Tomas L.', initials:'TL', situation:'Living with generalized MG since 2020',
+          city:'Columbus', st:'OH', cat:'Diagnosis journey', tags:['generalized MG','ptosis','neurology'],
+          dur:'8:57', captions:true, transcript:true, d:'2026-07-22', dl:'22 Jul 2026',
+          quote:'My eyelid drooped for a year before anyone joined the dots. I want that year back for someone else.' },
+
+        { slug:'harriet', src:'community_center', medium:'written', who:'patient',
+          name:'Harriet B.', initials:'HB', situation:'Living with ocular MG since 2022',
+          city:'Durham', st:'NC', cat:'Living well', tags:['ocular MG','prisms','driving'],
+          read:'6 min', d:'2026-07-15', dl:'15 Jul 2026',
+          quote:'Prisms gave me back the school run. That is the whole review.' },
+
+        { slug:'anon', src:'community_center', medium:'written', who:'patient',
+          name:null, initials:null, situation:'Living with myasthenia gravis',
+          city:null, st:'UT', cat:'Treatment', tags:['steroids','side effects'],
+          read:'5 min', d:'2026-07-08', dl:'8 Jul 2026',
+          quote:'The steroids worked and I hated them. Both things stayed true for two years.' },
+
+        { slug:'dale', src:'video', medium:'video', who:'patient',
+          name:'Dale M.', initials:'DM', situation:'Living with generalized MG since 2018',
+          city:'Kansas City', st:'MO', cat:'Treatment', tags:['thymectomy','FcRn','recovery'],
+          dur:'10:26', captions:true, transcript:true, d:'2026-07-01', dl:'1 Jul 2026',
+          quote:'Thymectomy at forty-one. The first six weeks were worse, and then they were not.' },
+
+        { slug:'annette', src:'community_center', medium:'audio', who:'carer',
+          name:'Annette C.', initials:'AC', situation:'Caring for her husband since 2019',
+          city:'Buffalo', st:'NY', cat:'Caregiving', tags:['caregiving','crisis','emergency care'],
+          dur:'21:15', captions:true, transcript:true, d:'2026-06-24', dl:'24 Jun 2026',
+          quote:'I know the warning signs better than the triage nurse does. I say so, politely, every time.' },
+
+        { slug:'piotr', src:'community_center', medium:'social', who:'family',
+          name:'Piotr L.', initials:'PL', situation:'Son of a patient with generalized MG',
+          city:'Sacramento', st:'CA', cat:'Family & genetics', tags:['family','awareness'],
+          net:'X', handle:'@piotr_l', d:'2026-06-17', dl:'17 Jun 2026',
+          quote:'Dad naps at four so he can read to me at seven. That is not weakness, that is planning.' },
+
+        { slug:'susan', src:'video_visuals', medium:'video', who:'patient',
+          name:'Susan E.', initials:'SE', situation:'Living with MuSK-antibody MG since 2021',
+          city:'Madison', st:'WI', cat:'Diagnosis journey', tags:['MuSK','antibody testing'],
+          dur:'6:44', captions:true, transcript:false, d:'2026-06-10', dl:'10 Jun 2026',
+          quote:'Seronegative for eighteen months. Then they ran the other test.' },
+
+        { slug:'gerald', src:'community_center', medium:'written', who:'patient',
+          name:'Gerald F.', initials:'GF', situation:'Living with generalized MG since 2014',
+          city:'Richmond', st:'VA', cat:'Work & money', tags:['employment','fatigue','accommodations'],
+          read:'8 min', d:'2026-06-03', dl:'3 Jun 2026',
+          quote:'I moved my hardest meetings to the morning and stopped calling it a limitation.' }
+      ]
+    }
+  }
+};
+</script>
+<script src="assets/ov-kit.js"></script>
+</head>
+<body>
+
+<main id="main">
+
+  <!-- ============ SPECULATIVE NOTICE — the reason this page is not in the index ============ -->
+  <aside class="bg-ink-900 text-ink-100" aria-labelledby="spec-h">
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-5
+                border-l-4 border-dashed border-ink-500">
+      <p id="spec-h" class="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[.14em] text-ink-300">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+        Speculative — not approved, not in the review index
+      </p>
+      <p class="mt-2.5 text-[15.5px] leading-relaxed text-ink-100 max-w-3xl">
+        This page is blocked on <strong class="font-semibold text-white">two client decisions</strong> that
+        have not been answered. It was built so the decisions can be made by looking at a page rather than
+        at a spec, and it is deliberately not linked from the review index. Nothing here is signed off.
+      </p>
+      <p class="mt-2 text-[14px] leading-relaxed text-ink-400 max-w-3xl">
+        Every storyteller below is <strong class="font-semibold text-ink-200">fictional</strong>. No real
+        community record was available, and attributing an invented story to a real person would be a false
+        claim about that person. Only the Amyloidosis record count (143) has a documented source; the other
+        three communities are marked as unmeasured rather than presented as data.
+      </p>
+    </div>
+  </aside>
+
+  <!-- ============ THE TWO OPEN DECISIONS — design-time band, switches the page ============ -->
+  <section class="border-b border-ink-200 bg-ink-50" aria-labelledby="dec-h">
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-6">
+      <h2 id="dec-h" class="text-[12px] font-semibold uppercase tracking-[.14em] text-ink-500">
+        Open decisions — switch the page to compare</h2>
+      <div class="mt-4 grid gap-4 lg:grid-cols-2">
+
+        <div class="rounded-2xl bg-white border border-ink-200 p-5">
+          <p class="text-[13px] font-semibold text-ink-500">Decision 1</p>
+          <h3 class="mt-1 text-[17px] font-semibold leading-snug text-ink-900">
+            Do <code class="text-[15px] bg-ink-100 px-1.5 py-0.5 rounded">video</code> and
+            <code class="text-[15px] bg-ink-100 px-1.5 py-0.5 rounded">video_visuals</code> merge into
+            <code class="text-[15px] bg-ink-100 px-1.5 py-0.5 rounded">community_center</code>?</h3>
+          <p class="mt-2 text-[14.5px] leading-relaxed text-ink-600">
+            17 nodes site-wide — 7 plus 10 — against <strong class="font-semibold text-ink-800" data-ov-cc>143</strong>
+            community records in this community alone. Roughly a tenth of the merged set, and the brief&rsquo;s
+            &ldquo;33&rdquo; was a URL count, not a node count. Either way the number does not decide it:
+            what decides it is whether <code class="text-[13.5px]">video_visuals</code> holds diagrams rather
+            than personal stories. Diagrams belong under Learn, not here.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2" role="group" aria-label="Decision 1 view">
+            <a href="?merge=1" data-ov-tog="merge" data-val="1"
+               class="inline-flex items-center min-h-[40px] px-4 rounded-full text-[14.5px] font-semibold border">One source, medium facet</a>
+            <a href="?merge=0" data-ov-tog="merge" data-val="0"
+               class="inline-flex items-center min-h-[40px] px-4 rounded-full text-[14.5px] font-semibold border">Two sources, separate section</a>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-white border border-ink-200 p-5">
+          <p class="text-[13px] font-semibold text-ink-500">Decision 4</p>
+          <h3 class="mt-1 text-[17px] font-semibold leading-snug text-ink-900">
+            Do social posts become embeds?</h3>
+          <p class="mt-2 text-[14.5px] leading-relaxed text-ink-600">
+            Native quoting costs no third-party request and keeps card geometry predictable. An embed is
+            a request from a page about one condition to a social network — the concern in
+            <span class="whitespace-nowrap">prompt 20</span>. Click-to-load is the middle option, and is
+            what the embed view below shows.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2" role="group" aria-label="Decision 4 view">
+            <a href="?embeds=0" data-ov-tog="embeds" data-val="0"
+               class="inline-flex items-center min-h-[40px] px-4 rounded-full text-[14.5px] font-semibold border">Native, quoted</a>
+            <a href="?embeds=1" data-ov-tog="embeds" data-val="1"
+               class="inline-flex items-center min-h-[40px] px-4 rounded-full text-[14.5px] font-semibold border">Embed, click to load</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LISTING HEADER — two-column band per 15-column-voids.md ============ -->
+  <section class="relative bg-gradient-to-b from-accent-50 to-white" aria-labelledby="st-h1">
+    <span class="spec" style="top:10px;right:10px">H1 “{Indication} stories from our community” · CollectionPage + ItemList</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-7">
+        <h1 id="st-h1" class="font-display text-[30px] sm:text-[38px] lg:text-[46px] font-semibold leading-[1.12] tracking-[-.02em] text-ink-900">
+          <span data-t="name">Amyloidosis</span> stories from our community</h1>
+        <p class="mt-4 text-[17px] lg:text-lg leading-relaxed text-ink-600">
+          First-hand accounts from people living with
+          <span data-t="nameLower">amyloidosis</span>, the people caring for them, and their families.
+          Shared on their own terms, in their own words.
+        </p>
+        <p class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[14.5px] text-ink-500">
+          <span><strong class="font-semibold text-ink-800 tabular-nums" data-ov-total>143</strong>
+                <span data-ov-total-noun>stories</span>
+                <em class="not-italic text-ink-400" data-ov-measured hidden></em></span>
+          <span class="hidden sm:inline" aria-hidden="true">·</span>
+          <span>Shared with consent</span>
+          <span class="hidden sm:inline" aria-hidden="true">·</span>
+          <span>Free, no login required</span>
+        </p>
+        <!-- The 17 video / video_visuals nodes are site-wide and NOT split per
+             community. Naming them separately is honest; folding an invented share
+             into the number above would not be. -->
+        <p class="mt-2.5 text-[13.5px] leading-relaxed text-ink-500" data-ov-media-note hidden>
+          Plus <strong class="font-semibold text-ink-700">17</strong> video and video-visual records
+          site-wide. Their split across communities is not knowable until the 541 nodes with no domain
+          source are fixed, so they are counted here rather than added to the figure above.
+        </p>
+      </div>
+
+      <!-- The right column carries the primary action, which is what stops this band
+           being a void. It is repeated at the foot, where a reader who has read the
+           grid arrives ready to act. -->
+      <div class="mt-7 lg:mt-0 lg:col-span-4 lg:col-start-9">
+        <div class="rounded-2xl bg-white/70 border border-accent-200 p-5">
+          <h2 class="font-display text-[20px] font-semibold leading-snug text-ink-900">Share your story</h2>
+          <p class="mt-2 text-[14.5px] leading-relaxed text-ink-600">
+            You choose what is published and what is not — your name, your photo, and your location are
+            three separate choices, and you can decline all three.
+          </p>
+          <a href="#share" class="mt-4 flex items-center justify-center gap-1.5 min-h-[48px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">
+            Start your story
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FILTER BAR — every control mirrored into the URL ============ -->
+  <section class="sticky top-16 lg:top-20 z-20 bg-white/95 backdrop-blur border-y border-ink-200" aria-label="Filter stories">
+    <span class="spec" style="top:8px;right:10px">?medium=&amp;category=&amp;who=&amp;state=&amp;q= — linkable and crawlable. Options derived from the record set.</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-3">
+      <form class="flex flex-wrap items-center gap-2.5" onsubmit="return false" data-ov-filters>
+        <label class="relative flex-1 min-w-[180px]">
+          <span class="sr-only">Search stories</span>
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" name="q" placeholder="Search stories" data-ov-f="q"
+                 class="w-full min-h-[46px] pl-11 pr-4 rounded-full bg-ink-50 border border-ink-200 text-[15.5px] text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
+        </label>
+        <!-- Hidden entirely under ?merge=0: with the types separate there is no medium
+             to facet on in this list. A control that cannot change the result is worse
+             than no control. -->
+        <label class="min-w-[140px]" data-ov-medium-wrap>
+          <span class="sr-only">Medium</span>
+          <select name="medium" data-ov-f="medium" class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0"></select>
+        </label>
+        <label class="min-w-[150px]">
+          <span class="sr-only">Theme</span>
+          <select name="category" data-ov-f="category" class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0"></select>
+        </label>
+        <label class="min-w-[140px]">
+          <span class="sr-only">Who it is from</span>
+          <select name="who" data-ov-f="who" class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0"></select>
+        </label>
+        <label class="min-w-[140px]">
+          <span class="sr-only">State</span>
+          <select name="state" data-ov-f="state" class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0"></select>
+        </label>
+        <button type="reset" data-ov-reset class="min-h-[46px] px-4 rounded-full text-[15px] font-semibold text-ink-600 hover:bg-ink-100">Clear</button>
+      </form>
+      <ul class="mt-2.5 flex flex-wrap gap-2 hidden" data-ov-chips></ul>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS + RAIL ============ -->
+  <section class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12" aria-label="Community stories">
+
+    <div class="lg:col-span-8">
+      <!-- Featured, page 1 unfiltered only. Two-column band, not a stretched card:
+           a single full-width card with a reading-measure column leaves two thirds
+           of its own box empty, and a bordered box fools the void detector. -->
+      <article class="relative" data-ov-feat>
+        <span class="spec" style="top:8px;right:8px">Featured on page 1 only · no poster frame — identity is initials, per 07 §3.1</span>
+      </article>
+
+      <ul class="mt-8 grid gap-5 sm:grid-cols-2" data-ov-grid></ul>
+
+      <!-- Separate-sources view (?merge=0): the video nodes get their own section
+           rather than being dropped, so "keep them separate" is a visible design
+           rather than a missing 17 records. -->
+      <section class="mt-10 hidden" data-ov-sep aria-labelledby="sep-h">
+        <div class="rounded-2xl border border-ink-200 bg-ink-50 p-5">
+          <h2 id="sep-h" class="font-display text-[22px] font-semibold text-ink-900">Videos &amp; visuals</h2>
+          <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600 max-w-2xl">
+            A separate content type, so a separate section with its own listing and its own template.
+            <span class="text-ink-500">This is what decision 1 costs: two lists, two templates, two editorial
+            workflows for <strong class="font-semibold" data-ov-sep-n>4</strong> records in this community.</span>
+          </p>
+          <ul class="mt-5 grid gap-5 sm:grid-cols-2" data-ov-sep-grid></ul>
+        </div>
+      </section>
+
+      <!-- Zero results -->
+      <div class="hidden py-14 text-center" data-ov-empty>
+        <p class="font-display text-[22px] font-semibold text-ink-900">No stories match those filters</p>
+        <p class="mt-2 text-[15.5px] text-ink-600">Try removing a filter, or browse everything.</p>
+        <button type="button" data-ov-reset class="mt-5 inline-flex items-center min-h-[48px] px-6 rounded-full bg-accent-600 text-white text-[16px] font-semibold hover:bg-accent-700">Clear all filters</button>
+      </div>
+
+      <!-- Real pager -->
+      <nav class="mt-9 flex items-center justify-between gap-3" aria-label="Pagination" data-ov-pager>
+        <span class="text-[14.5px] text-ink-500">Page <strong class="text-ink-800">1</strong> of <span class="tabular-nums" data-ov-pages>15</span></span>
+        <ul class="flex items-center gap-1.5">
+          <li><span aria-disabled="true" class="grid place-items-center w-11 h-11 rounded-full text-ink-300">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></span></li>
+          <li><a href="#" aria-current="page" class="grid place-items-center w-11 h-11 rounded-full bg-accent-600 text-white text-[15px] font-semibold">1</a></li>
+          <li><a href="#" class="grid place-items-center w-11 h-11 rounded-full text-[15px] font-medium text-ink-700 hover:bg-ink-100">2</a></li>
+          <li><a href="#" class="grid place-items-center w-11 h-11 rounded-full text-[15px] font-medium text-ink-700 hover:bg-ink-100">3</a></li>
+          <li aria-hidden="true" class="px-1 text-ink-400">…</li>
+          <li><a href="#" class="grid place-items-center w-11 h-11 rounded-full text-[15px] font-medium text-ink-700 hover:bg-ink-100 tabular-nums" data-ov-lastpage>15</a></li>
+          <li><a href="#" aria-label="Next page" class="grid place-items-center w-11 h-11 rounded-full text-ink-700 hover:bg-ink-100">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Sticky rail — shorter than its sibling, so it travels (15-column-voids.md) -->
+    <aside class="mt-10 lg:mt-0 lg:col-span-4 lg:sticky lg:top-24 lg:self-start space-y-4" aria-label="More from this community">
+      <div class="rounded-2xl border border-ink-200 bg-ink-50 p-5">
+        <h2 class="text-[17px] font-semibold text-ink-900">Browse by theme</h2>
+        <ul class="mt-3 flex flex-wrap gap-2" data-ov-themes></ul>
+      </div>
+
+      <div class="rounded-2xl border border-ink-200 p-5">
+        <h2 class="text-[17px] font-semibold text-ink-900">Talked about most</h2>
+        <ul class="mt-3 flex flex-wrap gap-2" data-ov-tags></ul>
+      </div>
+
+      <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5">
+        <h2 class="font-display text-[19px] font-semibold text-ink-900" data-t="sessionsH2">Upcoming amyloidosis sessions</h2>
+        <p class="mt-1.5 text-[14.5px] text-ink-600">Free, live, and recorded if you cannot make it.</p>
+        <a href="#" class="mt-4 flex items-center justify-center gap-1.5 min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">
+          View all sessions
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="rounded-2xl border border-ink-200 p-5">
+        <h2 class="text-[17px] font-semibold text-ink-900">Support groups near you</h2>
+        <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">
+          In-person and online groups across the US, searchable by state.
+        </p>
+        <a href="onevoice-experts.mockup.html" class="mt-3.5 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:underline">
+          Find a group →</a>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ SHARE YOUR STORY — repeated at the foot, where the reader arrives ready ============ -->
+  <section id="share" class="border-t border-ink-200 bg-ink-50" aria-labelledby="share-h">
+    <span class="spec" style="top:10px;right:10px">Consent is three separate permissions: name, image, location. Prompt 20 — never promise a practice we do not implement.</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-10 lg:py-12 lg:grid lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-7">
+        <h2 id="share-h" class="font-display text-[26px] sm:text-[32px] font-semibold leading-tight tracking-[-.015em] text-ink-900">
+          Share your story</h2>
+        <p class="mt-3 text-[16.5px] leading-relaxed text-ink-600">
+          The stories on this page exist because people decided the next person should not start from
+          nothing. You do not have to be articulate, finished, or over it.
+        </p>
+        <ul class="mt-5 space-y-3 text-[15.5px] leading-relaxed text-ink-700">
+          <li class="flex gap-3">
+            <svg class="w-5 h-5 mt-0.5 shrink-0 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            <span><strong class="font-semibold text-ink-900">Your name is a separate choice from your story.</strong>
+              Publish under your name, your first name and last initial, or anonymously.</span></li>
+          <li class="flex gap-3">
+            <svg class="w-5 h-5 mt-0.5 shrink-0 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            <span><strong class="font-semibold text-ink-900">A photograph is never required</strong>, and we do
+              not add one. Stories without a photo are shown with your initials, or with nothing at all if you
+              are anonymous.</span></li>
+          <li class="flex gap-3">
+            <svg class="w-5 h-5 mt-0.5 shrink-0 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            <span><strong class="font-semibold text-ink-900">You can change your mind.</strong> Ask us to
+              unpublish or to remove your name, and we do it — you do not have to give a reason.</span></li>
+        </ul>
+        <!-- Accurate about the one recipient, reassuring about everyone else. Prompt 20:
+             never "we do not share with anyone" when we publish the story. -->
+        <p class="mt-6 text-[14px] leading-relaxed text-ink-500 max-w-2xl border-l-2 border-ink-200 pl-4">
+          We use what you send to prepare your story for this community site and to reply to you about it.
+          We do not sell your information, share it with anyone else, or add you to any mailing list.
+          Publishing is your decision, and nothing goes live until you have seen it.
+        </p>
+      </div>
+
+      <div class="mt-8 lg:mt-0 lg:col-span-4 lg:col-start-9">
+        <div class="rounded-2xl bg-white border border-ink-200 shadow-card p-6">
+          <h3 class="text-[17px] font-semibold text-ink-900">Three ways to start</h3>
+          <ul class="mt-4 space-y-3">
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[52px] px-4 rounded-xl border border-ink-200 hover:border-accent-400 hover:bg-accent-50 group">
+              <span class="text-[15.5px] font-medium text-ink-800 group-hover:text-accent-800">Write it yourself</span>
+              <span class="text-[13px] text-ink-500">any length</span></a></li>
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[52px] px-4 rounded-xl border border-ink-200 hover:border-accent-400 hover:bg-accent-50 group">
+              <span class="text-[15.5px] font-medium text-ink-800 group-hover:text-accent-800">Talk it through with us</span>
+              <span class="text-[13px] text-ink-500">30 min call</span></a></li>
+            <li><a href="#" class="flex items-center justify-between gap-3 min-h-[52px] px-4 rounded-xl border border-ink-200 hover:border-accent-400 hover:bg-accent-50 group">
+              <span class="text-[15.5px] font-medium text-ink-800 group-hover:text-accent-800">Record a voice note</span>
+              <span class="text-[13px] text-ink-500">we transcribe it</span></a></li>
+          </ul>
+          <p class="mt-4 text-[13.5px] leading-relaxed text-ink-500">
+            Every published video and audio story carries captions and a transcript. If yours does not have
+            them yet, we make them before it goes live.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Rendering, faceting and the two decision toggles.
+
+   Filter state lives in the URL, so every result view is linkable, shareable
+   and crawlable — the listing pattern the project has used since prompt 01.
+
+   Facet options are DERIVED from the record set, so a select never offers a
+   value with zero records in the current community. That is the rule the
+   experts directory established and the reason its state filter is trustworthy.
+   --------------------------------------------------------------------------- */
+(function(){
+  var current = null;
+
+  /* Only the states these records actually use. Options are labelled with the
+     full name and valued with the USPS code, per 21-NEXT-SESSION.md §0.1. */
+  var STATES = {
+    AL:'Alabama', AZ:'Arizona', CA:'California', CO:'Colorado', FL:'Florida', GA:'Georgia',
+    IL:'Illinois', LA:'Louisiana', MA:'Massachusetts', MD:'Maryland', MI:'Michigan',
+    MN:'Minnesota', MO:'Missouri', NC:'North Carolina', NY:'New York', OH:'Ohio',
+    OR:'Oregon', PA:'Pennsylvania', TN:'Tennessee', TX:'Texas', UT:'Utah',
+    VA:'Virginia', WA:'Washington', WI:'Wisconsin'
+  };
+
+  var MEDIA_LABEL = { video:'Video', audio:'Audio', written:'Written', social:'Social post' };
+  var WHO_LABEL   = { patient:'Patient', carer:'Carer', family:'Family' };
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function params(){ return new URLSearchParams(location.search); }
+
+  /* Design-time toggles. Default merge=1 (union) and embeds=0 (native) — the
+     reversible option in each pair, for the reasons in 07 §0.2. */
+  function merged(){ return params().get('merge') !== '0'; }
+  function embeds(){ return params().get('embeds') === '1'; }
+
+  /* ---------- identity ----------
+     There is no photograph on this page. A named contributor gets initials in an
+     accent tile; an anonymous one gets a neutral tile with no initials, because
+     initials are identifying. Both are the production fallback, not a stand-in
+     for artwork we could not source. */
+  function tile(s, size){
+    var big = size === 'big';
+    var anon = !s.name;
+    var box = big
+      ? 'aspect-[16/9] rounded-2xl'
+      : 'w-12 h-12 rounded-xl shrink-0';
+    var skin = anon
+      ? 'bg-ink-100 border border-ink-200 text-ink-400'
+      : 'bg-gradient-to-br from-accent-600 to-accent-800 text-white';
+
+    var glyph = anon
+      /* A quotation mark, not a silhouette: a person-shaped placeholder for an
+         anonymous contributor still draws a person where there must not be one. */
+      ? '<svg class="' + (big ? 'absolute top-3 left-4 w-10 h-10 opacity-80' : 'w-6 h-6') + '" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+          '<path d="M7.5 5C5 5 3 7.2 3 10.1 3 12.8 4.8 15 7.3 15c.5 0 .9-.1 1.2-.2-.5 1.9-2 3.4-4 4.2l.8 1.5c3.6-1.3 6.2-4.6 6.2-8.9C11.5 7.6 9.8 5 7.5 5Zm9 0C14 5 12 7.2 12 10.1c0 2.7 1.8 4.9 4.3 4.9.5 0 .9-.1 1.2-.2-.5 1.9-2 3.4-4 4.2l.8 1.5c3.6-1.3 6.2-4.6 6.2-8.9C20.5 7.6 18.8 5 16.5 5Z"/>' +
+        '</svg>'
+      /* On the big tile the initials sit top-left, NOT centred: a centred glyph
+         lands directly behind the play control and disappears. Found by eye at
+         1440 after the void detector passed the page — the sixth time a layout
+         number has been the wrong kind of true. */
+      : '<span class="font-display font-semibold tracking-[.02em] ' +
+          (big ? 'absolute top-3 left-4 text-[34px] sm:text-[40px] opacity-90' : 'text-[17px]') + '">' +
+          esc(s.initials) + '</span>';
+
+    /* Timed media: the BIG tile is the resting state of the player, so it carries
+       the play control and the duration. The small tile is identity only — a
+       second play affordance beside the name is a duplicate control that also
+       covers the initials it is supposed to sit next to. */
+    var play = (big && (s.medium === 'video' || s.medium === 'audio'))
+      ? '<span class="absolute inset-0 grid place-items-center">' +
+          '<span class="grid place-items-center rounded-full bg-white/95 text-accent-800 shadow-lift w-16 h-16">' +
+            '<svg class="w-7 h-7 ml-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>' +
+          '</span></span>' +
+        (s.dur ? '<span class="absolute bottom-2 right-2 rounded-md bg-ink-900/85 text-white text-[11.5px] font-semibold tabular-nums px-1.5 py-0.5">' + esc(s.dur) + '</span>' : '')
+      : '';
+
+    return '<span class="relative flex items-center justify-center overflow-hidden ' + box + ' ' + skin + '">' +
+             glyph + play + '</span>';
+  }
+
+  /* Name line respects consent. Anonymous means no name and no initials. */
+  function identity(s){
+    var who = s.name ? esc(s.name) : 'Anonymous';
+    /* Location: city + two-letter state where the record has both. An anonymous
+       record is shown at state level only — a city plus a situation line is
+       often enough to identify someone in a rare-disease community. */
+    var place = s.city ? esc(s.city) + ', ' + esc(s.st) : STATES[s.st] || '';
+    return '<span class="block text-[15px] font-semibold text-ink-900">' + who +
+             (s.name ? '' : '<span class="ml-1.5 font-normal text-[13px] text-ink-500">name withheld</span>') +
+           '</span>' +
+           '<span class="mt-0.5 block text-[13.5px] leading-snug text-ink-500">' + esc(s.situation) +
+             (place ? ' · ' + place : '') + '</span>';
+  }
+
+  function chip(label, tone){
+    var skin = tone === 'accent'
+      ? 'bg-accent-50 text-accent-800'
+      : 'bg-ink-100 text-ink-600';
+    return '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[12px] font-semibold uppercase tracking-[.07em] ' + skin + '">' + esc(label) + '</span>';
+  }
+
+  /* Content-type badge, visible only with `specs` on. This is how the client
+     sees what decision 1 actually merges. */
+  function srcNote(s){
+    return '<span class="hidden ov-src ml-2 rounded bg-ink-900 text-ink-100 px-1.5 py-0.5 text-[10px] font-mono">' + esc(s.src) + '</span>';
+  }
+
+  function href(s){ return 'onevoice-story.mockup.html?s=' + encodeURIComponent(s.slug); }
+
+  /* ---------- social ----------
+     Native (decision 4 as built): the post is quoted as our own markup, with
+     attribution and a link out. No third-party request, ever.
+     Embed (?embeds=1): a click-to-load placeholder. The network is contacted on
+     activation only — never on page load. Same discipline as the map dialog. */
+  function socialBlock(s){
+    if (!embeds()) {
+      return '<blockquote class="mt-3 rounded-xl border-l-2 border-accent-300 bg-accent-50/50 pl-4 pr-3 py-3">' +
+               '<p class="text-[15px] leading-relaxed text-ink-800">' + esc(s.quote) + '</p>' +
+               '<footer class="mt-2 text-[13px] text-ink-500">' +
+                 esc(s.handle) + ' on ' + esc(s.net) +
+                 ' · <a href="#" class="underline underline-offset-2 hover:text-accent-700">View original</a>' +
+               '</footer>' +
+             '</blockquote>';
+    }
+    return '<div class="mt-3 rounded-xl border border-dashed border-ink-300 bg-ink-50 p-4 text-center" data-ov-embed>' +
+             '<p class="text-[13.5px] text-ink-600">' + esc(s.net) + ' post by ' + esc(s.handle) + '</p>' +
+             '<button type="button" class="mt-3 inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full bg-ink-900 text-white text-[14.5px] font-semibold hover:bg-ink-800">' +
+               'Load post from ' + esc(s.net) +
+             '</button>' +
+             '<p class="mt-2.5 text-[12px] leading-relaxed text-ink-500">' +
+               esc(s.net) + ' is contacted only when you press this. Nothing has been requested yet.' +
+             '</p>' +
+           '</div>';
+  }
+
+  /* ---------- featured ----------
+     Two-column band: tile left, words right. The lesson from the Spotlight card
+     is that a full-width bordered box with one reading-measure column inside it
+     is a void that the detector scores as ink. */
+  function featHTML(s){
+    return '<div class="rounded-3xl border border-ink-200 bg-white shadow-card p-5 sm:p-6 lg:grid lg:grid-cols-12 lg:gap-8">' +
+      '<div class="lg:col-span-5">' +
+        '<a href="' + href(s) + '" class="block group">' + tile(s, 'big') + '</a>' +
+      '</div>' +
+      '<div class="mt-5 lg:mt-0 lg:col-span-7 lg:self-center">' +
+        '<div class="flex flex-wrap items-center gap-2">' +
+          chip('Featured', 'accent') + chip(MEDIA_LABEL[s.medium]) + chip(WHO_LABEL[s.who]) +
+          srcNote(s) +
+        '</div>' +
+        '<blockquote class="mt-3.5">' +
+          '<p class="font-display text-[22px] sm:text-[26px] font-semibold leading-snug tracking-[-.015em] text-ink-900">' +
+            '&ldquo;' + esc(s.quote) + '&rdquo;</p>' +
+        '</blockquote>' +
+        '<div class="mt-4 flex items-center gap-3">' + tile(s) + '<span class="min-w-0">' + identity(s) + '</span></div>' +
+        '<div class="mt-5 flex flex-wrap items-center gap-3">' +
+          '<a href="' + href(s) + '" class="inline-flex items-center gap-1.5 min-h-[48px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">' +
+            (s.medium === 'video' ? 'Watch' : s.medium === 'audio' ? 'Listen' : 'Read') + ' this story' +
+            '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>' +
+          '</a>' +
+          (s.dur ? '<span class="text-[14px] text-ink-500 tabular-nums">' + esc(s.dur) + '</span>' : '') +
+          (s.captions && s.medium === 'video' ? '<span class="text-[13px] font-medium text-ink-600">Captions</span>' : '') +
+          (s.transcript ? '<span class="text-[13px] font-medium text-ink-600">Transcript</span>' : '') +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  /* ---------- grid card ---------- */
+  function cardHTML(s){
+    var timed = s.medium === 'video' || s.medium === 'audio';
+    return '<li class="h-full">' +
+      '<article class="h-full flex flex-col rounded-2xl border border-ink-200 bg-white shadow-card ' +
+                     'hover:border-accent-400 hover:shadow-lift transition p-5">' +
+        (timed ? '<a href="' + href(s) + '" class="block">' + tile(s, 'big') + '</a>' : '') +
+        '<div class="' + (timed ? 'mt-4 ' : '') + 'flex flex-wrap items-center gap-2">' +
+          chip(MEDIA_LABEL[s.medium]) + chip(WHO_LABEL[s.who]) + srcNote(s) +
+        '</div>' +
+        '<h3 class="mt-2.5 text-[17.5px] font-semibold leading-snug text-ink-900">' +
+          '<a href="' + href(s) + '" class="hover:text-accent-800 hover:underline underline-offset-2">' +
+            esc(s.cat) + ' — ' + (s.name ? esc(s.name.split(' ')[0]) + '&rsquo;s story' : 'an anonymous story') +
+          '</a></h3>' +
+        (s.medium === 'social'
+          ? socialBlock(s)
+          : '<p class="mt-2 text-[15px] leading-relaxed text-ink-600">&ldquo;' + esc(s.quote) + '&rdquo;</p>') +
+        '<div class="mt-4 flex items-start gap-3">' + tile(s) + '<span class="min-w-0">' + identity(s) + '</span></div>' +
+        '<div class="mt-auto pt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px] text-ink-500">' +
+          '<time datetime="' + s.d + '" class="tabular-nums">' + esc(s.dl) + '</time>' +
+          (s.dur  ? '<span aria-hidden="true">·</span><span class="tabular-nums">' + esc(s.dur) + '</span>' : '') +
+          (s.read ? '<span aria-hidden="true">·</span><span>' + esc(s.read) + ' read</span>' : '') +
+          /* Captions are a video concept; an audio record has a transcript.
+             Claiming captions on audio would be a false accessibility statement. */
+          (s.captions && s.medium === 'video' ? '<span aria-hidden="true">·</span><span>Captions</span>' : '') +
+          (s.transcript ? '<span aria-hidden="true">·</span><span>Transcript</span>' : '') +
+        '</div>' +
+      '</article></li>';
+  }
+
+  /* ---------- facets, derived ---------- */
+  function counts(rows, key){
+    var c = {};
+    rows.forEach(function(r){ var v = r[key]; if (v) c[v] = (c[v] || 0) + 1; });
+    return c;
+  }
+
+  function fillSelect(sel, allLabel, c, labeller, sort){
+    if (!sel) return;
+    var keys = Object.keys(c);
+    keys.sort(sort || function(a,b){ return labeller(a) < labeller(b) ? -1 : 1; });
+    var want = sel.value;
+    sel.innerHTML = '<option value="">' + allLabel + '</option>' +
+      keys.map(function(k){
+        return '<option value="' + esc(k) + '">' + esc(labeller(k)) + ' (' + c[k] + ')</option>';
+      }).join('');
+    /* Keep a live selection only if it still exists in the derived set */
+    sel.value = c[want] ? want : '';
+  }
+
+  /* Universe for this view: everything under merge=1, community_center only
+     under merge=0. The separate section renders the remainder rather than
+     dropping it — a missing 17 records is not a design. */
+  function universe(){
+    if (!current) return [];
+    return merged() ? current.rows : current.rows.filter(function(r){ return r.src === 'community_center'; });
+  }
+  function othersrc(){
+    if (!current || merged()) return [];
+    return current.rows.filter(function(r){ return r.src !== 'community_center'; });
+  }
+
+  function apply(){
+    if (!current) return;
+    var q = params();
+    var term = (q.get('q') || '').toLowerCase();
+    var f = { medium:q.get('medium')||'', category:q.get('category')||'', who:q.get('who')||'', state:q.get('state')||'' };
+    var base = universe();
+
+    var hits = base.filter(function(s){
+      if (f.medium   && s.medium !== f.medium)     return false;
+      if (f.category && s.cat    !== f.category)   return false;
+      if (f.who      && s.who    !== f.who)        return false;
+      if (f.state    && s.st     !== f.state)      return false;
+      if (term) {
+        var hay = [s.quote, s.situation, s.cat, s.city || '', (s.tags||[]).join(' '), s.name || 'anonymous'].join(' ').toLowerCase();
+        if (hay.indexOf(term) < 0) return false;
+      }
+      return true;
+    });
+
+    var filtering = !!(term || f.medium || f.category || f.who || f.state);
+
+    /* Featured only on the unfiltered first page, and only if the featured
+       record is actually in this view */
+    var featRec = base.filter(function(s){ return s.feat; })[0] || null;
+    var featEl = document.querySelector('[data-ov-feat]');
+    var showFeat = !filtering && !!featRec && hits.indexOf(featRec) > -1;
+    featEl.innerHTML = showFeat ? featHTML(featRec) : '';
+    featEl.classList.toggle('hidden', !showFeat);
+
+    var list = showFeat ? hits.filter(function(s){ return s !== featRec; }) : hits;
+    var grid = document.querySelector('[data-ov-grid]');
+    grid.innerHTML = list.map(cardHTML).join('');
+    grid.classList.toggle('mt-8', showFeat);
+
+    /* Separate-sources section: only under merge=0, only unfiltered */
+    var sep = document.querySelector('[data-ov-sep]');
+    var others = othersrc();
+    var showSep = !merged() && others.length > 0 && !filtering;
+    sep.classList.toggle('hidden', !showSep);
+    if (showSep) {
+      document.querySelector('[data-ov-sep-grid]').innerHTML = others.map(cardHTML).join('');
+      document.querySelector('[data-ov-sep-n]').textContent = others.length;
+    }
+
+    document.querySelector('[data-ov-empty]').classList.toggle('hidden', hits.length !== 0);
+    document.querySelector('[data-ov-pager]').classList.toggle('hidden', filtering || hits.length === 0);
+
+    /* The headline count is the community_center figure under BOTH branches.
+       It is deliberately not "ccTotal + a per-community share of the 17 video
+       nodes", because that share is not knowable — see the COUNTS note above.
+       Under merge=1 the 17 are named on their own line instead of being folded
+       into a real number, which is the same discipline the Spotlight card
+       applies to a count it does not have. */
+    var total = current.ccTotal;
+    var totalEl = document.querySelector('[data-ov-total]');
+    totalEl.textContent = filtering ? hits.length : total;
+    document.querySelector('[data-ov-total-noun]').textContent =
+      (filtering ? hits.length : total) === 1 ? 'story' : 'stories';
+
+    var mediaLine = document.querySelector('[data-ov-media-note]');
+    mediaLine.hidden = filtering || !merged();
+    var pages = Math.max(1, Math.ceil(total / 10));
+    document.querySelector('[data-ov-pages]').textContent = pages;
+    document.querySelector('[data-ov-lastpage]').textContent = pages;
+
+    /* Medium facet is meaningless with the types separate — hide the control,
+       do not leave a select that cannot change the result. */
+    var mw = document.querySelector('[data-ov-medium-wrap]');
+    mw.hidden = !merged();
+
+    /* Removable chips */
+    var active = [];
+    if (f.medium)   active.push(['medium',   MEDIA_LABEL[f.medium] || f.medium]);
+    if (f.category) active.push(['category', f.category]);
+    if (f.who)      active.push(['who',      WHO_LABEL[f.who] || f.who]);
+    if (f.state)    active.push(['state',    STATES[f.state] || f.state]);
+    if (term)       active.push(['q',        '&ldquo;' + esc(term) + '&rdquo;']);
+    var chips = document.querySelector('[data-ov-chips]');
+    chips.innerHTML = active.map(function(p){
+      return '<li><button type="button" data-drop="' + p[0] + '" class="inline-flex items-center gap-1.5 min-h-[34px] px-3 rounded-full bg-accent-50 border border-accent-200 text-[13.5px] font-medium text-accent-800 hover:bg-accent-100">' +
+             p[1] + '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' +
+             '<span class="sr-only">Remove filter</span></button></li>';
+    }).join('');
+    chips.classList.toggle('hidden', !active.length);
+
+    markToggles();
+    document.documentElement.dataset.notes === 'on' && showSrc(true);
+  }
+
+  /* Facets are rebuilt from the current universe, so switching community or
+     switching decision 1 never leaves a stale option behind. */
+  function buildFacets(){
+    var base = universe();
+    fillSelect(document.querySelector('[data-ov-f="medium"]'),  'Any medium', counts(base,'medium'),
+               function(k){ return MEDIA_LABEL[k] || k; });
+    fillSelect(document.querySelector('[data-ov-f="category"]'),'Any theme',  counts(base,'cat'),
+               function(k){ return k; });
+    fillSelect(document.querySelector('[data-ov-f="who"]'),     'Anyone',     counts(base,'who'),
+               function(k){ return WHO_LABEL[k] || k; });
+    fillSelect(document.querySelector('[data-ov-f="state"]'),   'Any state',  counts(base,'st'),
+               function(k){ return STATES[k] || k; });
+
+    /* Restore from the URL after the options exist */
+    var q = params();
+    ['medium','category','who','state'].forEach(function(k){
+      var el = document.querySelector('[data-ov-f="' + k + '"]');
+      if (el) el.value = q.get(k) || '';
+    });
+  }
+
+  function renderThemes(){
+    var host = document.querySelector('[data-ov-themes]');
+    var c = counts(universe(), 'cat');
+    host.innerHTML = Object.keys(c).sort().map(function(k){
+      return '<li><a href="?category=' + encodeURIComponent(k) + '" ' +
+             'class="inline-flex items-center gap-1.5 min-h-[38px] px-3.5 rounded-full bg-white border border-ink-200 ' +
+             'text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">' + esc(k) +
+             '<span class="text-ink-400 tabular-nums">' + c[k] + '</span></a></li>';
+    }).join('');
+  }
+
+  function renderTags(){
+    var host = document.querySelector('[data-ov-tags]');
+    var c = {};
+    universe().forEach(function(s){ (s.tags||[]).forEach(function(t){ c[t] = (c[t]||0)+1; }); });
+    var keys = Object.keys(c).sort(function(a,b){ return c[b]-c[a] || (a<b?-1:1); }).slice(0, 10);
+    host.innerHTML = keys.map(function(k){
+      return '<li><a href="?q=' + encodeURIComponent(k) + '" ' +
+             'class="inline-flex items-center min-h-[34px] px-3 rounded-full bg-ink-50 border border-ink-200 ' +
+             'text-[13.5px] text-ink-600 hover:border-accent-400 hover:text-accent-700">' + esc(k) + '</a></li>';
+    }).join('');
+  }
+
+  /* Toggle pills reflect the live URL and preserve every other param, so
+     switching decision view does not silently clear the reader's filters. */
+  function markToggles(){
+    var on = { merge: merged() ? '1' : '0', embeds: embeds() ? '1' : '0' };
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ov-tog]'), function(a){
+      var k = a.getAttribute('data-ov-tog'), v = a.getAttribute('data-val');
+      var q = params(); q.set(k, v);
+      a.setAttribute('href', location.pathname + '?' + q.toString());
+      var live = on[k] === v;
+      a.className = 'inline-flex items-center min-h-[40px] px-4 rounded-full text-[14.5px] font-semibold border ' +
+        (live ? 'bg-accent-600 border-accent-600 text-white' : 'bg-white border-ink-300 text-ink-700 hover:border-accent-400');
+      if (live) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current');
+    });
+  }
+
+  function showSrc(on){
+    Array.prototype.forEach.call(document.querySelectorAll('.ov-src'), function(el){
+      el.classList.toggle('hidden', !on);
+    });
+  }
+
+  function setParam(k, v){
+    var q = params();
+    if (v) q.set(k, v); else q.delete(k);
+    history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
+    apply();
+  }
+
+  /* Community switch: re-derive everything. The kit calls this after its own pass. */
+  window.OV.onTenant = function(t, slug){
+    current = window.OV.stories[slug] || null;
+    var cc = document.querySelector('[data-ov-cc]');
+    if (cc && current) cc.textContent = current.ccTotal;
+    /* An unmeasured count is labelled as one. Only the Amyloidosis figure has a
+       documented source; saying so is cheaper than a reviewer treating 167 as data. */
+    var meas = document.querySelector('[data-ov-measured]');
+    if (meas && current) {
+      meas.hidden = !!current.ccMeasured;
+      meas.textContent = current.ccMeasured ? '' : 'count not yet measured';
+    }
+    buildFacets();
+    renderThemes();
+    renderTags();
+    apply();
+    document.title = 'SPECULATIVE — ' + t.name + ' stories from our community | oneVoice';
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var qi = document.querySelector('[data-ov-f="q"]');
+    if (qi) qi.value = params().get('q') || '';
+    qi && qi.addEventListener('input', function(){ setParam('q', this.value.trim()); });
+
+    ['medium','category','who','state'].forEach(function(k){
+      var el = document.querySelector('[data-ov-f="' + k + '"]');
+      el && el.addEventListener('change', function(){ setParam(k, this.value); });
+    });
+
+    document.addEventListener('click', function(e){
+      var drop = e.target.closest('[data-drop]');
+      if (drop) {
+        var k = drop.getAttribute('data-drop');
+        setParam(k, '');
+        var el = document.querySelector('[data-ov-f="' + k + '"]');
+        if (el) el.value = '';
+        return;
+      }
+      if (e.target.closest('[data-ov-reset]')) {
+        /* Clearing filters must not also clear the decision view — the toggles
+           are not filters, they are which design you are looking at. */
+        var keep = params();
+        var q = new URLSearchParams();
+        if (keep.get('merge'))  q.set('merge',  keep.get('merge'));
+        if (keep.get('embeds')) q.set('embeds', keep.get('embeds'));
+        if (keep.get('tenant')) q.set('tenant', keep.get('tenant'));
+        history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
+        buildFacets();
+        if (qi) qi.value = '';
+        apply();
+        return;
+      }
+      /* Click-to-load embed: this is where a third-party request would be made,
+         and it is the only place. Nothing is prefetched or preconnected. */
+      var emb = e.target.closest('[data-ov-embed] button');
+      if (emb) {
+        var host = emb.closest('[data-ov-embed]');
+        host.innerHTML =
+          '<div class="rounded-xl bg-white border border-ink-200 p-4 text-left">' +
+            '<p class="text-[13px] font-semibold text-ink-800">Embed would load here</p>' +
+            '<p class="mt-1.5 text-[13px] leading-relaxed text-ink-500">In production this is the ' +
+            'network&rsquo;s own iframe, requested now and not before. The mockup stops here on purpose, ' +
+            'so reviewing this page makes no request to any social network.</p>' +
+          '</div>';
+      }
+    });
+
+    /* Mirror the kit's `specs` checkbox onto the content-type badges */
+    var mo = new MutationObserver(function(){
+      showSrc(document.documentElement.dataset.notes === 'on');
+    });
+    mo.observe(document.documentElement, { attributes:true, attributeFilter:['data-notes'] });
+    showSrc(document.documentElement.dataset.notes === 'on');
+  });
+})();
+</script>
+</body>
+</html>

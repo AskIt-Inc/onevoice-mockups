@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en" data-tenant="amyloidosis" data-notes="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>SPECULATIVE — Community story | oneVoice</title>
+<script>
+/* ===========================================================================
+   ⚠ SPECULATIVE — NOT APPROVED WORK, NOT IN THE REVIEW INDEX
+
+   Prompt 08 — Community story detail. Route /community/[slug].
+
+   Blocked on the same two decisions as prompt 07, asked 2026-08-17 and not
+   answered. Built, labelled, and deliberately absent from index.html.
+
+   Decision 1 barely touches this page: a merged `video` node and a
+   `community_center` node with a video render through the SAME template either
+   way, because the template is driven by which fields a record has, not by
+   which bundle it came from. All decision 1 changes here is one breadcrumb
+   label. The detail page is not really blocked; only the listing is.
+
+   Decision 4 does touch it — see ?s=social, and 08 §6 for the recommendation
+   that social posts should not get a detail route at all.
+
+   States, mirroring ?empty=1 on the expert profile:
+     ?s=full | marta      video, transcript, body, named, takeaways
+     ?s=anon              ANONYMOUS — no name, no initials, state only
+     ?s=written           written only: no player, no transcript, no duration
+     ?s=audio             audio with transcript
+     ?s=social            a social post, under whichever branch ?embeds= selects
+
+   Standing rules enforced: US only; no telephone number for a contributor;
+   no portrait of a named individual anywhere — identity is initials in an
+   accent tile, which is the production fallback; poster-only until clicked;
+   captions required; transcript only where one exists; anonymous means no
+   name AND no face.
+   =========================================================================== */
+window.OV = {
+  nav: 'community',
+  crumbs: [{ label:'Community', href:'onevoice-stories.mockup.html' }, { label:'Story' }],
+
+  /* Five full records per community, keyed by role. The listing carries ten
+     cards per community; the five that have no full record here resolve to the
+     nearest record by medium and say so in a design-time note, rather than
+     404ing or silently pretending. Recorded in 08 §1.
+
+     Every storyteller is FICTIONAL. `name:null` = consent for the name not
+     given. `transcript` is an array of real cues, or absent — never an empty
+     array, because an empty disclosure promises something it does not have. */
+  detail: {
+    amyloidosis: {
+      full: { slug:'marta', medium:'video', who:'patient', name:'Marta R.', initials:'MR',
+        situation:'Living with ATTR-CM since 2019', city:'Nashville', st:'TN',
+        cat:'Diagnosis journey', tags:['ATTR-CM','misdiagnosis','cardiology','family screening'],
+        dur:'8:24', captions:true, d:'2026-07-24', dl:'24 July 2026',
+        title:'Four years, six doctors, and the echo that finally asked the right question',
+        stand:'Marta was treated for three separate conditions before anyone put the pieces together. She has since persuaded eleven relatives to be screened.',
+        quote:'It took four years and six doctors to get my diagnosis. I want the next person to find it in four weeks.',
+        body:[
+          'The first cardiologist told me I had heart failure and that it was probably just how my heart was built. That was 2015. I was fifty-one, I had never smoked, and I could not carry a laundry basket up one flight of stairs without sitting down at the top.',
+          'Over the next four years I collected diagnoses the way other people collect stamps. Carpal tunnel in both wrists, which was operated on. A back problem that was never quite a back problem. Then atrial fibrillation, then a pacemaker. Every specialist was thorough and every specialist was looking at one organ.',
+          'What changed was a locum registrar who read my whole file instead of the last page of it. She asked whether anyone in my family had heart trouble young. My father died at fifty-eight of something the death certificate called cardiomyopathy. She ordered the scan that afternoon.',
+          'I am not angry with any of those doctors individually. I am angry that a disease which shows up in the wrists, the back, the bowel and the heart is diagnosed by whoever happens to look at all four.'
+        ],
+        transcript:[
+          { t:'00:12', s:'The first cardiologist told me it was probably just how my heart was built.' },
+          { t:'01:04', s:'Carpal tunnel in both wrists. Then the back. Then the pacemaker.' },
+          { t:'03:38', s:'She asked whether anyone in my family had heart trouble young.' },
+          { t:'05:20', s:'My father died at fifty-eight. The certificate said cardiomyopathy.' },
+          { t:'07:02', s:'Eleven relatives screened so far. Two of them are being monitored.' }
+        ],
+        takeaways:[
+          { t:'Bring one page, not one symptom', d:'Marta now takes a single sheet listing every diagnosis with dates. Two of her specialists have asked to keep a copy.' },
+          { t:'Ask what else explains all of it', d:'Four separate diagnoses in four years is itself a finding. It is a reasonable question to put to a clinician.' },
+          { t:'Family history is data', d:'A parent who died young of an unexplained heart problem changed the whole direction of her care.' }
+        ]
+      },
+      anon: { slug:'anon', medium:'written', who:'patient', name:null, initials:null,
+        situation:'Living with hereditary ATTR', city:null, st:'CA',
+        cat:'Family & genetics', tags:['genetic testing','family screening'],
+        d:'2026-07-10', dl:'10 July 2026', read:'5 min',
+        title:'I know what I am carrying. My brothers do not yet.',
+        stand:'Published anonymously at the storyteller&rsquo;s request. No name, no image, and the location is given at state level only.',
+        quote:'I have not told my brothers yet. Writing this down was the first step to telling them.',
+        body:[
+          'The genetic counselor was careful and kind and gave me the result in a room with a box of tissues on the table. I did not cry. I went out to the parking lot and sat in the car for forty minutes working out the arithmetic of my own family.',
+          'Two brothers. Each of them has a one in two chance. One of them has three children. That is the whole problem in one sentence, and it is not my sentence to say on their behalf.',
+          'I asked to publish this without my name because the people I most need to read it are the people who would recognize me. I wanted to say it out loud somewhere first.'
+        ],
+        takeaways:[
+          { t:'You can publish without your name', d:'Name, image and location are three separate permissions on this site, and you can decline all three.' },
+          { t:'A counselor can help you tell them', d:'Genetic counseling covers how to tell a family, not only what the result means.' }
+        ]
+      },
+      written: { slug:'ken', medium:'written', who:'patient', name:'Ken A.', initials:'KA',
+        situation:'Living with AL amyloidosis since 2022', city:'Boston', st:'MA',
+        cat:'Treatment', tags:['AL amyloidosis','chemotherapy','hematology'],
+        d:'2026-07-17', dl:'17 July 2026', read:'7 min',
+        title:'The one-page cycle summary my hematologist now hands to new patients',
+        stand:'Ken kept a single sheet for every treatment cycle: what was given, what it did, and what he wished he had known the week before.',
+        quote:'I kept a one-page summary of every cycle. My hematologist now gives it to new patients.',
+        body:[
+          'I am an engineer, so my response to being frightened is to make a table. The table turned out to be more useful than anything else I did that year.',
+          'One row per cycle. Date, drug, dose, the three worst days, and one line of what helped. By cycle four I could tell the team that my bad days were reliably days three to five, which changed when they scheduled my bloods.',
+          'None of this is medical advice and none of it is heroic. It is a piece of paper. But it moved me from being a person things happened to into a person with information.'
+        ],
+        takeaways:[
+          { t:'Record the pattern, not the feeling', d:'Which days were worst turned out to be actionable in a way that &ldquo;I felt terrible&rdquo; was not.' },
+          { t:'One page travels', d:'A summary short enough to read in a corridor is a summary that gets read.' }
+        ]
+      },
+      audio: { slug:'deborah', medium:'audio', who:'carer', name:'Deborah W.', initials:'DW',
+        situation:'Caring for her husband, diagnosed 2021', city:'Chicago', st:'IL',
+        cat:'Caregiving', tags:['caregiving','appointments'],
+        dur:'22:10', captions:true, d:'2026-07-03', dl:'3 July 2026',
+        title:'Nobody hands the carer a plan, so we built one out of index cards',
+        stand:'Recorded as a voice note, because Deborah says she can talk about this and cannot write it down.',
+        quote:'Nobody hands the carer a plan. We built ours out of index cards and stubbornness.',
+        body:[],
+        transcript:[
+          { t:'00:20', s:'He was diagnosed on a Thursday and we were home by six with a leaflet.' },
+          { t:'04:15', s:'The index cards started as questions I kept forgetting to ask.' },
+          { t:'09:48', s:'One card per specialist. What they do, what they need from us, when we see them next.' },
+          { t:'15:30', s:'I am not his nurse. I had to say that out loud to myself about once a month.' },
+          { t:'20:05', s:'If you are new to this: you are allowed to be tired and still be doing it well.' }
+        ],
+        takeaways:[
+          { t:'A carer needs their own plan', d:'Not a copy of the patient&rsquo;s plan. A different document, with different questions in it.' },
+          { t:'Say the hard thing to yourself', d:'&ldquo;I am not his nurse&rdquo; is a boundary, and Deborah repeats it deliberately.' },
+          { t:'Carer sessions exist', d:'Live sessions for carers run separately from patient sessions.' }
+        ]
+      },
+      social: { slug:'joanne', medium:'social', who:'family', name:'Joanne P.', initials:'JP',
+        situation:'Daughter of a patient diagnosed 2020', city:'Rochester', st:'MN',
+        cat:'Family & genetics', tags:['family screening','advocacy'],
+        net:'Instagram', handle:'@joanne.p', d:'2026-06-19', dl:'19 June 2026',
+        title:'Three generations, one gene, and a family group chat that finally talks about it',
+        stand:'Shared from a social post with the author&rsquo;s permission.',
+        quote:'Three generations, one gene, and a family group chat that finally talks about it.',
+        body:[],
+        takeaways:[]
+      }
+    },
+
+    scd: {
+      full: { slug:'daniel', medium:'video', who:'patient', name:'Daniel A.', initials:'DA',
+        situation:'Living with HbSS since birth', city:'Atlanta', st:'GA',
+        cat:'Treatment', tags:['HbSS','pain crisis','emergency care','self-advocacy'],
+        dur:'9:15', captions:true, d:'2026-07-25', dl:'25 July 2026',
+        title:'The written care plan I hand over before I say a word',
+        stand:'Daniel stopped explaining his own pain to strangers in triage and started handing them a document instead.',
+        quote:'For eleven years I was told my pain was exaggerated. Now I bring a written care plan to every visit.',
+        body:[
+          'A sickle cell crisis is not a new event to me. It is the same event, roughly the fortieth time. The problem was never that I did not know what was happening. It was that I had to convince a stranger of it while I could barely speak.',
+          'The plan is one page, signed by my hematologist. It states my diagnosis, my usual regimen, what has worked before, and what has not. It is not a request for anything unusual. It is the removal of an argument.',
+          'The first time I used it, the triage nurse read it and said thank you. That was it. Eleven years of being disbelieved, and the fix was a piece of paper somebody else had signed.'
+        ],
+        transcript:[
+          { t:'00:14', s:'It is the same event, roughly the fortieth time.' },
+          { t:'02:40', s:'I had to convince a stranger of it while I could barely speak.' },
+          { t:'04:55', s:'One page, signed by my hematologist. It removes the argument.' },
+          { t:'07:18', s:'The triage nurse read it and said thank you. That was it.' }
+        ],
+        takeaways:[
+          { t:'Get it signed by your team', d:'A plan on hospital letterhead is treated differently from the same words in a patient&rsquo;s own handwriting. Daniel is blunt that this is unfair and that it works.' },
+          { t:'Keep it short enough to read standing up', d:'One page, diagnosis first.' },
+          { t:'Carry a copy that is not on your phone', d:'A locked phone in a crisis is no plan at all.' }
+        ]
+      },
+      anon: { slug:'anon', medium:'written', who:'patient', name:null, initials:null,
+        situation:'Living with sickle cell disease', city:null, st:'MD',
+        cat:'Treatment', tags:['gene therapy','decision making'],
+        d:'2026-07-11', dl:'11 July 2026', read:'6 min',
+        title:'I said no to the trial, and that was a decision about my future too',
+        stand:'Published anonymously at the storyteller&rsquo;s request. No name, no image, state-level location only.',
+        quote:'I said no to the trial. That was also a choice about my future, and nobody writes about that one.',
+        body:[
+          'Every story I read about gene therapy ends with someone walking out of the hospital transformed. I am glad those stories exist. They were not much help to me when I was trying to decide.',
+          'I am thirty-four. I have a job I like and a life that works about seventy percent of the time. The trial asked me to trade a known seventy percent for an unknown, and the honest answer was that I did not want to.',
+          'I am publishing this without my name because in my community saying no to a cure reads as ingratitude, and it is not. It is arithmetic about my own life, done by the only person qualified to do it.'
+        ],
+        takeaways:[
+          { t:'Declining is a legitimate outcome', d:'Trial information should support a decision either way, not only enrollment.' },
+          { t:'You can publish without your name', d:'Name, image and location are three separate permissions here.' }
+        ]
+      },
+      written: { slug:'tasha', medium:'written', who:'patient', name:'Tasha M.', initials:'TM',
+        situation:'Living with HbSC since childhood', city:'Detroit', st:'MI',
+        cat:'Work & money', tags:['employment','accommodations'],
+        d:'2026-07-18', dl:'18 July 2026', read:'8 min',
+        title:'The accommodation cost my employer nothing and took nine months',
+        stand:'What Tasha asked for, how it was refused, and the wording that eventually worked.',
+        quote:'The accommodation I asked for cost my employer nothing. It took nine months to get it.',
+        body:[
+          'I asked to work from home on the two days after a transfusion. Not fewer hours. Not different work. The same job, from a chair I already own.',
+          'It was refused twice, informally, by people who were sympathetic and thought they were being kind. The third time I put it in writing, cited the policy by name, and asked for the refusal in writing too. It was approved in eleven days.',
+          'The lesson I would pass on is not about sickle cell. It is that a sympathetic no is still a no, and that writing it down changes who has to justify themselves.'
+        ],
+        takeaways:[
+          { t:'Put the request in writing', d:'A verbal request produces a verbal answer, which cannot be appealed.' },
+          { t:'Ask for the refusal in writing as well', d:'It changes the conversation immediately.' },
+          { t:'Name the policy', d:'Citing the employer&rsquo;s own document moved this in eleven days after nine months.' }
+        ]
+      },
+      audio: { slug:'grace', medium:'audio', who:'carer', name:'Grace A.', initials:'GA',
+        situation:'Mother of a young adult with HbSS', city:'Oakland', st:'CA',
+        cat:'Caregiving', tags:['caregiving','transition','pediatric'],
+        dur:'19:44', captions:true, d:'2026-07-04', dl:'4 July 2026',
+        title:'At eighteen the pediatric team let go of his hand',
+        stand:'Recorded as a voice note. Grace describes the year her son moved from pediatric to adult care.',
+        quote:'At eighteen the pediatric team let go of his hand, and nobody was waiting to take it.',
+        body:[],
+        transcript:[
+          { t:'00:18', s:'For seventeen years the same three people knew everything about him.' },
+          { t:'05:02', s:'Then a letter arrived with a new hospital on it and no name.' },
+          { t:'10:26', s:'He missed two appointments because nobody told him he had to make them himself.' },
+          { t:'14:40', s:'What worked was one nurse who called him, not me, and kept calling.' },
+          { t:'18:12', s:'Ask about transition two years early. Not two months.' }
+        ],
+        takeaways:[
+          { t:'Ask about transition two years early', d:'Grace is emphatic that the conversation should start well before the birthday.' },
+          { t:'The young adult needs to be the contact', d:'Calls to the parent keep the parent in charge, which defeats the purpose.' },
+          { t:'Transition sessions exist', d:'Live sessions cover moving from pediatric to adult care.' }
+        ]
+      },
+      social: { slug:'nia', medium:'social', who:'patient', name:'Nia F.', initials:'NF',
+        situation:'Living with sickle beta thalassemia', city:'Philadelphia', st:'PA',
+        cat:'Living well', tags:['hydration','summer','self-advocacy'],
+        net:'Instagram', handle:'@nia.writes', d:'2026-06-20', dl:'20 June 2026',
+        title:'My going-out kit has not changed in six years',
+        stand:'Shared from a social post with the author&rsquo;s permission.',
+        quote:'Water bottle, heat pack, care plan, ID card. My going-out kit has not changed in six years.',
+        body:[], takeaways:[]
+      }
+    },
+
+    ph: {
+      full: { slug:'aisha', medium:'video', who:'patient', name:'Aisha K.', initials:'AK',
+        situation:'Living with PAH since 2021', city:'Denver', st:'CO',
+        cat:'Diagnosis journey', tags:['PAH','misdiagnosis','asthma'],
+        dur:'7:52', captions:true, d:'2026-07-23', dl:'23 July 2026',
+        title:'Two years of asthma inhalers, and one test that changed everything',
+        stand:'Aisha was treated for exercise-induced asthma until a locum ordered an echocardiogram.',
+        quote:'Two years of being told it was asthma. One test changed everything about my care.',
+        body:[
+          'I was thirty-four and I could not finish a flight of stairs. Because I was thirty-four, everybody started from the assumption that it was fitness or anxiety or asthma, in that order.',
+          'I used the inhaler for two years. It did nothing, which I reported, and the response was a stronger inhaler.',
+          'The echo took twenty minutes. The right side of my heart was doing work it was not built for, and had been for a long time. I do not think anybody was careless. I think breathlessness in a young woman gets a different first guess.'
+        ],
+        transcript:[
+          { t:'00:16', s:'Fitness, anxiety, asthma. In that order, every time.' },
+          { t:'02:24', s:'The inhaler did nothing. The answer was a stronger inhaler.' },
+          { t:'04:50', s:'The echo took twenty minutes.' },
+          { t:'06:30', s:'Breathlessness in a young woman gets a different first guess.' }
+        ],
+        takeaways:[
+          { t:'Report that a treatment is not working', d:'Aisha&rsquo;s notes show she said so four times. Say it, and ask what else it could be.' },
+          { t:'Ask for an echocardiogram by name', d:'It is quick, non-invasive, and it is what finally showed the problem.' },
+          { t:'Take someone with you', d:'A second person in the room changes how breathlessness is heard.' }
+        ]
+      },
+      anon: { slug:'anon', medium:'written', who:'carer', name:null, initials:null,
+        situation:'Caring for a partner with PAH', city:null, st:'MA',
+        cat:'Caregiving', tags:['caregiving','oxygen'],
+        d:'2026-07-09', dl:'9 July 2026', read:'4 min',
+        title:'Learning to carry the bag without making it a thing',
+        stand:'Published anonymously at the storyteller&rsquo;s request.',
+        quote:'I learned to carry the bag without making it a thing. That took a year.',
+        body:[
+          'The oxygen came with a bag and the bag came with a decision I had not expected to make, which was how much of a fuss to make about carrying it.',
+          'Too much help and she is a patient in her own living room. Too little and I am watching her struggle to prove a point about independence. It took a year to find the version where I just pick it up.',
+          'I am anonymous because this is her diagnosis, not mine, and she has not chosen to be written about.'
+        ],
+        takeaways:[
+          { t:'The carer&rsquo;s story is not theirs to publish', d:'Anonymity here protects the patient, not the author.' }
+        ]
+      },
+      written: { slug:'pete', medium:'written', who:'patient', name:'Pete L.', initials:'PL',
+        situation:'Living with CTEPH since 2019', city:'Cleveland', st:'OH',
+        cat:'Treatment', tags:['CTEPH','surgery','recovery'],
+        d:'2026-07-16', dl:'16 July 2026', read:'9 min',
+        title:'They called the surgery a cure. It was closer to a reset.',
+        stand:'Pete had a pulmonary endarterectomy in 2020 and wants the recovery described honestly.',
+        quote:'They told me the surgery was a cure. It was closer to a reset, and I needed to hear the difference.',
+        body:[
+          'The operation worked. My pressures came down and stayed down, and I am grateful in a way that is hard to put in a sentence.',
+          'What I was not ready for was month three, when the numbers were good and I still could not walk to the end of the road. Nobody had lied to me. I had heard the word cure and filled in the rest myself.',
+          'If I were writing the leaflet I would say: the surgery fixes the obstruction, and then you spend a year rebuilding everything that got weak while you were waiting.'
+        ],
+        takeaways:[
+          { t:'Ask what month three looks like', d:'Not the success rate. The timeline.' },
+          { t:'Rehab is part of the treatment', d:'Pete describes it as the second half of the operation.' }
+        ]
+      },
+      audio: { slug:'howard', medium:'audio', who:'patient', name:'Howard N.', initials:'HN',
+        situation:'Living with PAH since 2016', city:'Minneapolis', st:'MN',
+        cat:'Treatment', tags:['combination therapy','infusion'],
+        dur:'25:03', captions:true, d:'2026-06-25', dl:'25 June 2026',
+        title:'Ask me anything about the pump',
+        stand:'Ten years in, Howard recorded the practical briefing he wishes someone had given him.',
+        quote:'Three drugs, one pump, and a schedule I could recite in my sleep. Ask me anything about the pump.',
+        body:[],
+        transcript:[
+          { t:'00:22', s:'Nobody tells you about the noise it makes at four in the morning.' },
+          { t:'06:10', s:'Site care is the whole game. Everything else is routine.' },
+          { t:'12:45', s:'I have a travel checklist. It is nineteen items and I have never regretted one.' },
+          { t:'19:30', s:'The first month I felt like a machine. The second month it was just Tuesday.' },
+          { t:'23:50', s:'Find one other person on a pump. One is enough.' }
+        ],
+        takeaways:[
+          { t:'Site care is the whole game', d:'Howard spends most of the recording on it, deliberately.' },
+          { t:'Build a travel checklist once', d:'Nineteen items, reused every trip.' },
+          { t:'Find one other person on a pump', d:'Not a group. One person.' }
+        ]
+      },
+      social: { slug:'kelly', medium:'social', who:'family', name:'Kelly R.', initials:'KR',
+        situation:'Daughter of a patient with CTEPH', city:'Dallas', st:'TX',
+        cat:'Family & genetics', tags:['advocacy','awareness'],
+        net:'Facebook', handle:'Kelly R.', d:'2026-06-18', dl:'18 June 2026',
+        title:'Dad walked the whole 5K this year',
+        stand:'Shared from a social post with the author&rsquo;s permission.',
+        quote:'Dad walked the whole 5K this year. Slowly. Loudly. With a sign.',
+        body:[], takeaways:[]
+      }
+    },
+
+    mg: {
+      full: { slug:'tomas', medium:'video', who:'patient', name:'Tomas L.', initials:'TL',
+        situation:'Living with generalized MG since 2020', city:'Columbus', st:'OH',
+        cat:'Diagnosis journey', tags:['generalized MG','ptosis','neurology'],
+        dur:'8:57', captions:true, d:'2026-07-22', dl:'22 July 2026',
+        title:'A drooping eyelid for a year before anyone joined the dots',
+        stand:'Tomas was referred to an optician, an ENT surgeon and a psychiatrist before a neurologist saw him.',
+        quote:'My eyelid drooped for a year before anyone joined the dots. I want that year back for someone else.',
+        body:[
+          'It started as a lazy eye at the end of long days. By the spring it was there by lunchtime, and by the summer my voice went nasal when I was tired.',
+          'Because the symptoms came and went, every appointment caught me on a good hour. I learned to book afternoons, which sounds trivial and was the single most useful thing I did.',
+          'The neurologist watched me look up at the ceiling for sixty seconds and knew before the blood test came back. Fatigable weakness is a thing you can see, if the person examining you knows to look and you turn up at the right time of day.'
+        ],
+        transcript:[
+          { t:'00:15', s:'A lazy eye at the end of long days. Then by lunchtime.' },
+          { t:'02:48', s:'Every appointment caught me on a good hour.' },
+          { t:'04:32', s:'I started booking afternoons. That was the most useful thing I did.' },
+          { t:'06:55', s:'He watched me look at the ceiling for sixty seconds.' }
+        ],
+        takeaways:[
+          { t:'Book afternoon appointments', d:'Fatigable weakness is worse later in the day, which is exactly when it can be observed.' },
+          { t:'Record it on a bad evening', d:'A phone video of the symptom at its worst is evidence a morning appointment cannot produce.' },
+          { t:'Ask for a neurology referral', d:'Three specialties looked at the eyelid before anyone looked at the nerve.' }
+        ]
+      },
+      anon: { slug:'anon', medium:'written', who:'patient', name:null, initials:null,
+        situation:'Living with myasthenia gravis', city:null, st:'UT',
+        cat:'Treatment', tags:['steroids','side effects'],
+        d:'2026-07-08', dl:'8 July 2026', read:'5 min',
+        title:'The steroids worked and I hated them, and both stayed true',
+        stand:'Published anonymously at the storyteller&rsquo;s request.',
+        quote:'The steroids worked and I hated them. Both things stayed true for two years.',
+        body:[
+          'I want to be careful here, because someone newly diagnosed might read this and stop taking a medicine that is keeping them out of hospital. Do not do that.',
+          'What I want to say is that gratitude and resentment can occupy the same two years. I could swallow and lift my arms and I did not recognize my own face. Nobody asked me about the second part.',
+          'When I finally said it out loud, the neurologist started the conversation about tapering that I had assumed was not available to me.'
+        ],
+        takeaways:[
+          { t:'Say the side effects out loud', d:'They are clinical information, not complaining.' },
+          { t:'Do not stop a medicine on your own', d:'The storyteller is emphatic about this.' }
+        ]
+      },
+      written: { slug:'harriet', medium:'written', who:'patient', name:'Harriet B.', initials:'HB',
+        situation:'Living with ocular MG since 2022', city:'Durham', st:'NC',
+        cat:'Living well', tags:['ocular MG','prisms','driving'],
+        d:'2026-07-15', dl:'15 July 2026', read:'6 min',
+        title:'Prisms gave me back the school run',
+        stand:'A short, practical account of what actually helped with double vision.',
+        quote:'Prisms gave me back the school run. That is the whole review.',
+        body:[
+          'Double vision is not two clear pictures. It is one confusing one, and it made driving impossible in a way that took me a while to admit.',
+          'The prisms were fitted by an orthoptist working with my neurologist, and they took three attempts to get right. The third pair worked.',
+          'It is a small intervention that gave me back a specific hour of my day, which is the kind of win that does not make the research news.'
+        ],
+        takeaways:[
+          { t:'Ask about orthoptics', d:'A different specialty from ophthalmology, and the one that fitted the prisms.' },
+          { t:'Expect more than one attempt', d:'Three fittings before the right pair.' }
+        ]
+      },
+      audio: { slug:'annette', medium:'audio', who:'carer', name:'Annette C.', initials:'AC',
+        situation:'Caring for her husband since 2019', city:'Buffalo', st:'NY',
+        cat:'Caregiving', tags:['caregiving','crisis','emergency care'],
+        dur:'21:15', captions:true, d:'2026-06-24', dl:'24 June 2026',
+        title:'I know the warning signs better than the triage nurse does',
+        stand:'Recorded as a voice note. Annette has been through four myasthenic crises.',
+        quote:'I know the warning signs better than the triage nurse does. I say so, politely, every time.',
+        body:[],
+        transcript:[
+          { t:'00:20', s:'The first crisis, I did not know what I was watching.' },
+          { t:'05:40', s:'Now I listen to his voice. It goes before anything else does.' },
+          { t:'11:15', s:'I say the words myasthenic crisis at the desk. Those two words move things.' },
+          { t:'16:02', s:'I keep the medicines-to-avoid list in my purse, not on my phone.' },
+          { t:'19:44', s:'Politely. Every time. Politely gets further.' }
+        ],
+        takeaways:[
+          { t:'Learn the earliest sign', d:'For Annette it is a change in his voice, before breathing or swallowing.' },
+          { t:'Say &ldquo;myasthenic crisis&rdquo; at the desk', d:'The specific term is treated differently from a description.' },
+          { t:'Carry the medicines-to-avoid list on paper', d:'A locked phone in a crisis is no list at all.' }
+        ]
+      },
+      social: { slug:'piotr', medium:'social', who:'family', name:'Piotr L.', initials:'PL',
+        situation:'Son of a patient with generalized MG', city:'Sacramento', st:'CA',
+        cat:'Family & genetics', tags:['family','awareness'],
+        net:'X', handle:'@piotr_l', d:'2026-06-17', dl:'17 June 2026',
+        title:'Dad naps at four so he can read to me at seven',
+        stand:'Shared from a social post with the author&rsquo;s permission.',
+        quote:'Dad naps at four so he can read to me at seven. That is not weakness, that is planning.',
+        body:[], takeaways:[]
+      }
+    }
+  }
+};
+</script>
+<script src="assets/ov-kit.js"></script>
+</head>
+<body>
+
+<main id="main">
+
+  <!-- ============ SPECULATIVE NOTICE ============ -->
+  <aside class="bg-ink-900 text-ink-100" aria-labelledby="spec-h">
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-5
+                border-l-4 border-dashed border-ink-500">
+      <p id="spec-h" class="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[.14em] text-ink-300">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+        Speculative — not approved, not in the review index
+      </p>
+      <p class="mt-2.5 text-[15.5px] leading-relaxed text-ink-100 max-w-3xl">
+        Blocked on two unanswered client decisions. <strong class="font-semibold text-white">Decision 1
+        barely touches this page</strong> — a merged video node and a community record with a video render
+        through the same template either way, because the template follows the fields a record has, not the
+        bundle it came from. All it changes here is one breadcrumb label.
+        <strong class="font-semibold text-white">Decision 4 does touch it</strong>: see the social example.
+      </p>
+      <p class="mt-2.5 text-[14px] leading-relaxed text-ink-400 max-w-3xl">
+        This storyteller is <strong class="font-semibold text-ink-200">fictional</strong>.
+        There are no photographs of people on this page by design — identity is initials in an accent tile,
+        which is the production fallback, and an anonymous record shows no name and no initials.
+      </p>
+      <nav class="mt-4 flex flex-wrap gap-2" aria-label="Story states">
+        <a href="?s=full"    data-ov-state="full"    class="inline-flex items-center min-h-[38px] px-3.5 rounded-full text-[13.5px] font-semibold border">Full record</a>
+        <a href="?s=anon"    data-ov-state="anon"    class="inline-flex items-center min-h-[38px] px-3.5 rounded-full text-[13.5px] font-semibold border">Anonymous</a>
+        <a href="?s=written" data-ov-state="written" class="inline-flex items-center min-h-[38px] px-3.5 rounded-full text-[13.5px] font-semibold border">Written only</a>
+        <a href="?s=audio"   data-ov-state="audio"   class="inline-flex items-center min-h-[38px] px-3.5 rounded-full text-[13.5px] font-semibold border">Audio</a>
+        <a href="?s=social"  data-ov-state="social"  class="inline-flex items-center min-h-[38px] px-3.5 rounded-full text-[13.5px] font-semibold border">Social post</a>
+      </nav>
+      <!-- Shown only when the URL asked for a slug this mockup has no full record for -->
+      <p class="mt-3 hidden text-[13.5px] leading-relaxed text-amber-200" data-ov-fallback></p>
+    </div>
+  </aside>
+
+  <!-- ============ HEADER — two-column band. Left: the story. Right: the storyteller.
+       The storyteller block is the credibility block's counterpart on this template,
+       and it is what stops the band being a void (15-column-voids.md). It appears
+       here and nowhere else — the expert profile lost its "At a glance" card for
+       repeating its own header, and that lesson applies. ============ -->
+  <article>
+  <header class="relative border-b border-ink-100 bg-gradient-to-b from-accent-50 to-white">
+    <span class="spec" style="top:10px;right:10px">Single H1 = the story title, in the storyteller's words · MedicalWebPage + VideoObject where video exists</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-7">
+        <div class="flex flex-wrap items-center gap-2.5 text-[12.5px] font-medium" data-ov-meta></div>
+        <h1 class="mt-3 font-display text-[28px] sm:text-[36px] lg:text-[42px] font-semibold leading-[1.14] tracking-[-.02em] text-ink-900" data-ov-title></h1>
+        <p class="mt-4 text-[17px] lg:text-[18px] leading-relaxed text-ink-600" data-ov-stand></p>
+      </div>
+
+      <aside class="mt-7 lg:mt-0 lg:col-span-4 lg:col-start-9" aria-labelledby="teller-h">
+        <div class="rounded-2xl bg-white border border-ink-200 shadow-card p-5">
+          <h2 id="teller-h" class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">
+            Told by</h2>
+          <div class="mt-3 flex items-start gap-3.5" data-ov-teller></div>
+          <dl class="mt-4 pt-4 border-t border-ink-100 space-y-2.5 text-[14px]">
+            <div class="flex gap-2"><dt class="w-24 shrink-0 text-ink-500">Shared</dt>
+              <dd class="font-medium text-ink-800" data-ov-shared></dd></div>
+            <div class="flex gap-2"><dt class="w-24 shrink-0 text-ink-500">Theme</dt>
+              <dd class="font-medium text-ink-800" data-ov-theme></dd></div>
+            <div class="flex gap-2" data-ov-place-wrap><dt class="w-24 shrink-0 text-ink-500">Location</dt>
+              <dd class="font-medium text-ink-800" data-ov-place></dd></div>
+          </dl>
+          <!-- Consent, stated on the page rather than assumed. Prompt 20: say what is
+               true and name it plainly. -->
+          <p class="mt-4 pt-4 border-t border-ink-100 text-[13px] leading-relaxed text-ink-500" data-ov-consent></p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- ============ THE STORY ============ -->
+  <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
+
+    <!-- 7 of 12 ≈ 640px at the 1240 container: the column IS the reading measure,
+         no inner max-w cap (15-column-voids.md). -->
+    <div class="lg:col-span-7">
+
+      <!-- Player. Resting state is the accent tile — there is no poster frame,
+           because a poster frame of a named contributor is a portrait of that
+           contributor. Nothing is requested until the button is pressed. -->
+      <section class="hidden" data-ov-player-wrap aria-labelledby="player-h">
+        <h2 id="player-h" class="sr-only">Watch or listen to this story</h2>
+        <div class="relative overflow-hidden rounded-2xl" data-ov-player></div>
+        <p class="mt-2.5 text-[13.5px] leading-relaxed text-ink-500" data-ov-player-note></p>
+      </section>
+
+      <!-- Transcript. Present only when the record has one. No stub, ever. -->
+      <section class="mt-6 hidden" data-ov-tr-wrap aria-labelledby="tr-h">
+        <details class="rounded-2xl border border-ink-200 bg-ink-50">
+          <summary class="flex items-center justify-between gap-3 cursor-pointer list-none px-5 py-4">
+            <span id="tr-h" class="text-[16.5px] font-semibold text-ink-900">Transcript</span>
+            <span class="flex items-center gap-2 text-[13.5px] text-ink-500">
+              <span data-ov-tr-n></span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </span>
+          </summary>
+          <ol class="px-5 pb-5 space-y-3 border-t border-ink-200 pt-4" data-ov-tr></ol>
+        </details>
+      </section>
+
+      <!-- Social post body, under whichever branch of decision 4 is selected -->
+      <section class="mt-6 hidden" data-ov-social-wrap aria-labelledby="soc-h">
+        <h2 id="soc-h" class="sr-only">The post</h2>
+        <div data-ov-social></div>
+      </section>
+
+      <!-- Pull quote — the one place the display face goes large. Suppressed on a
+           social record, where the post IS the quote and this would print it twice. -->
+      <blockquote class="mt-8 border-l-4 border-accent-400 pl-5 sm:pl-6" data-ov-quote-wrap>
+        <p class="font-display text-[24px] sm:text-[30px] font-semibold leading-[1.25] tracking-[-.015em] text-ink-900" data-ov-quote></p>
+      </blockquote>
+
+      <!-- Written body. Absent where the record has none — no filler. -->
+      <div class="mt-8 space-y-5 text-[17.5px] leading-[1.7] text-ink-800" data-ov-body></div>
+
+      <!-- What helped them. Links out to Learn and Sessions. -->
+      <section class="mt-10 hidden" data-ov-take-wrap aria-labelledby="take-h">
+        <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5 sm:p-6">
+          <h2 id="take-h" class="font-display text-[22px] font-semibold text-ink-900">What helped</h2>
+          <p class="mt-1.5 text-[14.5px] text-ink-600">
+            In this storyteller&rsquo;s words, not clinical advice. Talk to your own team before changing anything.
+          </p>
+          <ul class="mt-5 space-y-4" data-ov-take></ul>
+          <div class="mt-6 pt-5 border-t border-accent-200 flex flex-wrap gap-3">
+            <a href="#" class="inline-flex items-center gap-1.5 min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15px] font-semibold hover:bg-accent-700">
+              Read the explainers on this
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+            <a href="#" class="inline-flex items-center gap-1.5 min-h-[46px] px-5 rounded-full bg-white border border-ink-300 text-ink-800 text-[15px] font-semibold hover:border-accent-400">
+              Join a live session</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tags -->
+      <div class="mt-8 pt-6 border-t border-ink-100">
+        <h2 class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">Also about</h2>
+        <ul class="mt-3 flex flex-wrap gap-2" data-ov-tags></ul>
+      </div>
+    </div>
+
+    <!-- Sticky rail. Contents scale with the record: a written-only story has no
+         Watch entry, a record with no transcript has no Transcript entry. It never
+         restates the header. -->
+    <aside class="mt-10 lg:mt-0 lg:col-span-4 lg:col-start-9 lg:sticky lg:top-24 lg:self-start space-y-4" aria-label="On this page">
+      <nav class="rounded-2xl border border-ink-200 p-5" aria-labelledby="jump-h">
+        <h2 id="jump-h" class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">On this page</h2>
+        <ul class="mt-3 space-y-1" data-ov-jump></ul>
+      </nav>
+
+      <div class="rounded-2xl border border-ink-200 bg-ink-50 p-5" data-ov-access>
+        <h2 class="text-[17px] font-semibold text-ink-900">Accessibility</h2>
+        <ul class="mt-3 space-y-2 text-[14.5px] text-ink-700" data-ov-access-list></ul>
+      </div>
+
+      <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5">
+        <h2 class="font-display text-[19px] font-semibold text-ink-900">Share your story</h2>
+        <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">
+          Your name, your photo and your location are three separate choices, and you can decline all three.
+        </p>
+        <a href="onevoice-stories.mockup.html#share" class="mt-4 flex items-center justify-center gap-1.5 min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">
+          Start your story
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </aside>
+  </div>
+  </article>
+
+  <!-- ============ RELATED — shared tags, same community only ============ -->
+  <section class="border-t border-ink-200 bg-ink-50" aria-labelledby="rel-h">
+    <span class="spec" style="top:10px;right:10px">Related by shared tags · never crosses domains</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-10 lg:py-12">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 id="rel-h" class="font-display text-[24px] sm:text-[28px] font-semibold tracking-[-.015em] text-ink-900">
+          More stories from this community</h2>
+        <a href="onevoice-stories.mockup.html" class="inline-flex items-center gap-1.5 text-[15.5px] font-semibold text-accent-700 hover:underline">
+          All <span data-t="nameLower">amyloidosis</span> stories →</a>
+      </div>
+      <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-ov-rel></ul>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ---------------------------------------------------------------------------
+   One template, driven by which fields the record actually has. Every optional
+   block is absent when its field is missing, rather than present and empty —
+   the same principle the Spotlight card applies to a missing summary.
+   --------------------------------------------------------------------------- */
+(function(){
+  var rec = null, tenant = null;
+
+  var STATES = {
+    AL:'Alabama', AZ:'Arizona', CA:'California', CO:'Colorado', FL:'Florida', GA:'Georgia',
+    IL:'Illinois', LA:'Louisiana', MA:'Massachusetts', MD:'Maryland', MI:'Michigan',
+    MN:'Minnesota', MO:'Missouri', NC:'North Carolina', NY:'New York', OH:'Ohio',
+    OR:'Oregon', PA:'Pennsylvania', TN:'Tennessee', TX:'Texas', UT:'Utah',
+    VA:'Virginia', WA:'Washington', WI:'Wisconsin'
+  };
+  var MEDIA_LABEL = { video:'Video', audio:'Audio', written:'Written', social:'Social post' };
+  var WHO_LABEL   = { patient:'Patient story', carer:'Carer story', family:'Family story' };
+  var ROLES = ['full','anon','written','audio','social'];
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function params(){ return new URLSearchParams(location.search); }
+  function embeds(){ return params().get('embeds') === '1'; }
+
+  /* Identity tile. No photographs. Anonymous gets a neutral tile with no
+     initials, because initials identify. */
+  function tile(s, size, overlay){
+    var big = size === 'big';
+    var anon = !s.name;
+    var box = big ? 'aspect-video w-full rounded-2xl' : 'w-14 h-14 rounded-xl shrink-0';
+    var skin = anon ? 'bg-ink-100 border border-ink-200 text-ink-400'
+                    : 'bg-gradient-to-br from-accent-600 to-accent-800 text-white';
+    /* Big tile: the glyph sits top-left, not centred. The play control occupies
+       the centre, and a centred glyph disappears behind it. */
+    var glyph = anon
+      ? '<svg class="' + (big ? 'absolute top-4 left-5 w-12 h-12 opacity-80' : 'w-7 h-7') + '" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+          '<path d="M7.5 5C5 5 3 7.2 3 10.1 3 12.8 4.8 15 7.3 15c.5 0 .9-.1 1.2-.2-.5 1.9-2 3.4-4 4.2l.8 1.5c3.6-1.3 6.2-4.6 6.2-8.9C11.5 7.6 9.8 5 7.5 5Zm9 0C14 5 12 7.2 12 10.1c0 2.7 1.8 4.9 4.3 4.9.5 0 .9-.1 1.2-.2-.5 1.9-2 3.4-4 4.2l.8 1.5c3.6-1.3 6.2-4.6 6.2-8.9C20.5 7.6 18.8 5 16.5 5Z"/></svg>'
+      : '<span class="font-display font-semibold tracking-[.02em] ' +
+          (big ? 'absolute top-4 left-5 text-[44px] sm:text-[54px] opacity-90' : 'text-[19px]') + '">' + esc(s.initials) + '</span>';
+    /* Overlay is appended as a sibling of the glyph inside the tile. It is passed
+       in rather than spliced on afterwards: a `.replace('</span>', …)` hits the
+       GLYPH's closing tag first, so the play control landed inside the top-left
+       glyph instead of centred on the tile. Found by eye; the checks all passed. */
+    return '<span class="relative flex items-center justify-center overflow-hidden ' + box + ' ' + skin + '">' +
+             glyph + (overlay || '') + '</span>';
+  }
+
+  function chip(label, tone){
+    var skin = tone === 'accent' ? 'bg-accent-50 text-accent-800' : 'bg-ink-100 text-ink-600';
+    return '<span class="px-2.5 py-1 rounded-full ' + skin + '">' + esc(label) + '</span>';
+  }
+
+  /* ---------- resolve the record from ?s= ---------- */
+  function resolve(slug){
+    var set = window.OV.detail[tenant] || {};
+    if (!slug) return { role:'full', rec:set.full, exact:true };
+    /* exact role, e.g. ?s=anon */
+    if (set[slug]) return { role:slug, rec:set[slug], exact:true };
+    /* exact slug, e.g. ?s=marta */
+    for (var i = 0; i < ROLES.length; i++) {
+      if (set[ROLES[i]] && set[ROLES[i]].slug === slug) return { role:ROLES[i], rec:set[ROLES[i]], exact:true };
+    }
+    /* Not carried in this mockup. Fall back and SAY SO, rather than 404ing or
+       silently showing someone else's story as if it were the one asked for. */
+    return { role:'full', rec:set.full, exact:false, asked:slug };
+  }
+
+  /* ---------- player ----------
+     The resting state is the tile. On activation the mockup swaps in a local
+     surface with a caption bar. No third-party request is made at any point, on
+     load or on click — that is the whole point of the design, per 20 §4. */
+  function renderPlayer(s){
+    var wrap = document.querySelector('[data-ov-player-wrap]');
+    var host = document.querySelector('[data-ov-player]');
+    var note = document.querySelector('[data-ov-player-note]');
+    var timed = s.medium === 'video' || s.medium === 'audio';
+    wrap.classList.toggle('hidden', !timed);
+    if (!timed) { host.innerHTML = ''; return; }
+
+    var verb = s.medium === 'video' ? 'Play' : 'Listen to';
+    var playBtn = function(px){
+      return '<button type="button" data-ov-play class="' + px + ' grid place-items-center group" ' +
+              'aria-label="' + verb + ' this story — ' + esc(s.dur) + '">' +
+          '<span class="grid place-items-center w-20 h-20 rounded-full bg-white/95 text-accent-800 shadow-lift group-hover:scale-105 transition">' +
+            '<svg class="w-9 h-9 ml-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>' +
+          '</span></button>';
+    };
+
+    if (s.medium === 'video') {
+      host.innerHTML = tile(s, 'big',
+        playBtn('absolute inset-0') +
+        '<span class="absolute bottom-3 right-3 rounded-md bg-ink-900/85 text-white text-[13px] font-semibold tabular-nums px-2 py-1">' + esc(s.dur) + '</span>');
+      note.textContent = 'Video · ' + s.dur + ' · captions on by default. Nothing is loaded from any ' +
+        'video host until you press play — this page makes no third-party media request on load.';
+      return;
+    }
+
+    /* Audio has no picture, so it does not get a 16:9 surface. A full-width
+       aspect-video tile for an audio story is ~370px of flat accent colour
+       standing in for an image that does not exist — heavy, and it says nothing.
+       A horizontal player strip is the honest shape for the medium. */
+    host.innerHTML =
+      '<div class="flex items-center gap-4 sm:gap-5 rounded-2xl border border-accent-200 bg-accent-50 p-4 sm:p-5">' +
+        tile(s) +
+        '<div class="min-w-0 flex-1">' +
+          '<p class="text-[15.5px] font-semibold text-ink-900">Voice note</p>' +
+          /* Audio gets a transcript, not captions — there is no video track to
+             caption, and saying "captions" here would be untrue. */
+          '<p class="mt-0.5 text-[14px] text-ink-600 tabular-nums">' + esc(s.dur) + ' · full transcript below</p>' +
+          /* A static level trace, not a fake live waveform: it indicates "audio"
+             without implying playback state before anything has played. */
+          '<div class="mt-2.5 flex items-end gap-[3px] h-5" aria-hidden="true">' +
+            [7,12,18,11,20,9,15,19,8,14,17,10,20,13,6,16,11,19,9,12,18,8,15,10,17,13,7,19,11,14]
+              .map(function(v){ return '<span class="w-[3px] rounded-sm bg-accent-300" style="height:' + v + 'px"></span>'; }).join('') +
+          '</div>' +
+        '</div>' +
+        playBtn('shrink-0') +
+      '</div>';
+    note.textContent = 'Audio · ' + s.dur + ' · a transcript is below. Nothing is loaded from any audio ' +
+      'host until you press play — this page makes no third-party media request on load.';
+  }
+
+  function activatePlayer(s){
+    var host = document.querySelector('[data-ov-player]');
+    var cue = (s.transcript && s.transcript[0]) ? s.transcript[0].s : '';
+    /* Audio keeps the strip proportions when it activates — swapping a strip for
+       a 16:9 box on click would move every element below it down by ~230px. */
+    if (s.medium === 'audio') {
+      host.innerHTML =
+        '<div class="rounded-2xl bg-ink-900 p-5 sm:p-6">' +
+          '<p class="text-[13px] font-semibold uppercase tracking-[.14em] text-ink-400">Audio playing</p>' +
+          '<p class="mt-2 text-[14.5px] leading-relaxed text-ink-300">In production the real audio player ' +
+            'loads here. A recording publishes with a transcript, which is below. The mockup stops at this ' +
+            'surface on purpose, so reviewing the page contacts no audio host.</p>' +
+          (cue ? '<p class="mt-4"><span class="inline-block rounded bg-black/60 text-white text-[15px] leading-snug px-3 py-1.5">' +
+                   esc(cue) + '</span></p>' : '') +
+        '</div>';
+      return;
+    }
+    host.innerHTML =
+      '<div class="relative aspect-video w-full rounded-2xl bg-ink-900 grid place-items-center">' +
+        '<div class="text-center px-6">' +
+          '<p class="text-[13px] font-semibold uppercase tracking-[.14em] text-ink-400">' +
+            (s.medium === 'video' ? 'Player active' : 'Audio playing') + '</p>' +
+          '<p class="mt-2 text-[14.5px] leading-relaxed text-ink-300 max-w-md mx-auto">' +
+            'In production the real player loads here, with a required ' +
+            '<code class="text-ink-100">&lt;track kind="captions"&gt;</code>. A story with no caption ' +
+            'track does not publish. The mockup stops at this surface on purpose, so reviewing the page ' +
+            'contacts no video host.</p>' +
+        '</div>' +
+        (cue ? '<p class="absolute bottom-5 inset-x-0 mx-auto max-w-lg px-4 text-center">' +
+                 '<span class="inline-block rounded bg-black/80 text-white text-[15px] leading-snug px-3 py-1.5">' +
+                   esc(cue) + '</span></p>' : '') +
+      '</div>';
+  }
+
+  /* ---------- social, decision 4 ---------- */
+  function renderSocial(s){
+    var wrap = document.querySelector('[data-ov-social-wrap]');
+    var host = document.querySelector('[data-ov-social]');
+    wrap.classList.toggle('hidden', s.medium !== 'social');
+    if (s.medium !== 'social') { host.innerHTML = ''; return; }
+
+    var recommend =
+      '<p class="mt-4 text-[13.5px] leading-relaxed text-ink-500 border-l-2 border-ink-200 pl-4">' +
+        '<strong class="font-semibold text-ink-700">Recommendation:</strong> a social post makes a thin ' +
+        'detail page — no transcript, no takeaways, nothing to relate on but tags. Social posts should ' +
+        'probably live on the listing and link out, the same conclusion prompt 19 reached about registry ' +
+        'trials. This page is here as evidence for that decision, not as advocacy for building it.</p>';
+
+    if (!embeds()) {
+      host.innerHTML =
+        '<blockquote class="rounded-2xl border border-ink-200 bg-white p-5 sm:p-6">' +
+          '<p class="text-[19px] leading-relaxed text-ink-800">&ldquo;' + esc(s.quote) + '&rdquo;</p>' +
+          '<footer class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-[14px] text-ink-500">' +
+            '<span class="font-medium text-ink-700">' + esc(s.handle) + '</span> on ' + esc(s.net) +
+            '<span aria-hidden="true">·</span>' +
+            '<a href="#" class="underline underline-offset-2 hover:text-accent-700">View the original post</a>' +
+          '</footer>' +
+          '<p class="mt-3 text-[13px] text-ink-500">Quoted as our own markup with permission. ' +
+            esc(s.net) + ' is not contacted by this page.</p>' +
+        '</blockquote>' + recommend;
+      return;
+    }
+    host.innerHTML =
+      '<div class="rounded-2xl border border-dashed border-ink-300 bg-ink-50 p-6 text-center" data-ov-embed>' +
+        '<p class="text-[14.5px] text-ink-600">' + esc(s.net) + ' post by ' +
+          '<span class="font-medium text-ink-800">' + esc(s.handle) + '</span></p>' +
+        '<button type="button" class="mt-4 inline-flex items-center min-h-[46px] px-5 rounded-full bg-ink-900 text-white text-[15px] font-semibold hover:bg-ink-800">' +
+          'Load post from ' + esc(s.net) + '</button>' +
+        '<p class="mt-3 text-[13px] leading-relaxed text-ink-500 max-w-md mx-auto">' +
+          esc(s.net) + ' is contacted only when you press this, never on page load. An embed also brings ' +
+          'its own chrome and an unpredictable height, which is the card-design cost of decision 4.</p>' +
+      '</div>' + recommend;
+  }
+
+  /* ---------- related ---------- */
+  function relatedHTML(s){
+    return '<li class="h-full">' +
+      '<article class="h-full flex flex-col rounded-2xl border border-ink-200 bg-white p-5 hover:border-accent-400 hover:shadow-lift transition">' +
+        '<div class="flex flex-wrap items-center gap-2 text-[12px] font-semibold uppercase tracking-[.07em]">' +
+          chip(MEDIA_LABEL[s.medium]) + chip(WHO_LABEL[s.who].replace(' story','')) + '</div>' +
+        '<h3 class="mt-3 text-[17px] font-semibold leading-snug text-ink-900">' +
+          '<a href="?s=' + encodeURIComponent(s.slug) + '" class="hover:text-accent-800 hover:underline underline-offset-2">' +
+            esc(s.title) + '</a></h3>' +
+        '<div class="mt-auto pt-4 flex items-center gap-3">' + tile(s) +
+          '<span class="min-w-0">' +
+            '<span class="block text-[14.5px] font-semibold text-ink-900">' + (s.name ? esc(s.name) : 'Anonymous') + '</span>' +
+            '<span class="block text-[13px] text-ink-500">' + (s.city ? esc(s.city) + ', ' + esc(s.st) : STATES[s.st] || '') + '</span>' +
+          '</span>' +
+        '</div>' +
+      '</article></li>';
+  }
+
+  /* ---------- the render ---------- */
+  function render(){
+    var q = params();
+    var r = resolve(q.get('s'));
+    rec = r.rec;
+    if (!rec) return;
+    var s = rec;
+
+    /* Fallback notice — honest about what happened */
+    var fb = document.querySelector('[data-ov-fallback]');
+    if (r.exact) { fb.classList.add('hidden'); fb.textContent = ''; }
+    else {
+      fb.classList.remove('hidden');
+      fb.textContent = 'This mockup carries five full story records per community. You followed a link to ' +
+        '“' + r.asked + '”, which is one of the listing cards without a full record here, so the full ' +
+        'example is shown instead. In production every card has its own page.';
+    }
+
+    /* Header */
+    document.querySelector('[data-ov-meta]').innerHTML =
+      chip(MEDIA_LABEL[s.medium], 'accent') + chip(WHO_LABEL[s.who]) + chip(s.cat) +
+      '<time class="text-ink-500 tabular-nums" datetime="' + s.d + '">' + esc(s.dl) + '</time>' +
+      (s.dur  ? '<span class="text-ink-400" aria-hidden="true">·</span><span class="text-ink-500 tabular-nums">' + esc(s.dur) + '</span>' : '') +
+      (s.read ? '<span class="text-ink-400" aria-hidden="true">·</span><span class="text-ink-500">' + esc(s.read) + ' read</span>' : '');
+
+    document.querySelector('[data-ov-title]').textContent = s.title;
+    document.querySelector('[data-ov-stand]').innerHTML = s.stand;
+
+    /* Storyteller. Anonymous shows no name and no initials, here and everywhere. */
+    document.querySelector('[data-ov-teller]').innerHTML =
+      tile(s) +
+      '<span class="min-w-0">' +
+        '<span class="block text-[17px] font-semibold text-ink-900">' + (s.name ? esc(s.name) : 'Anonymous') + '</span>' +
+        '<span class="mt-0.5 block text-[14px] leading-snug text-ink-600">' + esc(s.situation) + '</span>' +
+      '</span>';
+
+    document.querySelector('[data-ov-shared]').textContent = s.dl;
+    document.querySelector('[data-ov-theme]').textContent = s.cat;
+
+    /* Location: city + two-letter state where consented; state only otherwise.
+       A city plus a situation line can identify a person in a rare-disease
+       community, so an anonymous record is never placed to a city. */
+    var placeWrap = document.querySelector('[data-ov-place-wrap]');
+    var place = s.city ? s.city + ', ' + s.st : (STATES[s.st] || '');
+    placeWrap.hidden = !place;
+    document.querySelector('[data-ov-place]').textContent = place;
+
+    document.querySelector('[data-ov-consent]').textContent = s.name
+      ? 'Published with consent to use this name. No photograph is published — identity is shown as initials, which is this site’s default.'
+      : 'Published anonymously at the storyteller’s request. No name, no initials and no image are shown, and the location is given at state level only.';
+
+    /* Media, transcript, social */
+    renderPlayer(s);
+    renderSocial(s);
+
+    var trWrap = document.querySelector('[data-ov-tr-wrap]');
+    var hasTr = !!(s.transcript && s.transcript.length);
+    trWrap.classList.toggle('hidden', !hasTr);
+    if (hasTr) {
+      document.querySelector('[data-ov-tr-n]').textContent = s.transcript.length + ' excerpts';
+      document.querySelector('[data-ov-tr]').innerHTML = s.transcript.map(function(c){
+        return '<li class="flex gap-3.5">' +
+          '<span class="shrink-0 w-12 text-[13px] font-semibold tabular-nums text-accent-700 pt-0.5">' + esc(c.t) + '</span>' +
+          '<span class="text-[15.5px] leading-relaxed text-ink-700">' + esc(c.s) + '</span></li>';
+      }).join('');
+    }
+
+    /* The social branch already renders the post as a blockquote. Printing the
+       same words again as a pull quote is the kind of duplication that got the
+       expert profile's "At a glance" card deleted. */
+    var qWrap = document.querySelector('[data-ov-quote-wrap]');
+    qWrap.hidden = s.medium === 'social';
+    document.querySelector('[data-ov-quote]').innerHTML = '&ldquo;' + esc(s.quote) + '&rdquo;';
+
+    var body = document.querySelector('[data-ov-body]');
+    body.innerHTML = (s.body || []).map(function(p){ return '<p>' + esc(p) + '</p>'; }).join('');
+    body.classList.toggle('mt-8', (s.body || []).length > 0);
+
+    var takeWrap = document.querySelector('[data-ov-take-wrap]');
+    var hasTake = !!(s.takeaways && s.takeaways.length);
+    takeWrap.classList.toggle('hidden', !hasTake);
+    if (hasTake) {
+      document.querySelector('[data-ov-take]').innerHTML = s.takeaways.map(function(k){
+        return '<li class="flex gap-3.5">' +
+          '<svg class="w-5 h-5 mt-1 shrink-0 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>' +
+          '<span><span class="block text-[16px] font-semibold text-ink-900">' + k.t + '</span>' +
+          '<span class="mt-0.5 block text-[15px] leading-relaxed text-ink-700">' + k.d + '</span></span></li>';
+      }).join('');
+    }
+
+    document.querySelector('[data-ov-tags]').innerHTML = (s.tags || []).map(function(t){
+      return '<li><a href="onevoice-stories.mockup.html?q=' + encodeURIComponent(t) + '" ' +
+        'class="inline-flex items-center min-h-[36px] px-3.5 rounded-full bg-white border border-ink-200 ' +
+        'text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">' + esc(t) + '</a></li>';
+    }).join('');
+
+    /* Jump list scales with the record — no entry for a section that is absent */
+    var jump = [];
+    if (s.medium === 'video')  jump.push(['#player-h','Watch the story']);
+    if (s.medium === 'audio')  jump.push(['#player-h','Listen to the story']);
+    if (s.medium === 'social') jump.push(['#soc-h','The post']);
+    if (hasTr)                 jump.push(['#tr-h','Transcript']);
+    if ((s.body || []).length) jump.push(['#body','In their words']);
+    if (hasTake)               jump.push(['#take-h','What helped']);
+    jump.push(['#rel-h','More stories']);
+    body.id = 'body';
+    document.querySelector('[data-ov-jump]').innerHTML = jump.map(function(j){
+      return '<li><a href="' + j[0] + '" class="flex items-center min-h-[38px] text-[15px] text-ink-700 hover:text-accent-700">' + j[1] + '</a></li>';
+    }).join('');
+
+    /* Accessibility card states what this record actually has. A record with
+       neither captions nor a transcript would say so rather than stay silent. */
+    var acc = [];
+    /* Captions are a video concept. An audio record has a transcript, and
+       claiming captions on it would be a false accessibility statement. */
+    if (s.medium === 'video' && s.captions)  acc.push(['Captions', 'On by default, and required before publishing.']);
+    if (s.transcript && s.transcript.length) acc.push(['Transcript', 'Full text below the player.']);
+    if (s.medium === 'written')              acc.push(['Written story', 'No media to caption. Read at your own pace.']);
+    acc.push(['No autoplay', 'Nothing plays, and nothing is requested, until you press play.']);
+    var accWrap = document.querySelector('[data-ov-access]');
+    accWrap.hidden = !acc.length;
+    document.querySelector('[data-ov-access-list]').innerHTML = acc.map(function(a){
+      return '<li class="flex gap-2.5">' +
+        '<svg class="w-4 h-4 mt-1 shrink-0 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>' +
+        '<span><strong class="font-semibold text-ink-900">' + a[0] + '</strong> — ' + a[1] + '</span></li>';
+    }).join('');
+
+    /* Related: same community only, sharing at least one tag where possible */
+    var set = window.OV.detail[tenant] || {};
+    var pool = ROLES.map(function(k){ return set[k]; }).filter(function(x){ return x && x !== s; });
+    var shared = pool.filter(function(o){
+      return (o.tags || []).some(function(t){ return (s.tags || []).indexOf(t) > -1; });
+    });
+    var rel = shared.concat(pool.filter(function(o){ return shared.indexOf(o) < 0; })).slice(0, 3);
+    document.querySelector('[data-ov-rel]').innerHTML = rel.map(relatedHTML).join('');
+
+    /* Breadcrumb + title. An anonymous record never leaks a name into either. */
+    var label = s.name ? s.name : 'Anonymous';
+    window.OV.crumbs = [{ label:'Community', href:'onevoice-stories.mockup.html' }, { label:label }];
+    var ol = document.querySelector('nav[aria-label="Breadcrumb"] ol li[aria-current="page"]');
+    if (ol) ol.textContent = label;
+    document.title = 'SPECULATIVE — ' + s.title + ' | oneVoice';
+
+    markStates();
+  }
+
+  function markStates(){
+    var live = params().get('s') || 'full';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ov-state]'), function(a){
+      var v = a.getAttribute('data-ov-state');
+      var q = params(); q.set('s', v);
+      a.setAttribute('href', location.pathname + '?' + q.toString());
+      var on = live === v;
+      a.className = 'inline-flex items-center min-h-[38px] px-3.5 rounded-full text-[13.5px] font-semibold border ' +
+        (on ? 'bg-white border-white text-ink-900' : 'bg-transparent border-ink-600 text-ink-200 hover:border-ink-300 hover:text-white');
+      if (on) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current');
+    });
+  }
+
+  window.OV.onTenant = function(t, slug){
+    tenant = slug;
+    render();
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.addEventListener('click', function(e){
+      if (e.target.closest('[data-ov-play]')) { activatePlayer(rec); return; }
+      var emb = e.target.closest('[data-ov-embed] button');
+      if (emb) {
+        emb.closest('[data-ov-embed]').innerHTML =
+          '<div class="rounded-xl bg-white border border-ink-200 p-5 text-left">' +
+            '<p class="text-[14px] font-semibold text-ink-800">Embed would load here</p>' +
+            '<p class="mt-1.5 text-[13.5px] leading-relaxed text-ink-500">In production this is the ' +
+            'network&rsquo;s own iframe, requested now and not before. The mockup stops here on purpose, so ' +
+            'reviewing this page makes no request to any social network.</p></div>';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
