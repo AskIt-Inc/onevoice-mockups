@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" data-tenant="amyloidosis" data-notes="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Understanding amyloidosis | oneVoice</title>
+<script>
+/* ---------------------------------------------------------------------------
+   Prompt 05 — Patient learning hub.  Route /trusted-resources (existing alias;
+   the URLs do not change, decided 2026-08-11).
+
+   BLOCKING DECISION 3 RESOLVED 2026-08-17: `education` splits into `education`
+   (patient-facing, this page) and `publication` (academic, onevoice-publications).
+   Two indexes, not one index with an audience toggle.
+
+   The dividend of the split is visible in what this file does NOT contain:
+   there is no DOI branch, no ISBN slot and no author-affiliation string, because
+   the patient scope has no citation slot to populate. "Never show a DOI to a
+   patient" stops being a rule somebody has to remember and becomes structural.
+
+   Corpus and components: assets/ov-edu.js. Records are REAL published nodes
+   measured from the local Drupal database on 2026-08-17.
+   --------------------------------------------------------------------------- */
+window.OV = {
+  nav: 'learn',
+  crumbs: [{ label: 'Learn' }]
+};
+</script>
+<script src="assets/ov-kit.js"></script>
+<script src="assets/ov-edu.js"></script>
+</head>
+<body>
+
+<main id="main">
+
+  <!-- ============ HEADER — two-column band (prompt 15).
+       Left: H1, intro, counts of what is actually on the page. Right: topic
+       chips, which use the space AND give the listing the crawlable internal
+       links the pattern wants. ============ -->
+  <section class="relative bg-gradient-to-b from-accent-50 to-white" aria-labelledby="lrn-h1">
+    <span class="spec" style="top:10px;right:10px">H1 “Understanding {indication}” · CollectionPage · route /trusted-resources</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-7">
+        <h1 id="lrn-h1" class="font-display text-[30px] sm:text-[38px] lg:text-[46px] font-semibold leading-[1.12] tracking-[-.02em] text-ink-900">
+          Understanding <span data-t="nameLower">amyloidosis</span></h1>
+        <p class="mt-4 text-[17px] lg:text-lg leading-relaxed text-ink-600">
+          Plain-language information for people living with
+          <span data-t="nameLower">amyloidosis</span>, their families and the people caring for
+          them — what the condition is, what the tests and treatments involve, and what to ask at
+          your next appointment. Some of it we publish; some of it is the best of what others have
+          written, and we say which is which.
+        </p>
+        <p class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[14.5px] text-ink-500" data-lrn-counts></p>
+      </div>
+
+      <nav class="mt-7 lg:mt-0 lg:col-span-4 lg:col-start-9" aria-labelledby="lrn-topics-h" data-lrn-topics-panel>
+        <div class="rounded-2xl bg-white/70 border border-accent-200 p-5">
+          <h2 id="lrn-topics-h" class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500">Browse by topic</h2>
+          <ul class="mt-3 flex flex-wrap gap-2" data-lrn-topics></ul>
+        </div>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============ FILTER BAR — real controls, state mirrored into the URL ============ -->
+  <section class="sticky top-16 lg:top-20 z-20 bg-white/95 backdrop-blur border-y border-ink-200"
+           aria-label="Filter patient information" data-lrn-filterbar>
+    <span class="spec" style="top:8px;right:10px">Filters are query params (?q=&amp;topic=&amp;type=) so results are linkable and crawlable</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-3">
+      <form class="flex flex-wrap items-center gap-2.5" onsubmit="return false">
+        <label class="relative flex-1 min-w-[200px]">
+          <span class="sr-only">Search patient information</span>
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" name="q" placeholder="Search, e.g. diagnosis or diet" data-lrn-q
+                 class="w-full min-h-[46px] pl-11 pr-4 rounded-full bg-ink-50 border border-ink-200 text-[15.5px] text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
+        </label>
+        <label class="min-w-[170px]">
+          <span class="sr-only">Topic</span>
+          <select name="topic" data-lrn-topic class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
+            <option value="">All topics</option>
+          </select>
+        </label>
+        <!-- The type filter is the second axis: do we host this, or does it live
+             on somebody else's site? 64% of the corpus is the latter. -->
+        <label class="min-w-[170px]">
+          <span class="sr-only">Resource type</span>
+          <select name="type" data-lrn-type class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
+            <option value="">Anything</option>
+            <option value="article">Articles we publish</option>
+            <option value="reference">Links to trusted sources</option>
+          </select>
+        </label>
+        <button type="reset" data-lrn-reset class="min-h-[46px] px-4 rounded-full text-[15px] font-semibold text-ink-600 hover:bg-ink-100">Clear</button>
+      </form>
+      <ul class="mt-2.5 flex flex-wrap gap-2" hidden data-lrn-chips></ul>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+
+    <!-- Provenance. The experts directory learned this the hard way: a precise
+         number beside a placeholder notice gets read as real. Says what is
+         measured, what is missing, and what has no field behind it at all. -->
+    <div class="mt-8 rounded-xl border border-ink-200 bg-ink-50 p-4 flex gap-3" data-lrn-provenance>
+      <svg class="w-[18px] h-[18px] mt-[2px] shrink-0 text-ink-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <p class="text-[14px] leading-relaxed text-ink-600">
+        <strong class="font-semibold text-ink-800">These are real records.</strong>
+        Titles, publishers, dates and topics come from the live content store, measured 2026-08-17.
+        Two things are not yet true of it: <strong class="font-semibold text-ink-800">160 published
+        records carry no community tag</strong>, so no per-community total is stated anywhere on this
+        page; and <strong class="font-semibold text-ink-800">no reviewer field exists yet</strong>, so
+        the reviewed-by block is hidden on every record rather than filled with a name nobody signed.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============ START HERE — a path, not a grid.
+       Numbered and ordered, because "where do I begin" is the question this
+       page exists to answer for someone diagnosed three days ago. Sourced from
+       featured_resource_tag where it exists, then the strongest entry points.
+       Hidden entirely when a community has nothing. ============ -->
+  <section class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 mt-9 lg:mt-11"
+           aria-labelledby="lrn-start-h" data-lrn-start-section>
+    <span class="spec" style="top:-4px;right:10px">Ordered path · patient route is visually dominant · no academic content in it</span>
+    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+      <h2 id="lrn-start-h" class="font-display text-[24px] sm:text-[28px] font-semibold tracking-[-.015em] text-ink-900">
+        Start here</h2>
+      <p class="text-[14.5px] text-ink-500">If you have just been diagnosed, read these in order.</p>
+    </div>
+    <ol class="mt-5 grid gap-3" data-lrn-start></ol>
+  </section>
+
+  <!-- ============ RESULTS + RAIL ============ -->
+  <section class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-9 lg:py-11 lg:grid lg:grid-cols-12 lg:gap-12"
+           aria-label="Patient information">
+
+    <div class="lg:col-span-8">
+      <!-- Unfiltered: topic groups, each with a real count and a way in.
+           Filtered: one flat result list with a pager. -->
+      <div data-lrn-groups></div>
+
+      <div hidden data-lrn-flat>
+        <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+          <h2 class="font-display text-[24px] font-semibold tracking-[-.015em] text-ink-900" data-lrn-flat-h>Results</h2>
+          <p class="text-[14.5px] text-ink-500" data-lrn-flat-count></p>
+        </div>
+        <ol class="mt-4 border-t border-ink-100 divide-y divide-ink-100" data-lrn-rows></ol>
+      </div>
+
+      <!-- Zero results, designed -->
+      <div hidden class="py-14 text-center" data-lrn-empty>
+        <p class="font-display text-[22px] font-semibold text-ink-900">Nothing matches those filters</p>
+        <p class="mt-2 text-[15.5px] text-ink-600">Try a broader topic, or browse everything.</p>
+        <button type="button" data-lrn-reset class="mt-5 inline-flex items-center min-h-[48px] px-6 rounded-full bg-accent-600 text-white text-[16px] font-semibold hover:bg-accent-700">Clear all filters</button>
+      </div>
+
+      <!-- Real pager. Shown on the filtered list only; the grouped view has its
+           own per-topic "see all", which is where paging belongs. -->
+      <nav hidden class="mt-9 flex items-center justify-between gap-3" aria-label="Pagination" data-lrn-pager>
+        <span class="text-[14.5px] text-ink-500">Page <strong class="text-ink-800">1</strong> of <span class="tabular-nums" data-lrn-pages>1</span></span>
+        <ul class="flex items-center gap-1.5">
+          <li><span aria-disabled="true" class="grid place-items-center w-11 h-11 rounded-full text-ink-300">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></span></li>
+          <li><a href="#" aria-current="page" class="grid place-items-center w-11 h-11 rounded-full bg-accent-600 text-white text-[15px] font-semibold">1</a></li>
+          <li><a href="#" aria-label="Next page" class="grid place-items-center w-11 h-11 rounded-full text-ink-700 hover:bg-ink-100">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Rail: sticky, because it is shorter than the results column (prompt 15). -->
+    <aside class="mt-10 lg:mt-0 lg:col-span-4 lg:col-start-9 lg:sticky lg:top-24 lg:self-start space-y-4"
+           aria-label="More for this community">
+
+      <!-- THE CROSS-LINK. The split's one real cost is landing in the wrong
+           index, so each index carries a designed way out of it. This panel is
+           what MODEL.split=false collapses into an audience filter. -->
+      <div class="rounded-2xl border border-ink-200 bg-white shadow-card p-5" data-lrn-cross>
+        <span class="spec" style="top:-4px;right:8px">Cross-link · becomes the audience filter when split=false</span>
+        <h2 class="text-[17px] font-semibold text-ink-900">Looking for the research?</h2>
+        <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600" data-lrn-cross-copy>
+          Papers, abstracts and clinical guidelines, with authors, journals and DOIs.
+        </p>
+        <a href="onevoice-publications.mockup.html" class="mt-4 flex items-center justify-center gap-1.5 min-h-[46px] px-5 rounded-full border border-ink-300 text-[15px] font-semibold text-ink-800 hover:border-accent-400 hover:text-accent-800">
+          Research and publications
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5">
+        <h2 class="font-display text-[19px] font-semibold text-ink-900">Ask someone</h2>
+        <p class="mt-1.5 text-[14.5px] text-ink-600">Bring your questions to a live session, or find a specialist near you.</p>
+        <div class="mt-4 flex flex-col gap-2.5">
+          <a href="onevoice-spotlight-series.mockup.html" class="flex items-center justify-center min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">Upcoming sessions</a>
+          <a href="onevoice-experts.mockup.html" class="flex items-center justify-center min-h-[46px] px-5 rounded-full bg-white border border-ink-300 text-[15.5px] font-semibold text-ink-800 hover:bg-ink-50">Find a specialist or center</a>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-ink-200 p-5">
+        <h2 class="text-[17px] font-semibold text-ink-900">New guides, once a month</h2>
+        <p class="mt-1.5 text-[14.5px] text-ink-600">No promotions, ever. Unsubscribe in one click.</p>
+        <form class="mt-3.5 flex flex-col gap-2.5" onsubmit="return false">
+          <label class="sr-only" for="lrn-email">Email address</label>
+          <input id="lrn-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com"
+                 class="min-h-[46px] px-4 rounded-full bg-white border border-ink-300 text-[15.5px] text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
+          <button type="submit" class="min-h-[46px] px-5 rounded-full bg-ink-900 text-white text-[15.5px] font-semibold hover:bg-ink-800">Subscribe</button>
+        </form>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ EMPTY STATE — three of four communities have no education
+       content at all, so this is the common case, not an edge case. ============ -->
+  <section hidden class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-9 lg:py-11"
+           aria-labelledby="lrn-none-h" data-lrn-none>
+    <span class="spec" style="top:-4px;right:10px">Designed empty state · 3 of 4 communities land here</span>
+    <div class="rounded-2xl border border-ink-200 bg-white shadow-card p-6 sm:p-8 lg:grid lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-7">
+        <h2 id="lrn-none-h" class="font-display text-[24px] sm:text-[28px] font-semibold tracking-[-.015em] text-ink-900">
+          We have not built the <span data-t="nameLower">sickle cell disease</span> library yet</h2>
+        <p class="mt-3 text-[16.5px] leading-relaxed text-ink-600 max-w-[62ch]">
+          Every explainer on oneVoice is either written for this community or chosen for it by
+          someone who treats it. Nothing has been chosen for
+          <span data-t="nameLower">sickle cell disease</span> yet, and publishing another
+          condition's material here would be worse than publishing nothing.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a href="onevoice-experts.mockup.html" class="inline-flex items-center min-h-[44px] px-5 rounded-full bg-accent-700 text-white text-[15px] font-semibold hover:bg-accent-800">
+            Find a specialist or center</a>
+          <a href="onevoice-news.mockup.html" class="inline-flex items-center min-h-[44px] px-5 rounded-full border border-ink-300 text-ink-800 text-[15px] font-semibold hover:border-accent-400 hover:text-accent-800">
+            Read the latest news</a>
+        </div>
+      </div>
+      <div class="mt-7 lg:mt-0 lg:col-span-5">
+        <p class="text-[12.5px] font-semibold uppercase tracking-[.12em] text-ink-400">What goes in here</p>
+        <ul class="mt-3 space-y-2.5 text-[14.5px] leading-relaxed text-ink-600">
+          <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>Plain-language explainers of the tests and treatments.</li>
+          <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>A starting path for the first few weeks after diagnosis.</li>
+          <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>Material from trusted publishers, credited and linked.</li>
+          <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>A named clinician against each item, once the reviewer field exists.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  var E = window.OV_EDU, esc = E.esc;
+  var SCOPE = E.scope('education');
+  var PER_PAGE = 10, GROUP_SHOW = 4;
+  var recs = [];
+
+  function params(){ return new URLSearchParams(location.search); }
+  function el(s){ return document.querySelector(s); }
+
+  function setParam(k, v){
+    var q = params();
+    if (v) q.set(k, v); else q.delete(k);
+    history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
+    render();
+  }
+
+  /* Topic list is DERIVED from the records on the page, with real counts, so it
+     can never offer a filter that returns nothing. */
+  function topicCounts(list){
+    var c = {};
+    list.forEach(function(r){ (r.tags || []).forEach(function(t){ c[t] = (c[t] || 0) + 1; }); });
+    return Object.keys(c).sort(function(a, b){ return c[b] - c[a] || a.localeCompare(b); })
+      .map(function(k){ return { name: k, n: c[k] }; });
+  }
+
+  function matches(r, q){
+    var term = (q.get('q') || '').toLowerCase().trim();
+    var topic = q.get('topic') || '';
+    var type = q.get('type') || '';
+    if (topic && (r.tags || []).indexOf(topic) < 0) return false;
+    if (type && r.depth !== type) return false;
+    if (term && (r.t + ' ' + (r.teaser || '') + ' ' + (r.publisher || '') + ' ' + (r.tags || []).join(' '))
+                 .toLowerCase().indexOf(term) < 0) return false;
+    return true;
+  }
+
+  /* The Start-here path. featured_resource_tag first (real terms: CAREGIVER
+     SUPPORT, NEWLY PUBLISHED, LEARN MORE ABOUT CLINICAL TRIALS), then the
+     records that read as orientation. Ordered, numbered, and hosted articles
+     preferred — sending somebody three days post-diagnosis straight off-site is
+     not a starting path. */
+  function startPath(list){
+    var wanted = ['aa-amyloidosis-faqs',
+                  'genetic-testing-and-counseling-for-hattr-amyloid',
+                  'preparing-for-your-appointment-suggested-question',
+                  'living-with-amyloidosis',
+                  'a-guide-to-communication-and-stress'];
+    var picked = [];
+    wanted.forEach(function(s){
+      var hit = list.filter(function(r){ return r.slug === s; })[0];
+      if (hit) picked.push(hit);
+    });
+    /* Backfill from hosted articles so the path exists whatever the community holds */
+    list.forEach(function(r){
+      if (picked.length >= 5 || picked.indexOf(r) > -1) return;
+      if (r.depth === 'article') picked.push(r);
+    });
+    return picked.slice(0, 5);
+  }
+
+  function startHTML(r, i){
+    return '<li>' +
+      '<a href="' + E.href(r) + '" class="group flex gap-4 rounded-2xl bg-white border border-ink-200 shadow-card ' +
+        'p-4 sm:p-5 hover:border-accent-400 hover:shadow-lift transition">' +
+        '<span class="shrink-0 grid place-items-center w-9 h-9 rounded-full bg-accent-50 text-accent-800 ' +
+              'font-display text-[16px] font-semibold tabular-nums" aria-hidden="true">' + (i + 1) + '</span>' +
+        '<span class="min-w-0">' +
+          '<span class="block text-[17px] sm:text-[18px] font-semibold leading-snug text-ink-900 group-hover:text-accent-800">' +
+            esc(r.t) + '</span>' +
+          (r.teaser ? '<span class="mt-1 block text-[14.5px] leading-relaxed text-ink-600">' +
+            esc(r.teaser.slice(0, 130)) + (r.teaser.length > 130 ? '…' : '') + '</span>' : '') +
+          '<span class="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13px] text-ink-500">' +
+            (r.depth === 'article'
+              ? '<span>' + r.readMins + ' min read</span>'
+              : '<span class="inline-flex items-center gap-1.5">' + E.EXT_SVG + 'Opens at ' + esc(r.host || r.publisher) + '</span>') +
+          '</span>' +
+        '</span>' +
+      '</a></li>';
+  }
+
+  function groupsHTML(list){
+    var topics = topicCounts(list).slice(0, 4);
+    if (!topics.length) return '';
+    return topics.map(function(tp){
+      var items = list.filter(function(r){ return (r.tags || []).indexOf(tp.name) > -1; });
+      return '<section class="mb-10" aria-labelledby="g-' + esc(tp.name.replace(/\W+/g, '-')) + '">' +
+        '<div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">' +
+          '<h2 id="g-' + esc(tp.name.replace(/\W+/g, '-')) + '" class="font-display text-[22px] sm:text-[24px] font-semibold tracking-[-.015em] text-ink-900">' +
+            esc(tp.name) + '</h2>' +
+          '<a href="?topic=' + encodeURIComponent(tp.name) + '" class="text-[14.5px] font-semibold text-accent-700 hover:underline">' +
+            'See all ' + tp.n + '</a>' +
+        '</div>' +
+        '<ol class="mt-3 border-t border-ink-100 divide-y divide-ink-100">' +
+          items.slice(0, GROUP_SHOW).map(function(r){ return E.row(r, SCOPE); }).join('') +
+        '</ol></section>';
+    }).join('');
+  }
+
+  function render(){
+    var q = params();
+    var filtering = !!(q.get('q') || q.get('topic') || q.get('type'));
+    var hits = recs.filter(function(r){ return matches(r, q); });
+    var any = recs.length > 0;
+
+    /* Whole-community empty state vs zero-results-from-a-filter are different
+       pages and must not share one message. */
+    el('[data-lrn-none]').hidden = any;
+    ['[data-lrn-filterbar]', '[data-lrn-provenance]', '[data-lrn-topics-panel]'].forEach(function(s){
+      var n = el(s); if (n) n.hidden = !any;
+    });
+
+    el('[data-lrn-start-section]').hidden = !any || filtering;
+    el('[data-lrn-groups]').hidden = !any || filtering;
+    el('[data-lrn-flat]').hidden = !any || !filtering || !hits.length;
+    el('[data-lrn-empty]').hidden = !any || !filtering || hits.length > 0;
+    el('[data-lrn-pager]').hidden = !any || !filtering || hits.length <= PER_PAGE;
+
+    if (!any) { el('[data-lrn-counts]').innerHTML = ''; return; }
+
+    el('[data-lrn-counts]').innerHTML =
+      '<span><strong class="font-semibold text-ink-800 tabular-nums">' + (filtering ? hits.length : recs.length) +
+        '</strong> ' + (filtering ? 'matching' : 'resources here') + '</span>' +
+      '<span class="hidden sm:inline" aria-hidden="true">·</span>' +
+      '<span>Free, no login required</span>';
+
+    var start = startPath(recs);
+    el('[data-lrn-start]').innerHTML = start.map(startHTML).join('');
+    el('[data-lrn-start-section]').hidden = !any || filtering || !start.length;
+
+    el('[data-lrn-groups]').innerHTML = filtering ? '' : groupsHTML(recs);
+
+    if (filtering) {
+      el('[data-lrn-flat-h]').textContent = q.get('topic') || 'Results';
+      el('[data-lrn-flat-count]').textContent = hits.length + (hits.length === 1 ? ' resource' : ' resources');
+      el('[data-lrn-rows]').innerHTML = hits.slice(0, PER_PAGE).map(function(r){ return E.row(r, SCOPE); }).join('');
+      el('[data-lrn-pages]').textContent = Math.max(1, Math.ceil(hits.length / PER_PAGE));
+    }
+
+    /* Topic chips + the select, both from the same derived counts */
+    var topics = topicCounts(recs);
+    el('[data-lrn-topics]').innerHTML = topics.slice(0, 8).map(function(tp){
+      return '<li><a href="?topic=' + encodeURIComponent(tp.name) + '" ' +
+        'class="inline-flex items-center gap-1.5 min-h-[38px] px-3.5 rounded-full bg-white border border-ink-200 ' +
+        'text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">' + esc(tp.name) +
+        '<span class="text-ink-400 tabular-nums">' + tp.n + '</span></a></li>';
+    }).join('');
+
+    var sel = el('[data-lrn-topic]');
+    var keep = q.get('topic') || '';
+    sel.innerHTML = '<option value="">All topics</option>' + topics.map(function(tp){
+      return '<option value="' + esc(tp.name) + '">' + esc(tp.name) + ' (' + tp.n + ')</option>';
+    }).join('');
+    sel.value = keep;
+    el('[data-lrn-q]').value = q.get('q') || '';
+    el('[data-lrn-type]').value = q.get('type') || '';
+
+    /* Applied-filter chips, individually removable */
+    var active = [];
+    if (q.get('topic')) active.push(['topic', q.get('topic')]);
+    if (q.get('type'))  active.push(['type', q.get('type') === 'article' ? 'Articles we publish' : 'Links to trusted sources']);
+    if (q.get('q'))     active.push(['q', '“' + q.get('q') + '”']);
+    var chips = el('[data-lrn-chips]');
+    chips.innerHTML = active.map(function(p){
+      return '<li><button type="button" data-drop="' + p[0] + '" class="inline-flex items-center gap-1.5 min-h-[34px] px-3 rounded-full bg-accent-50 border border-accent-200 text-[13.5px] font-medium text-accent-800 hover:bg-accent-100">' +
+        esc(p[1]) + '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' +
+        '<span class="sr-only">Remove filter</span></button></li>';
+    }).join('');
+    chips.hidden = !active.length;
+  }
+
+  window.OV.onTenant = function(t, slug){
+    /* MODEL.split decides what this index contains. With split=false it renders
+       both scopes and the cross-link panel becomes an audience filter — the one
+       place the decision is read. */
+    recs = E.MODEL.split
+      ? E.records(slug, 'education')
+      : E.records(slug, null);
+    el('[data-lrn-cross]').hidden = !E.MODEL.split;
+    document.title = 'Understanding ' + t.nameLower + ' | oneVoice';
+    render();
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.addEventListener('input', function(e){
+      if (e.target.matches('[data-lrn-q]')) setParam('q', e.target.value.trim());
+    });
+    document.addEventListener('change', function(e){
+      if (e.target.matches('[data-lrn-topic]')) setParam('topic', e.target.value);
+      if (e.target.matches('[data-lrn-type]'))  setParam('type', e.target.value);
+    });
+    document.addEventListener('click', function(e){
+      var drop = e.target.closest('[data-drop]');
+      if (drop) { setParam(drop.getAttribute('data-drop'), ''); return; }
+      if (e.target.closest('[data-lrn-reset]')) {
+        history.replaceState(null, '', location.pathname);
+        render();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

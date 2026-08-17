@@ -479,13 +479,18 @@
           { label:'Expressing interest', href:'onevoice-trials.mockup.html', d:'What happens after you send your details to a study team.' }
         ], feat:'trials' },
 
-      { key:'learn', label:'Learn', href:'#',
-        blurb:'Clinician-checked explainers, research summaries and video.',
+      /* Blocking decision 3 resolved 2026-08-17: `education` split into
+         `education` (patient) and `publication` (academic), so this section now
+         has two destinations rather than one "Education & research" catch-all.
+         The order is deliberate — the patient route is first and named for what
+         a patient would call it. */
+      { key:'learn', label:'Learn', href:'onevoice-learn.mockup.html',
+        blurb:'Plain-language explainers for patients, and the research literature, kept apart on purpose.',
         items:[
-          { label:'Education & research', href:'#', d:'Explainers and published research, checked before publishing.' },
-          { label:'Videos & visuals', href:'#', d:'Short video and diagrams for the things text explains badly.' },
-          { label:'Newly diagnosed', href:'#', d:'Where to start in the first few weeks.' },
-          { label:'__CONDITION__ 101', href:'#', d:'The basics, in plain language.' }
+          { label:'Understanding __CONDITION__', href:'onevoice-learn.mockup.html', d:'Plain-language explainers, and trusted sources we have checked.' },
+          { label:'Newly diagnosed', href:'onevoice-learn.mockup.html#lrn-start-h', d:'Where to start in the first few weeks.' },
+          { label:'Research & publications', href:'onevoice-publications.mockup.html', d:'Papers, abstracts and guidance, with authors and DOIs.' },
+          { label:'Videos & visuals', href:'#', d:'Short video and diagrams for the things text explains badly.' }
         ], feat:'learn' },
 
       { key:'news', label:'News', href:'onevoice-news.mockup.html',
@@ -503,8 +508,8 @@
           { label:'Community stories', href:'#', d:'First-hand accounts from members and carers.' },
           { label:'Community content', href:'#', d:'Everything members have shared, in one place.' },
           { label:'Social wall', href:'#', d:'The conversation as it happens.' },
-          { label:'Financial assistance', href:'#', d:'Programmes that help with the cost of care.' },
-          { label:'Events & sessions', href:'#', d:'Live sessions, recorded if you cannot make it.' }
+          { label:'Financial assistance', href:'#', d:'Programs that help with the cost of care.' },
+          { label:'Events & sessions', href:'onevoice-sessions.mockup.html', d:'Live sessions, recorded if you cannot make it.' }
         ], feat:'sessions' },
 
       { key:'experts', label:'Find an expert', href:'onevoice-experts.mockup.html',
@@ -623,7 +628,7 @@
         sessions:[
           {d:'2026-08-12', dd:'12', mm:'Aug', t:'Ask the specialist: living with cardiac amyloidosis', w:'19:00–20:00 BST', m:'Online'},
           {d:'2026-09-03', dd:'3',  mm:'Sep', t:'Newly diagnosed? A starter session for patients and carers', w:'18:30–19:30 BST', m:'Online'},
-          {d:'2026-09-24', dd:'24', mm:'Sep', t:'Family screening and genetic counselling Q&A', w:'17:00–18:00 BST', m:'Online + Manchester'}
+          {d:'2026-09-24', dd:'24', mm:'Sep', t:'Family screening and genetic counseling Q&A', w:'17:00–18:00 BST', m:'Online + Manchester'}
         ]
       },
       scd: {
@@ -1073,7 +1078,7 @@
         }
         if (kind === 'sessions' && t.sessions && t.sessions[0]) {
           var v = t.sessions[0];
-          return head('Next session', '<a href="#" class="mt-2 flex gap-3 group">' +
+          return head('Next session', '<a href="onevoice-sessions.mockup.html" class="mt-2 flex gap-3 group">' +
             '<span class="shrink-0 w-11 text-center rounded-lg border border-ink-200 py-1">' +
               '<span class="block text-[15px] font-semibold text-ink-900 tabular-nums">' + esc(v.dd) + '</span>' +
               '<span class="block text-[11px] uppercase tracking-wide text-ink-500">' + esc(v.mm) + '</span></span>' +
@@ -1091,8 +1096,8 @@
             '<a href="onevoice-experts.mockup.html" class="mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:underline">Find someone near you →</a>');
         }
         if (kind === 'learn') {
-          return head('Start here', '<p class="mt-2 text-[15px] leading-snug text-ink-700">Newly diagnosed? The starter guide covers the first appointments and the questions worth asking.</p>' +
-            '<a href="#" class="mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:underline">Read the starter guide →</a>');
+          return head('Start here', '<p class="mt-2 text-[15px] leading-snug text-ink-700">Newly diagnosed? The starting path covers the first appointments and the questions worth asking.</p>' +
+            '<a href="onevoice-learn.mockup.html#lrn-start-h" class="mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-accent-700 hover:underline">Open the starting path →</a>');
         }
         return '';
       }
@@ -1315,7 +1320,10 @@
           { href:'onevoice-news-article.mockup.html', label:'Article' },
           { href:'onevoice-trials.mockup.html', label:'Trials' },
           { href:'onevoice-experts.mockup.html', label:'Experts' },
-          { href:'onevoice-expert.mockup.html', label:'Profile' }
+          { href:'onevoice-expert.mockup.html', label:'Profile' },
+          { href:'onevoice-spotlight-series.mockup.html', label:'Spotlight' },
+          { href:'onevoice-sessions.mockup.html', label:'Sessions' },
+          { href:'onevoice-session.mockup.html', label:'Session' }
         ];
         var here = location.pathname.split('/').pop() || 'onevoice-homepage.mockup.html';
         bar.innerHTML = ORDER.map(function(s){

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" data-tenant="amyloidosis" data-notes="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Amyloidosis research and publications | oneVoice</title>
+<script>
+/* ---------------------------------------------------------------------------
+   Prompt 05 — Publications index.  Route /publications.
+
+   BLOCKING DECISION 3 RESOLVED 2026-08-17: `education` splits into `education`
+   (patient-facing) and `publication` (academic, this page).
+
+   ROUTE NOTE — this is the one genuinely new URL in the redesign. Every other
+   template ships at an existing Drupal alias because "the URLs do not change"
+   (decided 2026-08-11). /publications has no legacy path behind it, so it
+   carries zero redirect exposure and zero ranking risk: nothing currently ranks
+   for it. The detail pages it links to stay at /rcuratenew/[slug].
+
+   Corpus and components: assets/ov-edu.js. Records are REAL published nodes
+   measured from the local Drupal database on 2026-08-17 — real journals, real
+   authors, real DOIs, and the real defects in those fields.
+   --------------------------------------------------------------------------- */
+window.OV = {
+  nav: 'learn',
+  crumbs: [{ label: 'Learn', href: 'onevoice-learn.mockup.html' }, { label: 'Research and publications' }]
+};
+</script>
+<script src="assets/ov-kit.js"></script>
+<script src="assets/ov-edu.js"></script>
+</head>
+<body>
+
+<main id="main">
+
+  <!-- ============ HEADER — two-column band (prompt 15).
+       Right column carries what a clinician actually needs to judge the index:
+       what is in it, where it comes from, and what it is not. ============ -->
+  <section class="relative bg-gradient-to-b from-ink-50 to-white" aria-labelledby="pub-h1">
+    <span class="spec" style="top:10px;right:10px">H1 “{Indication} research and publications” · CollectionPage · route /publications (new)</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-7">
+        <h1 id="pub-h1" class="font-display text-[30px] sm:text-[38px] lg:text-[46px] font-semibold leading-[1.12] tracking-[-.02em] text-ink-900">
+          <span data-t="name">Amyloidosis</span> research and publications</h1>
+        <p class="mt-4 text-[17px] lg:text-lg leading-relaxed text-ink-600">
+          Papers, conference abstracts and clinical guidance relevant to
+          <span data-t="nameLower">amyloidosis</span>, collected in one place with the citation
+          details intact. Each record links to the version of record at the publisher — we index
+          this literature, we do not republish it.
+        </p>
+        <p class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[14.5px] text-ink-500" data-pub-counts></p>
+      </div>
+
+      <div class="mt-7 lg:mt-0 lg:col-span-4 lg:col-start-9">
+        <div class="rounded-2xl bg-white border border-ink-200 shadow-card p-5">
+          <h2 class="text-[15px] font-semibold text-ink-900">What is indexed here</h2>
+          <ul class="mt-3 space-y-2.5 text-[14.5px] leading-relaxed text-ink-600">
+            <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>
+              Peer-reviewed papers, with authors, source and DOI where the record holds them.</li>
+            <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>
+              Conference abstracts and posters, labelled as such.</li>
+            <li class="flex gap-2.5"><span class="mt-[9px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>
+              Consensus statements and clinical guidance.</li>
+          </ul>
+          <p class="mt-4 pt-4 border-t border-ink-100 text-[14px] leading-relaxed text-ink-600">
+            This is a curated reading list, <strong class="font-semibold text-ink-800">not a
+            systematic review</strong> and not a complete index of the literature.
+            <a href="onevoice-learn.mockup.html" class="text-accent-700 font-medium underline underline-offset-2 hover:text-accent-800">Plain-language information is here</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FILTER BAR ============ -->
+  <section class="sticky top-16 lg:top-20 z-20 bg-white/95 backdrop-blur border-y border-ink-200"
+           aria-label="Filter publications" data-pub-filterbar>
+    <span class="spec" style="top:8px;right:10px">?q=&amp;topic=&amp;kind=&amp;year= · linkable and crawlable</span>
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-3">
+      <form class="flex flex-wrap items-center gap-2.5" onsubmit="return false">
+        <label class="relative flex-1 min-w-[200px]">
+          <span class="sr-only">Search publications</span>
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" name="q" placeholder="Search title, author or journal" data-pub-q
+                 class="w-full min-h-[46px] pl-11 pr-4 rounded-full bg-ink-50 border border-ink-200 text-[15.5px] text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:ring-0">
+        </label>
+        <label class="min-w-[150px]">
+          <span class="sr-only">Type</span>
+          <select name="kind" data-pub-kind class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
+            <option value="">All types</option>
+            <option value="paper">Papers</option>
+            <option value="abstract">Abstracts &amp; posters</option>
+          </select>
+        </label>
+        <label class="min-w-[130px]">
+          <span class="sr-only">Year</span>
+          <select name="year" data-pub-year class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
+            <option value="">Any year</option>
+          </select>
+        </label>
+        <label class="min-w-[150px]">
+          <span class="sr-only">Topic</span>
+          <select name="topic" data-pub-topic class="w-full min-h-[46px] px-3.5 rounded-full bg-white border border-ink-300 text-[15px] text-ink-800 focus:border-accent-600 focus:ring-0">
+            <option value="">All topics</option>
+          </select>
+        </label>
+        <button type="reset" data-pub-reset class="min-h-[46px] px-4 rounded-full text-[15px] font-semibold text-ink-600 hover:bg-ink-100">Clear</button>
+      </form>
+      <ul class="mt-2.5 flex flex-wrap gap-2" hidden data-pub-chips></ul>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+    <!-- Provenance, and the honest limits of the citation data. This is the page
+         where field quality is most visible, so it is stated rather than
+         discovered by a reviewer clicking Copy citation. -->
+    <div class="mt-8 rounded-xl border border-ink-200 bg-ink-50 p-4 flex gap-3" data-pub-provenance>
+      <svg class="w-[18px] h-[18px] mt-[2px] shrink-0 text-ink-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <p class="text-[14px] leading-relaxed text-ink-600">
+        <strong class="font-semibold text-ink-800">Real records, with their real gaps.</strong>
+        Measured from the live content store 2026-08-17. The stored
+        <code class="text-[13px]">source</code> field mixes journals
+        (<em>Circulation</em>) with databases (<em>PubMed Central</em>), so a citation here says
+        <strong class="font-semibold text-ink-800">Source</strong>, never <em>Journal</em>, until a
+        real journal field exists. Author lists arrive from the publisher and are shown as stored.
+        <strong class="font-semibold text-ink-800">No ISBN slot appears anywhere</strong> — the field
+        is empty across all 574 published records.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============ RESULTS + RAIL ============ -->
+  <section class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 lg:py-10 lg:grid lg:grid-cols-12 lg:gap-12"
+           aria-label="Publications">
+
+    <div class="lg:col-span-8">
+      <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1" data-pub-resultshead>
+        <h2 class="font-display text-[24px] font-semibold tracking-[-.015em] text-ink-900" data-pub-h>Newest first</h2>
+        <p class="text-[14.5px] text-ink-500" data-pub-count></p>
+      </div>
+
+      <ol class="mt-4 border-t border-ink-100 divide-y divide-ink-100" data-pub-rows></ol>
+
+      <div hidden class="py-14 text-center" data-pub-empty>
+        <p class="font-display text-[22px] font-semibold text-ink-900">No publications match those filters</p>
+        <p class="mt-2 text-[15.5px] text-ink-600">Try a wider year range, or clear the topic.</p>
+        <button type="button" data-pub-reset class="mt-5 inline-flex items-center min-h-[48px] px-6 rounded-full bg-accent-600 text-white text-[16px] font-semibold hover:bg-accent-700">Clear all filters</button>
+      </div>
+
+      <nav hidden class="mt-9 flex items-center justify-between gap-3" aria-label="Pagination" data-pub-pager>
+        <span class="text-[14.5px] text-ink-500">Page <strong class="text-ink-800">1</strong> of <span class="tabular-nums" data-pub-pages>1</span></span>
+        <ul class="flex items-center gap-1.5">
+          <li><span aria-disabled="true" class="grid place-items-center w-11 h-11 rounded-full text-ink-300">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></span></li>
+          <li><a href="#" aria-current="page" class="grid place-items-center w-11 h-11 rounded-full bg-accent-600 text-white text-[15px] font-semibold">1</a></li>
+          <li><a href="#" aria-label="Next page" class="grid place-items-center w-11 h-11 rounded-full text-ink-700 hover:bg-ink-100">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <aside class="mt-10 lg:mt-0 lg:col-span-4 lg:col-start-9 lg:sticky lg:top-24 lg:self-start space-y-4"
+           aria-label="More for this community">
+
+      <!-- The cross-link, written for the person who is in the wrong index -->
+      <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5" data-pub-cross>
+        <span class="spec" style="top:-4px;right:8px">Cross-link · becomes the audience filter when split=false</span>
+        <h2 class="text-[17px] font-semibold text-ink-900">Looking for plain-language information?</h2>
+        <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">
+          If you are living with <span data-t="nameLower">amyloidosis</span> rather than researching
+          it, start with the patient library — same topics, written to be read.
+        </p>
+        <a href="onevoice-learn.mockup.html" class="mt-4 flex items-center justify-center gap-1.5 min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15px] font-semibold hover:bg-accent-700">
+          Understanding <span data-t="nameLower">amyloidosis</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="rounded-2xl border border-ink-200 bg-ink-50 p-5">
+        <h2 class="text-[17px] font-semibold text-ink-900">Most-indexed topics</h2>
+        <ol class="mt-3 divide-y divide-ink-200" data-pub-toptopics></ol>
+      </div>
+
+      <div class="rounded-2xl border border-ink-200 p-5">
+        <h2 class="text-[17px] font-semibold text-ink-900">For clinicians</h2>
+        <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-600">
+          Recruiting studies in this community, and the specialists who run them.
+        </p>
+        <div class="mt-3.5 flex flex-col gap-2.5">
+          <a href="onevoice-trials.mockup.html" class="flex items-center justify-center min-h-[46px] px-5 rounded-full border border-ink-300 text-[15px] font-semibold text-ink-800 hover:border-accent-400 hover:text-accent-800">Clinical trial finder</a>
+          <a href="onevoice-experts.mockup.html" class="flex items-center justify-center min-h-[46px] px-5 rounded-full border border-ink-300 text-[15px] font-semibold text-ink-800 hover:border-accent-400 hover:text-accent-800">Specialists and centers</a>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ EMPTY STATE — three of four communities index nothing ============ -->
+  <section hidden class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-9 lg:py-11"
+           aria-labelledby="pub-none-h" data-pub-none>
+    <span class="spec" style="top:-4px;right:10px">Designed empty state · 3 of 4 communities land here</span>
+    <div class="rounded-2xl border border-ink-200 bg-white shadow-card p-6 sm:p-8 lg:grid lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-7">
+        <h2 id="pub-none-h" class="font-display text-[24px] sm:text-[28px] font-semibold tracking-[-.015em] text-ink-900">
+          No <span data-t="nameLower">sickle cell disease</span> literature is indexed yet</h2>
+        <p class="mt-3 text-[16.5px] leading-relaxed text-ink-600 max-w-[62ch]">
+          This index is curated by people who work in the condition, not scraped. Nothing has been
+          curated for <span data-t="nameLower">sickle cell disease</span> yet. Until it is, the
+          registry and the specialist directory are the more useful routes.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a href="onevoice-trials.mockup.html" class="inline-flex items-center min-h-[44px] px-5 rounded-full bg-accent-700 text-white text-[15px] font-semibold hover:bg-accent-800">
+            Clinical trial finder</a>
+          <a href="onevoice-learn.mockup.html" class="inline-flex items-center min-h-[44px] px-5 rounded-full border border-ink-300 text-ink-800 text-[15px] font-semibold hover:border-accent-400 hover:text-accent-800">
+            Patient information</a>
+        </div>
+      </div>
+      <div class="mt-7 lg:mt-0 lg:col-span-5">
+        <p class="text-[12.5px] font-semibold uppercase tracking-[.12em] text-ink-400">Suggest a paper</p>
+        <p class="mt-2 text-[14.5px] leading-relaxed text-ink-600">
+          If you work in this condition and there is a paper the community should have, send the DOI.
+        </p>
+        <a class="mt-3 inline-flex items-center gap-2 text-[15.5px] font-semibold text-accent-700 underline underline-offset-4 hover:text-accent-800"
+           href="mailto:editorial@somebodytotalkto.com">
+          <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          editorial@somebodytotalkto.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  var E = window.OV_EDU, esc = E.esc;
+  var SCOPE = E.scope('publication');
+  var PER_PAGE = 10;
+  var recs = [];
+
+  function params(){ return new URLSearchParams(location.search); }
+  function el(s){ return document.querySelector(s); }
+
+  function setParam(k, v){
+    var q = params();
+    if (v) q.set(k, v); else q.delete(k);
+    history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
+    render();
+  }
+
+  function matches(r, q){
+    var term = (q.get('q') || '').toLowerCase().trim();
+    var topic = q.get('topic') || '', kind = q.get('kind') || '', year = q.get('year') || '';
+    if (topic && (r.tags || []).indexOf(topic) < 0) return false;
+    if (kind && (r.kind || 'paper') !== kind) return false;
+    if (year && String(r.year) !== year) return false;
+    if (term && (r.t + ' ' + (r.authors || '') + ' ' + (r.publisher || '') + ' ' + (r.teaser || ''))
+                 .toLowerCase().indexOf(term) < 0) return false;
+    return true;
+  }
+
+  function counts(list, key){
+    var c = {};
+    list.forEach(function(r){
+      var vals = key === 'tags' ? (r.tags || []) : [r[key]];
+      vals.forEach(function(v){ if (v) c[v] = (c[v] || 0) + 1; });
+    });
+    return c;
+  }
+
+  function render(){
+    var q = params();
+    var filtering = !!(q.get('q') || q.get('topic') || q.get('kind') || q.get('year'));
+    var hits = recs.filter(function(r){ return matches(r, q); })
+                   .sort(function(a, b){ return (b.year || '').localeCompare(a.year || ''); });
+    var any = recs.length > 0;
+
+    el('[data-pub-none]').hidden = any;
+    ['[data-pub-filterbar]', '[data-pub-provenance]', '[data-pub-resultshead]'].forEach(function(s){
+      var n = el(s); if (n) n.hidden = !any;
+    });
+    el('[data-pub-empty]').hidden = !any || hits.length > 0;
+    el('[data-pub-pager]').hidden = !any || hits.length <= PER_PAGE;
+
+    if (!any) { el('[data-pub-rows]').innerHTML = ''; el('[data-pub-counts]').innerHTML = ''; return; }
+
+    el('[data-pub-counts]').innerHTML =
+      '<span><strong class="font-semibold text-ink-800 tabular-nums">' + recs.length + '</strong> records indexed</span>' +
+      '<span class="hidden sm:inline" aria-hidden="true">·</span><span>Linking out to the publisher</span>';
+
+    el('[data-pub-h]').textContent = filtering ? 'Results' : 'Newest first';
+    el('[data-pub-count]').textContent = hits.length + (hits.length === 1 ? ' record' : ' records');
+    el('[data-pub-rows]').innerHTML = hits.slice(0, PER_PAGE).map(function(r){ return E.row(r, SCOPE); }).join('');
+    el('[data-pub-pages]').textContent = Math.max(1, Math.ceil(hits.length / PER_PAGE));
+
+    /* Facets derived from the record set, so no option ever returns nothing */
+    var yc = counts(recs, 'year');
+    var ys = Object.keys(yc).sort().reverse();
+    var ysel = el('[data-pub-year]');
+    ysel.innerHTML = '<option value="">Any year</option>' +
+      ys.map(function(y){ return '<option value="' + esc(y) + '">' + esc(y) + ' (' + yc[y] + ')</option>'; }).join('');
+    ysel.value = q.get('year') || '';
+
+    var tc = counts(recs, 'tags');
+    var ts = Object.keys(tc).sort(function(a, b){ return tc[b] - tc[a] || a.localeCompare(b); });
+    var tsel = el('[data-pub-topic]');
+    tsel.innerHTML = '<option value="">All topics</option>' +
+      ts.map(function(t){ return '<option value="' + esc(t) + '">' + esc(t) + ' (' + tc[t] + ')</option>'; }).join('');
+    tsel.value = q.get('topic') || '';
+
+    el('[data-pub-q]').value = q.get('q') || '';
+    el('[data-pub-kind]').value = q.get('kind') || '';
+
+    el('[data-pub-toptopics]').innerHTML = ts.slice(0, 5).map(function(t, i){
+      return '<li><a href="?topic=' + encodeURIComponent(t) + '" class="flex items-start justify-between gap-3 py-3 group">' +
+        '<span class="text-[15px] leading-snug text-ink-800 group-hover:text-accent-700">' + esc(t) + '</span>' +
+        '<span class="shrink-0 text-[14px] tabular-nums text-ink-500">' + tc[t] + '</span></a></li>';
+    }).join('');
+
+    var active = [];
+    if (q.get('kind'))  active.push(['kind', q.get('kind') === 'paper' ? 'Papers' : 'Abstracts & posters']);
+    if (q.get('year'))  active.push(['year', q.get('year')]);
+    if (q.get('topic')) active.push(['topic', q.get('topic')]);
+    if (q.get('q'))     active.push(['q', '“' + q.get('q') + '”']);
+    var chips = el('[data-pub-chips]');
+    chips.innerHTML = active.map(function(p){
+      return '<li><button type="button" data-drop="' + p[0] + '" class="inline-flex items-center gap-1.5 min-h-[34px] px-3 rounded-full bg-accent-50 border border-accent-200 text-[13.5px] font-medium text-accent-800 hover:bg-accent-100">' +
+        esc(p[1]) + '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' +
+        '<span class="sr-only">Remove filter</span></button></li>';
+    }).join('');
+    chips.hidden = !active.length;
+  }
+
+  window.OV.onTenant = function(t, slug){
+    /* When split=false this index does not exist as a separate page; the patient
+       hub renders both scopes behind ?audience=. Kept working either way so the
+       decision stays a flag. */
+    recs = E.records(slug, 'publication');
+    el('[data-pub-cross]').hidden = !E.MODEL.split;
+    document.title = t.name + ' research and publications | oneVoice';
+    render();
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.addEventListener('input', function(e){
+      if (e.target.matches('[data-pub-q]')) setParam('q', e.target.value.trim());
+    });
+    document.addEventListener('change', function(e){
+      if (e.target.matches('[data-pub-kind]'))  setParam('kind', e.target.value);
+      if (e.target.matches('[data-pub-year]'))  setParam('year', e.target.value);
+      if (e.target.matches('[data-pub-topic]')) setParam('topic', e.target.value);
+    });
+    document.addEventListener('click', function(e){
+      var drop = e.target.closest('[data-drop]');
+      if (drop) { setParam(drop.getAttribute('data-drop'), ''); return; }
+      if (e.target.closest('[data-pub-reset]')) {
+        history.replaceState(null, '', location.pathname);
+        render();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

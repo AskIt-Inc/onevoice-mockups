@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en" data-tenant="amyloidosis" data-notes="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Education detail | oneVoice</title>
+<script>
+/* ---------------------------------------------------------------------------
+   Prompt 06 — Education detail.  Route /rcuratenew/[slug] (existing aliases —
+   713 live URLs; the URLs do not change, decided 2026-08-11).
+
+   ONE TEMPLATE, TWO VARIANTS — decision 3 resolved 2026-08-17. The original
+   prompt required the difference be "a variant, not a new template", and it is:
+   everything below is shared, and two axes configure it.
+
+     audience  education | publication   → framing, and whether a citation exists
+     depth     article   | reference     → whether we host the content or hand over
+
+   `depth` is DERIVED from body length, not authored: 64% of the corpus has a
+   body under ~300 words, which means it is a pointer to somebody else's page.
+   The curated-reference variant is therefore the MAJORITY case and is designed
+   first — treating it as a degraded article is how two thirds of the library
+   becomes a thin page wrapped around a link.
+
+   Try:
+     ?a=aa-amyloidosis-faqs           patient · hosted article · proposed reviewer
+     ?a=aa-amyloidosis                patient · curated reference (Cleveland Clinic)
+     ?a=a-guide-to-communication-and-stress   sparsest record: no source, no year, no tags
+     ?a=predictive-modeling-to-assess-pretest-probabilit       publication · full citation
+     ?a=the-patient-voice-development-and-results-of-a-p       publication · NO doi
+     ?a=carpal-tunnel-syndrome-may-triple-your-risk-of-d       patient record whose doi field
+                                                              holds the string "July 9th 2024"
+     ?a=atrial-fibrillation-flutter-in-transthyretin-car       longest body · ToC from h3
+     &unreviewed=1   force the honest current state — no reviewer, block hidden
+     &editorial=1    the internal editorial view, where the unreviewed flag lives
+   --------------------------------------------------------------------------- */
+window.OV = {
+  nav: 'learn',
+  crumbs: [{ label: 'Learn', href: 'onevoice-learn.mockup.html' }, { label: 'Resource' }]
+};
+</script>
+<script src="assets/ov-kit.js"></script>
+<script src="assets/ov-edu.js"></script>
+</head>
+<body>
+
+<main id="main">
+  <article class="relative">
+    <span class="spec" style="top:10px;right:10px" data-d-spec>MedicalWebPage · single H1 · column is the measure</span>
+
+    <!-- Internal editorial view — ?editorial=1 only. Prompt 06: an unreviewed
+         record is flagged in the editorial queue, never labelled "unreviewed"
+         to the public. -->
+    <div hidden data-d-editorial class="bg-ink-900 text-white">
+      <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px]">
+        <span class="inline-flex items-center rounded-full bg-white/15 px-2.5 py-0.5 text-[12px] font-semibold uppercase tracking-[.09em]">Editorial view</span>
+        <span data-d-editorial-text></span>
+        <a href="?a=aa-amyloidosis-faqs" class="underline underline-offset-2 font-medium">Leave editorial view</a>
+      </div>
+    </div>
+
+    <!-- ============ ONE GRID, not two.
+         The first build made this a header band and then a separate body grid.
+         Because the credibility panel is taller than a kicker + H1 + standfirst,
+         the header's LEFT column ran out while its right kept going, and the
+         measured result was a 440px void at 1440 and 1920 — prompt 15's cause 2,
+         this time inside the header rather than beside the article.
+
+         Two grids cannot fix that by tuning padding; the columns have to be one
+         grid so the content column flows straight from the H1 into the body with
+         nothing between. The rail is then a single sticky column spanning both
+         rows, which is also what prompt 15 asks a short rail to be.
+
+         Mobile keeps the trust anchor above the fold because DOM order is
+         header → credibility → body; the rail only becomes a rail at `lg`.
+         ============ -->
+    <!-- `grid-rows-[auto_1fr]` is load-bearing, not tidying.
+         The rail spans both rows and, on a short record, is the tallest item in
+         the grid. When BOTH rows are `auto`, the browser distributes a spanning
+         item's excess height across every row it spans — so row 1 was measured
+         at 222px for an 88px header, opening a ~180px gap under the H1.
+         Making row 2 the flexible one sends that excess where it belongs.
+
+         Worth recording how this was found: the void detector passed it at 0,
+         because 180px is under its 240px threshold, and it was obvious the
+         moment anyone looked. `align-content:start` was tried first and did
+         nothing — the computed style confirmed it applied and the rows were
+         still 222/781. Measure the boxes; do not reason about the cascade. -->
+    <div class="mx-auto max-w-[1240px] 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 pt-8 pb-10 lg:pt-10 lg:grid lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:items-start lg:content-start">
+
+      <header class="lg:col-span-7 lg:row-start-1">
+        <p class="flex flex-wrap items-center gap-2.5 text-[13px] font-medium" data-d-kicker></p>
+
+        <h1 class="mt-3 font-display text-[28px] sm:text-[34px] lg:text-[40px] font-semibold leading-[1.16] tracking-[-.02em] text-ink-900" data-d-title>—</h1>
+
+        <p class="mt-4 text-[17.5px] lg:text-[18.5px] leading-relaxed text-ink-600" data-d-standfirst></p>
+      </header>
+
+      <!-- The rail: credibility panel first (so it is the thing a mobile reader
+           meets straight after the standfirst), then the record's own links.
+           Spans both grid rows and sticks, so it never leaves a gap beside a
+           short body — and 64% of this corpus has a short body. -->
+      <aside class="mt-6 lg:mt-0 lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24 space-y-4"
+             aria-label="About this page" data-d-rail>
+
+        <div class="rounded-2xl border border-ink-200 bg-ink-50 p-5" data-d-credpanel>
+          <h2 class="text-[12px] font-semibold uppercase tracking-[.12em] text-ink-500" data-d-cred-h>How this page is checked</h2>
+
+          <!-- THE TRUST ANCHOR. Hidden entirely when the record has no reviewer,
+               which today is every record — there is no reviewer field in the
+               database at all. Never an empty shell, never an invented name. -->
+          <div hidden data-d-review class="mt-3">
+            <p class="flex items-start gap-2.5 text-[14.5px] text-ink-600">
+              <svg class="w-[18px] h-[18px] mt-0.5 text-accent-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>Reviewed by
+                <a class="font-semibold text-ink-800 underline underline-offset-2 hover:text-accent-700" data-d-review-link href="#">—</a>,
+                <span data-d-review-role></span>, on <time data-d-review-time datetime=""></time>
+              </span>
+            </p>
+            <!-- The label cannot be separated from the claim it qualifies
+                 (24-us-english-and-honest-counts.md established this rule). -->
+            <p class="mt-2.5 rounded-lg bg-white border border-accent-200 px-3 py-2 text-[12.5px] leading-relaxed text-ink-600">
+              <strong class="font-semibold text-accent-800">Demonstrates a proposed field.</strong>
+              No reviewer field exists in the content model yet, so this reviewer and date are
+              illustrative — and the named clinician is fictional, as everywhere on these mockups.
+            </p>
+          </div>
+
+          <!-- Attribution: always shown where the record knows it -->
+          <p hidden data-d-attrib class="mt-3 text-[14.5px] leading-relaxed text-ink-600"></p>
+          <p hidden data-d-updated class="mt-2 text-[13.5px] text-ink-500"></p>
+
+          <p class="mt-4 pt-4 border-t border-ink-200 text-[13.5px] leading-relaxed text-ink-500">
+            <a href="#" class="font-medium text-ink-700 underline underline-offset-2 hover:text-accent-700">How we choose and check information</a>
+          </p>
+        </div>
+
+        <div hidden class="rounded-2xl border border-ink-200 bg-ink-50 p-5" data-d-next-wrap>
+          <h2 class="text-[17px] font-semibold text-ink-900" data-d-next-h>Next in this path</h2>
+          <ol class="mt-3 divide-y divide-ink-200" data-d-next></ol>
+        </div>
+
+        <div hidden class="rounded-2xl border border-ink-200 p-5" data-d-related-wrap>
+          <h2 class="text-[17px] font-semibold text-ink-900">Related</h2>
+          <ol class="mt-3 divide-y divide-ink-100" data-d-related></ol>
+          <a data-d-related-all href="onevoice-learn.mockup.html" class="mt-4 flex items-center justify-center gap-1.5 min-h-[46px] rounded-full border border-ink-300 text-[15px] font-semibold text-ink-800 hover:bg-ink-50">
+            Browse everything
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5">
+          <h2 class="font-display text-[19px] font-semibold text-ink-900">Talk it through</h2>
+          <p class="mt-1.5 text-[14.5px] text-ink-600">Bring your questions to a live session, or find a specialist near you.</p>
+          <div class="mt-4 flex flex-col gap-2.5">
+            <a href="onevoice-spotlight-series.mockup.html" class="flex items-center justify-center min-h-[46px] px-5 rounded-full bg-accent-600 text-white text-[15.5px] font-semibold hover:bg-accent-700">Upcoming sessions</a>
+            <a href="onevoice-experts.mockup.html" class="flex items-center justify-center min-h-[46px] px-5 rounded-full bg-white border border-ink-300 text-[15.5px] font-semibold text-ink-800 hover:bg-ink-50">Find an expert</a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ============ CONTENT COLUMN — row 2 of the same grid, so it starts
+           directly under the H1 with no band between. 7 of 12 ≈ 62–68ch at this
+           type size: the column IS the measure, so there is no inner max-w
+           leaving a dead strip (prompt 15, cause 3). ============ -->
+      <div class="lg:col-span-7 lg:row-start-2 mt-8 lg:mt-9">
+
+    <!-- ============ THE HANDOVER — curated-reference records only, and this is
+         the majority case. It answers, before the click: what this is, who
+         published it, and where the click goes. It is the primary action on the
+         page, not a footnote at the bottom of a padded article. ============ -->
+    <section hidden data-d-handover class="mb-8">
+      <span class="spec" style="top:-6px;right:10px">Majority case · 64% of the corpus lives on another site</span>
+      <div class="rounded-2xl border border-accent-200 bg-accent-50 p-5 sm:p-6 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-center">
+        <div class="lg:col-span-8">
+          <h2 class="text-[17px] sm:text-[18px] font-semibold text-ink-900" data-d-handover-h>Published elsewhere</h2>
+          <p class="mt-1.5 text-[15px] leading-relaxed text-ink-600 max-w-[68ch]" data-d-handover-copy></p>
+        </div>
+        <div class="mt-4 lg:mt-0 lg:col-span-4">
+          <a data-d-handover-link href="#" target="_blank" rel="noopener noreferrer"
+             class="flex items-center justify-center gap-2 min-h-[48px] px-5 rounded-full bg-accent-700 text-white text-[15.5px] font-semibold hover:bg-accent-800">
+            <span data-d-handover-cta>Read it at the publisher</span>
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+            <span class="sr-only">(opens in a new tab)</span>
+          </a>
+          <p class="mt-2 text-center text-[12.5px] text-ink-500" data-d-handover-host></p>
+        </div>
+      </div>
+    </section>
+
+        <!-- Key points — patient explainers only, above the body, because for a
+             newly diagnosed reader this is often the only part read. -->
+        <section hidden data-d-keypoints class="rounded-2xl border border-ink-200 bg-white shadow-card p-5 sm:p-6 mb-7">
+          <h2 class="text-[12.5px] font-semibold uppercase tracking-[.12em] text-ink-500">The short version</h2>
+          <ul class="mt-3 space-y-2.5 text-[16px] leading-relaxed text-ink-700" data-d-keypoints-list></ul>
+        </section>
+
+        <!-- ToC — built from whatever heading level the body actually uses.
+             Stored bodies use h2, h3, h4 or nothing at all; a ToC hard-coded to
+             h2 renders empty on most of this corpus. -->
+        <nav hidden aria-labelledby="d-toc-h" data-d-toc class="mb-7">
+          <h2 id="d-toc-h" class="text-[12.5px] font-semibold uppercase tracking-[.12em] text-ink-500">On this page</h2>
+          <ol class="mt-3 space-y-1.5 border-l-2 border-ink-200 pl-4"></ol>
+        </nav>
+
+        <div class="ov-body text-[17.5px] leading-[1.7] text-ink-700" data-d-body></div>
+
+        <!-- Abstract attribution — the body of an indexed paper is the
+             publisher's abstract, and presenting it as oneVoice copy would be a
+             false claim about who wrote it. -->
+        <p hidden data-d-abstract-note class="mt-4 text-[13.5px] leading-relaxed text-ink-500 border-l-2 border-ink-200 pl-4"></p>
+
+        <!-- ============ CITATION — publications only.
+             Assembles only what is known. `source` mixes journal, database and
+             URL, so the label is "Source", never "Journal". A DOI is printed
+             only when it IS a DOI: one stored value is the string
+             "July 9th 2024". ============ -->
+        <section hidden data-d-citation class="mt-9 rounded-2xl border border-ink-300 bg-ink-50 p-5 sm:p-6">
+          <span class="spec" style="top:-6px;right:8px">Reference material · visually distinct from body copy</span>
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <h2 class="text-[12.5px] font-semibold uppercase tracking-[.12em] text-ink-500">Cite this</h2>
+            <button type="button" data-d-copy
+                    class="inline-flex items-center gap-2 min-h-[40px] px-4 rounded-full bg-white border border-ink-300 text-[14px] font-semibold text-ink-800 hover:border-accent-400 hover:text-accent-800">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span data-d-copy-label>Copy citation</span>
+            </button>
+          </div>
+          <p class="mt-3 font-mono text-[13.5px] leading-relaxed text-ink-800 break-words" data-d-citation-text></p>
+          <dl class="mt-4 pt-4 border-t border-ink-200 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-[14px]" data-d-citation-fields></dl>
+          <p hidden data-d-citation-note class="mt-3 text-[13px] leading-relaxed text-ink-500"></p>
+        </section>
+
+        <!-- Tags back into the right index -->
+        <div hidden class="mt-9 pt-6 border-t border-ink-200" data-d-tags-wrap>
+          <h2 class="text-[12.5px] font-semibold uppercase tracking-[.12em] text-ink-500">Tagged</h2>
+          <ul class="mt-3 flex flex-wrap gap-2" data-d-tags></ul>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-2.5">
+            <span class="text-[14.5px] text-ink-600">Was this useful?</span>
+            <button class="min-h-[44px] px-4 rounded-full border border-ink-300 text-[14.5px] font-semibold text-ink-800 hover:bg-ink-100">Yes</button>
+            <button class="min-h-[44px] px-4 rounded-full border border-ink-300 text-[14.5px] font-semibold text-ink-800 hover:bg-ink-100">No</button>
+          </div>
+          <a href="mailto:editorial@somebodytotalkto.com" class="text-[14.5px] font-medium text-ink-600 underline underline-offset-2 hover:text-accent-700">Suggest a correction</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</main>
+
+<style>
+  /* Stored body HTML, normalized. Editors have used h2, h3 and h4 for the same
+     structural level across the corpus, so all three are styled identically —
+     the ToC then reads whichever one a record happens to use. */
+  .ov-body > * + * { margin-top: 1.15rem; }
+  .ov-body h2, .ov-body h3, .ov-body h4 {
+    font-family: Fraunces, Georgia, serif; font-size: 22px; font-weight: 600;
+    letter-spacing: -.015em; line-height: 1.3; color: rgb(var(--nv-ink-900));
+    margin-top: 2rem; scroll-margin-top: 6rem;
+  }
+  .ov-body ul, .ov-body ol { padding-left: 1.5rem; }
+  .ov-body ul { list-style: disc; } .ov-body ol { list-style: decimal; }
+  .ov-body li + li { margin-top: .5rem; }
+  .ov-body a { color: rgb(var(--nv-accent-700)); text-decoration: underline; text-underline-offset: 2px; }
+  .ov-body strong { font-weight: 600; color: rgb(var(--nv-ink-900)); }
+  .ov-body table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .ov-body td, .ov-body th { border: 1px solid rgb(var(--nv-ink-200)); padding: .5rem .65rem; text-align: left; }
+</style>
+
+<script>
+(function(){
+  var E = window.OV_EDU, esc = E.esc;
+
+  function q(){ return new URLSearchParams(location.search); }
+  function el(s){ return document.querySelector(s); }
+  function show(sel, on){ var n = el(sel); if (n) n.hidden = !on; }
+
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function dateLabel(iso){
+    var p = String(iso).split('-');
+    return p.length === 3 ? (+p[2]) + ' ' + MONTHS[+p[1] - 1] + ' ' + p[0] : iso;
+  }
+
+  function render(t, slug){
+    var qs = q();
+    var rec = E.find(qs.get('a') || '') || E.records(slug, 'education')[0] || E.records(slug, 'publication')[0];
+    if (!rec) return;
+
+    var scope = E.scope(rec.scope);
+    var isPub = rec.scope === 'publication';
+    var isRef = rec.depth === 'reference';
+    /* MODEL.split=false collapses the audience into a query param rather than a
+       type, so the citation gate reads scope config either way. */
+    var showCite = E.MODEL.split ? scope.citation : (qs.get('audience') === 'professional');
+
+    var forcedUnreviewed = qs.get('unreviewed') === '1';
+    var editorial = qs.get('editorial') === '1';
+    var review = forcedUnreviewed ? null : rec.review;
+
+    /* ---------- header ---------- */
+    var kicker = [];
+    kicker.push('<a href="' + scope.page + '" class="px-2.5 py-1 rounded-full bg-accent-50 text-accent-800 hover:bg-accent-100">' +
+                esc(scope.label) + '</a>');
+    kicker.push('<span class="px-2.5 py-1 rounded-full ' +
+      (isRef ? 'bg-ink-100 text-ink-600 border border-ink-200' : 'bg-ink-100 text-ink-700') + '">' +
+      (isRef ? 'Reference' : (isPub ? 'Paper' : 'Article')) + '</span>');
+    if (!isPub && !isRef) kicker.push('<span class="text-ink-500">' + rec.readMins + ' min read</span>');
+    if (rec.year) kicker.push('<time class="text-ink-500 tabular-nums" datetime="' + esc(rec.year) + '">' + esc(rec.year) + '</time>');
+    el('[data-d-kicker]').innerHTML = kicker.join('<span class="text-ink-300" aria-hidden="true">·</span>');
+
+    el('[data-d-title]').textContent = rec.t;
+
+    /* The standfirst is the record's own opening, trimmed — never written here.
+       A record with nothing to say gets no standfirst rather than filler.
+
+       There is no standfirst field in the content model, so the teaser IS the
+       body's first sentences. Printing both renders the same paragraph twice,
+       the second time cut mid-word — which is exactly how the first build
+       looked. So it is shown only when the body does NOT already open with it. */
+    var stand = (rec.teaser || '').trim();
+    var bodyText = (rec.body || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    var probe = stand.replace(/…$/, '').slice(0, 60);
+    if (probe && bodyText.slice(0, 400).indexOf(probe) > -1) stand = '';
+    el('[data-d-standfirst]').textContent = stand;
+    el('[data-d-standfirst]').hidden = !stand;
+
+    /* ---------- credibility panel ---------- */
+    show('[data-d-review]', !!review);
+    if (review) {
+      var surname = review.by.split(',')[0].trim().split(/\s+/).pop().toLowerCase();
+      var link = el('[data-d-review-link]');
+      link.textContent = review.by;
+      link.href = 'onevoice-expert.mockup.html?p=' + encodeURIComponent(surname);
+      el('[data-d-review-role]').textContent = review.role;
+      var tm = el('[data-d-review-time]');
+      tm.setAttribute('datetime', review.on);
+      tm.textContent = review.onLabel;
+    }
+    el('[data-d-cred-h]').textContent = review ? 'Checked before publishing' : 'How this page is checked';
+
+    var attrib = el('[data-d-attrib]');
+    if (rec.publisher) {
+      attrib.innerHTML = 'Published by <strong class="font-semibold text-ink-800">' + esc(rec.publisher) + '</strong>' +
+        (rec.year ? ', ' + esc(rec.year) : '') + '.';
+      attrib.hidden = false;
+    } else {
+      /* One real record has no source at all. Say so rather than leaving a gap
+         a reader reads as "oneVoice wrote this". */
+      attrib.innerHTML = '<span class="text-ink-500">No publisher is recorded against this item.</span>';
+      attrib.hidden = false;
+    }
+    var upd = el('[data-d-updated]');
+    upd.hidden = !rec.year;
+    if (rec.year) upd.textContent = 'Indexed from the ' + rec.year + ' edition.';
+
+    /* ---------- editorial view ---------- */
+    show('[data-d-editorial]', editorial);
+    if (editorial) {
+      el('[data-d-editorial-text]').textContent = review
+        ? 'This record has a reviewer. Nothing is queued.'
+        : 'Queued: no clinician review recorded against this record.';
+    }
+
+    /* ---------- handover (curated reference) ---------- */
+    var dest = rec.srcUrl || '';
+    var hasDest = isRef && (dest || rec.host);
+    show('[data-d-handover]', !!hasDest || (isRef && !!rec.publisher));
+    if (isRef) {
+      var who = rec.publisher || rec.host || 'the publisher';
+      el('[data-d-handover-h]').textContent = 'Published by ' + who;
+      el('[data-d-handover-copy]').textContent =
+        'We have not reproduced this here. The summary above is what it covers; the full version is ' +
+        (rec.host ? 'on ' + rec.host : 'published by ' + who) + '.';
+      var a = el('[data-d-handover-link]');
+      a.href = dest || '#';
+      el('[data-d-handover-cta]').textContent = 'Read it at ' + (rec.host || who);
+      var hostNote = el('[data-d-handover-host]');
+      hostNote.textContent = rec.host ? 'Opens ' + rec.host + ' in a new tab' :
+        'No link is recorded against this item yet';
+      a.hidden = !dest;
+      hostNote.hidden = false;
+    }
+
+    /* ---------- body ---------- */
+    var body = rec.body || '';
+    var bodyEl = el('[data-d-body]');
+    if (body) {
+      bodyEl.innerHTML = body;
+      bodyEl.hidden = false;
+    } else {
+      /* No stored body worth rendering: say so instead of padding. */
+      bodyEl.innerHTML = '<p class="text-[15.5px] text-ink-500 italic">' +
+        'This record holds only the summary above.</p>';
+      bodyEl.hidden = false;
+    }
+
+    /* ---------- key points (patient explainers only) ---------- */
+    var kp = [];
+    if (!isPub && !isRef && body) {
+      /* Derived from the record's own headings — never authored here. A record
+         whose body has no headings gets no key-points box. */
+      var hs = bodyEl.querySelectorAll('h2, h3, h4');
+      kp = Array.prototype.slice.call(hs, 0, 5).map(function(h){ return h.textContent.trim(); });
+    }
+    show('[data-d-keypoints]', kp.length >= 3);
+    el('[data-d-keypoints-list]').innerHTML = kp.map(function(k){
+      return '<li class="flex gap-2.5"><span class="mt-[10px] w-1.5 h-1.5 rounded-full bg-accent-600 shrink-0" aria-hidden="true"></span>' +
+             esc(k) + '</li>';
+    }).join('');
+
+    /* ---------- ToC — from whichever heading level the body uses ---------- */
+    var heads = [];
+    ['h2', 'h3', 'h4'].forEach(function(tag){
+      if (heads.length) return;
+      heads = Array.prototype.slice.call(bodyEl.querySelectorAll(tag));
+    });
+    heads.forEach(function(h, i){ if (!h.id) h.id = 'sec-' + (i + 1); });
+    var toc = el('[data-d-toc]');
+    var longEnough = heads.length >= 3 && (rec.words || 0) >= 400;
+    toc.hidden = !longEnough;
+    toc.querySelector('ol').innerHTML = !longEnough ? '' : heads.map(function(h){
+      return '<li><a href="#' + h.id + '" class="block py-1 text-[15px] text-ink-600 hover:text-accent-700">' +
+             esc(h.textContent.trim()) + '</a></li>';
+    }).join('');
+
+    /* ---------- abstract attribution ---------- */
+    var abstractNote = el('[data-d-abstract-note]');
+    abstractNote.hidden = !(isPub && body);
+    if (isPub && body) {
+      abstractNote.textContent = 'The text above is the abstract as published' +
+        (rec.publisher ? ' in ' + rec.publisher : '') + '. It is reproduced for reference; ' +
+        'the version of record is at the publisher.';
+    }
+
+    /* ---------- citation ---------- */
+    show('[data-d-citation]', showCite);
+    if (showCite) {
+      var doi = E.normalizeDoi(rec.doi);
+      var str = E.citationString(rec);
+      el('[data-d-citation-text]').textContent = str;
+
+      var fields = [];
+      if (rec.authors) fields.push(['Authors', esc(rec.authors) + (rec.more ? ' and ' + rec.more + ' others' : '')]);
+      /* "Source", never "Journal" — the field holds databases as often as journals. */
+      if (rec.publisher) fields.push(['Source', esc(rec.publisher)]);
+      if (rec.year) fields.push(['Year', esc(rec.year)]);
+      if (doi) fields.push(['DOI', '<a href="https://doi.org/' + esc(doi) + '" target="_blank" rel="noopener noreferrer" ' +
+        'class="text-accent-700 underline underline-offset-2 break-all hover:text-accent-800">' + esc(doi) +
+        '<span class="sr-only">(opens in a new tab)</span></a>']);
+      el('[data-d-citation-fields]').innerHTML = fields.map(function(f){
+        return '<div><dt class="text-[12px] font-semibold uppercase tracking-[.1em] text-ink-500">' + f[0] + '</dt>' +
+               '<dd class="mt-1 text-ink-800">' + f[1] + '</dd></div>';
+      }).join('');
+
+      /* Say what is missing rather than printing a citation that looks complete. */
+      var missing = [];
+      if (!rec.authors) missing.push('authors');
+      if (!rec.year) missing.push('year');
+      if (!doi) missing.push(rec.doi ? 'a valid DOI' : 'a DOI');
+      var note = el('[data-d-citation-note]');
+      note.hidden = !missing.length;
+      if (missing.length) {
+        note.textContent = 'This record has no ' + missing.join(', ').replace(/, ([^,]*)$/, ' and $1') +
+          ', so the citation above is incomplete. ' +
+          (rec.doi && !doi ? 'The stored DOI value (“' + rec.doi + '”) is not a DOI and has been withheld. ' : '') +
+          'It is not padded with a guess.';
+      }
+    }
+
+    /* ---------- tags ---------- */
+    var tags = rec.tags || [];
+    show('[data-d-tags-wrap]', tags.length > 0);
+    el('[data-d-tags]').innerHTML = tags.map(function(tag){
+      return '<li><a href="' + scope.page + '?topic=' + encodeURIComponent(tag) + '" ' +
+        'class="inline-flex items-center min-h-[38px] px-3.5 rounded-full bg-white border border-ink-200 text-[14px] text-ink-700 hover:border-accent-400 hover:text-accent-700">' +
+        esc(tag) + '</a></li>';
+    }).join('');
+
+    /* ---------- rail ---------- */
+    var pool = E.records(slug, rec.scope).filter(function(r){ return r.slug !== rec.slug; });
+    var related = pool.filter(function(r){
+      return (r.tags || []).some(function(x){ return tags.indexOf(x) > -1; });
+    }).slice(0, 3);
+
+    show('[data-d-related-wrap]', related.length > 0);
+    el('[data-d-related]').innerHTML = related.map(function(r){
+      return '<li><a href="' + E.href(r) + '" class="block py-3 group">' +
+        '<span class="block text-[15.5px] font-medium leading-snug text-ink-800 group-hover:text-accent-700">' + esc(r.t) + '</span>' +
+        (r.publisher ? '<span class="mt-1 block text-[13px] text-ink-500">' + esc(r.publisher) + '</span>' : '') +
+        '</a></li>';
+    }).join('');
+    el('[data-d-related-all]').setAttribute('href', scope.page);
+
+    /* Next-in-path: patient explainers only, and only when a next one exists. */
+    var next = (!isPub ? pool.filter(function(r){ return r.depth === 'article'; }).slice(0, 2) : []);
+    show('[data-d-next-wrap]', next.length > 0);
+    el('[data-d-next]').innerHTML = next.map(function(r){
+      return '<li><a href="' + E.href(r) + '" class="block py-3 group">' +
+        '<span class="block text-[15.5px] font-medium leading-snug text-ink-800 group-hover:text-accent-700">' + esc(r.t) + '</span>' +
+        '<span class="mt-1 block text-[13px] text-ink-500">' + r.readMins + ' min read</span></a></li>';
+    }).join('');
+
+    /* ---------- chrome ---------- */
+    document.title = rec.t + ' | oneVoice';
+    el('[data-d-spec]').textContent =
+      (isPub ? 'ScholarlyArticle' : 'MedicalWebPage') + ' · ' + rec.scope + ' · ' + rec.depth +
+      ' · reviewedBy ' + (review ? 'present' : 'absent, block hidden');
+
+    var crumbNav = document.querySelector('nav[aria-label="Breadcrumb"]');
+    if (crumbNav) {
+      var leaf = crumbNav.querySelector('li[aria-current="page"]');
+      if (leaf) leaf.textContent = rec.t.length > 48 ? rec.t.slice(0, 46) + '…' : rec.t;
+      var parent = crumbNav.querySelector('a[href="onevoice-learn.mockup.html"]');
+      if (parent) { parent.setAttribute('href', scope.page); parent.textContent = scope.label; }
+    }
+  }
+
+  window.OV.onTenant = function(t, slug){
+    /* A record belongs to the community that holds it; the reader may have
+       arrived from another community's page, so fall back to that record's own
+       community rather than rendering a blank page. */
+    var qs = q();
+    var wanted = qs.get('a');
+    var hasHere = wanted ? E.records(slug, 'education').concat(E.records(slug, 'publication'))
+                            .some(function(r){ return r.slug === wanted; }) : true;
+    render(t, hasHere ? slug : 'amyloidosis');
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-d-copy]');
+      if (!btn) return;
+      var text = document.querySelector('[data-d-citation-text]').textContent;
+      var label = document.querySelector('[data-d-copy-label]');
+      var done = function(ok){
+        label.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+        setTimeout(function(){ label.textContent = 'Copy citation'; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
+      } else {
+        done(false);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
